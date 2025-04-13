@@ -1,0 +1,44 @@
+Here's a detailed list of potential exam examples and hints from the lecture:
+
+1. **Page Directory Entry Setup**:
+   - Mapping virtual frame numbers to physical frame numbers.
+   - Consider the importance of memory aliasing and virtual memory setup.
+   - **Exam Hint**: Understand how two virtual frames point to one physical frame.
+
+2. **Page Table Entry Bits**:
+   - Importance of present bit, writable bit, user/superuser bit, etc.
+   - **Exam Hint**: Know which bits are crucial for certain lab tasks (lab two focus).
+
+3. **Paging Mechanism Design**:
+   - Various methods of splitting the linear address.
+   - Exploring different levels of paging (two-level vs. one-level).
+   - **Exam Hint**: Be able to compute page directory sizes and frame allocations.
+
+4. **Memory Overhead & Latency**:
+   - Analyze trade-offs between memory overhead and latency overhead.
+   - Understand the critical path of the page table walk.
+
+5. **X86-64 Paging**:
+   - Understand the 48-bit linear address space and how it's split.
+   - **Exam Hint**: Compute page table sizes for a 64-bit system.
+
+6. **Translation Lookaside Buffer (TLB)**:
+   - The effect of page directory structures on TLB hit ratio.
+   - Significance of having separate instruction and data TLBs.
+   - **Exam Hint**: Understand the impact of TLB size on page table lookups.
+
+7. **Code Walkthroughs (XV6)**:
+   - Detailed understanding of the `walkpgdir` function in XV6.
+   - Paying attention to how virtual to physical addresses are translated.
+   - **Exam Hint**: Be prepared to discuss code examples like `walkpgdir` and how they handle V to P translations.
+
+8. **Systems Design Trade-offs**:
+   - The implications of design decisions on memory and performance.
+   - **Exam Hint**: Think critically about how design choices affect system behavior.
+
+9. **Support for Copy on Write and Shared Memory**:
+   - Xv6 limitations for multiple virtual to single physical mappings.
+   - Importance in real-world operating systems for efficiency.
+   - **Exam Hint**: Consider how copy on write and shared libraries function.
+
+These examples and hints, specifically pointed out by the professor, are crucial for understanding potential exam topics and system design principles.
