@@ -53,6 +53,8 @@ You will be given lecture analysis documents and you will need to synthesize an 
 
 Here is an example of an exam (do not copy the questions from here):
 {Path("./exam1.md").read_text()}
+
+Focus on writing design oriented questions like in the style of the above exam. Give us example scenarios and then ask us design questions about it. The questions must be somehow novel, not directly taken from the practice material or lecture notes. They need to be questions that force the students to reason about the material and think beyond what the lecture has given them considering tradeoffs. 
 """
 
 

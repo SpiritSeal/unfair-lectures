@@ -1,102 +1,73 @@
-Below is an exam that synthesizes many of the topics and “exam‐style” questions highlighted in the lecture notes. You are expected to answer these questions “from first principles” – explain your reasoning clearly and include any necessary computations or diagrams. Good luck!
+Below is an exam that explores many “big‐idea” design problems drawn from our lectures. Each problem presents a realistic scenario and then asks you to design or analyze a solution. You must explain your reasoning from first principles, describe trade-offs, and discuss how your design reflects limitations (or benefits) of the underlying mechanisms. (Do not simply recall class notes—ensure that you explain the “why” behind each design decision.) 
 
-────────────────────────────
-Problem 1: Kernel Abstractions and Subsystem Functionality [20 min]
+──────────────────────────────────────────────────────────────
+Problem 1: Virtual Memory & Copy‐on‐Write Design [Estimated Effort: 45min]
 
-a) List three examples of core kernel subsystems that provide fundamental abstractions such as naming, isolation, multiplexing, and protection. For each subsystem, briefly explain one concrete functionality it supplies. 
+A new operating system is being developed for a 32–bit architecture that supports processes with a 4‑GB virtual address space. To speed up process creation (fork), the design uses copy‑on‑write (CoW) so that physical frames are not duplicated at fork time but are shared until a write occurs. However, your system also supports shared libraries (where multiple processes map the same code in a read‐only manner) and demand paging with lazy allocation.
 
-b) Explain why the design of these subsystems (for example, networking, virtual memory management, and file systems) is critical for isolating failures and ensuring that a fault in one component does not bring down the whole system.
+Part A. Describe your design for the copy‑on‑write mechanism. In your answer, cover the following points:
+  • How you will “share” the parent's virtual mappings in the child without copying the underlying physical frames immediately.
+  • The role and difference between logical permission bits and physical permission bits in enforcing CoW.
+  • How your design uses a reference–count (or “graph-of-mappings” view) to decide when a physical frame is shared and thus triggers a CoW on a write attempt.
+  • How you will trigger a trap upon a write and what steps are performed (allocation of a new frame, updating the page table and TLB, etc.)
 
-────────────────────────────
-Problem 2: Ethernet, the OSI Stack, and TCP Reliability [25 min]
+Part B. Analyze the trade-offs of using lazy CoW versus an eager duplication strategy. In particular, compare:
+  • The time complexity of fork under both approaches.
+  • The overheads introduced by TLB invalidation and context switching when CoW copies are eventually performed.
+  • Scenarios (such as heavy writes on the stack vs. read–only shared libraries) where one method outperforms the other.
 
-a) Describe the structure of an Ethernet header. Include the field names, sizes, and total number of bytes.
+Part C. Suppose that a process uses a “break” system call to request a large contiguous region of virtual memory that is initially zero‐filled. Explain how demand (lazy) allocation can be integrated with your CoW design to reduce upfront physical memory usage. What are the benefits and risks of this approach?
 
-b) List the seven OSI layers (or the mnemonic given in the lecture) and explain briefly which layer is primarily responsible for IP, TCP/UDP, and Ethernet functionality.
+──────────────────────────────────────────────────────────────
+Problem 2: Journaling and Crash Consistency in Filesystems [Estimated Effort: 40min]
 
-c) Explain how TCP ensures reliable, ordered delivery over an unreliable network. In your answer, describe the roles of sequence numbers, acknowledgments, and timeouts.
+Your filesystem is required to guarantee crash consistency while keeping write overhead as low as possible. To this end, you are considering a design that combines ordered logging with a shadowing mechanism. In your design, updates are first written to a log (with a separate commit region) so that in the event of a crash you can “replay” them. To reduce latency, the same physical block might be updated in two copies (an “active” version and a shadow copy), with a single “shadow bit” that indicates which copy is current.
 
-────────────────────────────
-Problem 3: Journaling, Ordering, and Crash Consistency [30 min]
+Part A. Propose three unique designs for ordering writes that guarantee atomic persistence:
+  (i) A design in which data writes are flushed before updating metadata in the journal.
+  (ii) A design that uses a shadow bit to trigger a trap (or flush) only when the access bit is zero.
+  (iii) A single‑level log merging design in which a flush is deferred until a group of writes is ready.
+For each design, explain:
+  • How the flush ordering ensures that once a commit record is visible the file system is in a valid state.
+  • The potential performance overhead (e.g. number of required flushes or trap costs).
 
-a) In journaling file systems, explain why it is essential to enforce an ordering between data writes and metadata (or commit) records. Describe the “flush” mechanism used to ensure a “happens‐before” relationship between a log entry and its commit.
+Part B. Describe a “valid prefix” invariant for your log. Explain how your design decides whether to read data from the log or from the data area upon recovery, taking into account the possibility of partial or corrupted log entries.
 
-b) Consider a file update that writes three data blocks, updates the free–block list, and later updates the inode metadata. Describe what might happen if the disk crashes after the inode update is visible but before the data blocks have been safely written. How does ordered journaling prevent such inconsistencies?
+Part C. In your chosen design, discuss the effect on performance when a file’s writes interleave with many “meta‐updates” (for example, when directory entries and inodes are updated during file creation). How does global ordering (a single log for multiple files) affect the commit delay and what trade-offs does it introduce?
 
-c) Some systems use a “shadow bit” mechanism for atomic updates. Explain the three–step process (copy, update, atomic bit flip) in a shadowing scheme and discuss how it guarantees that a reader sees either the old or the new version but never a partially updated state.
+──────────────────────────────────────────────────────────────
+Problem 3: Microkernel Scheduling and Service Isolation [Estimated Effort: 35min]
 
-────────────────────────────
-Problem 4: Virtual Memory and Paging Calculations [35 min]
+Imagine you are designing a microkernel-based OS called “uBuzz.” In your architecture, certain services (such as memory allocation, file services, and even networking) have been moved to user space. A computationally intensive ML training application (App A) runs alongside persistent services like the memory service (MS) and file service (FS), which are not CPU–intensive. In addition, a networking service (NS) has been factored out and later even becomes dependent on MS and FS.
 
-a) Explain the working of a two–level paging system. How many memory accesses (reads) does a hardware page table walk typically require to translate a virtual address? Justify your answer.
+Part A. Design a scheduling policy for uBuzz that must handle both heavy CPU–intensive processes (like your ML application) and continuously running low–CPU background services. In your answer, please:
+  • Identify two quantitative success metrics (for example, throughput and tail latency) for system performance in this scenario.
+  • Justify whether you would choose a preemptive or non–preemptive scheduler with respect to these metrics.
+  • Discuss why simple FIFO or Round Robin scheduling might or might not be acceptable.
 
-b) For a 32–bit system using two–level paging with a 10–10–12 split (10 bits for the page directory index, 10 bits for the page table index, and 12 bits for the offset), calculate:
-  – The number of entries in the page directory.
-  – The size (in bytes) of the page directory if each entry is 4 bytes.
+Part B. After an intern reassigns the networking (NS) service so that it indirectly depends on MS and FS, the ML application (A) now depends only on NS. However, the system still drops packets if NS cannot process within a strict 10‑ms deadline. Explain how you would change your scheduling policy to ensure that NS meets its time constraint, and analyze the trade-offs of your solution.
 
-c) The professor discussed an alternative “one–level” scheme for small architectures (for example, an 8–bit micro–architecture supporting two page sizes). Briefly describe one approach for partitioning a linear 8–bit address into page directory, page table, and offset fields (if applicable) and discuss how the overhead of the page tables might be calculated. (You do not need to perform exact calculations but indicate what factors affect overhead.)
+Part C. Reflect on the benefits of isolating OS services in a microkernel versus the overhead of additional context switches and increased dependency complexity. Has the microkernel design improved failure isolation for the ML application? Provide concrete arguments referring to service dependency graphs and failure closures.
 
-d) Explain why larger pages (e.g., 4 MB) give a higher TLB coverage than smaller pages (e.g., 4 KB) and discuss the impact on TLB miss rates.
+──────────────────────────────────────────────────────────────
+Problem 4: Security and Resource Sharing in System Design [Estimated Effort: 30min]
 
-────────────────────────────
-Problem 5: Concurrency, Interrupts and Spinlocks [30 min]
+As security concerns are paramount, you have been asked to design a secure operating system component that resists both internal and supply–chain attacks.
 
-a) In a kernel, why is it problematic if an interrupt occurs while a regular kernel code that holds a spinlock is executing? Explain the deadlock that may ensue and what design change (hint: interrupt disable) is needed to avoid it.
+Part A. Consider a scenario where a teacher’s account manages student grades on a central system (similar to the TA/Canvas Grade Attack scenario). Design a set of mechanisms (technical and policy–based) that prevent unauthorized grade changes, even if some low–privilege accounts or endpoints (e.g. a TA’s machine) are compromised.
+  • Explain how isolation, privilege separation, and audit mechanisms can mitigate potential attack vectors.
+  • Discuss how your design follows the principle that “the system must be secure even if the adversary knows everything about it” (Kerckhoffs’s Principle).
 
-b) Describe how an atomic exchange operation is used to build a spinlock. Draw (or list) the finite state automaton for the spinlock operation showing the “successful” state when the lock is acquired and the state when the thread continues to spin.
+Part B. In another scenario, a popular open-source package (like the left–pad library) is suddenly removed from the central repository, breaking many applications. Propose a strategy for designing your build and dependency management system to be resilient against supply–chain attacks and sudden dependency failures.
+  • Your answer should address dependency replication, strict versioning, and automatic integrity verification (for instance, via cryptographic signing and salted hashes).
+  • Include a discussion on how these measures balance the trade-off between openness and secure control.
 
-c) Consider two threads executing concurrently on a multiprocessor. If Thread 1 writes to variable X then reads variable Y, and Thread 2 writes to Y then reads X, list all possible outcome pairs for the read values (assuming initial values are 0) under a memory model that allows store-to-load reordering. Explain briefly how reordering can produce an outcome where both threads read 0.
+Part C. Finally, analyze the impact of traditional memory safety vulnerabilities such as buffer overflows in a legacy C code module versus the advantages offered by a memory–safe language (e.g., Rust) in system components. Provide design suggestions for transitioning legacy code to improve security without requiring a complete rewrite.
 
-────────────────────────────
-Problem 6: Scheduling Design and Performance Trade-Offs [30 min]
+──────────────────────────────────────────────────────────────
+Instructions:
+• Answer each part using a clear explanation, diagrams (if helpful), and trade–off analysis.
+• You may reference specific examples discussed in class to support your arguments.
+• Ensure that your solutions address both the “what” and the “why” behind each design choice.
 
-a) Define two concrete success metrics (in measurable terms) that are appropriate for evaluating a scheduler in a system supporting both compute–intensive applications and low–compute background services (like memory or file services). Explain why these metrics are important.
-
-b) Compare preemptive and non–preemptive scheduling. Under the success metrics defined in part (a), justify which approach would be more suitable for a highly loaded, compute–intensive system.
-
-c) Round Robin (RR) scheduling is often cited as “fair” but has disadvantages. Explain one drawback of using RR in terms of tail latency or response time, and illustrate how a policy such as Shortest Remaining Time First (SRTF) might improve that aspect. Be sure to discuss the potential trade–offs, including context switch overhead.
-
-d) Suppose you have a microkernel OS that runs most of the basic services (file, networking, memory) in user space—and one critical network service processes packets within 10 ms. Later, however, that network service itself depends on other user space services. Identify which key microkernel property is compromised by this added dependency and discuss its potential impact on system failure isolation.
-
-────────────────────────────
-Problem 7: Process Creation and Copy-on-Write [35 min]
-
-a) Describe the traditional fork operation in systems like XV6. Explain why a “naïve” fork that copies all physical frames has a complexity O(N) (with N = number of physical frames) and why “copy on write” (CoW) reduces this cost to O(1) in the common case.
-
-b) In a CoW system, explain what happens when the child process subsequently writes to a shared page. Include in your answer what triggers a trap, how a new physical frame is allocated, how the page table entry is updated, and why the write–permission bit is initially cleared.
-
-c) It is sometimes useful to consider the “graph of mappings” between virtual pages and physical frames with reference counts. Explain how the operating system uses reference counting to decide whether a write on a shared frame should trigger a CoW event.
-
-d) Discuss one challenge related to TLB invalidation when a CoW copy is performed. How many TLB invalidates are necessary and why?
-
-────────────────────────────
-Problem 8: Microkernel vs. Monolithic Kernel Designs and Inter–Process Dependency [25 min]
-
-a) Compare and contrast microkernel and monolithic kernel architectures in terms of performance overhead and isolation benefits. In your answer, discuss the cost of context switches and TLB flushes when many services run in user space in a microkernel design.
-
-b) A dependency graph for a microkernel system includes vertices for processes A (application), MS (memory service), FS (file service), NS (networking service), and K (kernel core).  
-  (i) Before any extra dependencies are added, sketch the dependency graph (list all edges) showing the typical dependencies.  
-  (ii) Now suppose a new intern makes the networking service depend on MS and FS. Explain what additional edges are added, and discuss how these extra dependencies affect the “failure closure” of application A.
-
-────────────────────────────
-Problem 9: Security and Memory Safety [20 min]
-
-a) Consider the classic buffer overflow vulnerability. Describe what happens when a function that copies a user–provided string into a fixed–size buffer does not check for input length. Explain how an attacker might use this to hijack control flow.
-
-b) Explain why storing only a hash of a password (even when salted) is preferable to storing plain–text passwords. Include in your answer a brief discussion on rainbow tables and why a salt, even if stored in the clear, helps mitigate pre–computed dictionary attacks.
-
-c) Kerckhoffs’s Principle is a fundamental rule in secure system design. State this principle and explain why “security by obscurity” is not considered a robust security strategy.
-
-────────────────────────────
-Problem 10: Scheduling Under Latency Constraints and Trade-Offs [20 min]
-
-a) Many modern schedulers must meet hard Service-Level Objectives (SLOs) for latency. In a system serving online ad requests or language model inference, explain how tail latency (for example, the 99th percentile) might be more critical than average response time. 
-
-b) Briefly discuss the “power of two choices” algorithm in the context of load balancing. What are its advantages in terms of decision time complexity and fairness?
-
-c) Explain why a scheduler might deliberately delay scheduling decisions (“lazy scheduling”) for a brief period. What are the benefits and what are the risks of this approach?
-
-────────────────────────────
-End of Exam
-
-Please show all work where applicable and provide clear explanations wherever asked. Good luck!
+Good luck and happy designing!
