@@ -1,4 +1,3 @@
-import asyncio
 import os
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from pathlib import Path
@@ -17,15 +16,23 @@ def parse_args():
         type=str,
     )
     parser.add_argument(
-        "--gems", help="gems directory path", default="gems", type=str
+        "--gems",
+        help="gems directory path",
+        default="gems",
+        type=str,
     )
     parser.add_argument(
-        "--model", help="extraction model id", default="gpt-4o", type=str
+        "--model",
+        help="extraction model id",
+        default="o3-mini",
+        type=str,
     )
+    parser.add_argument("--extract", help="extract", action="store_true")
+    parser.add_argument("--exam_gen", help="generate exam", action="store_true")
     return parser.parse_args()
 
 
-PROMPT = """
+EXTRACT_PROMPT = """
 # Instructions from Professor
 
 Review my lecture recordings, religiously. And please listen very actively and take notes. I structure lectures in such a way that an attentive listener will extract enough questions and hints about exam interlaced with the delivery of the main content.
@@ -41,24 +48,46 @@ Review my lecture recordings, religiously. And please listen very actively and t
 Your task is to analyze the user's lecture transcript and find all these examples that could be possibly on the exam, according to the Professor's hints. Output a detailed list of wherever these examples occur in the lecture.
 """.strip()
 
+GEN_EXAM_PROMPT = f"""
+You will be given lecture analysis documents and you will need to synthesize an exam based on the details extracted from the lecture recordings.
+
+Here is an example of an exam (do not copy the questions from here):
+{Path("./exam1.md").read_text()}
+"""
+
 
 def run(file):
     client = OpenAI()
     subs = pysubs2.load(file, encoding="utf-8")
     text = "\n".join(line.text for line in subs)
     response = client.responses.create(
-        input=text, model=args.model, instructions=PROMPT
+        input=text,
+        model=args.model,
+        instructions=EXTRACT_PROMPT,
     )
     with open(Path(args.gems) / (file.stem + ".md"), "w") as f:
         f.write(response.output_text)
 
 
-async def main(args):
-    Parallel(n_jobs=os.cpu_count())(
-        delayed(run)(file) for file in Path(args.subtitles).iterdir()
-    )
+def main(args):
+    if args.extract:
+        Parallel(n_jobs=os.cpu_count())(
+            delayed(run)(file) for file in Path(args.subtitles).iterdir()
+        )
+
+    if args.exam_gen:
+        client = OpenAI()
+        prompt = ""
+        for file in Path("./gems").glob("*.md"):
+            prompt += f"# {file.stem}:\n\n{file.read_text()}\n\n"
+        response = client.responses.create(
+            input=prompt,
+            model=args.model,
+            instructions=GEN_EXAM_PROMPT,
+        )
+        Path("exam2.md").write_text(response.output_text)
 
 
 if __name__ == "__main__":
     args = parse_args()
-    asyncio.run(main(args))
+    main(args)
