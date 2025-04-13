@@ -1,0 +1,5545 @@
+1
+00:01:02,420 --> 00:01:10,630
+All right. Good afternoon,
+everyone. Good afternoon.
+
+2
+00:01:12,230 --> 00:01:16,789
+So we have a very technical
+session coming up today.
+
+3
+00:01:17,510 --> 00:01:20,070
+And I would like to get
+
+4
+00:01:20,070 --> 00:01:22,190
+started where we
+left off on Tuesday,
+
+5
+00:01:22,190 --> 00:01:25,690
+which is basically the setup
+of the entry PGDR, right?
+
+6
+00:01:25,690 --> 00:01:28,070
+We basically went over
+
+7
+00:01:28,070 --> 00:01:31,930
+the way that the entry page
+directory is being set up,
+
+8
+00:01:31,930 --> 00:01:34,009
+and we got to the
+point of looking
+
+9
+00:01:34,009 --> 00:01:36,210
+at this code where
+essentially we
+
+10
+00:01:36,210 --> 00:01:41,309
+are setting up the two elements
+of the page directory,
+
+11
+00:01:41,309 --> 00:01:45,029
+the zeroth element and
+the 512th element.
+
+12
+00:01:45,850 --> 00:01:49,710
+And we're basically performing
+the following mapping.
+
+13
+00:01:49,710 --> 00:01:51,550
+We're mapping the
+virtual frame numbers on
+
+14
+00:01:51,550 --> 00:01:53,230
+the left hand side to
+
+15
+00:01:53,230 --> 00:01:56,270
+the physical frame numbers
+on the right hand side.
+
+16
+00:01:56,270 --> 00:01:58,730
+Okay? And this is
+basically the code
+
+17
+00:01:58,730 --> 00:02:01,110
+in the X V six that you can
+
+18
+00:02:01,110 --> 00:02:02,750
+take a look at where
+
+19
+00:02:02,750 --> 00:02:06,170
+this mapping is actually
+set up for entry PG DR.
+
+20
+00:02:06,170 --> 00:02:08,070
+So this is a recap
+from the very,
+
+21
+00:02:08,070 --> 00:02:09,930
+very tail end of the
+previous lecture.
+
+22
+00:02:09,930 --> 00:02:12,309
+And I'm going to go
+fast today because we
+
+23
+00:02:12,309 --> 00:02:15,929
+have just an unbelievable
+amount of technical content.
+
+24
+00:02:15,929 --> 00:02:19,310
+So this is kind of what it
+looks like conceptually, okay.
+
+25
+00:02:19,310 --> 00:02:22,349
+And it was interesting to see
+that for a lot of people,
+
+26
+00:02:22,349 --> 00:02:24,850
+this actually raises eyebrows.
+
+27
+00:02:24,850 --> 00:02:27,330
+Because for the first
+time, what you are seeing
+
+28
+00:02:27,330 --> 00:02:30,610
+is at the very tail end of
+the bootstrapping process,
+
+29
+00:02:30,610 --> 00:02:32,490
+we're setting up some
+memory aliasing.
+
+30
+00:02:32,490 --> 00:02:34,709
+Okay? We are basically making
+
+31
+00:02:34,709 --> 00:02:38,289
+two virtual frames
+or virtual pages on
+
+32
+00:02:38,289 --> 00:02:40,509
+the left hand side to point to
+
+33
+00:02:40,509 --> 00:02:44,329
+one physical frame on the
+right hand side, okay?
+
+34
+00:02:44,329 --> 00:02:47,329
+And the two virtual frames
+on the left hand side are
+
+35
+00:02:47,329 --> 00:02:51,050
+basically the four
+megabyte large page at
+
+36
+00:02:51,050 --> 00:02:52,929
+the very bottom
+of this memory of
+
+37
+00:02:52,929 --> 00:02:55,429
+the virtual memory
+address space and
+
+38
+00:02:55,429 --> 00:02:57,510
+the very first four
+megabyte chunk
+
+39
+00:02:57,510 --> 00:02:59,270
+starting at current base.
+
+40
+00:02:59,270 --> 00:03:01,910
+Okay. And we're
+making it through
+
+41
+00:03:01,910 --> 00:03:04,449
+the setup of the entry PGDR
+that we just went through,
+
+42
+00:03:04,449 --> 00:03:05,689
+we're making it point to
+
+43
+00:03:05,689 --> 00:03:08,690
+exactly the same physical frame
+
+44
+00:03:08,690 --> 00:03:11,530
+sitting in your DRM, okay?
+
+45
+00:03:11,530 --> 00:03:13,649
+So basically, that means
+that you're able to
+
+46
+00:03:13,649 --> 00:03:15,789
+address some content
+that sits in
+
+47
+00:03:15,789 --> 00:03:19,289
+this four megabyte physical
+frame by either using
+
+48
+00:03:19,289 --> 00:03:21,870
+the low addresses
+here or by using
+
+49
+00:03:21,870 --> 00:03:23,169
+the high addresses here with
+
+50
+00:03:23,169 --> 00:03:25,469
+the most significant
+bits set to one.
+
+51
+00:03:25,469 --> 00:03:29,809
+After you've enabled
+paging, okay?
+
+52
+00:03:29,809 --> 00:03:32,389
+So any questions about this?
+
+53
+00:03:32,389 --> 00:03:33,610
+So this is where we stopped
+
+54
+00:03:33,610 --> 00:03:35,810
+at the end of previous lecture.
+
+55
+00:03:36,670 --> 00:03:39,210
+And so some people
+started asking
+
+56
+00:03:39,210 --> 00:03:41,770
+some very good questions
+after the lecture.
+
+57
+00:03:41,770 --> 00:03:43,909
+One of those
+questions was, well,
+
+58
+00:03:43,909 --> 00:03:45,529
+don't we map kind of
+
+59
+00:03:45,529 --> 00:03:48,969
+user space processes
+into the low addresses,
+
+60
+00:03:48,969 --> 00:03:50,330
+and that is actually correct.
+
+61
+00:03:50,330 --> 00:03:52,409
+Though, basically,
+after Kernel boots up,
+
+62
+00:03:52,409 --> 00:03:54,270
+it deletes the low
+address entry,
+
+63
+00:03:54,270 --> 00:03:56,449
+okay, and it's going to
+replace it with a bunch
+
+64
+00:03:56,449 --> 00:03:58,510
+of virtual frame number.
+
+65
+00:03:58,510 --> 00:04:01,089
+So a bunch of elements, page
+directory entries that are
+
+66
+00:04:01,089 --> 00:04:04,730
+mapping user space
+processes, okay?
+
+67
+00:04:04,730 --> 00:04:07,694
+Per process. And we're
+going to get to that.
+
+68
+00:04:07,694 --> 00:04:11,319
+Okay, so what we
+
+69
+00:04:11,319 --> 00:04:14,099
+didn't get a chance to
+cover, and very briefly,
+
+70
+00:04:14,099 --> 00:04:15,699
+let's go over this right now is
+
+71
+00:04:15,699 --> 00:04:18,740
+basically what we
+already know kind of
+
+72
+00:04:18,740 --> 00:04:20,960
+what happens in the most
+significant 20 bits of
+
+73
+00:04:20,960 --> 00:04:23,680
+our page directory entry
+and page table entry.
+
+74
+00:04:23,680 --> 00:04:25,240
+We discussed that last time.
+
+75
+00:04:25,240 --> 00:04:25,820
+Okay?
+
+76
+00:04:25,820 --> 00:04:29,160
+The most significant 20 bits
+are gonna give us what?
+
+77
+00:04:36,900 --> 00:04:38,940
+Yeah.
+
+78
+00:04:40,260 --> 00:04:42,580
+Yeah, they're going to give you
+
+79
+00:04:42,580 --> 00:04:45,400
+a physical page number for what?
+
+80
+00:04:45,400 --> 00:04:47,340
+So in case of PGE,
+
+81
+00:04:47,340 --> 00:04:49,320
+it's going to give you
+a physical page number
+
+82
+00:04:49,320 --> 00:04:52,020
+for the next level
+page table, right?
+
+83
+00:04:52,020 --> 00:04:54,579
+So it's a base address for
+the next level page table.
+
+84
+00:04:54,579 --> 00:04:57,859
+And as we walk through
+some of the code today,
+
+85
+00:04:57,859 --> 00:04:59,919
+this is I'm going to
+make it very concrete.
+
+86
+00:04:59,919 --> 00:05:02,499
+So right now it may seem
+a little bit conceptual,
+
+87
+00:05:02,499 --> 00:05:04,019
+even though it's quite concrete,
+
+88
+00:05:04,019 --> 00:05:05,380
+but we are going to
+look at the code to
+
+89
+00:05:05,380 --> 00:05:07,159
+really drive this
+home today, okay?
+
+90
+00:05:07,159 --> 00:05:10,920
+So the most significant
+20 bits here are the
+
+91
+00:05:10,920 --> 00:05:15,580
+physical the page page table
+physical frame number.
+
+92
+00:05:15,580 --> 00:05:17,660
+So the physical PFM for
+
+93
+00:05:17,660 --> 00:05:20,260
+the next level of
+indirection, okay?
+
+94
+00:05:20,260 --> 00:05:21,699
+So what's happening in the least
+
+95
+00:05:21,699 --> 00:05:23,900
+significant 12
+bits of our entry?
+
+96
+00:05:23,900 --> 00:05:25,480
+That's where a lot of very, very
+
+97
+00:05:25,480 --> 00:05:27,539
+useful mechanismic
+stuff is happening.
+
+98
+00:05:27,539 --> 00:05:29,140
+For example, you have a very,
+
+99
+00:05:29,140 --> 00:05:30,700
+very important present bit.
+
+100
+00:05:30,700 --> 00:05:33,040
+We're going to in the
+context of lab two,
+
+101
+00:05:33,040 --> 00:05:36,100
+you will figure out why
+it's ultra important, okay?
+
+102
+00:05:36,100 --> 00:05:38,820
+It actually gives us the
+ability to control things,
+
+103
+00:05:38,820 --> 00:05:40,140
+and it gives us
+
+104
+00:05:40,140 --> 00:05:42,680
+the ability to actually
+implement copy and write.
+
+105
+00:05:42,680 --> 00:05:44,565
+Then we have the writable bit.
+
+106
+00:05:44,565 --> 00:05:48,150
+We have the user
+versus super user bit.
+
+107
+00:05:48,150 --> 00:05:50,370
+One of the bits is
+responsible for
+
+108
+00:05:50,370 --> 00:05:53,590
+basically specifying whether
+or not the rights to
+
+109
+00:05:53,590 --> 00:05:57,390
+this particular address are
+
+110
+00:05:57,390 --> 00:05:58,669
+going to be right through
+
+111
+00:05:58,669 --> 00:06:00,310
+or they're going
+to be right back.
+
+112
+00:06:00,310 --> 00:06:02,750
+One of the bits can
+actually disable cache.
+
+113
+00:06:02,750 --> 00:06:05,209
+One of them keeps track
+
+114
+00:06:05,209 --> 00:06:07,990
+of whether or not the
+page table entry,
+
+115
+00:06:07,990 --> 00:06:12,050
+for instance, is pointing to
+an accessed frame, right?
+
+116
+00:06:12,050 --> 00:06:15,529
+One of them is keeping
+track of the dirty state,
+
+117
+00:06:15,529 --> 00:06:16,730
+basically, whether or not we've
+
+118
+00:06:16,730 --> 00:06:18,149
+written to this frame already.
+
+119
+00:06:18,149 --> 00:06:20,350
+And that's super useful
+information, right?
+
+120
+00:06:20,350 --> 00:06:21,670
+Because if we've written to it,
+
+121
+00:06:21,670 --> 00:06:24,710
+then maybe we need to do
+something different when we are,
+
+122
+00:06:24,710 --> 00:06:26,550
+for example, performing a fork.
+
+123
+00:06:26,550 --> 00:06:30,189
+Okay. So then the important bit
+
+124
+00:06:30,189 --> 00:06:33,050
+is the page size bit, right,
+
+125
+00:06:33,050 --> 00:06:34,529
+because if it's zero,
+
+126
+00:06:34,529 --> 00:06:36,969
+it specifies that
+the page table entry
+
+127
+00:06:36,969 --> 00:06:38,570
+the page directory entry is
+
+128
+00:06:38,570 --> 00:06:40,970
+pointing to a four
+kilobyte page.
+
+129
+00:06:40,970 --> 00:06:44,270
+If page size, if
+PS is set to one,
+
+130
+00:06:44,270 --> 00:06:46,109
+we know that we're actually
+
+131
+00:06:46,109 --> 00:06:48,329
+pointing to a four
+megabyte page.
+
+132
+00:06:48,329 --> 00:06:50,270
+And we discussed
+how we would set up
+
+133
+00:06:50,270 --> 00:06:53,270
+basically a single
+level paging structure
+
+134
+00:06:53,270 --> 00:06:55,890
+where the frames that are
+
+135
+00:06:55,890 --> 00:06:58,329
+allocated to the
+user space process
+
+136
+00:06:58,329 --> 00:07:00,170
+are four megabyte sized.
+
+137
+00:07:00,170 --> 00:07:03,009
+Going to recap that
+really quickly.
+
+138
+00:07:03,009 --> 00:07:06,210
+Any questions about
+the flag so far?
+
+139
+00:07:06,210 --> 00:07:09,110
+They're going to end up
+being super useful and,
+
+140
+00:07:09,110 --> 00:07:10,650
+you know, you'll be
+using, you know,
+
+141
+00:07:10,650 --> 00:07:12,050
+a good fraction of them
+
+142
+00:07:12,050 --> 00:07:13,949
+in the context of
+the remaining labs,
+
+143
+00:07:13,949 --> 00:07:16,070
+like lab two and Lab three.
+
+144
+00:07:17,150 --> 00:07:21,510
+So it'll become very
+concrete. Okay.
+
+145
+00:07:21,510 --> 00:07:25,900
+So, um, so one
+
+146
+00:07:25,900 --> 00:07:27,579
+of the things that I discussed
+
+147
+00:07:27,579 --> 00:07:29,579
+in previous lecture
+is basically I
+
+148
+00:07:29,579 --> 00:07:31,120
+gave you sort of a canonical two
+
+149
+00:07:31,120 --> 00:07:33,020
+level paging mechanism
+when you have
+
+150
+00:07:33,020 --> 00:07:35,520
+a page directory
+and the PFNs and
+
+151
+00:07:35,520 --> 00:07:39,059
+the page directory are
+pointing to the page table,
+
+152
+00:07:39,059 --> 00:07:41,520
+which is the second level
+of indirection, right?
+
+153
+00:07:41,520 --> 00:07:43,740
+And the PfNs inside
+
+154
+00:07:43,740 --> 00:07:45,739
+the entries of the page
+table are actually
+
+155
+00:07:45,739 --> 00:07:47,880
+pointing to the physical
+address of the frame
+
+156
+00:07:47,880 --> 00:07:51,099
+that we are actually trying
+to read and write, okay?
+
+157
+00:07:51,099 --> 00:07:54,940
+So that's one way of doing it.
+
+158
+00:07:54,940 --> 00:07:57,260
+What about why not
+
+159
+00:07:57,260 --> 00:08:01,299
+just use four kilobyte
+single level paging?
+
+160
+00:08:08,390 --> 00:08:11,290
+So let's think about
+that. So let's say
+
+161
+00:08:11,290 --> 00:08:13,689
+that we want to keep the offset,
+
+162
+00:08:13,689 --> 00:08:15,969
+at least significant
+12 bits to still
+
+163
+00:08:15,969 --> 00:08:18,190
+indirect into a physical frame
+
+164
+00:08:18,190 --> 00:08:19,749
+of memory we're
+reading and writing.
+
+165
+00:08:19,749 --> 00:08:21,889
+So we're allocating
+four kilobyte
+
+166
+00:08:21,889 --> 00:08:26,229
+sized pages to the user
+space address, okay?
+
+167
+00:08:26,229 --> 00:08:29,849
+And then instead of
+having these two levels,
+
+168
+00:08:29,849 --> 00:08:33,210
+the page directory pointing
+to page table page,
+
+169
+00:08:33,210 --> 00:08:35,989
+pointing to the physical
+frame we're writing, right?
+
+170
+00:08:35,989 --> 00:08:37,750
+What if we were to combine the
+
+171
+00:08:37,750 --> 00:08:39,909
+most significant ten
+plus ten and make it
+
+172
+00:08:39,909 --> 00:08:44,349
+20 bits to make that be a
+single level of indirection.
+
+173
+00:08:44,349 --> 00:08:45,729
+What's the problem with that?
+
+174
+00:08:45,729 --> 00:08:46,389
+Yes.
+
+175
+00:08:46,389 --> 00:08:47,949
+Because then the page table will
+
+176
+00:08:47,949 --> 00:08:50,010
+be like a page
+directory, I guess.
+
+177
+00:08:50,010 --> 00:08:52,849
+Page director, yeah. Big.
+It'll be really big.
+
+178
+00:08:52,849 --> 00:08:55,529
+How big? Two through 20.
+
+179
+00:08:55,529 --> 00:09:00,309
+Times. Right, times the width,
+
+180
+00:09:00,309 --> 00:09:02,229
+right, that you're dealing with.
+
+181
+00:09:02,229 --> 00:09:04,190
+So the 20 bits,
+
+182
+00:09:04,190 --> 00:09:06,390
+remember, the 20 most
+significant bits,
+
+183
+00:09:06,390 --> 00:09:08,289
+the way you should be
+thinking about them is
+
+184
+00:09:08,289 --> 00:09:11,090
+that they give you the
+index into the table.
+
+185
+00:09:11,090 --> 00:09:12,929
+So they index elements.
+
+186
+00:09:12,929 --> 00:09:16,124
+So it's element
+granularity addressing.
+
+187
+00:09:16,124 --> 00:09:17,919
+Okay? So in order to get
+
+188
+00:09:17,919 --> 00:09:20,720
+the size of the page
+directory, in this case,
+
+189
+00:09:20,720 --> 00:09:22,800
+you need to figure
+out how many indices
+
+190
+00:09:22,800 --> 00:09:24,400
+you're able to
+have in this case,
+
+191
+00:09:24,400 --> 00:09:26,899
+two to the 20th, that
+is correct, right?
+
+192
+00:09:26,899 --> 00:09:30,180
+And then the size of each
+element of the array.
+
+193
+00:09:30,180 --> 00:09:32,899
+And the size of each element
+of the array is going to be
+
+194
+00:09:32,899 --> 00:09:34,739
+32 bits because we are
+
+195
+00:09:34,739 --> 00:09:37,979
+here talking about 32
+bit operating system,
+
+196
+00:09:37,979 --> 00:09:40,099
+okay? And that's four bytes.
+
+197
+00:09:40,099 --> 00:09:41,519
+So the total size of
+
+198
+00:09:41,519 --> 00:09:43,919
+your page directory is
+going to be four bytes,
+
+199
+00:09:43,919 --> 00:09:48,319
+4 megabytes, two to the 20th
+times four, 4 megabytes.
+
+200
+00:09:48,319 --> 00:09:50,460
+Okay, well, that
+doesn't seem too
+
+201
+00:09:50,460 --> 00:09:54,459
+bad or does it? What's
+the problem with that?
+
+202
+00:09:55,240 --> 00:09:58,339
+Because remember, at the
+
+203
+00:09:58,339 --> 00:10:01,539
+I think two thirds into
+the previous lecture,
+
+204
+00:10:01,539 --> 00:10:03,579
+we discussed the opposite
+way of doing this.
+
+205
+00:10:03,579 --> 00:10:07,240
+We discussed having a very
+small page directory,
+
+206
+00:10:07,240 --> 00:10:09,959
+like a four case sized
+page directory by using
+
+207
+00:10:09,959 --> 00:10:13,559
+the most significant ten
+bits to index into that.
+
+208
+00:10:13,559 --> 00:10:16,239
+And the remaining 22
+bits we were using
+
+209
+00:10:16,239 --> 00:10:19,939
+for the frames we were allocating
+to the process, right?
+
+210
+00:10:19,939 --> 00:10:21,499
+And we've already
+discussed that.
+
+211
+00:10:21,499 --> 00:10:24,054
+Now I'm giving you a
+different design option.
+
+212
+00:10:24,054 --> 00:10:26,290
+Third design option, in fact,
+
+213
+00:10:26,290 --> 00:10:28,349
+where we're doing
+the opposite split
+
+214
+00:10:28,349 --> 00:10:29,710
+of the linear address.
+
+215
+00:10:29,710 --> 00:10:32,970
+We are combining the ten plus
+ten most significant bits
+
+216
+00:10:32,970 --> 00:10:35,090
+to index into the
+page directory,
+
+217
+00:10:35,090 --> 00:10:37,389
+and we're going to be
+allocating four kilobyte
+
+218
+00:10:37,389 --> 00:10:42,430
+sized physical frames to
+the user space process.
+
+219
+00:10:42,430 --> 00:10:47,569
+Okay? So Oh, yeah,
+
+220
+00:10:47,569 --> 00:10:49,390
+we're going to come back
+to this when we sort
+
+221
+00:10:49,390 --> 00:10:51,309
+of summarize all of these
+three different options.
+
+222
+00:10:51,309 --> 00:10:52,950
+So let's just focus
+on this right now.
+
+223
+00:10:52,950 --> 00:10:54,389
+I think somebody
+raised a hand, like,
+
+224
+00:10:54,389 --> 00:10:55,510
+what's the problem with the four
+
+225
+00:10:55,510 --> 00:10:56,890
+megabyte sized page director?
+
+226
+00:10:56,890 --> 00:11:00,680
+Yeah. The issue with
+the page directory
+
+227
+00:11:00,680 --> 00:11:02,619
+itself takes up more than
+
+228
+00:11:02,619 --> 00:11:05,820
+a single frame in
+physical memory?
+
+229
+00:11:05,820 --> 00:11:07,759
+Takes up more than what?
+
+230
+00:11:07,759 --> 00:11:11,359
+Single page frame
+in physical memory.
+
+231
+00:11:11,359 --> 00:11:13,759
+Okay. Right. So basically,
+
+232
+00:11:13,759 --> 00:11:16,579
+the concern that you have
+with this essentially is that
+
+233
+00:11:16,579 --> 00:11:20,039
+we're paying huge overhead
+for page directory, right?
+
+234
+00:11:20,039 --> 00:11:23,539
+And how many page
+directory pages
+
+235
+00:11:23,539 --> 00:11:24,799
+are we going to have in
+
+236
+00:11:24,799 --> 00:11:27,619
+the system at any
+given point in time?
+
+237
+00:11:27,619 --> 00:11:30,940
+Can somebody give me sort
+of an educated guess?
+
+238
+00:11:30,940 --> 00:11:35,889
+Yes. Exactly. The number
+of processes, right?
+
+239
+00:11:35,889 --> 00:11:37,310
+That's another thing that came
+
+240
+00:11:37,310 --> 00:11:38,709
+up sort of at the
+end of, I guess,
+
+241
+00:11:38,709 --> 00:11:41,169
+in the Q&A after the
+previous lecture, right,
+
+242
+00:11:41,169 --> 00:11:43,029
+is that you need to
+remember that we
+
+243
+00:11:43,029 --> 00:11:44,909
+need to maintain
+this indirection.
+
+244
+00:11:44,909 --> 00:11:49,354
+We need to maintain these
+pages per process, okay?
+
+245
+00:11:49,354 --> 00:11:51,439
+And if you have
+
+246
+00:11:51,439 --> 00:11:53,799
+thousand 24 processes
+running in the system,
+
+247
+00:11:53,799 --> 00:11:57,600
+each of which at minimum needs
+a single page directory,
+
+248
+00:11:57,600 --> 00:11:59,679
+a separate page
+directory that is
+
+249
+00:11:59,679 --> 00:12:01,680
+not shared across them, okay?
+
+250
+00:12:01,680 --> 00:12:04,060
+And it's 4 megabytes sized.
+
+251
+00:12:04,060 --> 00:12:06,660
+You know, for thousand
+24 processes,
+
+252
+00:12:06,660 --> 00:12:08,580
+how much memory
+you're going to spend
+
+253
+00:12:08,580 --> 00:12:11,019
+just keeping track
+of this metadata?
+
+254
+00:12:11,019 --> 00:12:13,379
+Just keeping track of
+the page directories.
+
+255
+00:12:13,379 --> 00:12:14,820
+How much memory?
+
+256
+00:12:14,820 --> 00:12:16,479
+4 gigabytes, right?
+
+257
+00:12:16,479 --> 00:12:18,620
+So you have thousand
+24 processes,
+
+258
+00:12:18,620 --> 00:12:21,099
+which is not a large
+number at all, right?
+
+259
+00:12:21,099 --> 00:12:24,259
+And just to maintain, you know,
+
+260
+00:12:24,259 --> 00:12:27,639
+just to be able to
+support this illusion of
+
+261
+00:12:27,639 --> 00:12:30,379
+isolation across processes in
+
+262
+00:12:30,379 --> 00:12:32,319
+the VMM component of the kernel,
+
+263
+00:12:32,319 --> 00:12:34,639
+you're paying four
+gigabyte cost for that.
+
+264
+00:12:34,639 --> 00:12:37,439
+That's huge, right?
+
+265
+00:12:39,310 --> 00:12:42,910
+But did we take
+care of the process
+
+266
+00:12:43,430 --> 00:12:49,489
+where we were splitting the
+linear address as 20 and 12,
+
+267
+00:12:49,489 --> 00:12:52,790
+sorry, as ten and 22,
+
+268
+00:12:52,790 --> 00:12:55,089
+when we were
+allocating 4 megabytes
+
+269
+00:12:55,089 --> 00:12:57,349
+sized page frames
+to the process.
+
+270
+00:12:57,349 --> 00:12:59,710
+The problem there was
+that we were actually
+
+271
+00:12:59,710 --> 00:13:03,050
+allocating the frames
+were very large.
+
+272
+00:13:03,050 --> 00:13:06,869
+And even if the process
+wasn't doing anything at all,
+
+273
+00:13:06,869 --> 00:13:08,729
+it was incurring quite a bit of
+
+274
+00:13:08,729 --> 00:13:12,570
+overhead and too much
+memory was allocated,
+
+275
+00:13:12,570 --> 00:13:13,810
+too much memory was wasted.
+
+276
+00:13:13,810 --> 00:13:17,139
+Did we take care of that
+use case with this design?
+
+277
+00:13:17,139 --> 00:13:20,989
+So same process, very
+small process, right?
+
+278
+00:13:20,989 --> 00:13:24,190
+So it has just a little
+bit of code and data,
+
+279
+00:13:24,190 --> 00:13:27,370
+a little bit of stack,
+a little bit of heap.
+
+280
+00:13:27,370 --> 00:13:28,990
+Let's say one frame each.
+
+281
+00:13:28,990 --> 00:13:30,890
+You know, how much
+memory is that process
+
+282
+00:13:30,890 --> 00:13:34,610
+using with this design?
+
+283
+00:13:41,370 --> 00:13:43,990
+Okay, one frame
+for code and data,
+
+284
+00:13:43,990 --> 00:13:48,430
+one frame for stack,
+one frame for heap.
+
+285
+00:13:48,430 --> 00:13:51,149
+With this design where
+we're using, you know,
+
+286
+00:13:51,149 --> 00:13:56,210
+12 bits to index into
+the page frames,
+
+287
+00:13:56,210 --> 00:13:59,390
+you know, how much memory is
+that process going to use?
+
+288
+00:13:59,390 --> 00:14:02,269
+Not counting the
+page tables, yes.
+
+289
+00:14:02,269 --> 00:14:06,450
+What's that? I was going
+to give you a number.
+
+290
+00:14:06,450 --> 00:14:12,110
+I was going to say it's 101012.
+
+291
+00:14:12,110 --> 00:14:14,809
+No, no, it's going to
+use three frames, right.
+
+292
+00:14:14,809 --> 00:14:17,429
+And each of the frames are
+
+293
+00:14:17,429 --> 00:14:20,669
+being indirected with the
+12 least significant bits,
+
+294
+00:14:20,669 --> 00:14:22,010
+right, with the offset.
+
+295
+00:14:22,010 --> 00:14:23,690
+So they're four K sized.
+
+296
+00:14:23,690 --> 00:14:26,010
+So you have three frames,
+
+297
+00:14:26,010 --> 00:14:27,975
+times four K is 12 kilobytes.
+
+298
+00:14:27,975 --> 00:14:31,780
+Right? So you have taken
+care of those processes.
+
+299
+00:14:31,780 --> 00:14:33,819
+You're not allocating
+huge you're
+
+300
+00:14:33,819 --> 00:14:36,000
+not wasting memory
+for small processes.
+
+301
+00:14:36,000 --> 00:14:37,720
+But you sort of pushed
+
+302
+00:14:37,720 --> 00:14:41,079
+the problem to a different
+component of the system.
+
+303
+00:14:41,079 --> 00:14:42,839
+You pushed the
+problem, the memory
+
+304
+00:14:42,839 --> 00:14:46,020
+overhead to the page
+directories instead.
+
+305
+00:14:46,020 --> 00:14:48,759
+And so I wanted to emphasize
+
+306
+00:14:48,759 --> 00:14:51,559
+this because I think it's a
+very cute little toy example.
+
+307
+00:14:51,559 --> 00:14:53,740
+It's extremely simple, okay?
+
+308
+00:14:53,740 --> 00:14:55,520
+But at the same
+time, it actually
+
+309
+00:14:55,520 --> 00:14:57,620
+highlights what commonly happens
+
+310
+00:14:57,620 --> 00:14:59,060
+in the design of systems that's
+
+311
+00:14:59,060 --> 00:15:01,634
+called basically
+Chasing the bottleneck.
+
+312
+00:15:01,634 --> 00:15:03,869
+Or Wakemo right?
+
+313
+00:15:03,869 --> 00:15:05,509
+Approach to system design.
+
+314
+00:15:05,509 --> 00:15:08,350
+You fix something for
+a particular use case,
+
+315
+00:15:08,350 --> 00:15:10,869
+but you actually introduce
+the problem somewhere else.
+
+316
+00:15:10,869 --> 00:15:13,289
+So you may think that
+you've actually fixed
+
+317
+00:15:13,289 --> 00:15:15,789
+the problem for small processes,
+
+318
+00:15:15,789 --> 00:15:18,330
+and this may very
+well be the case
+
+319
+00:15:18,330 --> 00:15:21,110
+if the number of processes
+in the system is very small,
+
+320
+00:15:21,110 --> 00:15:22,449
+but you actually introduced
+
+321
+00:15:22,449 --> 00:15:25,010
+huge overhead on the
+page directory size.
+
+322
+00:15:25,010 --> 00:15:28,189
+You guys see that? I hope
+you appreciate that.
+
+323
+00:15:28,189 --> 00:15:30,189
+So we've thus far discussed like
+
+324
+00:15:30,189 --> 00:15:32,229
+three different ways
+of splitting up
+
+325
+00:15:32,229 --> 00:15:33,589
+the linear address and
+
+326
+00:15:33,589 --> 00:15:34,950
+sort of the implications
+
+327
+00:15:34,950 --> 00:15:37,590
+associated with
+each one of them.
+
+328
+00:15:38,230 --> 00:15:40,269
+Okay.
+
+329
+00:15:42,070 --> 00:15:46,649
+And so what would be the
+advantages associated with that?
+
+330
+00:15:46,649 --> 00:15:48,749
+Well, given the virtual
+address, the question is,
+
+331
+00:15:48,749 --> 00:15:50,849
+how many memory lookups does it
+
+332
+00:15:50,849 --> 00:15:53,229
+take to translate it to a
+physical address, right?
+
+333
+00:15:53,229 --> 00:15:55,269
+So here we're sort of
+doing a comparison to
+
+334
+00:15:55,269 --> 00:15:59,629
+a two level paging system and
+a one level paging system.
+
+335
+00:15:59,629 --> 00:16:03,489
+So we've discussed this in
+previous lecture, right?
+
+336
+00:16:03,489 --> 00:16:05,209
+You're here reducing the number
+
+337
+00:16:05,209 --> 00:16:06,849
+of memory lookups you have
+
+338
+00:16:06,849 --> 00:16:08,329
+to do in order to perform this
+
+339
+00:16:08,329 --> 00:16:10,630
+virtual to physical
+address translation.
+
+340
+00:16:10,630 --> 00:16:12,709
+Okay? So there are advantages.
+
+341
+00:16:12,709 --> 00:16:14,329
+For any given design point,
+
+342
+00:16:14,329 --> 00:16:17,170
+you should be able to sort
+of crystallize in your mind.
+
+343
+00:16:17,170 --> 00:16:18,609
+When you sort of go back to
+
+344
+00:16:18,609 --> 00:16:20,870
+the video recording,
+go back to the slides,
+
+345
+00:16:20,870 --> 00:16:22,929
+you should be able to
+crystallize in your mind,
+
+346
+00:16:22,929 --> 00:16:27,109
+kind of what the advantages
+and disadvantages are. Okay?
+
+347
+00:16:28,390 --> 00:16:31,249
+All right, so did we do
+this question, right?
+
+348
+00:16:31,249 --> 00:16:33,349
+How many memory operations
+does it take to
+
+349
+00:16:33,349 --> 00:16:37,650
+translate a virtual address
+
+350
+00:16:37,650 --> 00:16:41,270
+to physical address in a
+two level page table walk?
+
+351
+00:16:41,430 --> 00:16:45,429
+So what do you think would
+be the answer to that?
+
+352
+00:16:49,430 --> 00:16:52,250
+Be bold, be proud.
+
+353
+00:16:52,250 --> 00:16:54,689
+Two, I hear twos, right?
+
+354
+00:16:54,689 --> 00:16:57,269
+So how many of you
+think it's two?
+
+355
+00:16:58,110 --> 00:17:00,890
+Okay. Okay, good, good.
+
+356
+00:17:00,890 --> 00:17:02,930
+I think it's less than 50%,
+
+357
+00:17:02,930 --> 00:17:08,549
+but how many of you think
+it's not two? Even fewer.
+
+358
+00:17:08,549 --> 00:17:13,230
+What is the rest doing? What
+do you think it's zero?
+
+359
+00:17:13,230 --> 00:17:16,979
+Um, Okay, so actually,
+
+360
+00:17:16,979 --> 00:17:20,919
+it turns out that the answer
+is indeed two, right,
+
+361
+00:17:20,919 --> 00:17:23,679
+because we have to perform
+
+362
+00:17:23,679 --> 00:17:27,160
+a memory read for the
+page directory itself.
+
+363
+00:17:27,160 --> 00:17:29,660
+And then once we've accessed
+the page directory,
+
+364
+00:17:29,660 --> 00:17:31,380
+we have to perform a memory read
+
+365
+00:17:31,380 --> 00:17:33,059
+for the page table, right?
+
+366
+00:17:33,059 --> 00:17:34,660
+And those are the
+two memory reads
+
+367
+00:17:34,660 --> 00:17:36,399
+that are necessary in
+order for us to get
+
+368
+00:17:36,399 --> 00:17:38,659
+a page table entry with
+
+369
+00:17:38,659 --> 00:17:41,099
+the PFN of the physical frame
+
+370
+00:17:41,099 --> 00:17:42,739
+that we are trying to access.
+
+371
+00:17:42,739 --> 00:17:45,019
+So if the question
+is precisely stated,
+
+372
+00:17:45,019 --> 00:17:48,159
+how many memory accesses
+are required in
+
+373
+00:17:48,159 --> 00:17:50,420
+this two level page table walk
+
+374
+00:17:50,420 --> 00:17:53,220
+for the purposes of
+translating VA to PA,
+
+375
+00:17:53,220 --> 00:17:55,739
+the answer is two.
+
+376
+00:17:55,739 --> 00:17:56,679
+Okay?
+
+377
+00:17:56,679 --> 00:18:02,580
+You guys agree with that?
+Okay. Nice. Now, here's
+
+378
+00:18:02,580 --> 00:18:04,419
+where I sort of
+tried to put all of
+
+379
+00:18:04,419 --> 00:18:07,660
+these three different design
+choices on a single slide.
+
+380
+00:18:07,660 --> 00:18:10,120
+We discussed three different
+
+381
+00:18:10,120 --> 00:18:12,279
+multi level paging
+design choices.
+
+382
+00:18:12,279 --> 00:18:14,039
+The first one is
+the one that you
+
+383
+00:18:14,039 --> 00:18:15,999
+might have learned
+in 2,200, right?
+
+384
+00:18:15,999 --> 00:18:19,219
+It's the standard sort of
+canonical two level paging,
+
+385
+00:18:19,219 --> 00:18:22,240
+where the split up of the
+linear address is ten,
+
+386
+00:18:22,240 --> 00:18:24,619
+ten and 12, okay?
+
+387
+00:18:24,840 --> 00:18:27,299
+And everyone knows this.
+
+388
+00:18:27,299 --> 00:18:30,300
+Everyone is very, very
+intimately familiar
+
+389
+00:18:30,300 --> 00:18:34,199
+with this two level
+paging approach, right?
+
+390
+00:18:34,199 --> 00:18:35,899
+And what you may
+not have thought
+
+391
+00:18:35,899 --> 00:18:37,440
+about up until this week,
+
+392
+00:18:37,440 --> 00:18:38,879
+right, is that you can also have
+
+393
+00:18:38,879 --> 00:18:41,029
+one level paging mechanisms.
+
+394
+00:18:41,029 --> 00:18:44,839
+And you can also do that
+in two different ways.
+
+395
+00:18:44,839 --> 00:18:48,439
+Okay? Here, we're
+splitting up ten and 22,
+
+396
+00:18:48,439 --> 00:18:52,339
+and you should immediately
+tell me what is, you know,
+
+397
+00:18:52,339 --> 00:18:55,260
+what's the size of the page
+directory in this case,
+
+398
+00:18:55,260 --> 00:18:56,719
+and what's the size
+of the physical
+
+399
+00:18:56,719 --> 00:18:58,019
+frames we're allocating to use
+
+400
+00:18:58,019 --> 00:18:59,639
+the space process
+just by looking at
+
+401
+00:18:59,639 --> 00:19:01,740
+this pair right off the bat,
+
+402
+00:19:01,740 --> 00:19:04,200
+it should just immediately
+pop out in your head.
+
+403
+00:19:04,200 --> 00:19:08,459
+So how large is the physical
+the page directory?
+
+404
+00:19:08,820 --> 00:19:11,139
+Was that?
+
+405
+00:19:11,420 --> 00:19:14,499
+Yeah, that's right.
+Thousand 24 entries
+
+406
+00:19:14,499 --> 00:19:15,739
+were 32 bit system,
+
+407
+00:19:15,739 --> 00:19:19,059
+I must specify that.
+So it's four K, right?
+
+408
+00:19:19,059 --> 00:19:21,519
+In this particular case, our
+page directory is four K,
+
+409
+00:19:21,519 --> 00:19:26,220
+and the frames we're
+allocating are how big?
+
+410
+00:19:28,860 --> 00:19:31,119
+Due to the power of 22,
+
+411
+00:19:31,119 --> 00:19:33,179
+which is 4 megabytes, right?
+
+412
+00:19:33,179 --> 00:19:35,640
+And so this is where
+you start seeing sort
+
+413
+00:19:35,640 --> 00:19:38,239
+of heterogeneous frames
+of memory being used.
+
+414
+00:19:38,239 --> 00:19:42,439
+In this case, normal size
+frames and large large pages,
+
+415
+00:19:42,439 --> 00:19:44,100
+normal pages and large pages,
+
+416
+00:19:44,100 --> 00:19:46,239
+four K and four megabyte pages
+
+417
+00:19:46,239 --> 00:19:47,899
+being used at the same time.
+
+418
+00:19:47,899 --> 00:19:49,820
+And the use case
+that we discussed
+
+419
+00:19:49,820 --> 00:19:52,420
+here is that what happens.
+
+420
+00:19:52,420 --> 00:19:55,379
+So once you look at a particular
+design in the system,
+
+421
+00:19:55,379 --> 00:19:57,239
+try to come up with
+corner cases or
+
+422
+00:19:57,239 --> 00:19:59,179
+the use cases that don't really
+
+423
+00:19:59,179 --> 00:20:01,639
+fit that design point very well.
+
+424
+00:20:01,639 --> 00:20:03,459
+We discussed small processes,
+
+425
+00:20:03,459 --> 00:20:06,359
+right with minimum memory
+consumption, okay?
+
+426
+00:20:06,359 --> 00:20:08,660
+And I asked you, well,
+
+427
+00:20:08,660 --> 00:20:10,619
+if it has just a little bit of
+
+428
+00:20:10,619 --> 00:20:13,739
+activity in the code
+and data segment,
+
+429
+00:20:13,739 --> 00:20:15,859
+a little bit of
+activity on the stack,
+
+430
+00:20:15,859 --> 00:20:17,980
+and it allocates
+something on the heap,
+
+431
+00:20:17,980 --> 00:20:20,519
+it uses approximately
+two to three frames
+
+432
+00:20:20,519 --> 00:20:22,379
+of memory, right?
+
+433
+00:20:22,379 --> 00:20:25,119
+And memory is going
+to be allocated to
+
+434
+00:20:25,119 --> 00:20:28,479
+the process at the
+granularity of frames.
+
+435
+00:20:28,479 --> 00:20:32,739
+And so if it has any
+minimum activity at all,
+
+436
+00:20:32,739 --> 00:20:35,719
+we're talking about allocating
+two to three frames,
+
+437
+00:20:35,719 --> 00:20:37,199
+each of which is 4 megabytes.
+
+438
+00:20:37,199 --> 00:20:38,720
+And so we're going to allocate
+
+439
+00:20:38,720 --> 00:20:41,340
+huge amount of memory
+eight to 12 megabytes,
+
+440
+00:20:41,340 --> 00:20:43,699
+minimum cost per process.
+
+441
+00:20:43,699 --> 00:20:47,680
+Wow, that's a lot. Is that okay?
+
+442
+00:20:47,680 --> 00:20:50,560
+Could be, if we don't
+
+443
+00:20:50,560 --> 00:20:51,840
+concern ourselves
+with the number
+
+444
+00:20:51,840 --> 00:20:53,139
+of processes in the system.
+
+445
+00:20:53,139 --> 00:20:54,639
+Another way to split this up.
+
+446
+00:20:54,639 --> 00:20:57,599
+That's the third bullet
+point right here, right,
+
+447
+00:20:57,599 --> 00:21:02,340
+is actually to have a
+large page directory
+
+448
+00:21:02,340 --> 00:21:04,999
+and only use the 12
+least significant bits
+
+449
+00:21:04,999 --> 00:21:07,099
+to indirect into your
+physical frames.
+
+450
+00:21:07,099 --> 00:21:09,120
+Immediately, you
+should be able to tell
+
+451
+00:21:09,120 --> 00:21:11,060
+me what is the size of
+the page directory?
+
+452
+00:21:11,060 --> 00:21:12,800
+What is the size of
+the physical frames
+
+453
+00:21:12,800 --> 00:21:15,019
+allocated to the process?
+
+454
+00:21:15,820 --> 00:21:19,060
+So page directory size.
+
+455
+00:21:21,890 --> 00:21:24,870
+Yes, yeah, don't
+forget the times four.
+
+456
+00:21:24,870 --> 00:21:27,529
+This is one of the most common
+mistakes that people make.
+
+457
+00:21:27,529 --> 00:21:30,389
+And I think I know why
+that trips you up, okay?
+
+458
+00:21:30,389 --> 00:21:32,349
+Because when we look
+at the 12 bits,
+
+459
+00:21:32,349 --> 00:21:36,109
+we say that the frame size
+is two to the 12, right?
+
+460
+00:21:36,109 --> 00:21:39,490
+And the reason for that
+is because this offset,
+
+461
+00:21:39,490 --> 00:21:42,489
+the 12 bits that are least
+significant 12 bits,
+
+462
+00:21:42,489 --> 00:21:45,530
+are they are addressing
+
+463
+00:21:45,530 --> 00:21:47,989
+into the physical frame
+at byte granularity.
+
+464
+00:21:47,989 --> 00:21:49,389
+They are counting bytes.
+
+465
+00:21:49,389 --> 00:21:52,570
+So every unique bit sequence
+
+466
+00:21:52,570 --> 00:21:55,029
+that is comprised
+of those 12 bits
+
+467
+00:21:55,029 --> 00:21:57,529
+is counting a single byte.
+
+468
+00:21:57,529 --> 00:22:01,309
+That's why you have two
+to the power of 12 bytes.
+
+469
+00:22:01,309 --> 00:22:04,590
+Now, when you're looking
+at 20 right here,
+
+470
+00:22:04,590 --> 00:22:07,029
+okay, what is it counting?
+
+471
+00:22:07,029 --> 00:22:09,169
+Is it counting bytes?
+
+472
+00:22:09,770 --> 00:22:13,829
+Every unique bit
+sequence consisting of
+
+473
+00:22:13,829 --> 00:22:18,210
+these 20 bits is
+indexing into an array.
+
+474
+00:22:18,210 --> 00:22:21,650
+You're counting
+elements of the array.
+
+475
+00:22:21,650 --> 00:22:23,549
+And so that's why you need to
+
+476
+00:22:23,549 --> 00:22:25,289
+also multiply by the size of
+
+477
+00:22:25,289 --> 00:22:26,629
+the element of the array to
+
+478
+00:22:26,629 --> 00:22:28,830
+actually get the
+page directory size.
+
+479
+00:22:28,830 --> 00:22:31,890
+Does that click? Okay, good.
+
+480
+00:22:31,890 --> 00:22:34,290
+Because it's going
+to be on the test.
+
+481
+00:22:34,850 --> 00:22:38,129
+Alright. And so we discuss
+
+482
+00:22:38,129 --> 00:22:39,649
+the overheads associated with
+
+483
+00:22:39,649 --> 00:22:41,150
+supporting the paging mechanism.
+
+484
+00:22:41,150 --> 00:22:44,469
+You know, let's pop up a
+stack a little bit, right?
+
+485
+00:22:44,469 --> 00:22:46,689
+The paging mechanism is one of
+
+486
+00:22:46,689 --> 00:22:49,029
+the really cool mechanisms
+that we discuss in
+
+487
+00:22:49,029 --> 00:22:51,250
+this class because it provides
+
+488
+00:22:51,250 --> 00:22:54,410
+us with very good example of
+isolation and protection.
+
+489
+00:22:54,410 --> 00:22:56,350
+That's why we care
+about paging mechanism.
+
+490
+00:22:56,350 --> 00:22:57,889
+We provide processes with
+
+491
+00:22:57,889 --> 00:23:00,489
+the illusion of running in
+isolation in the system.
+
+492
+00:23:00,489 --> 00:23:02,330
+We provide all sorts
+of great things
+
+493
+00:23:02,330 --> 00:23:03,630
+with paging mechanism,
+
+494
+00:23:03,630 --> 00:23:06,769
+including memory over
+subscription, right?
+
+495
+00:23:06,769 --> 00:23:09,150
+Including isolation.
+
+496
+00:23:09,150 --> 00:23:11,710
+But it does come with overhead.
+
+497
+00:23:11,710 --> 00:23:13,349
+There are two different kinds of
+
+498
+00:23:13,349 --> 00:23:16,330
+overhead that we have
+already discussed.
+
+499
+00:23:16,330 --> 00:23:18,249
+The first one is the memory
+
+500
+00:23:18,249 --> 00:23:21,029
+overhead because for
+every single process,
+
+501
+00:23:21,029 --> 00:23:24,629
+you have to pay the cost of
+all of the page table pages
+
+502
+00:23:24,629 --> 00:23:29,569
+that have been allocated to
+maintain this V to P mapping.
+
+503
+00:23:30,630 --> 00:23:37,109
+Okay. And so we want to try
+to minimize that somehow.
+
+504
+00:23:37,109 --> 00:23:40,309
+And that's what the
+multi that's what
+
+505
+00:23:40,309 --> 00:23:41,849
+the multi level paging system
+
+506
+00:23:41,849 --> 00:23:44,489
+actually accomplishes
+it accomplishes.
+
+507
+00:23:44,489 --> 00:23:46,849
+It actually accomplishes
+the ability to
+
+508
+00:23:46,849 --> 00:23:49,609
+minimize this memory
+overhead associated with
+
+509
+00:23:49,609 --> 00:23:51,929
+all the page table
+pages combined that
+
+510
+00:23:51,929 --> 00:23:55,409
+participate collectively in the
+
+511
+00:23:55,409 --> 00:23:58,390
+virtual to physical
+address translation.
+
+512
+00:23:59,250 --> 00:24:03,069
+Okay. So we discuss
+the memory overhead.
+
+513
+00:24:03,069 --> 00:24:04,949
+There's also a latency overhead.
+
+514
+00:24:04,949 --> 00:24:07,329
+Basically, how many
+steps does it take?
+
+515
+00:24:07,329 --> 00:24:10,569
+How much time does
+it take for me to
+
+516
+00:24:10,569 --> 00:24:13,329
+actually take a linear address
+
+517
+00:24:13,329 --> 00:24:16,429
+or virtual address and translate
+it to physical address.
+
+518
+00:24:16,429 --> 00:24:19,569
+And the reason we care about
+this is because it's on
+
+519
+00:24:19,569 --> 00:24:21,209
+the critical path of
+
+520
+00:24:21,209 --> 00:24:24,284
+the memory operation we
+are trying to perform.
+
+521
+00:24:24,284 --> 00:24:26,880
+As application
+developers, all we care
+
+522
+00:24:26,880 --> 00:24:29,659
+about is performing a
+read or write in address,
+
+523
+00:24:29,659 --> 00:24:32,119
+right, somewhere in memory.
+
+524
+00:24:32,119 --> 00:24:35,499
+But this goes through
+this multi step
+
+525
+00:24:35,499 --> 00:24:37,699
+overhead associated with that
+
+526
+00:24:37,699 --> 00:24:40,040
+that we refer to as
+the page table walk.
+
+527
+00:24:40,040 --> 00:24:42,369
+So we want to
+minimize that, too.
+
+528
+00:24:42,369 --> 00:24:44,939
+And now you have sort of
+
+529
+00:24:44,939 --> 00:24:47,580
+a multi objective
+optimization function
+
+530
+00:24:47,580 --> 00:24:49,039
+because simultaneously,
+
+531
+00:24:49,039 --> 00:24:50,579
+we're trying to
+minimize the memory
+
+532
+00:24:50,579 --> 00:24:52,419
+overhead and at the same time,
+
+533
+00:24:52,419 --> 00:24:54,219
+minimize the latency overhead,
+
+534
+00:24:54,219 --> 00:24:56,359
+and they are at odds
+with each other.
+
+535
+00:24:56,359 --> 00:25:00,060
+And that's what makes system
+design really cool, okay?
+
+536
+00:25:00,060 --> 00:25:01,859
+Because you want to
+make it fast and you
+
+537
+00:25:01,859 --> 00:25:03,659
+don't want to use
+too much memory.
+
+538
+00:25:03,659 --> 00:25:05,479
+And they're actually at
+odds with each other,
+
+539
+00:25:05,479 --> 00:25:07,259
+because the last bullet
+point right here,
+
+540
+00:25:07,259 --> 00:25:09,189
+the way to accomplish this
+
+541
+00:25:09,189 --> 00:25:13,319
+is to reduce the number
+of layers of indirection,
+
+542
+00:25:13,319 --> 00:25:17,199
+right, to go with a single
+level paging system.
+
+543
+00:25:17,199 --> 00:25:21,020
+But it increases it balloons
+the memory overhead.
+
+544
+00:25:21,020 --> 00:25:23,440
+Now, you try to hammer
+the memory overhead,
+
+545
+00:25:23,440 --> 00:25:25,280
+and the way to do
+that is increase
+
+546
+00:25:25,280 --> 00:25:27,299
+the number of levels
+you have to go through.
+
+547
+00:25:27,299 --> 00:25:31,300
+So they're at odds with each
+other. Does that make sense?
+
+548
+00:25:31,300 --> 00:25:33,279
+So, you know, as you
+
+549
+00:25:33,279 --> 00:25:35,020
+go into fourth year
+courses and you'll
+
+550
+00:25:35,020 --> 00:25:36,339
+actually start
+thinking more about
+
+551
+00:25:36,339 --> 00:25:38,439
+system design, you
+know, things like this,
+
+552
+00:25:38,439 --> 00:25:39,999
+the trade offs associated with
+
+553
+00:25:39,999 --> 00:25:41,879
+Sim system design
+is precisely what
+
+554
+00:25:41,879 --> 00:25:44,879
+creates elegant research and
+
+555
+00:25:44,879 --> 00:25:47,360
+elegant systems,
+for that matter.
+
+556
+00:25:47,440 --> 00:25:49,479
+Okay.
+
+557
+00:25:50,520 --> 00:25:56,179
+Um, now, what about
+X 86 64, right?
+
+558
+00:25:56,179 --> 00:25:58,439
+Nobody uses 32 bit
+systems anymore.
+
+559
+00:25:58,439 --> 00:26:00,360
+What about X 86 64?
+
+560
+00:26:00,360 --> 00:26:04,499
+Well, how many of
+
+561
+00:26:04,499 --> 00:26:06,000
+you find this a little bit scary
+
+562
+00:26:06,000 --> 00:26:08,520
+just by looking at this diagram?
+
+563
+00:26:08,520 --> 00:26:12,040
+Something incomprehensible,
+something hard.
+
+564
+00:26:13,180 --> 00:26:15,979
+So do not fear because
+
+565
+00:26:15,979 --> 00:26:19,159
+the principle is
+exactly the same, okay?
+
+566
+00:26:19,159 --> 00:26:21,219
+You know, basically,
+what I have to
+
+567
+00:26:21,219 --> 00:26:23,159
+tell you from the very
+beginning is that we are
+
+568
+00:26:23,159 --> 00:26:25,099
+actually using only 48 bits
+
+569
+00:26:25,099 --> 00:26:27,320
+of the 64 linear address space,
+
+570
+00:26:27,320 --> 00:26:29,939
+and there's some way that
+we have to split it up.
+
+571
+00:26:29,939 --> 00:26:32,539
+So if I give you some
+arbitrary system,
+
+572
+00:26:32,539 --> 00:26:35,059
+I don't know, 36
+bit address system.
+
+573
+00:26:35,059 --> 00:26:36,559
+I'm not going to
+do that, probably.
+
+574
+00:26:36,559 --> 00:26:38,560
+But in this particular case,
+
+575
+00:26:38,560 --> 00:26:40,080
+not to confuse
+you, we're working
+
+576
+00:26:40,080 --> 00:26:41,759
+with a 64 bit address system.
+
+577
+00:26:41,759 --> 00:26:43,680
+I have to specify how many bits
+
+578
+00:26:43,680 --> 00:26:45,259
+of that linear address actually
+
+579
+00:26:45,259 --> 00:26:46,939
+participate in
+
+580
+00:26:46,939 --> 00:26:50,115
+the virtual physical
+address translation, okay?
+
+581
+00:26:50,115 --> 00:26:52,470
+Because it doesn't
+have to be 64.
+
+582
+00:26:52,470 --> 00:26:54,770
+In this particular
+case, it's only 48.
+
+583
+00:26:54,770 --> 00:26:56,969
+And then the next question
+you want to ask is,
+
+584
+00:26:56,969 --> 00:26:59,329
+well, how do we
+break it up, right?
+
+585
+00:26:59,329 --> 00:27:01,630
+And that depends on
+a couple of things.
+
+586
+00:27:01,630 --> 00:27:03,029
+That depends, for example,
+
+587
+00:27:03,029 --> 00:27:04,649
+on what page sizes we are
+
+588
+00:27:04,649 --> 00:27:06,949
+actually natively
+supporting in the system.
+
+589
+00:27:06,949 --> 00:27:10,769
+We're already used to the
+page size of four K, right?
+
+590
+00:27:10,769 --> 00:27:12,769
+And indeed, if you look
+
+591
+00:27:12,769 --> 00:27:14,930
+at the last level
+here on this slide,
+
+592
+00:27:14,930 --> 00:27:17,969
+you can see that the
+least significant 12 bits
+
+593
+00:27:17,969 --> 00:27:19,410
+are used to offset,
+
+594
+00:27:19,410 --> 00:27:23,014
+right, into the physical frames
+allocated to the process.
+
+595
+00:27:23,014 --> 00:27:24,939
+So we already know
+what to do with
+
+596
+00:27:24,939 --> 00:27:26,679
+the 12 bits of the
+Sonia address.
+
+597
+00:27:26,679 --> 00:27:28,259
+We should be feeling better now.
+
+598
+00:27:28,259 --> 00:27:30,180
+How many bits do we have left?
+
+599
+00:27:30,180 --> 00:27:32,939
+So 48 -12 is what?
+
+600
+00:27:33,380 --> 00:27:36,539
+Yeah, 36, right?
+
+601
+00:27:36,580 --> 00:27:42,779
+36. Okay, so what do we want
+to do with those 36 bits?
+
+602
+00:27:44,550 --> 00:27:49,049
+And this is a very open
+ended question, right?
+
+603
+00:27:49,049 --> 00:27:51,529
+So the way to think about
+it is that you will
+
+604
+00:27:51,529 --> 00:27:55,229
+probably have some number
+of page table pages, right?
+
+605
+00:27:55,229 --> 00:27:56,710
+You will probably
+have some number
+
+606
+00:27:56,710 --> 00:27:58,329
+of these directories and
+
+607
+00:27:58,329 --> 00:28:00,590
+some fragments of
+the linear address
+
+608
+00:28:00,590 --> 00:28:02,349
+indexing into them, right?
+
+609
+00:28:02,349 --> 00:28:04,509
+So the first question
+that comes to mind is,
+
+610
+00:28:04,509 --> 00:28:07,709
+how big are those
+page table pages?
+
+611
+00:28:08,030 --> 00:28:10,529
+Let's go with the
+simplest design,
+
+612
+00:28:10,529 --> 00:28:12,689
+Let's try to use
+the same size page
+
+613
+00:28:12,689 --> 00:28:14,509
+for everything, right?
+
+614
+00:28:14,509 --> 00:28:17,009
+So we want to use four
+K for everything,
+
+615
+00:28:17,009 --> 00:28:21,029
+which is to do the power
+of 12 bytes, right?
+
+616
+00:28:21,029 --> 00:28:23,169
+And so the question is,
+
+617
+00:28:23,169 --> 00:28:25,729
+how many elements were able to
+
+618
+00:28:25,729 --> 00:28:29,989
+fit into 4 kilobytes
+in a 32 bit system?
+
+619
+00:28:33,400 --> 00:28:37,440
+How many elements we
+were able to fit into
+
+620
+00:28:37,440 --> 00:28:43,119
+our four kilobyte page
+directory in a 32 bit system.
+
+621
+00:28:43,120 --> 00:28:45,999
+1024, right?
+
+622
+00:28:45,999 --> 00:28:47,699
+Two to the power of ten.
+
+623
+00:28:47,699 --> 00:28:50,640
+Remember? So you had ten.
+
+624
+00:28:50,640 --> 00:28:53,120
+You had ten, and you had 12,
+
+625
+00:28:53,120 --> 00:28:58,120
+and we were using this to
+index into our page directory.
+
+626
+00:28:58,120 --> 00:29:00,560
+This is our PGD.
+
+627
+00:29:01,330 --> 00:29:04,270
+So two to the power of ten.
+
+628
+00:29:04,270 --> 00:29:05,669
+This is ten bits right here.
+
+629
+00:29:05,669 --> 00:29:08,369
+To the power of ten
+is 1024 elements,
+
+630
+00:29:08,369 --> 00:29:09,789
+each of which was four bytes
+
+631
+00:29:09,789 --> 00:29:11,389
+because we're in 32 bit system.
+
+632
+00:29:11,389 --> 00:29:13,150
+We are in a 64 bit system.
+
+633
+00:29:13,150 --> 00:29:17,529
+Now, we want to use the same
+four kilobyte or two to
+
+634
+00:29:17,529 --> 00:29:23,410
+the power of 12 byte pages in
+order to store our tables.
+
+635
+00:29:23,450 --> 00:29:27,049
+How many elements can we store?
+
+636
+00:29:27,720 --> 00:29:30,159
+Oh, God. Come on, people.
+
+637
+00:29:30,159 --> 00:29:32,879
+Wake up. Yes.
+
+638
+00:29:35,800 --> 00:29:39,939
+So why 1024? How did
+you arrive at that?
+
+639
+00:29:39,939 --> 00:29:41,920
+If you have 1024,
+
+640
+00:29:41,920 --> 00:29:44,960
+each element is going
+to be how many bytes?
+
+641
+00:29:47,320 --> 00:29:50,639
+My two bytes.
+
+642
+00:29:50,639 --> 00:29:52,599
+No, it's going to be
+four bytes, right?
+
+643
+00:29:52,599 --> 00:29:56,399
+So if you divide that by 1024,
+
+644
+00:29:56,399 --> 00:29:58,739
+which is two to the
+power of ten, right,
+
+645
+00:29:58,739 --> 00:30:00,599
+you're going to get
+two to the power of
+
+646
+00:30:00,599 --> 00:30:04,439
+two bytes per element.
+
+647
+00:30:04,470 --> 00:30:09,169
+And this was the case for
+
+648
+00:30:09,169 --> 00:30:14,769
+a 32 bit system because
+32 bits is four bytes.
+
+649
+00:30:14,769 --> 00:30:17,229
+Now, we're on a 64 bit system.
+
+650
+00:30:17,229 --> 00:30:20,069
+So on a 64 bit system,
+
+651
+00:30:20,069 --> 00:30:21,889
+the way to figure
+out the number of
+
+652
+00:30:21,889 --> 00:30:24,349
+elements is to take
+the page size,
+
+653
+00:30:24,349 --> 00:30:27,429
+due to the power of 12
+byte page size that
+
+654
+00:30:27,429 --> 00:30:30,809
+we want to use to store
+the page directory, okay?
+
+655
+00:30:30,809 --> 00:30:35,909
+And we divide that by what?
+
+656
+00:30:35,909 --> 00:30:37,049
+To the three.
+
+657
+00:30:37,049 --> 00:30:38,689
+Two to the power of three,
+
+658
+00:30:38,689 --> 00:30:41,929
+which is basically the eight
+bytes that correspond to
+
+659
+00:30:41,929 --> 00:30:46,510
+64 bit wide elements
+of the table.
+
+660
+00:30:46,510 --> 00:30:50,489
+Make sense? So two to
+the power of three,
+
+661
+00:30:50,489 --> 00:30:51,989
+this is not a magic number.
+
+662
+00:30:51,989 --> 00:30:53,689
+It's just the number of bytes,
+
+663
+00:30:53,689 --> 00:30:56,509
+eight bytes that
+corresponds to 64 bits.
+
+664
+00:30:56,509 --> 00:31:00,230
+And the table here is going
+to consist of elements,
+
+665
+00:31:00,230 --> 00:31:02,650
+the size of which matches
+
+666
+00:31:02,650 --> 00:31:05,129
+whether or not we're
+in a 32 bit system
+
+667
+00:31:05,129 --> 00:31:06,949
+or 64 bit system, right?
+
+668
+00:31:06,949 --> 00:31:09,010
+So we're dividing that
+by two to the power
+
+669
+00:31:09,010 --> 00:31:11,989
+of three, and we get what?
+
+670
+00:31:12,160 --> 00:31:14,300
+Two to the power of nine,
+
+671
+00:31:14,300 --> 00:31:17,379
+which is 512, okay?
+
+672
+00:31:17,379 --> 00:31:21,659
+That's the 512 elements
+that we can store on
+
+673
+00:31:21,659 --> 00:31:27,140
+a 64 bit system in 4
+kilobytes sized table.
+
+674
+00:31:27,140 --> 00:31:30,600
+Okay, well, we've arrived
+at something interesting.
+
+675
+00:31:30,600 --> 00:31:33,500
+512 bytes, which is two
+to the power of nine.
+
+676
+00:31:33,500 --> 00:31:37,040
+How many bits do I need
+to index into that table?
+
+677
+00:31:37,120 --> 00:31:43,149
+Nine. Interesting. And so we had
+
+678
+00:31:43,830 --> 00:31:46,349
+so let me we
+
+679
+00:31:46,349 --> 00:31:52,329
+had basically a total of
+48 bits to work with.
+
+680
+00:31:52,329 --> 00:31:55,489
+48, and we decided
+that we're going
+
+681
+00:31:55,489 --> 00:31:59,470
+to use the least significant
+12 as the offset.
+
+682
+00:31:59,470 --> 00:32:03,409
+Okay? And we have
+36 bits remaining,
+
+683
+00:32:03,409 --> 00:32:07,130
+and 36 magically divides
+
+684
+00:32:07,130 --> 00:32:11,949
+into nine to have four
+chunks of nine bits.
+
+685
+00:32:12,100 --> 00:32:15,840
+Okay. So we have nine bits,
+
+686
+00:32:15,840 --> 00:32:19,920
+nine bits, nine bits,
+nine, nine, nine,
+
+687
+00:32:19,920 --> 00:32:24,419
+and nine, totaling 48 bits,
+
+688
+00:32:24,419 --> 00:32:27,519
+each of which is
+going to indirect or
+
+689
+00:32:27,519 --> 00:32:29,560
+index into the corresponding
+
+690
+00:32:29,560 --> 00:32:31,660
+page directory or page table.
+
+691
+00:32:31,660 --> 00:32:34,260
+So this is how we
+actually arrive
+
+692
+00:32:34,260 --> 00:32:39,259
+at This is how we come on.
+
+693
+00:32:39,259 --> 00:32:40,940
+We actually arrive at
+
+694
+00:32:40,940 --> 00:32:47,279
+the four level paging
+system on a X 86 64.
+
+695
+00:32:47,279 --> 00:32:50,379
+You have nine bits that are most
+
+696
+00:32:50,379 --> 00:32:53,320
+significant within
+the 48 bit chunk.
+
+697
+00:32:53,320 --> 00:32:55,380
+They're not the
+most significant.
+
+698
+00:32:55,380 --> 00:32:58,759
+They're the most significant
+within the 48 bit chunk
+
+699
+00:32:58,759 --> 00:33:02,879
+that are going to
+indirect into page,
+
+700
+00:33:02,879 --> 00:33:04,959
+our this thing right here.
+
+701
+00:33:04,959 --> 00:33:09,759
+PML four E. And then
+the same thing happens.
+
+702
+00:33:09,759 --> 00:33:12,639
+We indirect into that, right,
+
+703
+00:33:12,639 --> 00:33:16,519
+by using essentially
+the physical address
+
+704
+00:33:16,519 --> 00:33:18,339
+inside CR three as the base,
+
+705
+00:33:18,339 --> 00:33:22,419
+and then the most significant
+nine bits as the index.
+
+706
+00:33:22,419 --> 00:33:24,839
+This gives us the
+page table element,
+
+707
+00:33:24,839 --> 00:33:27,499
+which consists of a
+physical frame number that
+
+708
+00:33:27,499 --> 00:33:30,559
+gives us the base address for
+the next level for L two.
+
+709
+00:33:30,559 --> 00:33:33,719
+Okay. And then we use
+the next nine bits of
+
+710
+00:33:33,719 --> 00:33:36,799
+the linear address to index
+into that second level page,
+
+711
+00:33:36,799 --> 00:33:38,359
+the L two, right?
+
+712
+00:33:38,359 --> 00:33:40,359
+And this gives us
+the page table entry
+
+713
+00:33:40,359 --> 00:33:41,899
+with a physical frame number of
+
+714
+00:33:41,899 --> 00:33:44,579
+the third level page table
+
+715
+00:33:44,579 --> 00:33:46,499
+that's called the
+page table here,
+
+716
+00:33:46,499 --> 00:33:48,239
+right? And so on and so forth.
+
+717
+00:33:48,239 --> 00:33:50,339
+You have four levels
+of indirection.
+
+718
+00:33:50,339 --> 00:33:53,419
+And finally, the four
+is actually going
+
+719
+00:33:53,419 --> 00:33:56,459
+to have a page table entry
+with a physical frame number
+
+720
+00:33:56,459 --> 00:33:57,939
+that gives us access to
+
+721
+00:33:57,939 --> 00:34:00,019
+the actual physical frame
+
+722
+00:34:00,019 --> 00:34:03,819
+in memory that we want
+to perform an operation.
+
+723
+00:34:06,010 --> 00:34:09,950
+So instead of doing two
+lookups for the page tables,
+
+724
+00:34:09,950 --> 00:34:12,229
+we do four lookups for
+the page table plus
+
+725
+00:34:12,229 --> 00:34:14,349
+the additional read or
+write operation that we
+
+726
+00:34:14,349 --> 00:34:17,249
+actually wanted to do
+from the very beginning.
+
+727
+00:34:17,249 --> 00:34:19,869
+Five memory operations total to
+
+728
+00:34:19,869 --> 00:34:22,709
+perform a read or
+write on an X 86 64.
+
+729
+00:34:22,709 --> 00:34:26,339
+Yes. Six.
+
+730
+00:34:28,340 --> 00:34:32,319
+Yeah, it can, right? And so
+
+731
+00:34:32,319 --> 00:34:35,759
+we need to concern ourselves
+with this huge overhead.
+
+732
+00:34:35,759 --> 00:34:38,919
+It's exactly the same situation
+as I described before.
+
+733
+00:34:38,919 --> 00:34:41,779
+Huge overheads associated
+with memory, right?
+
+734
+00:34:41,779 --> 00:34:44,279
+And also huge overheads because
+you're performing all of
+
+735
+00:34:44,279 --> 00:34:48,299
+these lookups on the critical
+path of the VT P map.
+
+736
+00:34:49,619 --> 00:34:52,399
+And so we have certain things
+
+737
+00:34:52,399 --> 00:34:54,539
+that help us with that, right?
+
+738
+00:34:54,539 --> 00:34:57,959
+So remember, I mentioned
+that there are overheads,
+
+739
+00:34:57,959 --> 00:34:59,939
+and we discussed this
+very vigorously,
+
+740
+00:34:59,939 --> 00:35:01,419
+and I'm glad that
+I'm recording this.
+
+741
+00:35:01,419 --> 00:35:03,679
+Please go back and
+review the lecture.
+
+742
+00:35:03,679 --> 00:35:07,539
+Okay? So discuss that
+very vigorously,
+
+743
+00:35:07,539 --> 00:35:10,599
+and I sort of motivated the
+fact that there's a lot
+
+744
+00:35:10,599 --> 00:35:12,469
+of overhead on a critical path
+
+745
+00:35:12,469 --> 00:35:13,959
+on a memory read and write.
+
+746
+00:35:13,959 --> 00:35:15,739
+Now, what do we do about this?
+
+747
+00:35:15,739 --> 00:35:17,239
+Well, it turns out
+that we actually have
+
+748
+00:35:17,239 --> 00:35:20,019
+some hardware support in
+order to make this faster.
+
+749
+00:35:20,019 --> 00:35:21,759
+Memory management unit in
+
+750
+00:35:21,759 --> 00:35:24,339
+particular actually allows
+us to speed things up,
+
+751
+00:35:24,339 --> 00:35:28,999
+and the TLB cache is actually
+a huge part of that, right?
+
+752
+00:35:28,999 --> 00:35:30,839
+You know, when in doubt, try to
+
+753
+00:35:30,839 --> 00:35:33,019
+think about what can
+we possibly hash.
+
+754
+00:35:33,019 --> 00:35:36,059
+And TLB cache actually
+gives us the ability.
+
+755
+00:35:36,059 --> 00:35:40,819
+It's sort of um a multi
+way associative cache
+
+756
+00:35:40,819 --> 00:35:42,399
+that actually gives
+us the ability to
+
+757
+00:35:42,399 --> 00:35:46,979
+save VA to PA mapics
+virtual address
+
+758
+00:35:46,979 --> 00:35:48,239
+or virtual frame number to
+
+759
+00:35:48,239 --> 00:35:49,939
+physical frame number mappings.
+
+760
+00:35:49,939 --> 00:35:51,679
+I have to be very careful here
+
+761
+00:35:51,679 --> 00:35:53,859
+because this is not
+precisely correct.
+
+762
+00:35:53,859 --> 00:35:56,579
+What it actually gives us
+the ability to save is
+
+763
+00:35:56,579 --> 00:36:01,220
+the virtual address to
+page table entry mapping.
+
+764
+00:36:01,220 --> 00:36:04,859
+So that simultaneously
+caches what
+
+765
+00:36:04,859 --> 00:36:07,699
+the physical frame number
+should be associated
+
+766
+00:36:07,699 --> 00:36:11,079
+with this virtual address and
+what the flags should be.
+
+767
+00:36:11,079 --> 00:36:13,839
+The permission flags
+should be associated with
+
+768
+00:36:13,839 --> 00:36:17,680
+this virtual memory
+address, okay?
+
+769
+00:36:22,050 --> 00:36:23,329
+All right.
+
+770
+00:36:23,329 --> 00:36:25,829
+Well, here's another
+interesting twist.
+
+771
+00:36:25,829 --> 00:36:28,229
+Now, let's say that I mean,
+
+772
+00:36:28,229 --> 00:36:29,469
+this is a statement of fact
+
+773
+00:36:29,469 --> 00:36:31,929
+TOB is going to
+be fixed in size.
+
+774
+00:36:31,929 --> 00:36:34,390
+There's going to be some
+number of elements,
+
+775
+00:36:34,390 --> 00:36:36,129
+the VA to PA mappings
+
+776
+00:36:36,129 --> 00:36:38,029
+that it's going to be
+able to have, right?
+
+777
+00:36:38,029 --> 00:36:41,309
+Let's say 128, okay?
+
+778
+00:36:41,309 --> 00:36:43,249
+Now, if you are thinking about
+
+779
+00:36:43,249 --> 00:36:46,489
+the choice of one
+
+780
+00:36:46,489 --> 00:36:49,149
+of those two single
+level paging systems,
+
+781
+00:36:49,149 --> 00:36:51,369
+either the one with a
+large page directory
+
+782
+00:36:51,369 --> 00:36:53,329
+or the one with a
+small page directory,
+
+783
+00:36:53,329 --> 00:36:55,549
+which one would you choose to
+
+784
+00:36:55,549 --> 00:37:00,089
+maximize the hit ratio in TLB?
+
+785
+00:37:03,130 --> 00:37:07,749
+So that choice actually
+has implications
+
+786
+00:37:07,749 --> 00:37:10,369
+on how often you're
+going to hit or
+
+787
+00:37:10,369 --> 00:37:14,049
+how often you're going to
+miss in TLB as a result.
+
+788
+00:37:21,820 --> 00:37:24,139
+How cool is that?
+
+789
+00:37:24,139 --> 00:37:26,900
+Right? It seems so trivial.
+
+790
+00:37:26,900 --> 00:37:29,299
+You know, Okay,
+let's split it up
+
+791
+00:37:29,299 --> 00:37:31,919
+into four MEG and four K
+or four K and four MEG,
+
+792
+00:37:31,919 --> 00:37:33,819
+but it actually
+turns out to have
+
+793
+00:37:33,819 --> 00:37:36,999
+orders of magnitude
+difference on the TLB hits.
+
+794
+00:37:36,999 --> 00:37:38,919
+And the reason for
+this is because
+
+795
+00:37:38,919 --> 00:37:41,779
+the larger your last
+level pages are,
+
+796
+00:37:41,779 --> 00:37:43,599
+let's say, 4 megabytes, right?
+
+797
+00:37:43,599 --> 00:37:45,539
+That means that you
+
+798
+00:37:45,539 --> 00:37:47,780
+understand that every
+element of the TLB
+
+799
+00:37:47,780 --> 00:37:52,099
+actually is a virtual frame
+number to a page table entry.
+
+800
+00:37:52,099 --> 00:37:53,479
+And page table entry,
+
+801
+00:37:53,479 --> 00:37:55,500
+the more memory it addresses,
+
+802
+00:37:55,500 --> 00:37:57,559
+let's say 4 megabytes, you know,
+
+803
+00:37:57,559 --> 00:38:00,800
+the more the entire TLB
+is capable of addressing.
+
+804
+00:38:00,800 --> 00:38:02,779
+Right? So in this case,
+
+805
+00:38:02,779 --> 00:38:06,999
+128 times 4 megabytes.
+
+806
+00:38:06,999 --> 00:38:09,979
+If we're using a
+small page door and
+
+807
+00:38:09,979 --> 00:38:13,679
+a large physical
+frame. Makes sense?
+
+808
+00:38:13,679 --> 00:38:15,560
+If we flip that design,
+
+809
+00:38:15,560 --> 00:38:17,139
+then we actually have
+
+810
+00:38:17,139 --> 00:38:18,860
+exactly the same
+number of elements,
+
+811
+00:38:18,860 --> 00:38:21,800
+but each element is
+essentially addressing
+
+812
+00:38:21,800 --> 00:38:25,120
+4 kilobytes and three orders
+of magnitude less memory.
+
+813
+00:38:25,120 --> 00:38:27,540
+And so that means that
+with that kind of design,
+
+814
+00:38:27,540 --> 00:38:30,719
+you're going to be missing
+in the TOB a lot more.
+
+815
+00:38:30,719 --> 00:38:36,100
+Make sense? Yes. Side TLB,
+
+816
+00:38:36,100 --> 00:38:38,539
+you're addressing a
+large amount of space,
+
+817
+00:38:38,539 --> 00:38:41,459
+you need to have a
+larger page table entry
+
+818
+00:38:41,459 --> 00:38:43,040
+in your TLB mapping.
+
+819
+00:38:43,040 --> 00:38:44,819
+Doesn't that mean
+that you would spit
+
+820
+00:38:44,819 --> 00:38:48,399
+there less page table
+mappings to your t?
+
+821
+00:38:48,860 --> 00:38:53,199
+Well, so so no,
+
+822
+00:38:53,199 --> 00:38:56,919
+because basically the size of
+
+823
+00:38:56,919 --> 00:38:58,920
+the TLB entry is
+going to be entirely
+
+824
+00:38:58,920 --> 00:39:01,159
+dependent on the size
+of the PT, right?
+
+825
+00:39:01,159 --> 00:39:02,399
+So in the 32 bit system,
+
+826
+00:39:02,399 --> 00:39:03,799
+it's going to be 32 bits because
+
+827
+00:39:03,799 --> 00:39:05,559
+the size of a PT is 32 bits.
+
+828
+00:39:05,559 --> 00:39:09,299
+So the size of the TLB
+entry itself is going to be
+
+829
+00:39:09,299 --> 00:39:10,739
+governed by whether
+or not you're on
+
+830
+00:39:10,739 --> 00:39:13,419
+a 32 bit system versus
+64 bit system, right?
+
+831
+00:39:13,419 --> 00:39:16,399
+It's not going to be governed
+by the choice of, like,
+
+832
+00:39:16,399 --> 00:39:20,229
+one or the other single level
+paging system. Makes sense.
+
+833
+00:39:20,229 --> 00:39:23,590
+And so what's really tricky
+here is that basically
+
+834
+00:39:23,590 --> 00:39:24,809
+thinking about how much
+
+835
+00:39:24,809 --> 00:39:27,410
+a single element of TLB
+is able to address.
+
+836
+00:39:27,410 --> 00:39:29,269
+And the more it's
+able to address,
+
+837
+00:39:29,269 --> 00:39:31,975
+the more you're going
+to be hitting in TLB.
+
+838
+00:39:31,975 --> 00:39:34,179
+Statistically speaking, right?
+
+839
+00:39:34,179 --> 00:39:35,459
+If we just apply, like
+
+840
+00:39:35,459 --> 00:39:37,659
+a Monte Carlo simulation
+approach to this,
+
+841
+00:39:37,659 --> 00:39:39,300
+you know, statistically
+speaking,
+
+842
+00:39:39,300 --> 00:39:41,919
+the larger more bits,
+
+843
+00:39:41,919 --> 00:39:44,079
+the more least significant
+bits you're using
+
+844
+00:39:44,079 --> 00:39:47,260
+to offset into your
+physical frames of memory,
+
+845
+00:39:47,260 --> 00:39:48,980
+you know, the better your TOB
+
+846
+00:39:48,980 --> 00:39:50,999
+hit ratio is going to be. Okay?
+
+847
+00:39:50,999 --> 00:39:53,260
+So just remember that. So what's
+
+848
+00:39:53,260 --> 00:39:55,639
+interesting is that I really
+spent a lot of time in
+
+849
+00:39:55,639 --> 00:39:58,139
+this lecture trying to sort
+of motivate that there are
+
+850
+00:39:58,139 --> 00:40:00,539
+real and very
+significant implications
+
+851
+00:40:00,539 --> 00:40:01,979
+with every single design choice,
+
+852
+00:40:01,979 --> 00:40:03,479
+even though those
+design choices may
+
+853
+00:40:03,479 --> 00:40:05,159
+seem quite trivial to you and,
+
+854
+00:40:05,159 --> 00:40:06,599
+in fact, boring, right?
+
+855
+00:40:06,599 --> 00:40:08,800
+But what's not boring
+is the trade off spaces
+
+856
+00:40:08,800 --> 00:40:11,859
+that they're inducing and
+how to reason about that.
+
+857
+00:40:12,410 --> 00:40:15,949
+Okay. So there's
+some optimizations
+
+858
+00:40:15,949 --> 00:40:17,310
+to TLB that also exist.
+
+859
+00:40:17,310 --> 00:40:19,930
+Like, for example, you can
+have instruction only caches,
+
+860
+00:40:19,930 --> 00:40:22,829
+like ITLB you will always,
+
+861
+00:40:22,829 --> 00:40:24,269
+if you look at the
+process of SPAC,
+
+862
+00:40:24,269 --> 00:40:26,069
+you will actually
+figure out what
+
+863
+00:40:26,069 --> 00:40:28,969
+the sizes of those
+different types of TLB are.
+
+864
+00:40:28,969 --> 00:40:31,069
+And there are actually
+reasons for this.
+
+865
+00:40:31,069 --> 00:40:33,349
+Like, can somebody tell
+me why you would want to
+
+866
+00:40:33,349 --> 00:40:36,209
+split up TLB into
+ITOB and GTOB, right?
+
+867
+00:40:36,209 --> 00:40:39,309
+This is a class that's all
+about thinking, right?
+
+868
+00:40:39,309 --> 00:40:41,890
+That's all about questioning
+the design choices.
+
+869
+00:40:41,890 --> 00:40:45,555
+So why would I want to split
+up TLB into ITOB and GTLB?
+
+870
+00:40:45,555 --> 00:40:48,120
+Can somebody venture a guess?
+
+871
+00:40:48,120 --> 00:40:49,859
+Just came up with
+this right now.
+
+872
+00:40:49,859 --> 00:40:52,319
+Yes. Locality, you're going
+
+873
+00:40:52,319 --> 00:40:54,479
+to be going back,
+say, you have a loop.
+
+874
+00:40:54,479 --> 00:40:56,540
+So in your set of instructions,
+
+875
+00:40:56,540 --> 00:40:58,220
+you might be going back
+to the same instruction.
+
+876
+00:40:58,220 --> 00:40:59,719
+Mm hmm. Fine. Mm hm.
+
+877
+00:40:59,719 --> 00:41:01,339
+You're iterating, like,
+
+878
+00:41:01,339 --> 00:41:03,799
+the same star function
+or something.
+
+879
+00:41:03,799 --> 00:41:06,099
+Like, you're gonna be
+going back to the spot.
+
+880
+00:41:06,099 --> 00:41:08,679
+So much more temporal
+locality with VA
+
+881
+00:41:08,679 --> 00:41:11,159
+to PA mappings for
+instructions compared to data,
+
+882
+00:41:11,159 --> 00:41:14,179
+right? Okay. Anything else?
+
+883
+00:41:14,179 --> 00:41:19,329
+It has to do with,
+um, let's say,
+
+884
+00:41:19,329 --> 00:41:21,849
+even if you have
+
+885
+00:41:21,849 --> 00:41:26,170
+the same temporal locality
+between instructions and data,
+
+886
+00:41:26,170 --> 00:41:28,669
+it's still preferable
+to split it up.
+
+887
+00:41:28,669 --> 00:41:34,399
+Yeah. But that's a good one.
+
+888
+00:41:34,399 --> 00:41:37,759
+On average, there are
+much fewer instructions,
+
+889
+00:41:37,759 --> 00:41:41,360
+and there will be adated
+macsre chamber on the memory.
+
+890
+00:41:41,360 --> 00:41:44,039
+So you would want to have
+a smaller you want to have
+
+891
+00:41:44,039 --> 00:41:48,160
+a smaller ITOBm which
+make it faster.
+
+892
+00:41:48,160 --> 00:41:49,980
+So your actual instruction
+
+893
+00:41:49,980 --> 00:41:52,160
+in your computer will be faster.
+
+894
+00:41:52,160 --> 00:41:55,099
+So you're saying that
+basically this gives you
+
+895
+00:41:55,099 --> 00:41:58,099
+the ability to actually save
+area on the chip, right?
+
+896
+00:41:58,099 --> 00:41:59,579
+Because you can make
+the TOB itself.
+
+897
+00:41:59,579 --> 00:42:01,379
+The size of the TOB
+itself smaller.
+
+898
+00:42:01,379 --> 00:42:06,669
+Is that what you're
+saying? I think
+
+899
+00:42:06,669 --> 00:42:08,950
+it's smaller for the
+sake of speeding
+
+900
+00:42:08,950 --> 00:42:12,090
+up access.
+
+901
+00:42:20,890 --> 00:42:22,789
+Okay. Okay.
+
+902
+00:42:22,789 --> 00:42:25,629
+Yeah, that's an
+interesting point.
+
+903
+00:42:25,629 --> 00:42:27,969
+What I was trying to get to is
+
+904
+00:42:27,969 --> 00:42:30,449
+actually something that's
+highly relevant to Lab two.
+
+905
+00:42:30,449 --> 00:42:33,845
+And it's the question of when
+you want to flush the TLB.
+
+906
+00:42:33,845 --> 00:42:36,580
+Right? So with the data,
+
+907
+00:42:36,580 --> 00:42:38,559
+you have much higher
+probability of
+
+908
+00:42:38,559 --> 00:42:41,159
+actually making
+changes to the VA to
+
+909
+00:42:41,159 --> 00:42:43,500
+PA mappings and
+actually allocating
+
+910
+00:42:43,500 --> 00:42:46,680
+pages and making changes
+to the page table entries.
+
+911
+00:42:46,680 --> 00:42:49,600
+And the changes to the
+page table entries,
+
+912
+00:42:49,600 --> 00:42:52,500
+they are going to
+incur or trigger
+
+913
+00:42:52,500 --> 00:42:54,059
+TLB flashes a lot more
+
+914
+00:42:54,059 --> 00:42:55,740
+frequently compared
+to the instructions.
+
+915
+00:42:55,740 --> 00:42:56,920
+So the instructions actually
+
+916
+00:42:56,920 --> 00:42:58,759
+read only the immutable, right?
+
+917
+00:42:58,759 --> 00:43:00,599
+So once you've loaded your set
+
+918
+00:43:00,599 --> 00:43:02,700
+of frames that are
+responsible for the code,
+
+919
+00:43:02,700 --> 00:43:05,560
+you're not going to
+change that, okay?
+
+920
+00:43:05,560 --> 00:43:07,419
+Well, I mean, in
+
+921
+00:43:07,419 --> 00:43:09,219
+most cases, you're not
+going to change that.
+
+922
+00:43:09,219 --> 00:43:11,259
+You can, but you're not
+going to change that.
+
+923
+00:43:11,259 --> 00:43:12,900
+Whereas with the data segment,
+
+924
+00:43:12,900 --> 00:43:15,699
+it's like, strictly
+speaking writable, right?
+
+925
+00:43:15,699 --> 00:43:18,780
+You're you're going to be
+doing a lot more writes,
+
+926
+00:43:18,780 --> 00:43:20,239
+and as a result of that,
+
+927
+00:43:20,239 --> 00:43:22,499
+you're actually going to be
+messing with the VA to be
+
+928
+00:43:22,499 --> 00:43:24,400
+a mapping with much
+higher probability
+
+929
+00:43:24,400 --> 00:43:26,019
+of data compared
+to instructions.
+
+930
+00:43:26,019 --> 00:43:29,619
+Okay, let me leave
+it at that. Okay.
+
+931
+00:43:29,619 --> 00:43:32,979
+And so, This is
+
+932
+00:43:32,979 --> 00:43:34,159
+where I would like to
+
+933
+00:43:34,159 --> 00:43:36,420
+switch to a different
+set of slides.
+
+934
+00:43:36,420 --> 00:43:39,839
+So bear with me for 1 second.
+
+935
+00:43:44,560 --> 00:43:55,260
+Uh, uh, uh, uh, uh, uh,
+
+936
+00:43:55,260 --> 00:44:05,440
+uh, uh, uh, uh, uh, uh, uh,
+
+937
+00:44:05,440 --> 00:44:10,140
+uh, uh, uh, uh,
+
+938
+00:44:10,140 --> 00:44:15,699
+uh, uh, uh, uh,
+
+939
+00:44:15,699 --> 00:44:20,309
+uh, uh, uh, uh, uh, uh, uh,
+
+940
+00:44:20,309 --> 00:44:25,689
+uh, uh, uh, uh, uh, uh, uh,
+
+941
+00:44:25,689 --> 00:44:29,970
+uh, uh, uh, uh,
+
+942
+00:44:29,970 --> 00:44:35,410
+uh, uh, uh, uh, uh, uh, uh,
+
+943
+00:44:35,410 --> 00:44:39,329
+uh, uh, uh, uh,
+
+944
+00:44:39,329 --> 00:44:45,489
+uh, uh, uh, uh, uh, uh, uh,
+
+945
+00:44:45,489 --> 00:44:48,909
+uh, uh, uh, uh,
+
+946
+00:44:48,909 --> 00:44:50,649
+uh, uh,
+
+947
+00:44:50,649 --> 00:44:52,349
+uh,
+
+948
+00:45:05,590 --> 00:45:07,529
+Okay.
+
+949
+00:45:07,529 --> 00:45:09,949
+I took a while. Okay, I'm
+
+950
+00:45:09,949 --> 00:45:12,669
+going to get to administration
+if we have time.
+
+951
+00:45:13,590 --> 00:45:16,309
+Let's talk about the page walk.
+
+952
+00:45:16,309 --> 00:45:17,869
+So let's try to make it very
+
+953
+00:45:17,869 --> 00:45:20,309
+concrete with a walk through of
+
+954
+00:45:20,309 --> 00:45:23,809
+the actual code
+written in XV six
+
+955
+00:45:23,809 --> 00:45:25,369
+that you should be able to
+
+956
+00:45:25,369 --> 00:45:27,730
+find and actually go
+through it yourself.
+
+957
+00:45:27,730 --> 00:45:29,409
+This is a walk PG DR.
+
+958
+00:45:29,409 --> 00:45:32,109
+How many of you have gone
+through this already?
+
+959
+00:45:33,070 --> 00:45:35,530
+So it takes on input
+
+960
+00:45:35,530 --> 00:45:37,969
+a virtual address
+right here, VA, right?
+
+961
+00:45:37,969 --> 00:45:42,009
+And it also takes a pointer
+to a page directory and
+
+962
+00:45:42,009 --> 00:45:44,290
+some parameter that basically
+
+963
+00:45:44,290 --> 00:45:45,249
+defines whether or not we
+
+964
+00:45:45,249 --> 00:45:46,949
+actually want to
+allocate, right?
+
+965
+00:45:46,949 --> 00:45:51,210
+So it tries to output a
+page table entry pointer.
+
+966
+00:45:51,210 --> 00:45:53,989
+That's the purpose
+of Block page PGDR.
+
+967
+00:45:53,989 --> 00:45:58,109
+So it is responsible for
+VA to PA translation.
+
+968
+00:45:58,109 --> 00:46:00,600
+Now, here's how this happens.
+
+969
+00:46:00,600 --> 00:46:03,729
+We take a virtual
+address right here,
+
+970
+00:46:03,729 --> 00:46:05,930
+and we basically extract
+
+971
+00:46:05,930 --> 00:46:09,170
+the ten most significant bits
+of that virtual address.
+
+972
+00:46:09,170 --> 00:46:12,190
+This is our page
+directory index.
+
+973
+00:46:12,190 --> 00:46:14,069
+So the Pgx of
+
+974
+00:46:14,069 --> 00:46:17,750
+VA is basically the ten
+most significant bits.
+
+975
+00:46:17,750 --> 00:46:21,289
+And then we use that
+to actually index into
+
+976
+00:46:21,289 --> 00:46:26,489
+PGDR precisely as we
+already explained, right?
+
+977
+00:46:26,489 --> 00:46:30,529
+And this gives us we take
+the address of that.
+
+978
+00:46:30,529 --> 00:46:33,929
+So this gives us the pointer
+to a page directory entry.
+
+979
+00:46:33,929 --> 00:46:36,929
+So PGE is a page
+directory entry,
+
+980
+00:46:36,929 --> 00:46:40,750
+and we get a pointer to a page
+directory entry by taking
+
+981
+00:46:40,750 --> 00:46:44,789
+a page DR index of the VA
+and indexing into PGDR.
+
+982
+00:46:44,789 --> 00:46:48,759
+That seems pretty straightforward
+so far, right? Okay.
+
+983
+00:46:48,759 --> 00:46:51,280
+And by the way, for those of
+you who want a reference,
+
+984
+00:46:51,280 --> 00:46:54,799
+PDX is that code on
+the right hand side,
+
+985
+00:46:54,799 --> 00:46:56,700
+because the way to extract
+
+986
+00:46:56,700 --> 00:46:59,979
+ten most significant bits is
+you perform a right shift,
+
+987
+00:46:59,979 --> 00:47:01,699
+right to get rid
+of everything to
+
+988
+00:47:01,699 --> 00:47:04,240
+the right of those ten
+most significant bits,
+
+989
+00:47:04,240 --> 00:47:06,679
+and you're going to
+basically end it with
+
+990
+00:47:06,679 --> 00:47:10,739
+a three FF which is the
+ten bits set to one.
+
+991
+00:47:10,739 --> 00:47:14,099
+Very simple. Okay?
+Everything really,
+
+992
+00:47:14,099 --> 00:47:15,959
+really makes sense here.
+
+993
+00:47:15,959 --> 00:47:20,200
+And so you get a page directory
+entry, the page d entry.
+
+994
+00:47:20,200 --> 00:47:23,259
+Now, what do you do
+with it? The next line
+
+995
+00:47:23,259 --> 00:47:24,659
+is very interesting right here.
+
+996
+00:47:24,659 --> 00:47:26,580
+So the If statement is checking
+
+997
+00:47:26,580 --> 00:47:28,459
+whether or not the
+list whether or
+
+998
+00:47:28,459 --> 00:47:30,800
+not the present
+bit is set, okay?
+
+999
+00:47:30,800 --> 00:47:33,659
+And that's going to be super
+important for lab two.
+
+1000
+00:47:33,659 --> 00:47:35,439
+We're checking whether or not
+
+1001
+00:47:35,439 --> 00:47:38,040
+the page directory entry
+is actually pointing
+
+1002
+00:47:38,040 --> 00:47:40,399
+to what we discussed
+so far is that it's
+
+1003
+00:47:40,399 --> 00:47:43,499
+supposed to point to the next
+level page table, right?
+
+1004
+00:47:43,499 --> 00:47:45,320
+But it may or may not exist.
+
+1005
+00:47:45,320 --> 00:47:47,320
+It may not have been allocated.
+
+1006
+00:47:47,320 --> 00:47:49,380
+It may or may not be
+present in memory.
+
+1007
+00:47:49,380 --> 00:47:50,999
+So that's what
+we're checking for
+
+1008
+00:47:50,999 --> 00:47:53,579
+with this I condition, okay?
+
+1009
+00:47:53,579 --> 00:47:57,910
+And let's say if
+it's not present,
+
+1010
+00:47:57,910 --> 00:48:00,069
+let's go to the
+else clause, right?
+
+1011
+00:48:00,069 --> 00:48:02,630
+And we're basically
+just going to allocate.
+
+1012
+00:48:02,630 --> 00:48:07,269
+We perform **** which
+is going to give us
+
+1013
+00:48:07,269 --> 00:48:09,949
+the page table frame
+
+1014
+00:48:10,870 --> 00:48:14,029
+because by the end of
+the return statement,
+
+1015
+00:48:14,029 --> 00:48:16,090
+we need to have a
+page table to index
+
+1016
+00:48:16,090 --> 00:48:20,060
+into second ten bits
+of the linear address.
+
+1017
+00:48:20,060 --> 00:48:22,500
+So we need to have page
+table coming from somewhere.
+
+1018
+00:48:22,500 --> 00:48:24,300
+In the else clause,
+we've essentially
+
+1019
+00:48:24,300 --> 00:48:27,299
+allocated it and we
+set it to zero. Okay?
+
+1020
+00:48:27,299 --> 00:48:29,159
+And we want to make
+sure that we set it to
+
+1021
+00:48:29,159 --> 00:48:31,319
+zero because we want all of
+
+1022
+00:48:31,319 --> 00:48:33,140
+those bits that I described
+
+1023
+00:48:33,140 --> 00:48:35,520
+previously to be set
+to zero by default,
+
+1024
+00:48:35,520 --> 00:48:38,380
+including the present bit,
+which is very important.
+
+1025
+00:48:38,380 --> 00:48:43,240
+Okay? And then we update
+the page directory entry,
+
+1026
+00:48:43,240 --> 00:48:45,399
+which pointed us to the void in
+
+1027
+00:48:45,399 --> 00:48:48,279
+the first place with
+the address with
+
+1028
+00:48:48,279 --> 00:48:51,459
+the physical address of the
+page table that we have just
+
+1029
+00:48:51,459 --> 00:48:53,839
+allocated or with
+the present bit
+
+1030
+00:48:53,839 --> 00:48:55,959
+and the right bit
+and the user bit.
+
+1031
+00:48:55,959 --> 00:48:58,419
+So that's what we're
+writing back into
+
+1032
+00:48:58,419 --> 00:49:02,600
+the page directory entry if
+it was pointing into null.
+
+1033
+00:49:02,600 --> 00:49:05,079
+Okay? Now, if it was
+
+1034
+00:49:05,079 --> 00:49:07,739
+not pointing into null,
+so in other words,
+
+1035
+00:49:07,739 --> 00:49:09,399
+if the page table entry,
+
+1036
+00:49:09,399 --> 00:49:10,919
+if the present bit was set,
+
+1037
+00:49:10,919 --> 00:49:13,655
+we're right here in the if body.
+
+1038
+00:49:13,655 --> 00:49:15,749
+Now, what's happening here?
+
+1039
+00:49:15,749 --> 00:49:17,269
+Well, the first thing that we're
+
+1040
+00:49:17,269 --> 00:49:18,309
+going to do is we're going to
+
+1041
+00:49:18,309 --> 00:49:19,610
+extract that base address
+
+1042
+00:49:19,610 --> 00:49:21,289
+that I was talking about, right?
+
+1043
+00:49:21,289 --> 00:49:24,770
+It's the second level page
+table page base address.
+
+1044
+00:49:24,770 --> 00:49:28,489
+And it's a physical address
+as we discussed, right?
+
+1045
+00:49:28,489 --> 00:49:30,169
+It's the physical address of
+
+1046
+00:49:30,169 --> 00:49:31,969
+the second level
+page table page.
+
+1047
+00:49:31,969 --> 00:49:34,750
+And then we're going to because
+it's a physical address,
+
+1048
+00:49:34,750 --> 00:49:37,049
+the next thing we're doing
+is we're performing this
+
+1049
+00:49:37,049 --> 00:49:40,290
+physical to virtual translation,
+the p2v translation.
+
+1050
+00:49:40,290 --> 00:49:42,765
+That's going to give
+us a virtual address.
+
+1051
+00:49:42,765 --> 00:49:45,179
+And we cast it, and
+this is going to
+
+1052
+00:49:45,179 --> 00:49:48,019
+become our pointer
+stored in PG tab.
+
+1053
+00:49:48,019 --> 00:49:50,840
+This is our page table pointer.
+
+1054
+00:49:50,840 --> 00:49:53,200
+So now we have a
+handle that points
+
+1055
+00:49:53,200 --> 00:49:55,700
+at the second level
+page table page.
+
+1056
+00:49:55,700 --> 00:49:58,560
+And what do we want to
+do with that handle?
+
+1057
+00:49:58,560 --> 00:50:00,719
+We want to index into it,
+
+1058
+00:50:00,719 --> 00:50:04,059
+right, and we want to
+get a page table entry.
+
+1059
+00:50:04,790 --> 00:50:07,869
+And that's exactly what
+we're doing right here.
+
+1060
+00:50:07,869 --> 00:50:12,849
+On the return line, we
+basically take the PG tab,
+
+1061
+00:50:12,849 --> 00:50:14,610
+take the virtual address,
+
+1062
+00:50:14,610 --> 00:50:17,769
+extract the second most
+significant ten bits.
+
+1063
+00:50:17,769 --> 00:50:21,389
+That's what PTX
+stands for, right?
+
+1064
+00:50:21,470 --> 00:50:24,450
+It's the page table page index.
+
+1065
+00:50:24,450 --> 00:50:26,449
+And of course, you
+should be able to write
+
+1066
+00:50:26,449 --> 00:50:29,829
+a macro for PTX already
+by now in this class,
+
+1067
+00:50:29,829 --> 00:50:32,269
+because all we have
+to do is shift right,
+
+1068
+00:50:32,269 --> 00:50:35,310
+get rid of the 12 bits that
+we're using for offset,
+
+1069
+00:50:35,310 --> 00:50:36,750
+right, and mask
+
+1070
+00:50:36,750 --> 00:50:39,664
+the ten least significant
+bits post shift.
+
+1071
+00:50:39,664 --> 00:50:41,679
+Right? That makes sense?
+
+1072
+00:50:41,679 --> 00:50:44,499
+Okay, and there is a
+code for that, right?
+
+1073
+00:50:44,499 --> 00:50:47,640
+Our PTX shift is the 12 bits.
+
+1074
+00:50:47,640 --> 00:50:49,459
+So we take the VA, we get rid of
+
+1075
+00:50:49,459 --> 00:50:50,859
+the 12 least significant bits
+
+1076
+00:50:50,859 --> 00:50:52,799
+that are used for offset, right,
+
+1077
+00:50:52,799 --> 00:50:54,779
+and we mask it with, again,
+
+1078
+00:50:54,779 --> 00:50:59,059
+three FF, which is
+ten bits set to one.
+
+1079
+00:50:59,059 --> 00:51:02,220
+That's how we get the
+page table index.
+
+1080
+00:51:02,220 --> 00:51:04,819
+Page table index is a number.
+
+1081
+00:51:04,819 --> 00:51:07,419
+It's an index into
+the page table.
+
+1082
+00:51:07,419 --> 00:51:08,799
+That's exactly what we're doing.
+
+1083
+00:51:08,799 --> 00:51:10,459
+We're taking page
+table right here and
+
+1084
+00:51:10,459 --> 00:51:13,619
+indexing into it with
+the number that we got.
+
+1085
+00:51:13,770 --> 00:51:17,149
+Percent means we take
+the address of that,
+
+1086
+00:51:17,149 --> 00:51:19,049
+and that is a pointer to
+
+1087
+00:51:19,049 --> 00:51:21,549
+a page table entry
+we have just found.
+
+1088
+00:51:21,549 --> 00:51:23,770
+Now, I got the page table entry.
+
+1089
+00:51:23,770 --> 00:51:25,669
+Now, there's a bunch of
+things I can do with that.
+
+1090
+00:51:25,669 --> 00:51:28,809
+First of all, I want to put
+it in the TOB cache because
+
+1091
+00:51:28,809 --> 00:51:31,169
+now the VFN that I started with
+
+1092
+00:51:31,169 --> 00:51:34,690
+the virtual frame number that
+you can extract from VA.
+
+1093
+00:51:34,690 --> 00:51:37,869
+Okay? The virtual
+frame number you can
+
+1094
+00:51:37,869 --> 00:51:40,969
+extract from VA is going to
+point this page table entry.
+
+1095
+00:51:40,969 --> 00:51:43,489
+I want to save that
+mapping, right?
+
+1096
+00:51:43,489 --> 00:51:45,270
+If it doesn't already exist.
+
+1097
+00:51:45,270 --> 00:51:48,189
+And then I can also extract
+the physical frame number for
+
+1098
+00:51:48,189 --> 00:51:51,969
+the page that I'm actually
+trying to write to.
+
+1099
+00:51:51,969 --> 00:51:53,969
+Okay.
+
+1100
+00:51:55,410 --> 00:51:58,869
+So, finally, I guess,
+
+1101
+00:51:58,869 --> 00:52:01,509
+let's conclude this lecture
+by recapping what was
+
+1102
+00:52:01,509 --> 00:52:04,550
+happening with boot
+allocation in entry dS.
+
+1103
+00:52:04,550 --> 00:52:06,549
+Okay? This is the first kind of
+
+1104
+00:52:06,549 --> 00:52:09,430
+entry point in the Elf binary
+
+1105
+00:52:09,430 --> 00:52:11,809
+that you have just loaded
+with your bootloader.
+
+1106
+00:52:11,809 --> 00:52:13,649
+Okay? So you're starting with
+
+1107
+00:52:13,649 --> 00:52:18,560
+a saving whatever you had
+in CR four register in EIX.
+
+1108
+00:52:18,560 --> 00:52:20,519
+You're basically oring that
+
+1109
+00:52:20,519 --> 00:52:22,819
+with a page size
+extension flag in order
+
+1110
+00:52:22,819 --> 00:52:24,699
+to provide support for
+
+1111
+00:52:24,699 --> 00:52:27,839
+those four megabyte
+sized pages, right?
+
+1112
+00:52:27,839 --> 00:52:30,020
+Because we're dealing
+with four megabyte
+
+1113
+00:52:30,020 --> 00:52:32,079
+sized pages at this
+point in time,
+
+1114
+00:52:32,079 --> 00:52:35,439
+we're moving sort of the
+result back into CR four,
+
+1115
+00:52:35,439 --> 00:52:37,420
+and then we're essentially
+
+1116
+00:52:37,420 --> 00:52:39,960
+loading the entry PGDR into EIX.
+
+1117
+00:52:39,960 --> 00:52:42,319
+And here, what
+happens actually is
+
+1118
+00:52:42,319 --> 00:52:44,959
+another evidence of
+and the answer to
+
+1119
+00:52:44,959 --> 00:52:47,239
+the question that
+I posed earlier in
+
+1120
+00:52:47,239 --> 00:52:49,039
+my previous lecture is that
+
+1121
+00:52:49,039 --> 00:52:51,769
+this is a v2t mapping
+right here, right?
+
+1122
+00:52:51,769 --> 00:52:56,039
+A VTP mapping which implies
+that we want to put
+
+1123
+00:52:56,039 --> 00:52:59,399
+the physical address
+associated with
+
+1124
+00:52:59,399 --> 00:53:02,999
+entry PGDR into AX and then
+subsequently into CR three.
+
+1125
+00:53:02,999 --> 00:53:04,439
+CR three is loaded with
+
+1126
+00:53:04,439 --> 00:53:07,400
+the physical address
+of entropGDR.
+
+1127
+00:53:07,580 --> 00:53:11,400
+So does R three take virtual
+address or physical address?
+
+1128
+00:53:11,400 --> 00:53:12,839
+We have evidence that it takes
+
+1129
+00:53:12,839 --> 00:53:15,339
+physical address right
+there in the code.
+
+1130
+00:53:15,339 --> 00:53:17,979
+So I explained conceptually
+why that should be the case,
+
+1131
+00:53:17,979 --> 00:53:19,199
+and I also showed you the code,
+
+1132
+00:53:19,199 --> 00:53:20,979
+why that is the case, right?
+
+1133
+00:53:20,979 --> 00:53:24,100
+And here's the entrPGDR that
+we've already discussed,
+
+1134
+00:53:24,100 --> 00:53:26,520
+which sets up memory aliasing
+
+1135
+00:53:26,520 --> 00:53:29,040
+for the first time in
+the system by pointing
+
+1136
+00:53:29,040 --> 00:53:30,819
+the Vafan of zero and Vafan of
+
+1137
+00:53:30,819 --> 00:53:35,240
+512 to exactly the same
+physical frame in memory.
+
+1138
+00:53:35,240 --> 00:53:38,759
+Okay? Alright. And just
+
+1139
+00:53:38,759 --> 00:53:41,860
+to illustrate what happens
+here, this happens.
+
+1140
+00:53:41,860 --> 00:53:44,099
+Both of these via fans
+on the left hand side,
+
+1141
+00:53:44,099 --> 00:53:45,459
+on the left hand
+side, you have a view
+
+1142
+00:53:45,459 --> 00:53:46,639
+of the virtual address space.
+
+1143
+00:53:46,639 --> 00:53:47,879
+On the right hand side, you have
+
+1144
+00:53:47,879 --> 00:53:49,579
+a view of the physical
+address space.
+
+1145
+00:53:49,579 --> 00:53:51,439
+They both point to
+exactly the same
+
+1146
+00:53:51,439 --> 00:53:53,994
+four megabyte physical frame.
+
+1147
+00:53:53,994 --> 00:53:56,930
+Okay, so to conclude,
+
+1148
+00:53:56,930 --> 00:53:58,869
+what's happening with XV
+
+1149
+00:53:58,869 --> 00:54:00,710
+six versus other
+operating systems?
+
+1150
+00:54:00,710 --> 00:54:04,069
+What can you possibly expect
+with your wonderful XV six,
+
+1151
+00:54:04,069 --> 00:54:07,489
+which I love for the
+purposes of teaching, right?
+
+1152
+00:54:07,489 --> 00:54:09,809
+It currently has
+no ability to have
+
+1153
+00:54:09,809 --> 00:54:12,629
+multiple virtual pages
+mapped to a single page,
+
+1154
+00:54:12,629 --> 00:54:15,809
+which makes copy and
+write impossible, right?
+
+1155
+00:54:15,809 --> 00:54:18,589
+Because copy and
+write implies that
+
+1156
+00:54:18,589 --> 00:54:19,909
+you need to have the ability
+
+1157
+00:54:19,909 --> 00:54:22,014
+to have many to one mappings.
+
+1158
+00:54:22,014 --> 00:54:26,399
+And it also makes shared
+memory also very difficult.
+
+1159
+00:54:26,399 --> 00:54:28,859
+Someone asked me, I think,
+a week ago after class,
+
+1160
+00:54:28,859 --> 00:54:31,179
+Well, how do you make
+shared memory work, right?
+
+1161
+00:54:31,179 --> 00:54:33,599
+Well, the only way
+to make it work to
+
+1162
+00:54:33,599 --> 00:54:36,019
+share memory is you're
+sharing a physical frame.
+
+1163
+00:54:36,019 --> 00:54:38,639
+That means that the
+VON of process one and
+
+1164
+00:54:38,639 --> 00:54:41,419
+that separate VF fan of
+process two need to have
+
+1165
+00:54:41,419 --> 00:54:44,099
+a way of pointing to
+the same PON to have
+
+1166
+00:54:44,099 --> 00:54:45,439
+exactly the same mapping
+
+1167
+00:54:45,439 --> 00:54:47,679
+to a physical frame
+number, right?
+
+1168
+00:54:47,679 --> 00:54:50,419
+So you cannot do that
+in XV six right now,
+
+1169
+00:54:50,419 --> 00:54:54,319
+the way it is on your
+computer at this time, right?
+
+1170
+00:54:54,530 --> 00:54:57,589
+And the reason for
+that is because Xp six
+
+1171
+00:54:57,589 --> 00:54:59,929
+expects the kernel to map
+all of physical memory,
+
+1172
+00:54:59,929 --> 00:55:01,529
+including all user programs.
+
+1173
+00:55:01,529 --> 00:55:02,849
+And once the kernel and
+
+1174
+00:55:02,849 --> 00:55:06,209
+a user program at most have a
+mapping to a physical page,
+
+1175
+00:55:06,209 --> 00:55:09,370
+the physical page can
+have no more mappings.
+
+1176
+00:55:09,370 --> 00:55:12,109
+Another way to say
+this or to think
+
+1177
+00:55:12,109 --> 00:55:15,609
+about it is that physical
+page mapping is binary.
+
+1178
+00:55:15,609 --> 00:55:18,169
+Given any physical frame,
+
+1179
+00:55:18,169 --> 00:55:21,069
+it is either free
+and you can use
+
+1180
+00:55:21,069 --> 00:55:23,709
+it or it's used and you
+cannot use it anymore,
+
+1181
+00:55:23,709 --> 00:55:28,489
+it's used by exactly
+one userspace address,
+
+1182
+00:55:28,489 --> 00:55:31,099
+exactly one user space VfN.
+
+1183
+00:55:31,099 --> 00:55:34,329
+However, we do know that
+other operating systems may
+
+1184
+00:55:34,329 --> 00:55:35,849
+have user programs map
+
+1185
+00:55:35,849 --> 00:55:38,029
+virtual pages to the same
+physical page, right?
+
+1186
+00:55:38,029 --> 00:55:39,409
+Because we want to be able to
+
+1187
+00:55:39,409 --> 00:55:40,809
+enable copy and write support.
+
+1188
+00:55:40,809 --> 00:55:43,369
+We want to be able to load
+shared libraries into
+
+1189
+00:55:43,369 --> 00:55:46,229
+the separate virtual
+address spaces but
+
+1190
+00:55:46,229 --> 00:55:47,749
+only have one physical copy in
+
+1191
+00:55:47,749 --> 00:55:49,749
+our memory for the
+purposes of savings.
+
+1192
+00:55:49,749 --> 00:55:51,429
+That's what Unix actually got
+
+1193
+00:55:51,429 --> 00:55:53,789
+right back in the
+70s and 80s, right?
+
+1194
+00:55:53,789 --> 00:55:56,349
+And that means that we
+need to do something with
+
+1195
+00:55:56,349 --> 00:55:59,169
+those physical frame metadata.
+
+1196
+00:55:59,169 --> 00:56:03,089
+We need to make sure that
+we are keeping track of
+
+1197
+00:56:03,089 --> 00:56:04,889
+how many virtual
+frames are pointing to
+
+1198
+00:56:04,889 --> 00:56:06,409
+the physical frame and take
+
+1199
+00:56:06,409 --> 00:56:09,189
+care of that accounting, okay?
+
+1200
+00:56:13,959 --> 00:56:17,019
+And this is where I'm
+going to stop for today.
+
+1201
+00:56:17,019 --> 00:56:18,639
+Thank you.

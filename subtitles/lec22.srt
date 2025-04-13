@@ -1,0 +1,5867 @@
+1
+00:00:00,000 --> 00:00:05,720
+I was like,
+
+2
+00:01:23,520 --> 00:01:25,999
+one to three.
+
+3
+00:01:33,080 --> 00:01:36,279
+All right. Good
+afternoon, everybody.
+
+4
+00:01:40,920 --> 00:01:44,919
+We're going to be doing
+some whiteboarding today.
+
+5
+00:01:57,240 --> 00:02:02,229
+So last week, We started
+a very important topic,
+
+6
+00:02:02,229 --> 00:02:06,190
+which is related to your
+lab four on file systems.
+
+7
+00:02:06,190 --> 00:02:08,910
+And this week, what
+we're going to
+
+8
+00:02:08,910 --> 00:02:10,110
+do is we're actually going
+
+9
+00:02:10,110 --> 00:02:11,709
+to take what we've started with,
+
+10
+00:02:11,709 --> 00:02:13,470
+the toolbox that
+you've built up,
+
+11
+00:02:13,470 --> 00:02:15,950
+kind of the mechanisms
+that you've learned about,
+
+12
+00:02:15,950 --> 00:02:17,830
+the data layout, right,
+
+13
+00:02:17,830 --> 00:02:21,070
+the abstractions that are
+enabled by file systems,
+
+14
+00:02:21,070 --> 00:02:22,870
+and we're going to
+sort of take that
+
+15
+00:02:22,870 --> 00:02:25,230
+through a conceptual
+furnace, right?
+
+16
+00:02:25,230 --> 00:02:28,550
+Because we didn't really
+get to talk about yet,
+
+17
+00:02:28,550 --> 00:02:31,270
+what are the interesting
+systems challenges
+
+18
+00:02:31,270 --> 00:02:33,230
+here with file systems, right?
+
+19
+00:02:33,230 --> 00:02:36,470
+Why should we care about
+file systems other than just
+
+20
+00:02:36,470 --> 00:02:37,670
+knowing how they work and how
+
+21
+00:02:37,670 --> 00:02:40,109
+they implemented in
+an operating system?
+
+22
+00:02:40,109 --> 00:02:43,270
+In addition to that, we
+really want to figure out
+
+23
+00:02:43,270 --> 00:02:44,629
+what is interesting from
+
+24
+00:02:44,629 --> 00:02:46,910
+sort of an intellectual
+perspective, right?
+
+25
+00:02:46,910 --> 00:02:50,390
+What is interesting from
+a conceptual perspective?
+
+26
+00:02:50,390 --> 00:02:53,830
+And the way this lecture
+
+27
+00:02:53,830 --> 00:02:56,229
+and actually over the course
+of the next two lectures,
+
+28
+00:02:56,229 --> 00:02:57,509
+the way we're going to structure
+
+29
+00:02:57,509 --> 00:02:59,590
+this is we're going
+to sort of go through
+
+30
+00:02:59,590 --> 00:03:02,869
+the motivation and what's
+
+31
+00:03:02,869 --> 00:03:07,169
+hard with the interface
+that's provided to us,
+
+32
+00:03:07,169 --> 00:03:08,770
+the low level
+interfaces that are
+
+33
+00:03:08,770 --> 00:03:10,810
+provided to us by
+the disk, right,
+
+34
+00:03:10,810 --> 00:03:13,449
+and the application semantics
+
+35
+00:03:13,449 --> 00:03:15,809
+that would be expected
+by the users.
+
+36
+00:03:15,809 --> 00:03:18,210
+And one of those
+things is basically
+
+37
+00:03:18,210 --> 00:03:23,450
+crash consistency because in
+the absence of any support,
+
+38
+00:03:23,450 --> 00:03:25,449
+anything can happen
+with the system,
+
+39
+00:03:25,449 --> 00:03:27,209
+especially if you simply press
+
+40
+00:03:27,209 --> 00:03:29,090
+the power button or
+something fails.
+
+41
+00:03:29,090 --> 00:03:31,010
+You rely on secondary storage
+
+42
+00:03:31,010 --> 00:03:32,370
+and your file system in general,
+
+43
+00:03:32,370 --> 00:03:35,410
+your data management system
+for one critical thing,
+
+44
+00:03:35,410 --> 00:03:38,210
+which is persistence and
+not only persistence,
+
+45
+00:03:38,210 --> 00:03:40,210
+but persistence in a
+way that makes sense,
+
+46
+00:03:40,210 --> 00:03:43,625
+in a way that doesn't actually
+corrupt your data on disk.
+
+47
+00:03:43,625 --> 00:03:46,720
+Okay? And so that's what we're
+going to talk about today.
+
+48
+00:03:46,720 --> 00:03:48,160
+We're going to build up to it.
+
+49
+00:03:48,160 --> 00:03:50,360
+I'm going to skip over
+administrative Via
+
+50
+00:03:50,360 --> 00:03:51,879
+because we have so much stuff to
+
+51
+00:03:51,879 --> 00:03:53,560
+cover that I'm worried
+we're going to
+
+52
+00:03:53,560 --> 00:03:55,639
+spill over into the
+distributed systems lecture.
+
+53
+00:03:55,639 --> 00:03:57,639
+So I'll just jump right
+into it unless somebody
+
+54
+00:03:57,639 --> 00:04:00,479
+else has any questions
+about administrative via.
+
+55
+00:04:00,479 --> 00:04:04,319
+And we can also do that
+at the very end as well.
+
+56
+00:04:04,560 --> 00:04:08,000
+So with respect to
+the file systems,
+
+57
+00:04:08,000 --> 00:04:10,520
+here's a question that I would
+like to start with, right?
+
+58
+00:04:10,520 --> 00:04:13,960
+What happens when
+my machine crashes,
+
+59
+00:04:13,960 --> 00:04:18,159
+shuts down, or in any
+way stops unexpectedly?
+
+60
+00:04:18,159 --> 00:04:20,444
+What do you think
+is going to happen?
+
+61
+00:04:20,444 --> 00:04:23,529
+Specifically, what's going
+to happen to your data,
+
+62
+00:04:23,529 --> 00:04:25,449
+which is the topic of, you know,
+
+63
+00:04:25,449 --> 00:04:27,569
+these two weeks that we're in.
+
+64
+00:04:27,569 --> 00:04:32,409
+Oh, wow. Lots of ideas. Yeah.
+
+65
+00:04:35,750 --> 00:04:38,230
+Sorry?
+
+66
+00:04:38,870 --> 00:04:42,029
+Okay, so basically you
+
+67
+00:04:42,029 --> 00:04:43,829
+expect it to be corrupt
+in some way, right?
+
+68
+00:04:43,829 --> 00:04:45,629
+Any other ideas?
+
+69
+00:04:45,629 --> 00:04:47,310
+Is it just a matter of
+
+70
+00:04:47,310 --> 00:04:49,389
+corruption or can we
+expect something else?
+
+71
+00:04:49,389 --> 00:04:51,669
+Yeah. Everything.
+
+72
+00:04:52,470 --> 00:04:56,869
+Yeah, that is true. And that
+is to be expected, right?
+
+73
+00:04:56,869 --> 00:04:59,030
+So throughout these
+two lectures,
+
+74
+00:04:59,030 --> 00:05:00,630
+which are going to
+be conceptually
+
+75
+00:05:00,630 --> 00:05:02,269
+difficult for many people, okay?
+
+76
+00:05:02,269 --> 00:05:04,709
+Throughout these two lectures,
+keep one thing in mind.
+
+77
+00:05:04,709 --> 00:05:06,739
+You have two different
+types of state.
+
+78
+00:05:06,739 --> 00:05:10,169
+What he said in memory
+data structures, right,
+
+79
+00:05:10,169 --> 00:05:11,329
+that you're going to keep in
+
+80
+00:05:11,329 --> 00:05:13,529
+memory while the
+operating system is
+
+81
+00:05:13,529 --> 00:05:17,649
+operating normally and
+the on disk state, okay?
+
+82
+00:05:17,649 --> 00:05:19,369
+And we want to make those
+
+83
+00:05:19,369 --> 00:05:21,729
+two in some way
+consistent, right?
+
+84
+00:05:21,729 --> 00:05:23,729
+We're going to
+develop mechanisms
+
+85
+00:05:23,729 --> 00:05:25,209
+and policies with which we
+
+86
+00:05:25,209 --> 00:05:26,730
+will be actually persisting
+
+87
+00:05:26,730 --> 00:05:29,049
+in memory state to
+the on disk state.
+
+88
+00:05:29,049 --> 00:05:31,689
+And we want to be able to
+do that in such a way that
+
+89
+00:05:31,689 --> 00:05:36,179
+guarantees consistency of
+our data on recovery. Okay?
+
+90
+00:05:36,179 --> 00:05:38,339
+It doesn't mean that
+we'll be able to recover
+
+91
+00:05:38,339 --> 00:05:41,219
+everything that was
+in memory, right?
+
+92
+00:05:41,219 --> 00:05:43,500
+And that's not the purpose
+of these lectures.
+
+93
+00:05:43,500 --> 00:05:45,420
+The purpose is for
+us to guarantee
+
+94
+00:05:45,420 --> 00:05:48,940
+consistency of the data
+that is recovered,
+
+95
+00:05:48,940 --> 00:05:50,659
+okay? And that's very important.
+
+96
+00:05:50,659 --> 00:05:52,339
+Do not expect everything
+
+97
+00:05:52,339 --> 00:05:54,739
+in memory to actually
+end up on disk.
+
+98
+00:05:54,739 --> 00:05:59,260
+Do we expect whatever ended
+up on disk to be consistent,
+
+99
+00:05:59,260 --> 00:06:02,379
+okay, to not be corrupt.
+
+100
+00:06:02,379 --> 00:06:04,899
+So that's very important.
+
+101
+00:06:04,899 --> 00:06:07,659
+Let's walk through a couple
+of scenarios, right?
+
+102
+00:06:07,659 --> 00:06:09,219
+To really motivate this,
+
+103
+00:06:09,219 --> 00:06:11,940
+it really helps to go through
+a couple of examples.
+
+104
+00:06:11,940 --> 00:06:14,499
+So I'm going to start
+drawing timelines here,
+
+105
+00:06:14,499 --> 00:06:16,099
+which is very common in systems
+
+106
+00:06:16,099 --> 00:06:17,459
+and in distributed systems.
+
+107
+00:06:17,459 --> 00:06:20,019
+So you may want to get used
+to kind of this way of
+
+108
+00:06:20,019 --> 00:06:22,979
+thinking about the operation
+of systems in general.
+
+109
+00:06:22,979 --> 00:06:27,659
+So here is one
+here's one timeline.
+
+110
+00:06:27,659 --> 00:06:30,819
+Right. If only this
+worked, right?
+
+111
+00:06:30,819 --> 00:06:34,139
+Okay. I do have a
+bunch that work.
+
+112
+00:06:34,139 --> 00:06:40,649
+So Here's one timeline.
+
+113
+00:06:40,649 --> 00:06:43,209
+So you're writing the disk.
+
+114
+00:06:43,209 --> 00:06:45,689
+So there's a right here.
+
+115
+00:06:46,670 --> 00:06:50,109
+And then there's a crash.
+
+116
+00:06:50,910 --> 00:06:53,149
+And then after a crash,
+
+117
+00:06:53,149 --> 00:06:56,749
+you recover, and then
+
+118
+00:06:56,749 --> 00:07:00,150
+you perform a read
+on the same file.
+
+119
+00:07:00,150 --> 00:07:02,269
+Kind of what is the
+expectation here?
+
+120
+00:07:02,269 --> 00:07:03,670
+What are you expecting to
+
+121
+00:07:03,670 --> 00:07:06,829
+read in this time sequence?
+And time goes down.
+
+122
+00:07:06,829 --> 00:07:09,469
+This is your time,
+wall clock time
+
+123
+00:07:09,469 --> 00:07:12,949
+or time from a system
+perspective to be more precise.
+
+124
+00:07:12,949 --> 00:07:15,069
+So what do you expect
+to get on a read?
+
+125
+00:07:15,069 --> 00:07:17,550
+What are the when I
+ask this question,
+
+126
+00:07:17,550 --> 00:07:19,509
+you know, don't think
+of concrete cases.
+
+127
+00:07:19,509 --> 00:07:22,569
+Think about the space of
+possibilities, right?
+
+128
+00:07:22,569 --> 00:07:25,669
+What is the and even
+better than that,
+
+129
+00:07:25,669 --> 00:07:26,909
+when I ask these questions,
+
+130
+00:07:26,909 --> 00:07:29,550
+think about what is the
+best case scenario?
+
+131
+00:07:29,550 --> 00:07:31,550
+What is the worst case scenario?
+
+132
+00:07:31,550 --> 00:07:34,389
+Are there any situations
+in between, right?
+
+133
+00:07:34,389 --> 00:07:36,309
+So this is called the
+boundary condition
+
+134
+00:07:36,309 --> 00:07:38,470
+reasoning from mathematics.
+
+135
+00:07:38,470 --> 00:07:41,189
+So that sort of
+helps you approach
+
+136
+00:07:41,189 --> 00:07:42,669
+these questions
+whenever they're being
+
+137
+00:07:42,669 --> 00:07:45,029
+asked in any kind
+of test situation.
+
+138
+00:07:45,029 --> 00:07:48,509
+So, what is the best
+case scenario here? Yes.
+
+139
+00:07:48,509 --> 00:07:50,029
+Unable to read what I
+
+140
+00:07:50,029 --> 00:07:51,870
+previously wrote in
+the right operation.
+
+141
+00:07:51,870 --> 00:07:52,509
+What?
+
+142
+00:07:52,509 --> 00:07:55,029
+Unable to read everything
+that I wrote in the.
+
+143
+00:07:55,029 --> 00:07:56,469
+Yes, that's right.
+That's the best case.
+
+144
+00:07:56,469 --> 00:07:58,460
+What's the worst case scenario?
+
+145
+00:07:58,460 --> 00:08:03,649
+Yeah. The right never even
+persisted to disk, right?
+
+146
+00:08:03,649 --> 00:08:05,849
+And it's actually
+not the worst case.
+
+147
+00:08:05,849 --> 00:08:08,489
+It depends on from the
+perspective of what.
+
+148
+00:08:08,489 --> 00:08:12,289
+But from the perspective of
+state transitioning from the
+
+149
+00:08:12,289 --> 00:08:14,450
+logical in memory data structure
+
+150
+00:08:14,450 --> 00:08:16,809
+to a physical on
+disk layout, sure.
+
+151
+00:08:16,809 --> 00:08:18,689
+We can say that it's
+either all or nothing.
+
+152
+00:08:18,689 --> 00:08:19,969
+Those could potentially be
+
+153
+00:08:19,969 --> 00:08:21,650
+reasoned as the best
+and the worst cases.
+
+154
+00:08:21,650 --> 00:08:24,434
+Any other situations
+that are possible, yes.
+
+155
+00:08:24,434 --> 00:08:26,899
+Like halfway completed, and then
+
+156
+00:08:26,899 --> 00:08:29,299
+now you have complete
+garbage data.
+
+157
+00:08:29,299 --> 00:08:31,219
+Yeah, exactly. And this is
+
+158
+00:08:31,219 --> 00:08:32,980
+just like grading exams, right?
+
+159
+00:08:32,980 --> 00:08:35,500
+So the easiest
+questions to grade
+
+160
+00:08:35,500 --> 00:08:36,820
+are either you get it
+
+161
+00:08:36,820 --> 00:08:39,140
+completely right or you
+get it completely wrong.
+
+162
+00:08:39,140 --> 00:08:42,060
+And whenever there's some
+kind of partial state,
+
+163
+00:08:42,060 --> 00:08:44,980
+so it's sort of partially
+persisted and partially didn't,
+
+164
+00:08:44,980 --> 00:08:47,579
+you know, that really creates
+a lot of complications.
+
+165
+00:08:47,579 --> 00:08:49,700
+And so when you read,
+you can actually get
+
+166
+00:08:49,700 --> 00:08:52,460
+garbage data if you do
+nothing at all, right?
+
+167
+00:08:52,460 --> 00:08:56,620
+So that's one example.
+Here's another example.
+
+168
+00:08:56,620 --> 00:08:58,899
+So let's say you have two files,
+
+169
+00:08:58,899 --> 00:09:01,140
+file A and D, A and B,
+
+170
+00:09:01,140 --> 00:09:04,380
+and the two file
+descriptors associated with
+
+171
+00:09:04,380 --> 00:09:07,740
+them are Fg one and Fg two.
+
+172
+00:09:07,740 --> 00:09:11,980
+So there is a right to
+a file descriptor one,
+
+173
+00:09:11,980 --> 00:09:17,010
+and there's another right And
+
+174
+00:09:17,010 --> 00:09:19,770
+it may sound similar to
+what we've just discussed,
+
+175
+00:09:19,770 --> 00:09:22,729
+but there's a slight nuance
+that I want to emphasize.
+
+176
+00:09:22,729 --> 00:09:24,730
+And then there's a crash.
+
+177
+00:09:24,730 --> 00:09:27,290
+Okay? And let's just, you know,
+
+178
+00:09:27,290 --> 00:09:30,010
+logically you have
+file A and file B,
+
+179
+00:09:30,010 --> 00:09:33,170
+and file descriptor one
+corresponds to file A.
+
+180
+00:09:33,170 --> 00:09:36,010
+File descriptor two
+corresponds to file B.
+
+181
+00:09:36,010 --> 00:09:40,810
+So what is the space of
+possibilities after this crash?
+
+182
+00:09:41,520 --> 00:09:44,399
+Again, best case scenario,
+
+183
+00:09:44,399 --> 00:09:46,560
+obviously, everything
+persisted, right?
+
+184
+00:09:46,560 --> 00:09:48,040
+And so after the crash,
+
+185
+00:09:48,040 --> 00:09:50,400
+you may actually expect
+the contents you wrote to
+
+186
+00:09:50,400 --> 00:09:52,840
+file descriptor one and two
+to be there on the disk.
+
+187
+00:09:52,840 --> 00:09:54,719
+Okay, what are some
+other possibilities?
+
+188
+00:09:54,719 --> 00:09:57,120
+So that could be like a
+freebie on the exam, right?
+
+189
+00:09:57,120 --> 00:09:58,839
+What are some other
+possibilities?
+
+190
+00:09:58,839 --> 00:10:04,119
+Yeah. Sorry?
+
+191
+00:10:04,760 --> 00:10:07,440
+Okay. Mid right, like what?
+
+192
+00:10:07,440 --> 00:10:10,840
+In between the rights or
+mid the first right I mean,
+
+193
+00:10:10,840 --> 00:10:13,320
+the crash happened after
+you've actually called
+
+194
+00:10:13,320 --> 00:10:15,000
+right and the right
+
+195
+00:10:15,000 --> 00:10:17,720
+returned just to make
+it very clear, okay?
+
+196
+00:10:17,720 --> 00:10:20,520
+So it doesn't really
+happen mid right.
+
+197
+00:10:20,520 --> 00:10:23,000
+These are cys calls, right?
+
+198
+00:10:23,000 --> 00:10:25,319
+And these cscals were blocking
+
+199
+00:10:25,319 --> 00:10:26,600
+cys calls and they have
+
+200
+00:10:26,600 --> 00:10:29,360
+returned just to make
+that very clear.
+
+201
+00:10:29,360 --> 00:10:32,680
+And then the crash happened.
+What do you expect to see?
+
+202
+00:10:37,370 --> 00:10:40,050
+Let's say in the
+worst case, right,
+
+203
+00:10:40,050 --> 00:10:41,970
+that we discussed
+here, you may actually
+
+204
+00:10:41,970 --> 00:10:44,650
+expect to see nothing, right?
+
+205
+00:10:44,650 --> 00:10:46,690
+There may be absolutely nothing,
+
+206
+00:10:46,690 --> 00:10:48,490
+no updates that
+were persistent to
+
+207
+00:10:48,490 --> 00:10:50,610
+file descriptor
+one and two, okay?
+
+208
+00:10:50,610 --> 00:10:52,290
+But that is actually, again,
+
+209
+00:10:52,290 --> 00:10:53,610
+a really good case, which
+
+210
+00:10:53,610 --> 00:10:55,490
+we'll figure out why
+that is the case.
+
+211
+00:10:55,490 --> 00:10:57,649
+Now, what are some of
+the other options?
+
+212
+00:10:57,649 --> 00:11:01,930
+Can we have a written but not B?
+
+213
+00:11:03,370 --> 00:11:08,330
+Yes. Can we have B
+written but not A?
+
+214
+00:11:08,730 --> 00:11:11,690
+So pay attention to this,
+
+215
+00:11:11,690 --> 00:11:15,130
+can we have B written but not A?
+
+216
+00:11:15,370 --> 00:11:18,650
+Let's say yes because
+
+217
+00:11:18,810 --> 00:11:22,649
+we can't we're not
+blocking those rights.
+
+218
+00:11:22,649 --> 00:11:25,450
+So there's no
+sequentiality guarantee.
+
+219
+00:11:25,450 --> 00:11:27,850
+So probably B goes first and
+
+220
+00:11:27,850 --> 00:11:30,850
+then A goes second and
+then B rights any of us.
+
+221
+00:11:30,850 --> 00:11:32,850
+Yeah. So the
+important thing here,
+
+222
+00:11:32,850 --> 00:11:34,330
+as he pointed out, right,
+
+223
+00:11:34,330 --> 00:11:37,049
+is that you're not
+guaranteed the sequentiality
+
+224
+00:11:37,049 --> 00:11:40,705
+of those you're not
+guaranteed the sequentiality.
+
+225
+00:11:40,705 --> 00:11:42,720
+Of those two rights being
+
+226
+00:11:42,720 --> 00:11:45,480
+persisted to disk if you
+do nothing at all, okay?
+
+227
+00:11:45,480 --> 00:11:47,080
+And so that's very important
+
+228
+00:11:47,080 --> 00:11:49,080
+because now all of
+a sudden, again,
+
+229
+00:11:49,080 --> 00:11:51,400
+as a system programmer,
+you might be thinking, Oh,
+
+230
+00:11:51,400 --> 00:11:54,400
+I code right on FD
+one write on FD two.
+
+231
+00:11:54,400 --> 00:11:57,279
+So therefore, in the
+case of consistency,
+
+232
+00:11:57,279 --> 00:12:01,080
+the space of possibilities is
+such that I will have seen
+
+233
+00:12:01,080 --> 00:12:03,120
+more rights in FD one or all
+
+234
+00:12:03,120 --> 00:12:05,680
+rights in FD one before I
+see any rights in FD two,
+
+235
+00:12:05,680 --> 00:12:07,560
+and that is not the case, okay?
+
+236
+00:12:07,560 --> 00:12:10,280
+So you can actually have
+some arbitrary order of
+
+237
+00:12:10,280 --> 00:12:12,359
+data blocks being
+persistent across
+
+238
+00:12:12,359 --> 00:12:15,070
+FD one and FD two.
+Anything is possible.
+
+239
+00:12:15,070 --> 00:12:17,899
+Any possibility of
+mutated blocks for
+
+240
+00:12:17,899 --> 00:12:20,460
+FG one and mutated data
+blocks for FG two,
+
+241
+00:12:20,460 --> 00:12:22,860
+kind of any subset
+of the union of
+
+242
+00:12:22,860 --> 00:12:27,459
+those data blocks or data
+block sets can be persistent.
+
+243
+00:12:27,459 --> 00:12:29,820
+That's insane, right? If I were
+
+244
+00:12:29,820 --> 00:12:32,339
+to ask you to define the
+space of possibilities,
+
+245
+00:12:32,339 --> 00:12:34,179
+that's the space
+of possibilities.
+
+246
+00:12:34,179 --> 00:12:37,780
+A set of all subsets from
+
+247
+00:12:37,780 --> 00:12:40,220
+the union of data
+blocks mutated on
+
+248
+00:12:40,220 --> 00:12:43,180
+FG one right and FG two right.
+
+249
+00:12:43,180 --> 00:12:45,299
+And that includes the empty set
+
+250
+00:12:45,299 --> 00:12:46,700
+that includes the full set as
+
+251
+00:12:46,700 --> 00:12:48,260
+the boundary conditions
+that we've just
+
+252
+00:12:48,260 --> 00:12:51,855
+talked about. With me?
+
+253
+00:12:51,855 --> 00:12:54,140
+Awesome. Awesome. Thank you.
+
+254
+00:12:54,140 --> 00:12:55,820
+Okay. Now, this one
+
+255
+00:12:55,820 --> 00:12:57,500
+is slightly more
+interesting than this?
+
+256
+00:12:57,500 --> 00:12:59,139
+That seemed like a
+trivial question
+
+257
+00:12:59,139 --> 00:13:01,299
+compared to that because
+now we're messing
+
+258
+00:13:01,299 --> 00:13:04,810
+around with your
+mental understanding
+
+259
+00:13:04,810 --> 00:13:07,134
+of what it means to order
+things in a file system,
+
+260
+00:13:07,134 --> 00:13:09,415
+right? Here's another example.
+
+261
+00:13:09,415 --> 00:13:16,700
+We are writing to a
+file descriptor, Fg.
+
+262
+00:13:16,940 --> 00:13:21,175
+We're writing something, let's
+say it's just a string A.
+
+263
+00:13:21,175 --> 00:13:24,695
+Then there's a crash, and
+
+264
+00:13:24,695 --> 00:13:28,529
+then we're performing a read
+from a file descriptor.
+
+265
+00:13:31,270 --> 00:13:36,390
+And then the question is,
+what is it outputting, right?
+
+266
+00:13:36,390 --> 00:13:41,749
+So basically, this seems
+
+267
+00:13:41,749 --> 00:13:43,310
+like a version of what
+
+268
+00:13:43,310 --> 00:13:45,590
+we already discussed
+on the left hand side,
+
+269
+00:13:45,590 --> 00:13:49,389
+but there's a possibility
+here to actually corrupt
+
+270
+00:13:49,389 --> 00:13:51,710
+the metadata of the file
+
+271
+00:13:51,710 --> 00:13:54,470
+corresponding to a file
+descriptor one, right?
+
+272
+00:13:54,470 --> 00:13:56,470
+So for instance, what might
+
+273
+00:13:56,470 --> 00:13:58,910
+happen is that let's start going
+
+274
+00:13:58,910 --> 00:14:01,469
+and digging into the
+toolbox that was
+
+275
+00:14:01,469 --> 00:14:04,070
+built up over the course of
+the last two lectures, right?
+
+276
+00:14:04,070 --> 00:14:08,670
+What does it mean to
+write to a file, okay?
+
+277
+00:14:08,670 --> 00:14:10,870
+What is a file? What's
+a representation
+
+278
+00:14:10,870 --> 00:14:12,309
+of a file in a file system?
+
+279
+00:14:12,309 --> 00:14:14,605
+How do we represent a file?
+
+280
+00:14:14,605 --> 00:14:16,660
+Let's break this down.
+
+281
+00:14:16,660 --> 00:14:19,059
+Take one step lower.
+
+282
+00:14:19,940 --> 00:14:24,419
+Yeah, go ahead. File metadata
+
+283
+00:14:24,419 --> 00:14:25,940
+that we want as programmers,
+
+284
+00:14:25,940 --> 00:14:30,500
+and then lines that the file.
+
+285
+00:14:31,110 --> 00:14:34,950
+Location of that.
+
+286
+00:14:34,950 --> 00:14:37,950
+Yeah. So at a high level,
+we have two things, right?
+
+287
+00:14:37,950 --> 00:14:40,150
+We have metadata and real data.
+
+288
+00:14:40,150 --> 00:14:43,270
+So that's the next level down in
+
+289
+00:14:43,270 --> 00:14:46,189
+terms of our level of detail
+that we're going to cover.
+
+290
+00:14:46,189 --> 00:14:48,030
+We have metadata
+and we have data.
+
+291
+00:14:48,030 --> 00:14:51,469
+So what data structure
+do we use for metadata?
+
+292
+00:14:51,469 --> 00:14:53,070
+We use an node, right?
+
+293
+00:14:53,070 --> 00:14:59,230
+So let's say that this is
+our node for file A, okay?
+
+294
+00:14:59,230 --> 00:15:01,150
+And on the right hand side,
+
+295
+00:15:01,150 --> 00:15:03,229
+we're going to have a
+set of data blocks.
+
+296
+00:15:03,229 --> 00:15:06,525
+So these are data blocks.
+
+297
+00:15:06,525 --> 00:15:08,100
+And remember that there's
+
+298
+00:15:08,100 --> 00:15:09,820
+a physical location on disk that
+
+299
+00:15:09,820 --> 00:15:13,140
+corresponds to the locations
+of the data blocks for real,
+
+300
+00:15:13,140 --> 00:15:16,539
+as well as a separate
+physical location for i
+
+301
+00:15:16,539 --> 00:15:18,060
+nodes where we actually store
+
+302
+00:15:18,060 --> 00:15:20,140
+the metadata associated
+with the files.
+
+303
+00:15:20,140 --> 00:15:23,140
+And those are two separate
+update operations.
+
+304
+00:15:23,140 --> 00:15:25,100
+So whenever we mutate the file,
+
+305
+00:15:25,100 --> 00:15:27,180
+we can potentially be
+
+306
+00:15:27,180 --> 00:15:29,380
+mutating the metadata because
+
+307
+00:15:29,380 --> 00:15:30,900
+what's in the metadata, right?
+
+308
+00:15:30,900 --> 00:15:33,020
+We have the NAM, right?
+
+309
+00:15:33,020 --> 00:15:35,500
+We have the size
+somewhere, right?
+
+310
+00:15:35,500 --> 00:15:38,659
+And we have the 12
+direct pointers,
+
+311
+00:15:38,659 --> 00:15:41,139
+where the direct pointers,
+I'm going to put a dot,
+
+312
+00:15:41,139 --> 00:15:43,940
+dot, dot here, direct
+pointers are pointing to
+
+313
+00:15:43,940 --> 00:15:47,560
+some data blocks that
+are on disk, okay?
+
+314
+00:15:47,560 --> 00:15:52,840
+So let's say we had two direct
+pointers pointing here,
+
+315
+00:15:52,840 --> 00:15:54,960
+and this write is
+
+316
+00:15:54,960 --> 00:15:58,320
+actually trying to
+sever this connection
+
+317
+00:15:58,320 --> 00:16:06,439
+and point them somewhere else
+and perform this update.
+
+318
+00:16:08,200 --> 00:16:11,080
+So this is an illustration
+of what would
+
+319
+00:16:11,080 --> 00:16:13,740
+happen if we're trying to
+perform a write on a file.
+
+320
+00:16:13,740 --> 00:16:16,320
+Right? What could
+happen is that you
+
+321
+00:16:16,320 --> 00:16:19,039
+might be mutating the
+data in these two blocks,
+
+322
+00:16:19,039 --> 00:16:21,240
+and, of course, mutation
+is not allowed in place.
+
+323
+00:16:21,240 --> 00:16:23,759
+So what you have to do
+is you perform a copy,
+
+324
+00:16:23,759 --> 00:16:25,840
+right, and then you
+mutate it over here.
+
+325
+00:16:25,840 --> 00:16:27,200
+And in order to do this,
+
+326
+00:16:27,200 --> 00:16:30,279
+you have to perform the
+actual copy and mutation,
+
+327
+00:16:30,279 --> 00:16:31,719
+and you have to update
+
+328
+00:16:31,719 --> 00:16:34,360
+the pointers to point to
+the new data blocks, right?
+
+329
+00:16:34,360 --> 00:16:35,960
+You see how we've broken it down
+
+330
+00:16:35,960 --> 00:16:38,159
+into finer granularity
+operations,
+
+331
+00:16:38,159 --> 00:16:40,040
+which all of a sudden
+makes it clear
+
+332
+00:16:40,040 --> 00:16:42,520
+that unless they're atomic,
+
+333
+00:16:42,520 --> 00:16:44,639
+there's something bad
+that can potentially
+
+334
+00:16:44,639 --> 00:16:46,160
+happen in the process of
+
+335
+00:16:46,160 --> 00:16:48,080
+us performing this
+operation. Yes.
+
+336
+00:16:48,080 --> 00:16:49,640
+Right in the second,
+
+337
+00:16:49,640 --> 00:16:50,840
+like, middle case, right,
+
+338
+00:16:50,840 --> 00:16:53,760
+want to writes atomic
+you said there, right?
+
+339
+00:16:53,760 --> 00:16:55,880
+It's like right FD one returns,
+
+340
+00:16:55,880 --> 00:16:58,199
+and then right FTU runs.
+
+341
+00:16:58,199 --> 00:17:00,480
+Why is that not atomic?
+
+342
+00:17:00,480 --> 00:17:04,080
+Like why can FD two be
+written but not FD Because
+
+343
+00:17:04,080 --> 00:17:05,640
+a right cisco does not
+
+344
+00:17:05,640 --> 00:17:09,039
+guarantee that the data
+was persisted to disk.
+
+345
+00:17:09,360 --> 00:17:13,880
+So, let's say you send an
+IO request to the disk,
+
+346
+00:17:13,880 --> 00:17:15,959
+that doesn't finish
+processing before you
+
+347
+00:17:15,959 --> 00:17:18,359
+return in your OS or
+
+348
+00:17:18,359 --> 00:17:20,559
+the right cysco is
+allowed to return
+
+349
+00:17:20,559 --> 00:17:23,399
+before the data is
+persisted to disk. Okay.
+
+350
+00:17:23,399 --> 00:17:26,364
+So how many of you
+find this as new?
+
+351
+00:17:26,364 --> 00:17:29,010
+Yeah, see, that's
+very important.
+
+352
+00:17:29,010 --> 00:17:30,689
+That's why we're having
+this conversation,
+
+353
+00:17:30,689 --> 00:17:33,009
+and I'm spending time on
+motivating this thing.
+
+354
+00:17:33,009 --> 00:17:34,210
+So you might have thought
+
+355
+00:17:34,210 --> 00:17:36,089
+that when you
+perform a write and
+
+356
+00:17:36,089 --> 00:17:37,649
+the write is a
+blocking call that
+
+357
+00:17:37,649 --> 00:17:39,810
+performs a cis call
+into your kernel,
+
+358
+00:17:39,810 --> 00:17:41,370
+comes back, you hope
+
+359
+00:17:41,370 --> 00:17:43,769
+that the data is on
+this, but it's not.
+
+360
+00:17:43,769 --> 00:17:46,570
+It's in some write
+buffer somewhere.
+
+361
+00:17:46,570 --> 00:17:49,169
+And it may not even
+be persistent to this
+
+362
+00:17:49,169 --> 00:17:52,614
+for some extended non
+trivial amount of time.
+
+363
+00:17:52,614 --> 00:17:55,460
+If you actually
+wanted this kind of
+
+364
+00:17:55,460 --> 00:17:57,820
+interface that
+guarantees persistency,
+
+365
+00:17:57,820 --> 00:17:59,380
+and we're going to
+cover that hopefully
+
+366
+00:17:59,380 --> 00:18:00,900
+by the end of the next lecture.
+
+367
+00:18:00,900 --> 00:18:02,620
+If you actually want that kind
+
+368
+00:18:02,620 --> 00:18:04,420
+of persistency and guarantee,
+
+369
+00:18:04,420 --> 00:18:06,940
+your rise would actually
+be insanely slow.
+
+370
+00:18:06,940 --> 00:18:08,739
+And so for performance reasons,
+
+371
+00:18:08,739 --> 00:18:10,659
+what they've decided is
+they decided to come
+
+372
+00:18:10,659 --> 00:18:12,819
+back from a Cisco
+and basically say,
+
+373
+00:18:12,819 --> 00:18:15,740
+all good, the operating
+system and the files,
+
+374
+00:18:15,740 --> 00:18:16,619
+the lower levels of
+
+375
+00:18:16,619 --> 00:18:17,979
+the file system are
+going to take care
+
+376
+00:18:17,979 --> 00:18:21,459
+of persistent disk at
+some point in time.
+
+377
+00:18:22,330 --> 00:18:24,209
+Yes.
+
+378
+00:18:24,209 --> 00:18:28,449
+In terms of atomicity of
+each right instruction?
+
+379
+00:18:28,449 --> 00:18:32,729
+Yes. So the right is not
+guaranteed to be atomic disk.
+
+380
+00:18:32,729 --> 00:18:34,330
+Don't use the word atomic.
+
+381
+00:18:34,330 --> 00:18:38,729
+It's not guaranteed to
+persist to disk. Yes. Yes.
+
+382
+00:18:39,600 --> 00:18:44,320
+Just so I'm clear on it, we
+have a situation where let's
+
+383
+00:18:44,320 --> 00:18:49,040
+say the first right
+goes halfway.
+
+384
+00:18:49,040 --> 00:18:51,159
+Sure. The second also goes up.
+
+385
+00:18:51,159 --> 00:18:52,839
+Yes. You can have
+that situation.
+
+386
+00:18:52,839 --> 00:18:55,119
+Yeah, and that's
+what I meant when
+
+387
+00:18:55,119 --> 00:18:57,639
+I was talking about the
+space of possibilities here.
+
+388
+00:18:57,639 --> 00:18:59,119
+Again, I can very
+
+389
+00:18:59,119 --> 00:19:01,479
+easily envision myself
+asking this question,
+
+390
+00:19:01,479 --> 00:19:04,719
+describe mathematically a
+space of possibilities if
+
+391
+00:19:04,719 --> 00:19:08,080
+we reason about the individual
+data block updates.
+
+392
+00:19:08,080 --> 00:19:09,800
+Because there's a
+set of data blocks
+
+393
+00:19:09,800 --> 00:19:11,479
+that's going to be mutated
+by the first right.
+
+394
+00:19:11,479 --> 00:19:13,080
+There's a set of data blocks
+
+395
+00:19:13,080 --> 00:19:14,959
+you want to mutate
+on the second right.
+
+396
+00:19:14,959 --> 00:19:18,160
+Then the question is, what is
+the space of possibilities?
+
+397
+00:19:18,160 --> 00:19:19,720
+Describe it as a set
+
+398
+00:19:19,720 --> 00:19:23,239
+over the subsets of those
+data blocks, right?
+
+399
+00:19:23,239 --> 00:19:25,439
+And I said that any
+subset is possible.
+
+400
+00:19:25,439 --> 00:19:27,959
+It's basically a power set
+of the union of those two.
+
+401
+00:19:27,959 --> 00:19:28,519
+Yes.
+
+402
+00:19:28,519 --> 00:19:31,560
+Separate rights are done
+by two separate processes.
+
+403
+00:19:31,560 --> 00:19:33,399
+No, it's the same process.
+
+404
+00:19:33,399 --> 00:19:36,719
+How come it's that
+sometimes like
+
+405
+00:19:36,719 --> 00:19:40,379
+FD two might occur before
+in the middle of FD one?
+
+406
+00:19:40,379 --> 00:19:42,879
+If it's in the same
+process, isn't that?
+
+407
+00:19:42,879 --> 00:19:44,560
+So remember, I'm describing
+
+408
+00:19:44,560 --> 00:19:46,559
+I'm not describing a file system
+
+409
+00:19:46,559 --> 00:19:48,439
+that already has
+something in place to
+
+410
+00:19:48,439 --> 00:19:50,600
+take care of ordering atomicity.
+
+411
+00:19:50,600 --> 00:19:52,720
+I'm describing a situation
+if we don't have
+
+412
+00:19:52,720 --> 00:19:54,800
+the primitives for
+ordering atomicity.
+
+413
+00:19:54,800 --> 00:19:58,159
+Okay. Yeah, that's a very good
+question because you would
+
+414
+00:19:58,159 --> 00:20:00,960
+expect the correct behavior
+
+415
+00:20:00,960 --> 00:20:03,160
+because you use the
+same operating system
+
+416
+00:20:03,160 --> 00:20:04,639
+that's already
+taken care of that.
+
+417
+00:20:04,639 --> 00:20:07,080
+But we're sort of building
+up to this to really
+
+418
+00:20:07,080 --> 00:20:08,679
+motivate the mechanisms that
+
+419
+00:20:08,679 --> 00:20:10,319
+you need in order for
+this to happen. Yeah.
+
+420
+00:20:10,319 --> 00:20:12,960
+So it's not guaranteed
+that I persist the disk.
+
+421
+00:20:12,960 --> 00:20:14,719
+Yeah. Let's say you
+a little bit crash.
+
+422
+00:20:14,719 --> 00:20:15,959
+You just write and you read.
+
+423
+00:20:15,959 --> 00:20:18,039
+When you read, is it
+guaranteed that what you
+
+424
+00:20:18,039 --> 00:20:20,319
+wrote is in the file or
+
+425
+00:20:20,319 --> 00:20:25,109
+the The read after write
+has the same semantics.
+
+426
+00:20:25,109 --> 00:20:27,669
+Yeah. And we're going to
+explain how that's enabled,
+
+427
+00:20:27,669 --> 00:20:30,989
+even if you don't persist
+what you wrote the disk,
+
+428
+00:20:30,989 --> 00:20:33,229
+because you'll be reading
+from some other location
+
+429
+00:20:33,229 --> 00:20:35,749
+where that data will have
+been persistent, okay?
+
+430
+00:20:35,749 --> 00:20:37,309
+And back to your question, like,
+
+431
+00:20:37,309 --> 00:20:38,909
+even in the sane
+operating system,
+
+432
+00:20:38,909 --> 00:20:40,469
+what I said earlier
+is true, the write
+
+433
+00:20:40,469 --> 00:20:42,190
+does not guarantee persistence.
+
+434
+00:20:42,190 --> 00:20:45,670
+It just guarantee just
+guarantees crash consistency,
+
+435
+00:20:45,670 --> 00:20:47,549
+which is what's important.
+
+436
+00:20:47,549 --> 00:20:49,469
+Okay? All right.
+
+437
+00:20:49,469 --> 00:20:52,590
+Any other questions
+about these scenarios?
+
+438
+00:20:53,390 --> 00:20:55,790
+It's easy to spend it like
+
+439
+00:20:55,790 --> 00:20:57,469
+the rest of the lecture
+talking about this.
+
+440
+00:20:57,469 --> 00:20:59,709
+For instance, for
+instance, okay?
+
+441
+00:20:59,709 --> 00:21:01,510
+We just covered security,
+
+442
+00:21:01,510 --> 00:21:03,630
+and, you know, buffer overflows,
+
+443
+00:21:03,630 --> 00:21:06,909
+you had an awesome supervised
+lab that the core staff
+
+444
+00:21:06,909 --> 00:21:11,589
+has delivered with
+passion yesterday, right?
+
+445
+00:21:11,589 --> 00:21:13,630
+Now, can you envision
+
+446
+00:21:13,630 --> 00:21:18,450
+some security implications
+with partial file updates?
+
+447
+00:21:18,450 --> 00:21:20,950
+If we do nothing,
+if we don't have
+
+448
+00:21:20,950 --> 00:21:23,469
+atomicity or
+ordering guarantees.
+
+449
+00:21:23,469 --> 00:21:26,189
+What can possibly happen
+here if, for example,
+
+450
+00:21:26,189 --> 00:21:28,390
+in the process of
+updating the metadata
+
+451
+00:21:28,390 --> 00:21:30,709
+for the Nde for A, you know,
+
+452
+00:21:30,709 --> 00:21:32,989
+we crashed, and we didn't really
+
+453
+00:21:32,989 --> 00:21:34,870
+update the actual blocks
+
+454
+00:21:34,870 --> 00:21:36,749
+with the content we
+wanted to write.
+
+455
+00:21:36,749 --> 00:21:40,310
+What can happen from a
+security perspective?
+
+456
+00:21:41,210 --> 00:21:46,929
+Yeah. A file can gain access
+to a block that belonged to
+
+457
+00:21:46,929 --> 00:21:48,889
+a different file
+and then read data
+
+458
+00:21:48,889 --> 00:21:50,450
+from something that it shouldn't
+
+459
+00:21:50,450 --> 00:21:52,089
+have had access to
+in the first place.
+
+460
+00:21:52,089 --> 00:21:55,409
+Yeah, exactly. This could
+
+461
+00:21:55,409 --> 00:21:58,490
+have been somebody
+else's private SSH key.
+
+462
+00:21:58,490 --> 00:22:00,410
+They're just data blocks.
+
+463
+00:22:00,410 --> 00:22:01,850
+They stored some content.
+
+464
+00:22:01,850 --> 00:22:04,370
+What abstraction that should be
+
+465
+00:22:04,370 --> 00:22:07,930
+guaranteed by an operating
+system does this violate?
+
+466
+00:22:07,930 --> 00:22:11,730
+Yes. Isolation. So see
+
+467
+00:22:11,730 --> 00:22:14,489
+how we've sort of
+started from the very,
+
+468
+00:22:14,489 --> 00:22:16,889
+very low level view of
+what's happening on
+
+469
+00:22:16,889 --> 00:22:19,410
+a file mutation and
+percolated all the
+
+470
+00:22:19,410 --> 00:22:22,530
+way up to the top and sort
+of motivated the fact
+
+471
+00:22:22,530 --> 00:22:24,009
+that something bad can happen
+
+472
+00:22:24,009 --> 00:22:25,930
+even from a very high
+level perspective.
+
+473
+00:22:25,930 --> 00:22:27,529
+The isolation here would be
+
+474
+00:22:27,529 --> 00:22:30,969
+broken if we don't have the
+mechanisms to fix this.
+
+475
+00:22:30,969 --> 00:22:33,730
+If we don't have the mechanisms
+for crash consistency,
+
+476
+00:22:33,730 --> 00:22:37,169
+if we don't have atomicity
+and ordering guarantees.
+
+477
+00:22:37,169 --> 00:22:39,009
+Okay. Because in this
+particular case,
+
+478
+00:22:39,009 --> 00:22:41,529
+we will have updated the
+direct pointers to point to
+
+479
+00:22:41,529 --> 00:22:44,489
+data blocks that may actually
+have somebody else's data,
+
+480
+00:22:44,489 --> 00:22:46,409
+regardless of what that data is,
+
+481
+00:22:46,409 --> 00:22:49,269
+we really do not
+want this to happen.
+
+482
+00:22:49,269 --> 00:22:51,690
+Okay, I have other examples,
+
+483
+00:22:51,690 --> 00:22:54,770
+but I think I
+
+484
+00:22:54,770 --> 00:22:56,689
+think I'm just going to
+
+485
+00:22:56,689 --> 00:22:59,129
+move on to a different
+example here, okay?
+
+486
+00:22:59,129 --> 00:23:00,689
+So basically, how do we know
+
+487
+00:23:00,689 --> 00:23:03,130
+if my data persisted to disk?
+
+488
+00:23:03,130 --> 00:23:06,489
+We talked about that. You don't.
+
+489
+00:23:06,489 --> 00:23:08,609
+How do I ensure that
+
+490
+00:23:08,609 --> 00:23:10,009
+the file system metadata
+
+491
+00:23:10,009 --> 00:23:12,009
+wasn't corrupted? We're
+going to discuss this.
+
+492
+00:23:12,009 --> 00:23:13,809
+Basically, the
+mechanisms for this
+
+493
+00:23:13,809 --> 00:23:17,050
+are that you need some
+primitives of ordering,
+
+494
+00:23:17,050 --> 00:23:19,490
+and you need some
+primitives for ethnicity.
+
+495
+00:23:19,490 --> 00:23:22,090
+Ordering basically
+refers to imposing
+
+496
+00:23:22,090 --> 00:23:27,009
+some partial order on
+the file updates, okay?
+
+497
+00:23:27,009 --> 00:23:29,689
+And we do have a
+mechanism for this that
+
+498
+00:23:29,689 --> 00:23:33,289
+is generously provided to
+us by the low level system,
+
+499
+00:23:33,289 --> 00:23:35,369
+and that's called
+the flush, okay?
+
+500
+00:23:35,369 --> 00:23:38,449
+And atomicity is basically
+the ability for us to
+
+501
+00:23:38,449 --> 00:23:42,170
+perform updates in an
+all or nothing fashion.
+
+502
+00:23:42,170 --> 00:23:43,569
+In other words, when you are
+
+503
+00:23:43,569 --> 00:23:45,210
+trying to do
+something atomically,
+
+504
+00:23:45,210 --> 00:23:47,409
+you want to make sure
+that either everything in
+
+505
+00:23:47,409 --> 00:23:50,169
+this atomicity block is done or
+
+506
+00:23:50,169 --> 00:23:53,010
+rather the way in
+which it mutates
+
+507
+00:23:53,010 --> 00:23:56,809
+the universe is visible all
+at once or not at all, okay?
+
+508
+00:23:56,809 --> 00:23:58,490
+And no partial updates,
+
+509
+00:23:58,490 --> 00:24:02,164
+no partial state mutations
+are actually possible.
+
+510
+00:24:02,164 --> 00:24:04,440
+When you impose ethnicity.
+
+511
+00:24:04,440 --> 00:24:07,679
+Okay. Here's another example.
+
+512
+00:24:07,679 --> 00:24:09,119
+And in this particular example,
+
+513
+00:24:09,119 --> 00:24:12,160
+what we're doing is quite
+simple on the surface.
+
+514
+00:24:12,160 --> 00:24:15,119
+What we're doing is we're
+creating a directory, right?
+
+515
+00:24:15,119 --> 00:24:16,440
+And then we're performing
+
+516
+00:24:16,440 --> 00:24:21,959
+to a file creation
+inside this directory.
+
+517
+00:24:24,210 --> 00:24:27,049
+So what are some
+
+518
+00:24:27,049 --> 00:24:28,529
+of the questions are
+sort of being asked,
+
+519
+00:24:28,529 --> 00:24:30,490
+what happens if Mad is actually
+
+520
+00:24:30,490 --> 00:24:33,569
+sync to disk after they open?
+
+521
+00:24:33,569 --> 00:24:37,090
+So with Elton during
+the previous lecture,
+
+522
+00:24:37,090 --> 00:24:40,050
+did you cover the directories
+and the durance structure?
+
+523
+00:24:40,050 --> 00:24:41,929
+Oh, yeah, you touched
+upon that, right?
+
+524
+00:24:41,929 --> 00:24:44,289
+So you know that the
+directory basically has
+
+525
+00:24:44,289 --> 00:24:46,809
+its own directory block
+with durance, right?
+
+526
+00:24:46,809 --> 00:24:48,410
+And durance corresponds to
+
+527
+00:24:48,410 --> 00:24:50,369
+the individual files that
+
+528
+00:24:50,369 --> 00:24:53,559
+the directory is
+linking to, right?
+
+529
+00:24:53,559 --> 00:24:56,630
+And so think about this
+from this perspective.
+
+530
+00:24:56,630 --> 00:24:59,349
+You're you're creating X,
+
+531
+00:24:59,349 --> 00:25:01,589
+which is your directory,
+then you're creating
+
+532
+00:25:01,589 --> 00:25:04,350
+a file inside X,
+which is your file.
+
+533
+00:25:04,350 --> 00:25:06,149
+And as I mentioned,
+
+534
+00:25:06,149 --> 00:25:07,749
+you do not necessarily
+you're not
+
+535
+00:25:07,749 --> 00:25:10,390
+necessarily guaranteed the
+ordering of those operations.
+
+536
+00:25:10,390 --> 00:25:13,709
+So what if you sync the
+metadata corresponding to Y
+
+537
+00:25:13,709 --> 00:25:18,430
+before you sync the creation
+of the directory X?
+
+538
+00:25:21,950 --> 00:25:26,249
+Yes. You can't read
+
+539
+00:25:26,249 --> 00:25:30,329
+from disk because what you
+want isn't actually in disk.
+
+540
+00:25:30,329 --> 00:25:37,329
+So maybe you have a memory
+representation permitting.
+
+541
+00:25:38,690 --> 00:25:42,569
+Okay. So maybe you could have
+a system where you're in
+
+542
+00:25:42,569 --> 00:25:46,649
+memory storage has almost
+like a dirty bit, right?
+
+543
+00:25:46,649 --> 00:25:48,209
+Where it if it's dirty,
+
+544
+00:25:48,209 --> 00:25:50,850
+then it signifies that
+it hasn't been san yet.
+
+545
+00:25:50,850 --> 00:25:55,359
+It's dirty. Then it is.
+
+546
+00:25:55,359 --> 00:25:57,319
+So before you go
+
+547
+00:25:57,319 --> 00:26:02,359
+to every location is the
+information I report.
+
+548
+00:26:02,359 --> 00:26:04,239
+If it isn't it,
+
+549
+00:26:04,239 --> 00:26:07,600
+if it's not, then I'm
+going to just get it.
+
+550
+00:26:07,600 --> 00:26:11,440
+Okay. Yes, I think you're
+going in the right direction,
+
+551
+00:26:11,440 --> 00:26:12,600
+but we just need to sort of
+
+552
+00:26:12,600 --> 00:26:15,079
+concretize what you said
+a little bit, right?
+
+553
+00:26:15,079 --> 00:26:16,279
+We need to give it
+
+554
+00:26:16,279 --> 00:26:17,840
+very concrete and precise shape
+
+555
+00:26:17,840 --> 00:26:19,520
+because I really like precision.
+
+556
+00:26:19,520 --> 00:26:21,600
+So let's try to make
+it more precise.
+
+557
+00:26:21,600 --> 00:26:23,835
+So here's our directory block.
+
+558
+00:26:23,835 --> 00:26:25,789
+I'm going to try to write it
+
+559
+00:26:25,789 --> 00:26:27,390
+on this board and
+then maybe I'll
+
+560
+00:26:27,390 --> 00:26:31,229
+switch around to try
+to preserve state.
+
+561
+00:26:31,229 --> 00:26:34,469
+So here's our directory block.
+
+562
+00:26:34,469 --> 00:26:38,670
+This is directory block D block.
+
+563
+00:26:38,670 --> 00:26:41,189
+Inside this directory block,
+
+564
+00:26:41,189 --> 00:26:43,510
+and this is d block
+for X, by the way.
+
+565
+00:26:43,510 --> 00:26:46,590
+Inside this directory
+block, we have Dur ends.
+
+566
+00:26:46,590 --> 00:26:49,629
+This is our Dr end.
+
+567
+00:26:53,080 --> 00:26:55,639
+N, okay?
+
+568
+00:26:55,639 --> 00:26:58,479
+And what does dur consist of?
+
+569
+00:26:58,479 --> 00:27:00,320
+It consists of the file num,
+
+570
+00:27:00,320 --> 00:27:02,919
+a 14 byte file num, in
+this particular case,
+
+571
+00:27:02,919 --> 00:27:05,399
+Y, and the node number
+
+572
+00:27:05,399 --> 00:27:08,279
+corresponding to this
+file num, all right?
+
+573
+00:27:08,279 --> 00:27:12,560
+And so the conceptual
+representation
+
+574
+00:27:12,560 --> 00:27:14,919
+here is that clearly this num is
+
+575
+00:27:14,919 --> 00:27:24,419
+sort of a pointer to the
+node for file Y, right?
+
+576
+00:27:24,419 --> 00:27:27,100
+Because NOM defines the location
+
+577
+00:27:27,100 --> 00:27:28,860
+on disk where you should be
+
+578
+00:27:28,860 --> 00:27:33,619
+able to find the eye node
+for the file Y, okay?
+
+579
+00:27:33,619 --> 00:27:35,780
+So you have this eye node,
+
+580
+00:27:35,780 --> 00:27:38,140
+and we know what's
+inside the eye node.
+
+581
+00:27:38,140 --> 00:27:40,619
+We have the number, right?
+
+582
+00:27:40,619 --> 00:27:45,619
+We have size, and we
+have our favorite what?
+
+583
+00:27:48,740 --> 00:27:50,819
+What?
+
+584
+00:27:54,500 --> 00:27:58,820
+How do we keep track of
+data from an eye node?
+
+585
+00:28:01,810 --> 00:28:03,889
+Yeah.
+
+586
+00:28:04,610 --> 00:28:08,169
+Yeah, the pointers to
+direct blocks, right?
+
+587
+00:28:08,169 --> 00:28:10,690
+These are our ADDRs
+
+588
+00:28:10,690 --> 00:28:14,290
+that give us the pointers
+to direct blocks.
+
+589
+00:28:15,010 --> 00:28:18,929
+And now, finally, we
+have a third thing here,
+
+590
+00:28:18,929 --> 00:28:22,770
+which is a set of data blocks,
+
+591
+00:28:25,890 --> 00:28:29,210
+which is yet another
+location on disk,
+
+592
+00:28:29,210 --> 00:28:32,769
+right, to which these
+pointers are pointing to.
+
+593
+00:28:35,330 --> 00:28:40,369
+Okay? And so In order
+
+594
+00:28:40,369 --> 00:28:42,329
+for you to ask these questions
+
+595
+00:28:42,329 --> 00:28:44,969
+that you currently see
+on the overhead, right?
+
+596
+00:28:44,969 --> 00:28:48,529
+What happens if Mader is
+synced for disk after open?
+
+597
+00:28:48,529 --> 00:28:51,289
+You should really draw
+
+598
+00:28:51,289 --> 00:28:55,290
+the conceptual diagram of
+what's involved in the process
+
+599
+00:28:55,290 --> 00:28:58,209
+of calling a Madir and calling
+
+600
+00:28:58,209 --> 00:29:02,529
+an open that creates a
+file Y inside directory X.
+
+601
+00:29:02,529 --> 00:29:04,289
+And this is what happens.
+
+602
+00:29:04,289 --> 00:29:08,249
+You have to create a
+directory block for X.
+
+603
+00:29:08,249 --> 00:29:11,009
+That's what Mad is going
+to take care of, right?
+
+604
+00:29:11,009 --> 00:29:14,929
+And then within that
+directory block for X,
+
+605
+00:29:14,929 --> 00:29:18,184
+you will create a
+Durant for file Y
+
+606
+00:29:18,184 --> 00:29:23,119
+on the open Sysco when you're
+creating file Y, okay?
+
+607
+00:29:23,119 --> 00:29:26,159
+So basically, this is one,
+
+608
+00:29:26,159 --> 00:29:28,240
+the creation of the dead block,
+
+609
+00:29:28,240 --> 00:29:32,199
+and this is two, this
+and this right here,
+
+610
+00:29:32,199 --> 00:29:36,080
+the mutation of the mutation
+of the data blocks.
+
+611
+00:29:36,100 --> 00:29:39,059
+And so the question is asking,
+
+612
+00:29:39,059 --> 00:29:41,539
+what happens if you are going to
+
+613
+00:29:41,539 --> 00:29:49,219
+sync if you're going to sync
+the Mad to disk after open?
+
+614
+00:29:49,219 --> 00:29:51,899
+So open will have
+created the ide, right,
+
+615
+00:29:51,899 --> 00:29:53,139
+and it will have set up
+
+616
+00:29:53,139 --> 00:29:55,700
+the metadata for
+the Wi file i node,
+
+617
+00:29:55,700 --> 00:29:58,219
+and Mad will have
+created the DR block
+
+618
+00:29:58,219 --> 00:30:01,539
+and updated the DR entry
+for the file, right?
+
+619
+00:30:01,539 --> 00:30:04,299
+So what will happen if
+these are out of order?
+
+620
+00:30:04,299 --> 00:30:08,259
+Anything bad? What
+concretely would happen now?
+
+621
+00:30:20,500 --> 00:30:23,619
+Well, you will have
+created this node,
+
+622
+00:30:23,619 --> 00:30:25,620
+right, in the system,
+
+623
+00:30:25,620 --> 00:30:27,499
+but nothing is pointing to it.
+
+624
+00:30:27,499 --> 00:30:29,019
+If there is a crash,
+
+625
+00:30:29,019 --> 00:30:32,419
+there is no way to interact
+into the i node, right?
+
+626
+00:30:32,419 --> 00:30:35,499
+There's no way to actually
+operate on this file.
+
+627
+00:30:35,499 --> 00:30:38,019
+So in some sense, you
+will have this state
+
+628
+00:30:38,019 --> 00:30:41,179
+that corresponds to the file
+to which nobody is pointing.
+
+629
+00:30:41,179 --> 00:30:43,059
+And so that will actually lead
+
+630
+00:30:43,059 --> 00:30:45,099
+to the i node leakage, right?
+
+631
+00:30:45,099 --> 00:30:48,500
+You just like you can
+potentially leak memory by
+
+632
+00:30:48,500 --> 00:30:50,380
+allocating memory
+and then shifting
+
+633
+00:30:50,380 --> 00:30:52,460
+the pointer away from the
+memory you're allocating.
+
+634
+00:30:52,460 --> 00:30:54,299
+This is the same
+situation where you've
+
+635
+00:30:54,299 --> 00:30:57,179
+allocated the metadata
+for the file Y,
+
+636
+00:30:57,179 --> 00:30:58,819
+but then nobody
+is pointing to it
+
+637
+00:30:58,819 --> 00:31:00,860
+because you haven't
+persisted to disk.
+
+638
+00:31:00,860 --> 00:31:03,899
+Okay? So in this
+particular case,
+
+639
+00:31:03,899 --> 00:31:06,859
+the out of order updates for
+
+640
+00:31:06,859 --> 00:31:09,939
+the metadata for file note and
+
+641
+00:31:09,939 --> 00:31:17,139
+the DR block for directory
+X is a huge problem, okay?
+
+642
+00:31:17,139 --> 00:31:19,219
+And there's some
+additional things
+
+643
+00:31:19,219 --> 00:31:21,140
+to consider. Let's see.
+
+644
+00:31:21,140 --> 00:31:23,940
+What happens if metadata
+is corrupted for Y?
+
+645
+00:31:23,940 --> 00:31:27,099
+And so we sort of already
+talked about that, right?
+
+646
+00:31:27,099 --> 00:31:29,899
+And what happens if X D entry
+
+647
+00:31:29,899 --> 00:31:32,979
+is written before's I Note data?
+
+648
+00:31:32,979 --> 00:31:37,460
+And that's basically what
+I have just described.
+
+649
+00:31:37,460 --> 00:31:39,539
+Any question about this?
+
+650
+00:31:49,450 --> 00:31:51,810
+No questions.
+
+651
+00:31:51,810 --> 00:31:55,169
+Okay. Okay, and this
+
+652
+00:31:55,169 --> 00:31:57,689
+is a refresher for
+directory representation.
+
+653
+00:31:57,689 --> 00:32:01,729
+Basically, you have,
+as we discussed,
+
+654
+00:32:01,729 --> 00:32:03,570
+you have a Duren which consists
+
+655
+00:32:03,570 --> 00:32:05,529
+of the NM and a file number,
+
+656
+00:32:05,529 --> 00:32:08,249
+and the Durent is
+free if iNM is zero.
+
+657
+00:32:08,249 --> 00:32:10,249
+So basically that's how
+we are able to reuse
+
+658
+00:32:10,249 --> 00:32:12,609
+the Durant inside
+the directory block.
+
+659
+00:32:12,609 --> 00:32:15,090
+And the Durant itself
+
+660
+00:32:15,090 --> 00:32:17,529
+has the two important
+fields that we care about.
+
+661
+00:32:17,529 --> 00:32:19,770
+One of them is the NM itself,
+
+662
+00:32:19,770 --> 00:32:22,209
+and the second one is
+the name of the file.
+
+663
+00:32:22,209 --> 00:32:26,170
+Okay. So by now,
+
+664
+00:32:26,170 --> 00:32:29,449
+what we should really appreciate
+
+665
+00:32:29,449 --> 00:32:31,209
+is that the interface that
+
+666
+00:32:31,209 --> 00:32:33,369
+is given to us by the
+disk is very low level.
+
+667
+00:32:33,369 --> 00:32:35,810
+All you get is the
+ability to read a block,
+
+668
+00:32:35,810 --> 00:32:37,169
+the ability to write a block,
+
+669
+00:32:37,169 --> 00:32:39,129
+and you don't have
+any guarantees
+
+670
+00:32:39,129 --> 00:32:41,169
+over the order in which
+this happens, right?
+
+671
+00:32:41,169 --> 00:32:44,089
+Because the low
+level disk drivers
+
+672
+00:32:44,089 --> 00:32:46,289
+are actually allowed
+to reorder data,
+
+673
+00:32:46,289 --> 00:32:47,929
+buffer data, and perform
+
+674
+00:32:47,929 --> 00:32:50,130
+these things in a
+nonatomic fashion.
+
+675
+00:32:50,130 --> 00:32:52,429
+And Thank goodness there is
+
+676
+00:32:52,429 --> 00:32:55,070
+one operation like flush
+that actually gives
+
+677
+00:32:55,070 --> 00:33:00,070
+us some sense of control over
+the order of operations.
+
+678
+00:33:00,070 --> 00:33:01,829
+Because flush, what does it do?
+
+679
+00:33:01,829 --> 00:33:03,949
+It gives us the
+ability to wait in
+
+680
+00:33:03,949 --> 00:33:07,869
+a blocking fashion until
+all pending reason writes.
+
+681
+00:33:07,869 --> 00:33:09,309
+And by reason writes here,
+
+682
+00:33:09,309 --> 00:33:12,230
+I mean the low level read and
+write operations to disk,
+
+683
+00:33:12,230 --> 00:33:17,070
+okay, are actually synced to
+disk before flush returns.
+
+684
+00:33:23,610 --> 00:33:26,329
+And so that's what we
+have to work with.
+
+685
+00:33:26,329 --> 00:33:28,569
+So basically, it gives us
+
+686
+00:33:28,569 --> 00:33:32,570
+some operations or
+some primitives
+
+687
+00:33:32,570 --> 00:33:35,169
+with which we can actually
+construct a partial order.
+
+688
+00:33:35,169 --> 00:33:36,969
+So here's a way to
+
+689
+00:33:36,969 --> 00:33:39,449
+appreciate the level of
+
+690
+00:33:39,449 --> 00:33:42,449
+control that you get
+with the flush, right?
+
+691
+00:33:42,449 --> 00:33:44,489
+So let's say that you've
+
+692
+00:33:44,489 --> 00:33:47,169
+issued over the course
+of a couple of writes,
+
+693
+00:33:47,169 --> 00:33:48,930
+let's say, right to file disk,
+
+694
+00:33:48,930 --> 00:33:50,369
+right to FD one.
+
+695
+00:33:50,369 --> 00:33:52,930
+Let's say issue the
+right block 47.
+
+696
+00:33:52,930 --> 00:33:56,490
+So you write block 47,
+
+697
+00:33:56,490 --> 00:33:58,169
+that's your operation
+number one.
+
+698
+00:33:58,169 --> 00:34:01,129
+Then the second one
+is right block two.
+
+699
+00:34:01,129 --> 00:34:05,129
+Right block two.
+
+700
+00:34:05,129 --> 00:34:12,129
+And the third one is right
+block 48, block 48, right?
+
+701
+00:34:12,129 --> 00:34:14,890
+And then you issued
+a right block 49.
+
+702
+00:34:14,890 --> 00:34:17,649
+So in what order would you
+
+703
+00:34:17,649 --> 00:34:21,169
+expect these operations
+to actually happen?
+
+704
+00:34:21,169 --> 00:34:23,529
+Give me a really good guess.
+
+705
+00:34:26,410 --> 00:34:31,089
+Given what we know about
+spinning disks and what
+
+706
+00:34:31,089 --> 00:34:35,850
+we discussed last year, reset.
+
+707
+00:34:39,330 --> 00:34:44,050
+Okay, so you expect
+something here to impose
+
+708
+00:34:44,050 --> 00:34:45,609
+the order because
+the first batch of
+
+709
+00:34:45,609 --> 00:34:48,769
+write operations and the
+second batch of operations.
+
+710
+00:34:48,769 --> 00:34:51,689
+Not yet. That's what we
+want to happen, right?
+
+711
+00:34:51,689 --> 00:34:54,529
+But not yet. So yes.
+
+712
+00:34:56,210 --> 00:34:58,689
+Yeah, something
+like this, right?
+
+713
+00:34:58,689 --> 00:35:02,369
+You would actually
+expect the underlying
+
+714
+00:35:03,170 --> 00:35:09,169
+the underlying the underlying
+low level system software
+
+715
+00:35:09,169 --> 00:35:12,130
+to actually order
+them as follows,
+
+716
+00:35:12,130 --> 00:35:14,610
+47, 48 followed by 49,
+
+717
+00:35:14,610 --> 00:35:16,249
+and then two maybe before
+
+718
+00:35:16,249 --> 00:35:18,969
+because then it's monotonically
+increasing, right?
+
+719
+00:35:18,969 --> 00:35:20,649
+Or it may be after, you know,
+
+720
+00:35:20,649 --> 00:35:23,730
+both possibilities are
+kind of very likely.
+
+721
+00:35:23,730 --> 00:35:26,489
+So that's what could
+potentially happen, right?
+
+722
+00:35:26,489 --> 00:35:28,569
+And so you can see that you
+
+723
+00:35:28,569 --> 00:35:30,729
+can easily achieve
+the interleaving of
+
+724
+00:35:30,729 --> 00:35:32,329
+the block writes across
+
+725
+00:35:32,329 --> 00:35:35,730
+the two actually file
+descriptor updates.
+
+726
+00:35:35,730 --> 00:35:39,209
+Now, if you actually
+want the first batch of
+
+727
+00:35:39,209 --> 00:35:42,610
+rights to complete before
+the second batch of rights,
+
+728
+00:35:42,610 --> 00:35:45,570
+we do have an operation
+that gives us this ability,
+
+729
+00:35:45,570 --> 00:35:47,330
+and that's the flush operation.
+
+730
+00:35:47,330 --> 00:35:50,369
+Conceptually, what
+happens is that
+
+731
+00:35:50,369 --> 00:35:53,970
+the flush operation
+essentially imposes
+
+732
+00:35:53,970 --> 00:36:03,890
+a partial order over a set
+of 47 48 sorry, 472 and 48.
+
+733
+00:36:04,310 --> 00:36:12,269
+With a set that consists
+of block number 49, okay?
+
+734
+00:36:12,269 --> 00:36:14,829
+So it imposes a happens before
+
+735
+00:36:14,829 --> 00:36:17,790
+relationship between this
+subset and this subset.
+
+736
+00:36:17,790 --> 00:36:22,349
+So we know that if we
+impose a flash right here,
+
+737
+00:36:22,349 --> 00:36:24,550
+that it gives us a happens
+
+738
+00:36:24,550 --> 00:36:26,789
+before relationship
+that we wanted.
+
+739
+00:36:28,950 --> 00:36:33,430
+Yeah. There's no ordering.
+
+740
+00:36:33,990 --> 00:36:37,429
+There's no ordering within
+that set. That's correct.
+
+741
+00:36:37,429 --> 00:36:42,189
+Yeah. Does everybody understand
+this conceptualization?
+
+742
+00:36:42,189 --> 00:36:44,149
+Would you be given this,
+
+743
+00:36:44,149 --> 00:36:47,829
+would you be able to enumerate
+all possible orders in
+
+744
+00:36:47,829 --> 00:36:53,109
+which the riots can actually
+happen on a physical disk?
+
+745
+00:36:54,150 --> 00:36:58,069
+How many possible
+orders are there?
+
+746
+00:36:59,350 --> 00:37:02,949
+Can somebody give me a
+mathematical description of
+
+747
+00:37:02,949 --> 00:37:04,789
+how many possible
+orders are there given
+
+748
+00:37:04,789 --> 00:37:07,029
+this partial directed le graph?
+
+749
+00:37:07,029 --> 00:37:10,430
+Yeah. Oh, for the flush,
+
+750
+00:37:10,430 --> 00:37:12,469
+so there's three,
+
+751
+00:37:12,469 --> 00:37:15,349
+there's three rights in
+the first, block, I guess.
+
+752
+00:37:15,349 --> 00:37:17,549
+And so there's six different
+orderings of those.
+
+753
+00:37:17,549 --> 00:37:20,309
+Yeah. So you have to consider
+all permutations of that.
+
+754
+00:37:20,309 --> 00:37:23,229
+And there's only one
+possible possibility
+
+755
+00:37:23,229 --> 00:37:25,710
+for the second right block
+because it has to write 49.
+
+756
+00:37:25,710 --> 00:37:27,630
+But just six times 16.
+
+757
+00:37:27,630 --> 00:37:30,149
+Yeah, exactly. It's
+three factorial.
+
+758
+00:37:30,149 --> 00:37:32,749
+Does everybody see that, right?
+
+759
+00:37:32,749 --> 00:37:37,989
+Because in general, if
+you have some set A with
+
+760
+00:37:37,989 --> 00:37:40,309
+N elements and a
+partial order with
+
+761
+00:37:40,309 --> 00:37:44,869
+a set B with K elements,
+it's going to be what?
+
+762
+00:37:45,760 --> 00:37:52,679
+N factorial multiplied
+by a factorial.
+
+763
+00:37:52,679 --> 00:37:55,159
+That's the number
+of possibilities of
+
+764
+00:37:55,159 --> 00:37:57,360
+the orders that you
+are going to achieve,
+
+765
+00:37:57,360 --> 00:38:00,960
+which is much better
+than just N plus
+
+766
+00:38:00,960 --> 00:38:04,079
+K factorial that you
+
+767
+00:38:04,079 --> 00:38:07,215
+could otherwise have without
+this ordering operation.
+
+768
+00:38:07,215 --> 00:38:09,270
+But that's a side note.
+
+769
+00:38:09,270 --> 00:38:11,149
+Okay? I just want you to make
+
+770
+00:38:11,149 --> 00:38:13,269
+sure that these are very
+powerful primitives.
+
+771
+00:38:13,269 --> 00:38:15,910
+It's not just for the sake
+of coming up with notation.
+
+772
+00:38:15,910 --> 00:38:18,750
+It actually has something
+very concrete meanings.
+
+773
+00:38:18,750 --> 00:38:21,550
+Okay, so as operating
+system developers
+
+774
+00:38:21,550 --> 00:38:22,950
+as file system developers,
+
+775
+00:38:22,950 --> 00:38:25,229
+kind of the job that
+we have is how do we
+
+776
+00:38:25,229 --> 00:38:27,989
+turn this partial disk
+or write interface with
+
+777
+00:38:27,989 --> 00:38:32,190
+flashes into the atomic
+multi block and note update
+
+778
+00:38:32,190 --> 00:38:33,989
+that our file system
+actually needs?
+
+779
+00:38:33,989 --> 00:38:36,589
+Oh, by the way, you
+can actually not
+
+780
+00:38:36,589 --> 00:38:37,909
+update in place because
+
+781
+00:38:37,909 --> 00:38:39,969
+the disk interface
+doesn't allow it.
+
+782
+00:38:39,969 --> 00:38:44,109
+Right? If you want to
+mutate if you actually
+
+783
+00:38:44,109 --> 00:38:46,470
+want to mutate a
+particular block
+
+784
+00:38:46,470 --> 00:38:48,469
+in your data block
+section of the disk,
+
+785
+00:38:48,469 --> 00:38:50,230
+you have to perform a copy.
+
+786
+00:38:50,230 --> 00:38:53,510
+And only then you can
+override that copy
+
+787
+00:38:53,510 --> 00:38:57,749
+before you can actually
+mutate that content, right?
+
+788
+00:38:57,749 --> 00:39:00,989
+And so there are two primary
+methods that we're going to
+
+789
+00:39:00,989 --> 00:39:04,749
+discuss this week and next week,
+
+790
+00:39:04,749 --> 00:39:06,830
+and they're called
+shadowing and logging.
+
+791
+00:39:06,830 --> 00:39:09,149
+Have you heard you must have
+heard of logging before,
+
+792
+00:39:09,149 --> 00:39:11,429
+but has anyone
+heard of shadowing?
+
+793
+00:39:11,429 --> 00:39:14,389
+You've heard of
+shadowing? Okay, perfect.
+
+794
+00:39:14,389 --> 00:39:17,109
+Has anyone else
+heard of shadowing?
+
+795
+00:39:17,470 --> 00:39:20,349
+No. Was there a question?
+
+796
+00:39:20,349 --> 00:39:22,830
+Yes. Question.
+
+797
+00:39:22,830 --> 00:39:26,349
+Why did they make it so that
+you can't update in place?
+
+798
+00:39:26,349 --> 00:39:28,189
+Because doesn't that mean
+that you always have to
+
+799
+00:39:28,189 --> 00:39:30,389
+have an extra iNde or just
+
+800
+00:39:30,389 --> 00:39:32,229
+replace an existing iNde and
+
+801
+00:39:32,229 --> 00:39:34,830
+wouldn't that be a waste
+of data or storage?
+
+802
+00:39:34,830 --> 00:39:37,549
+Yeah, a lot of these
+decisions were made by
+
+803
+00:39:37,549 --> 00:39:39,709
+the disk manufacturers in order
+
+804
+00:39:39,709 --> 00:39:42,190
+because they know the
+physics of the disk.
+
+805
+00:39:42,190 --> 00:39:44,620
+They know what behaves
+
+806
+00:39:44,620 --> 00:39:46,020
+optimally from the perspective
+
+807
+00:39:46,020 --> 00:39:47,380
+of interacting with the disk.
+
+808
+00:39:47,380 --> 00:39:50,219
+And oftentimes they made this
+very weird kind of well,
+
+809
+00:39:50,219 --> 00:39:53,060
+from our perspective, from a
+system software perspective,
+
+810
+00:39:53,060 --> 00:39:55,139
+very weird and clumsy interfaces
+
+811
+00:39:55,139 --> 00:39:56,299
+that are very hard to work
+
+812
+00:39:56,299 --> 00:39:58,659
+with because they sort
+
+813
+00:39:58,659 --> 00:40:00,539
+of know what works really
+well for the disk.
+
+814
+00:40:00,539 --> 00:40:02,379
+And so I can't really answer
+
+815
+00:40:02,379 --> 00:40:05,179
+that question because
+I don't know.
+
+816
+00:40:05,179 --> 00:40:09,859
+But more generally, even
+in the case of SSDs,
+
+817
+00:40:09,859 --> 00:40:11,620
+they make really
+kind of strange,
+
+818
+00:40:11,620 --> 00:40:14,129
+uh operations that are even more
+
+819
+00:40:14,129 --> 00:40:17,610
+difficult to explain compared
+to the rotating disks.
+
+820
+00:40:17,610 --> 00:40:20,929
+And all we have to do is
+given this interface,
+
+821
+00:40:20,929 --> 00:40:22,449
+we're trying to make
+it into something
+
+822
+00:40:22,449 --> 00:40:24,329
+that is actually
+crash consistent.
+
+823
+00:40:24,329 --> 00:40:27,090
+So one way to make it crash
+consistent is shadowing.
+
+824
+00:40:27,090 --> 00:40:29,769
+So we're going to start
+talking about shadowing here.
+
+825
+00:40:29,769 --> 00:40:31,489
+In the next sort of 10 minutes,
+
+826
+00:40:31,489 --> 00:40:33,290
+let's try to cover shadowing,
+
+827
+00:40:33,290 --> 00:40:34,889
+at least the high
+level conceptual
+
+828
+00:40:34,889 --> 00:40:36,090
+understanding of shadowing.
+
+829
+00:40:36,090 --> 00:40:39,089
+The idea here is to try to
+make the actual update of
+
+830
+00:40:39,089 --> 00:40:42,329
+my data an operation that
+must be done atomically.
+
+831
+00:40:42,329 --> 00:40:44,129
+And we're going to perform that
+
+832
+00:40:44,129 --> 00:40:47,235
+achieve that with a
+single Boolean bit flip.
+
+833
+00:40:47,235 --> 00:40:49,499
+So how are we going
+to accomplish this?
+
+834
+00:40:49,499 --> 00:40:51,459
+I'm going to have a
+diagram in a second.
+
+835
+00:40:51,459 --> 00:40:53,379
+So the first thing we're
+
+836
+00:40:53,379 --> 00:40:55,539
+going to do is we're going
+to make a copy of the data,
+
+837
+00:40:55,539 --> 00:40:58,099
+and at any given point in time,
+
+838
+00:40:58,099 --> 00:41:01,019
+we'll essentially be operating
+on two copies of the data.
+
+839
+00:41:01,019 --> 00:41:04,260
+One of them is active and
+the other one is shadow.
+
+840
+00:41:04,260 --> 00:41:06,739
+And then we create a
+separate shadow bit
+
+841
+00:41:06,739 --> 00:41:09,019
+that actually flips
+between them in
+
+842
+00:41:09,019 --> 00:41:11,459
+order to signify
+which version at
+
+843
+00:41:11,459 --> 00:41:14,989
+any given point in time is
+going to be active. Yes.
+
+844
+00:41:14,989 --> 00:41:16,919
+About flushing. So what's
+
+845
+00:41:16,919 --> 00:41:19,919
+the harms in flushing
+after every write?
+
+846
+00:41:19,919 --> 00:41:21,959
+Because it's very expensive.
+
+847
+00:41:21,959 --> 00:41:24,440
+Yeah, the flush is a very
+expensive operation.
+
+848
+00:41:24,440 --> 00:41:28,639
+So while it will be correct
+to flush after every write.
+
+849
+00:41:28,639 --> 00:41:30,959
+So going back to the question
+
+850
+00:41:30,959 --> 00:41:32,239
+that he asked in the very
+
+851
+00:41:32,239 --> 00:41:33,679
+beginning of the lecture, right,
+
+852
+00:41:33,679 --> 00:41:34,999
+you could actually do that,
+
+853
+00:41:34,999 --> 00:41:37,679
+but it's going to you will
+
+854
+00:41:37,679 --> 00:41:39,119
+basically be seeing a huge
+
+855
+00:41:39,119 --> 00:41:41,214
+performance overhead
+associated with that.
+
+856
+00:41:41,214 --> 00:41:42,589
+Yeah, you could do that.
+
+857
+00:41:42,589 --> 00:41:44,429
+And so, over the
+course of kind of
+
+858
+00:41:44,429 --> 00:41:47,469
+the discussion of
+shadowing and logging,
+
+859
+00:41:47,469 --> 00:41:49,149
+what I'm going to
+be focusing on is,
+
+860
+00:41:49,149 --> 00:41:52,149
+how do we actually continue
+to make it correct, right?
+
+861
+00:41:52,149 --> 00:41:54,350
+How do we ensure
+optimistity and ordering?
+
+862
+00:41:54,350 --> 00:41:56,829
+So correctness here
+is discussed and
+
+863
+00:41:56,829 --> 00:42:00,670
+evaluated from the perspective
+of optimity and ordering,
+
+864
+00:42:00,670 --> 00:42:02,269
+while at the same time trying to
+
+865
+00:42:02,269 --> 00:42:04,429
+improve the performance
+of our operations.
+
+866
+00:42:04,429 --> 00:42:06,549
+Where the performance,
+the proxy for
+
+867
+00:42:06,549 --> 00:42:09,269
+improving performance
+is how many read and
+
+868
+00:42:09,269 --> 00:42:10,909
+write operations
+we have to do and
+
+869
+00:42:10,909 --> 00:42:12,429
+how many flashes we have to do
+
+870
+00:42:12,429 --> 00:42:14,349
+as the most expensive
+operation. Yes.
+
+871
+00:42:14,349 --> 00:42:18,784
+So do you make this a copy
+of the data disk America?
+
+872
+00:42:18,784 --> 00:42:19,940
+Disk.
+
+873
+00:42:19,940 --> 00:42:22,620
+Well, if it's a disk,
+
+874
+00:42:22,620 --> 00:42:26,779
+I'm assuming you alternate
+between editing the data.
+
+875
+00:42:26,779 --> 00:42:28,979
+Then what if in between
+you edit the data,
+
+876
+00:42:28,979 --> 00:42:30,579
+there's a crash, but you
+
+877
+00:42:30,579 --> 00:42:32,669
+haven't finished your
+Yeah, yeah, yeah.
+
+878
+00:42:32,669 --> 00:42:34,349
+Yeah. So let's walk through it.
+
+879
+00:42:34,349 --> 00:42:36,909
+I'll answer the question
+on the next slide, okay?
+
+880
+00:42:36,909 --> 00:42:38,509
+You'll see what's going to
+
+881
+00:42:38,509 --> 00:42:39,909
+happen. And we'll
+think through this.
+
+882
+00:42:39,909 --> 00:42:41,789
+That's but by the way,
+
+883
+00:42:41,789 --> 00:42:43,069
+I don't want to dismiss
+
+884
+00:42:43,069 --> 00:42:45,069
+his question because it's
+a very good question.
+
+885
+00:42:45,069 --> 00:42:46,709
+And these are the kinds of
+
+886
+00:42:46,709 --> 00:42:48,589
+questions you want to
+ask as you flip through
+
+887
+00:42:48,589 --> 00:42:50,509
+these slides as you rewatch
+
+888
+00:42:50,509 --> 00:42:52,109
+this video one more time, right?
+
+889
+00:42:52,109 --> 00:42:53,309
+You know, what happens if a
+
+890
+00:42:53,309 --> 00:42:54,709
+crash happens at
+this point in time?
+
+891
+00:42:54,709 --> 00:42:57,150
+Do I still get
+crash consistency?
+
+892
+00:42:57,150 --> 00:42:59,749
+Remember, that's the
+thing we're after, okay?
+
+893
+00:42:59,749 --> 00:43:01,909
+Do I still get
+crash consistency?
+
+894
+00:43:01,909 --> 00:43:03,429
+And so the insight here is,
+
+895
+00:43:03,429 --> 00:43:05,229
+can I actually proxy
+
+896
+00:43:05,229 --> 00:43:07,429
+large data block updates with
+
+897
+00:43:07,429 --> 00:43:10,745
+a single atomic bit
+flip operation?
+
+898
+00:43:10,745 --> 00:43:13,380
+So let's look at some pictures.
+
+899
+00:43:13,380 --> 00:43:16,939
+Here's shadowing illustrated.
+On the left hand side,
+
+900
+00:43:16,939 --> 00:43:19,019
+you have a current
+data block, right?
+
+901
+00:43:19,019 --> 00:43:21,620
+And you want to mutate
+the current data block.
+
+902
+00:43:21,620 --> 00:43:24,259
+I believe you're trying to
+update the value for why.
+
+903
+00:43:24,259 --> 00:43:25,979
+You cannot do that in place.
+
+904
+00:43:25,979 --> 00:43:27,859
+So you copy data.
+
+905
+00:43:27,859 --> 00:43:29,259
+Now you copy it to
+
+906
+00:43:29,259 --> 00:43:31,179
+a completely different
+data block, okay?
+
+907
+00:43:31,179 --> 00:43:32,660
+Now there's two data blocks,
+
+908
+00:43:32,660 --> 00:43:34,500
+one active, one shadow.
+
+909
+00:43:34,500 --> 00:43:36,339
+At this moment in time,
+
+910
+00:43:36,339 --> 00:43:38,539
+the active data block
+
+911
+00:43:38,539 --> 00:43:41,110
+is the one to which the
+shadow bit is pointing.
+
+912
+00:43:41,110 --> 00:43:44,319
+Shadow bit will only have
+two states, zero or one,
+
+913
+00:43:44,319 --> 00:43:47,359
+which corresponds to
+either the left hand side
+
+914
+00:43:47,359 --> 00:43:49,919
+or the right hand side,
+conceptually, okay.
+
+915
+00:43:49,919 --> 00:43:51,200
+After you've performed
+
+916
+00:43:51,200 --> 00:43:53,279
+the copy, you want
+to update the data.
+
+917
+00:43:53,279 --> 00:43:57,360
+So now you can actually perform
+the update on the copy.
+
+918
+00:43:57,360 --> 00:43:59,160
+And when you're done updating,
+
+919
+00:43:59,160 --> 00:44:01,119
+now you want to flip
+the shadow bit,
+
+920
+00:44:01,119 --> 00:44:03,520
+okay, and watch the flip.
+
+921
+00:44:03,520 --> 00:44:06,040
+The shadow bit after it flips,
+
+922
+00:44:06,040 --> 00:44:08,199
+it points to the
+current version or to
+
+923
+00:44:08,199 --> 00:44:09,600
+the most updated version
+
+924
+00:44:09,600 --> 00:44:12,199
+of the data that you
+want to operate on.
+
+925
+00:44:12,520 --> 00:44:15,359
+Have you seen or do you recall,
+
+926
+00:44:15,359 --> 00:44:17,039
+did you live long enough to
+
+927
+00:44:17,039 --> 00:44:19,439
+actually experience the effects?
+
+928
+00:44:19,439 --> 00:44:20,959
+First of all, does anybody know
+
+929
+00:44:20,959 --> 00:44:23,279
+about double buffering in GPU?
+
+930
+00:44:23,279 --> 00:44:26,119
+So, for those of you doing
+gaming, for instance, right,
+
+931
+00:44:26,119 --> 00:44:28,960
+the double buffering in GPU
+is what enables a smooth.
+
+932
+00:44:28,960 --> 00:44:30,919
+Yeah, you know about
+double buffering, right?
+
+933
+00:44:30,919 --> 00:44:33,239
+Okay, good. What is it?
+
+934
+00:44:34,920 --> 00:44:38,160
+The pixels to one buffer
+
+935
+00:44:38,160 --> 00:44:42,839
+before you display it so
+that you don't get to it.
+
+936
+00:44:42,839 --> 00:44:45,639
+Yeah, there are two
+display buffers,
+
+937
+00:44:45,639 --> 00:44:47,560
+literally two display buffers,
+
+938
+00:44:47,560 --> 00:44:49,960
+and you write out the
+entire you render
+
+939
+00:44:49,960 --> 00:44:53,559
+and rasterize the entire
+frame into the buffer before
+
+940
+00:44:53,559 --> 00:44:55,959
+you actually flip
+the bit in order to
+
+941
+00:44:55,959 --> 00:45:00,519
+point in order to display
+that entire buffer at once.
+
+942
+00:45:00,519 --> 00:45:02,319
+What happens if
+you don't do that?
+
+943
+00:45:02,319 --> 00:45:04,519
+Has anyone seen I did,
+
+944
+00:45:04,519 --> 00:45:10,319
+what happens if you don't
+have double buffering? Yeah.
+
+945
+00:45:10,319 --> 00:45:13,779
+Like hearing because
+only half of
+
+946
+00:45:13,779 --> 00:45:17,620
+the buffer has been masterize
+so far, screen searing.
+
+947
+00:45:17,620 --> 00:45:20,899
+And, you know, going back
+to the end of 90s, right?
+
+948
+00:45:20,899 --> 00:45:22,299
+You could actually
+because there was
+
+949
+00:45:22,299 --> 00:45:24,500
+no double buffering
+at the end of 90s,
+
+950
+00:45:24,500 --> 00:45:25,299
+you could literally see
+
+951
+00:45:25,299 --> 00:45:27,179
+the screen searing
+kind of like this,
+
+952
+00:45:27,179 --> 00:45:31,420
+rendering one line at a
+time on your CRT monitor,
+
+953
+00:45:31,420 --> 00:45:33,860
+cathode ray tube monitor.
+
+954
+00:45:33,860 --> 00:45:36,539
+And so the idea here
+is quite similar.
+
+955
+00:45:36,539 --> 00:45:39,339
+So we're trying to perform
+an update to the data,
+
+956
+00:45:39,339 --> 00:45:42,459
+and then we flip the bit
+in an atomic fashion so
+
+957
+00:45:42,459 --> 00:45:44,099
+that it gives us this sense of
+
+958
+00:45:44,099 --> 00:45:45,859
+all or nothing semantics, right?
+
+959
+00:45:45,859 --> 00:45:47,779
+And hopefully that
+answers your question.
+
+960
+00:45:47,779 --> 00:45:49,459
+You were wondering,
+what if we crash in
+
+961
+00:45:49,459 --> 00:45:52,139
+the middle of a
+copy? Do we care?
+
+962
+00:45:54,620 --> 00:45:57,179
+We don't care, right?
+
+963
+00:45:57,179 --> 00:45:59,540
+If we crash in the
+middle of a copy,
+
+964
+00:45:59,540 --> 00:46:02,259
+our shadow bit is still
+pointing to the current data,
+
+965
+00:46:02,259 --> 00:46:04,579
+and so on recovery,
+
+966
+00:46:04,579 --> 00:46:06,419
+we still have consistent data.
+
+967
+00:46:06,419 --> 00:46:09,180
+What happens if we
+crash on an update?
+
+968
+00:46:09,180 --> 00:46:11,779
+Do we care? Because we
+
+969
+00:46:11,779 --> 00:46:14,059
+haven't updated the
+shadow bit yet, right?
+
+970
+00:46:14,059 --> 00:46:17,620
+And so who cares if there's
+a partial update to show,
+
+971
+00:46:17,620 --> 00:46:20,779
+to shadow on the right
+hand side, right?
+
+972
+00:46:20,779 --> 00:46:23,259
+Now, here's a tricky question.
+
+973
+00:46:23,259 --> 00:46:25,419
+What happens if we
+
+974
+00:46:25,419 --> 00:46:27,940
+actually crash on the
+shadow bit update?
+
+975
+00:46:27,940 --> 00:46:30,500
+Now, that's why the
+shadow bit update
+
+976
+00:46:30,500 --> 00:46:32,420
+is actually a Boolean flip
+
+977
+00:46:32,420 --> 00:46:34,860
+because a Boolean flip
+
+978
+00:46:34,860 --> 00:46:38,624
+is either zero or
+anything other than zero.
+
+979
+00:46:38,624 --> 00:46:42,749
+Okay? And so there's really
+no way to crash in such a way
+
+980
+00:46:42,749 --> 00:46:44,829
+that you get an
+intermediate state
+
+981
+00:46:44,829 --> 00:46:47,029
+between zero and something
+other than zero.
+
+982
+00:46:47,029 --> 00:46:49,829
+It's either zero or
+it's not zero, okay?
+
+983
+00:46:49,829 --> 00:46:51,790
+So no matter how you crash,
+
+984
+00:46:51,790 --> 00:46:55,510
+you will leave the flip bit
+in one of those two states,
+
+985
+00:46:55,510 --> 00:46:57,909
+a zero or not zero,
+
+986
+00:46:57,909 --> 00:46:59,830
+which is really elegant.
+
+987
+00:46:59,830 --> 00:47:01,590
+It's an elegant way of ensuring
+
+988
+00:47:01,590 --> 00:47:05,429
+crash consistency for a
+shadow bit update, okay?
+
+989
+00:47:05,429 --> 00:47:07,709
+And so we actually get
+atomicity by using
+
+990
+00:47:07,709 --> 00:47:09,910
+a Boolean variable for
+a shadow bit update.
+
+991
+00:47:09,910 --> 00:47:13,529
+Does that make sense?
+Okay, very good.
+
+992
+00:47:13,529 --> 00:47:15,829
+And so, yeah,
+basically, now that
+
+993
+00:47:15,829 --> 00:47:17,349
+we've flipped the shadow bit,
+
+994
+00:47:17,349 --> 00:47:18,869
+we're pointing to
+the current data,
+
+995
+00:47:18,869 --> 00:47:21,509
+and the other block is
+becoming the shadow data.
+
+996
+00:47:21,509 --> 00:47:23,789
+And so for what that means,
+
+997
+00:47:23,789 --> 00:47:25,509
+by implication, we're
+going to get to
+
+998
+00:47:25,509 --> 00:47:27,269
+that hopefully in a
+couple of minutes, right?
+
+999
+00:47:27,269 --> 00:47:28,949
+By implication, what
+that means is you're
+
+1000
+00:47:28,949 --> 00:47:30,909
+essentially doubling
+the amount of space
+
+1001
+00:47:30,909 --> 00:47:32,789
+you need to have for all of
+
+1002
+00:47:32,789 --> 00:47:35,429
+your data in order to actually
+do something like this.
+
+1003
+00:47:35,429 --> 00:47:38,869
+So the overhead of ensuring
+crash consistency with
+
+1004
+00:47:38,869 --> 00:47:43,069
+this particular baseline is
+huge, and it's just space.
+
+1005
+00:47:43,069 --> 00:47:47,489
+We haven't even touched
+the performance yet. Okay?
+
+1006
+00:47:47,489 --> 00:47:50,329
+So let's talk about performance.
+
+1007
+00:47:50,329 --> 00:47:54,090
+We discussed that the copy
+doesn't have to be atomic.
+
+1008
+00:47:54,090 --> 00:47:57,450
+It can result in a partial copy.
+
+1009
+00:47:57,450 --> 00:47:59,650
+We don't care. We discussed
+
+1010
+00:47:59,650 --> 00:48:02,650
+about the possibility of
+creating a partial update.
+
+1011
+00:48:02,650 --> 00:48:05,169
+We don't care. We haven't
+flipped the bit yet, right?
+
+1012
+00:48:05,169 --> 00:48:07,810
+And the bit flip we already
+discussed is binary.
+
+1013
+00:48:07,810 --> 00:48:09,609
+So that's the beautiful kind of
+
+1014
+00:48:09,609 --> 00:48:12,809
+enabling technique for us
+to ensuring atomicity.
+
+1015
+00:48:12,809 --> 00:48:16,989
+Now, Um, I wanted to
+
+1016
+00:48:16,989 --> 00:48:18,949
+talk about basically
+in what order do
+
+1017
+00:48:18,949 --> 00:48:21,149
+we need to perform
+these operations?
+
+1018
+00:48:21,149 --> 00:48:22,470
+Because there are
+three operations.
+
+1019
+00:48:22,470 --> 00:48:25,390
+You perform a copy,
+we perform an update,
+
+1020
+00:48:25,390 --> 00:48:26,990
+and you perform a bit flip.
+
+1021
+00:48:26,990 --> 00:48:30,509
+Now, can we perform
+
+1022
+00:48:30,509 --> 00:48:33,869
+a copy and an update without
+a flaush in between?
+
+1023
+00:48:33,869 --> 00:48:36,229
+Can we sort of send them to
+
+1024
+00:48:36,229 --> 00:48:37,509
+the disk at the
+same time without
+
+1025
+00:48:37,509 --> 00:48:40,029
+an ordering primitive
+in between?
+
+1026
+00:48:41,040 --> 00:48:44,999
+Yeah. Because if let's
+
+1027
+00:48:44,999 --> 00:48:46,639
+say you do the update
+or you copied over,
+
+1028
+00:48:46,639 --> 00:48:48,440
+it's going to get overwritten.
+
+1029
+00:48:48,440 --> 00:48:51,599
+So you need the copy
+to happen first.
+
+1030
+00:48:51,599 --> 00:48:55,679
+Right. So basically, here,
+
+1031
+00:48:55,679 --> 00:48:58,239
+one thing to remember is that
+
+1032
+00:48:58,239 --> 00:49:00,879
+the disk interface does give
+
+1033
+00:49:00,879 --> 00:49:02,880
+us one additional
+useful feature.
+
+1034
+00:49:02,880 --> 00:49:06,200
+If there are two rights
+to the same data block,
+
+1035
+00:49:06,200 --> 00:49:08,119
+it will make sure that right
+
+1036
+00:49:08,119 --> 00:49:10,800
+after right consistency
+is not violated.
+
+1037
+00:49:10,800 --> 00:49:13,679
+Okay. So remember
+that because of this,
+
+1038
+00:49:13,679 --> 00:49:15,320
+we actually get this additional
+
+1039
+00:49:15,320 --> 00:49:17,160
+ordering primitive in our favor,
+
+1040
+00:49:17,160 --> 00:49:19,160
+but only if there's
+
+1041
+00:49:19,160 --> 00:49:21,359
+a sequence of writes to
+the same data block,
+
+1042
+00:49:21,359 --> 00:49:24,079
+you are actually given the
+right after right consistency.
+
+1043
+00:49:24,079 --> 00:49:26,880
+Otherwise, you would be
+in a very bad shape.
+
+1044
+00:49:26,880 --> 00:49:28,479
+And so you don't actually need
+
+1045
+00:49:28,479 --> 00:49:30,560
+a flaush between a
+copy and an update.
+
+1046
+00:49:30,560 --> 00:49:34,840
+You can essentially issue
+a copy an issue update,
+
+1047
+00:49:34,840 --> 00:49:38,039
+and don't impose a
+flush in between
+
+1048
+00:49:38,039 --> 00:49:40,279
+because that disk interface
+
+1049
+00:49:40,279 --> 00:49:42,119
+is going to take
+care of that, okay?
+
+1050
+00:49:42,119 --> 00:49:45,200
+So you can actually perform
+a copy and an update,
+
+1051
+00:49:45,200 --> 00:49:48,710
+um I'm going to call
+it simultaneously.
+
+1052
+00:49:48,710 --> 00:49:51,869
+So without an ordering
+primitive in between.
+
+1053
+00:49:51,869 --> 00:49:53,350
+That's the precise definition
+
+1054
+00:49:53,350 --> 00:49:55,549
+of simultaneously here, okay?
+
+1055
+00:49:55,549 --> 00:49:58,789
+So I'm putting them into
+the same vertex right here.
+
+1056
+00:49:58,789 --> 00:50:02,949
+So one and two can
+happen simultaneously.
+
+1057
+00:50:02,949 --> 00:50:05,449
+And there's a precise
+definition for this.
+
+1058
+00:50:05,449 --> 00:50:09,110
+No ordering primitive 1-2.
+
+1059
+00:50:09,110 --> 00:50:11,429
+That's what
+simultaneously means.
+
+1060
+00:50:11,429 --> 00:50:14,069
+Okay. Now, what about
+the bit flip three?
+
+1061
+00:50:14,069 --> 00:50:16,709
+Can the bit flip happen
+at the same time
+
+1062
+00:50:16,709 --> 00:50:20,869
+simultaneously with
+one and or two?
+
+1063
+00:50:20,869 --> 00:50:22,709
+I'm being very mathematically
+
+1064
+00:50:22,709 --> 00:50:24,029
+precise because that kind of
+
+1065
+00:50:24,029 --> 00:50:25,749
+precision is required
+in order for us
+
+1066
+00:50:25,749 --> 00:50:28,470
+to reason about the
+correctness of systems.
+
+1067
+00:50:28,470 --> 00:50:33,589
+Yes. Why not? Precisely?
+
+1068
+00:50:34,470 --> 00:50:37,109
+The binary operation of
+
+1069
+00:50:37,109 --> 00:50:39,429
+the template is supposed
+to have been when both
+
+1070
+00:50:39,429 --> 00:50:41,349
+copy and the update is
+
+1071
+00:50:41,349 --> 00:50:42,829
+finished in the order
+
+1072
+00:50:42,829 --> 00:50:45,069
+that we initially
+intended to include.
+
+1073
+00:50:45,069 --> 00:50:47,789
+If you don't execute
+the copy and
+
+1074
+00:50:47,789 --> 00:50:49,150
+then the right and then ensure
+
+1075
+00:50:49,150 --> 00:50:51,030
+both of those are finished,
+
+1076
+00:50:51,030 --> 00:50:54,829
+you cannot you cannot
+flip the shadow.
+
+1077
+00:50:54,829 --> 00:50:57,789
+Therefore, you can't put the
+shadow simultaneously with
+
+1078
+00:50:57,789 --> 00:51:01,190
+either of these operations
+before or during the res.
+
+1079
+00:51:01,190 --> 00:51:03,469
+Yeah, that's correct.
+Because the semantics
+
+1080
+00:51:03,469 --> 00:51:04,909
+of flipping the bit is
+
+1081
+00:51:04,909 --> 00:51:08,750
+that the operations prior to
+that bit flip have finished.
+
+1082
+00:51:08,750 --> 00:51:10,549
+How do we ensure
+that the copy and
+
+1083
+00:51:10,549 --> 00:51:13,670
+an update has finished
+prior to the bit flip?
+
+1084
+00:51:14,230 --> 00:51:16,869
+We perform a flash, okay?
+
+1085
+00:51:16,869 --> 00:51:19,070
+So we actually do need
+to insert a flash
+
+1086
+00:51:19,070 --> 00:51:21,949
+here in order to ensure
+the ordering 1-2,
+
+1087
+00:51:21,949 --> 00:51:25,509
+which can happen
+simultaneously, and three.
+
+1088
+00:51:25,750 --> 00:51:30,710
+Phew. So we've just discussed
+a single block update.
+
+1089
+00:51:32,500 --> 00:51:36,300
+What does it
+require? It requires
+
+1090
+00:51:36,300 --> 00:51:38,820
+basically two
+copies, two writes,
+
+1091
+00:51:38,820 --> 00:51:40,659
+a write for one and two,
+
+1092
+00:51:40,659 --> 00:51:42,579
+and an additional
+write for three,
+
+1093
+00:51:42,579 --> 00:51:46,900
+and it requires a flush from
+the performance perspective.
+
+1094
+00:51:46,900 --> 00:51:50,179
+Here's a right, here's a right,
+
+1095
+00:51:50,179 --> 00:51:52,499
+and we insert a
+flush in between.
+
+1096
+00:51:52,499 --> 00:51:56,219
+This gives us a correct sequence
+
+1097
+00:51:56,219 --> 00:51:57,859
+of operations and
+a partial order
+
+1098
+00:51:57,859 --> 00:52:00,005
+that ensures that correctness.
+
+1099
+00:52:00,005 --> 00:52:02,949
+Two writes and a
+flush. All right.
+
+1100
+00:52:02,949 --> 00:52:04,829
+Now, what if we actually want to
+
+1101
+00:52:04,829 --> 00:52:08,149
+perform two writes
+back to back, okay?
+
+1102
+00:52:08,310 --> 00:52:11,909
+And so I basically copied
+
+1103
+00:52:11,909 --> 00:52:15,590
+the structure at the very
+bottom of this slide,
+
+1104
+00:52:15,590 --> 00:52:17,829
+and you would expect a lot
+
+1105
+00:52:17,829 --> 00:52:19,429
+of things to be
+symmetric, right?
+
+1106
+00:52:19,429 --> 00:52:21,310
+You still need to
+perform a copy.
+
+1107
+00:52:21,310 --> 00:52:22,869
+That's your operation
+number four,
+
+1108
+00:52:22,869 --> 00:52:24,950
+right, from the
+current to the shadow.
+
+1109
+00:52:24,950 --> 00:52:27,549
+You still need to perform
+an update on the shadow,
+
+1110
+00:52:27,549 --> 00:52:29,429
+and then you have a
+separate shadow bit
+
+1111
+00:52:29,429 --> 00:52:30,749
+for every single data block.
+
+1112
+00:52:30,749 --> 00:52:32,329
+And so you need to you
+
+1113
+00:52:32,329 --> 00:52:34,089
+need to flip that
+shadow bit, right?
+
+1114
+00:52:34,089 --> 00:52:35,769
+And that's your
+operation number six.
+
+1115
+00:52:35,769 --> 00:52:37,409
+So we've already established
+
+1116
+00:52:37,409 --> 00:52:39,930
+the partial order for the
+first update operation.
+
+1117
+00:52:39,930 --> 00:52:42,049
+We have a vertex
+for one and two.
+
+1118
+00:52:42,049 --> 00:52:43,689
+We have a vertex for three.
+
+1119
+00:52:43,689 --> 00:52:45,329
+We impose a partial order with a
+
+1120
+00:52:45,329 --> 00:52:47,809
+flush 1-2 and three, okay?
+
+1121
+00:52:47,809 --> 00:52:51,369
+And symmetrically, since
+we're doing the same thing,
+
+1122
+00:52:51,369 --> 00:52:56,849
+right, you have a vertex for
+operations four and five.
+
+1123
+00:52:56,849 --> 00:52:59,089
+You have a vertex
+six corresponding
+
+1124
+00:52:59,089 --> 00:53:01,170
+to the flipping the
+shadow bit operation,
+
+1125
+00:53:01,170 --> 00:53:03,129
+which is a mutation
+operation, right?
+
+1126
+00:53:03,129 --> 00:53:05,849
+And we have a partial
+order in between.
+
+1127
+00:53:06,320 --> 00:53:09,119
+Did you follow that? Yes.
+
+1128
+00:53:09,119 --> 00:53:11,440
+Does this mean every data block
+
+1129
+00:53:11,440 --> 00:53:13,599
+has a data block
+associated with it?
+
+1130
+00:53:13,599 --> 00:53:17,159
+Yes, exactly. This means that
+in order for us to actually
+
+1131
+00:53:17,159 --> 00:53:22,359
+enact this mechanism of
+ensuring crash consistency,
+
+1132
+00:53:22,359 --> 00:53:24,559
+the overhead
+associated with that
+
+1133
+00:53:24,559 --> 00:53:28,175
+is to have a shadow block
+for every single data block.
+
+1134
+00:53:28,175 --> 00:53:32,030
+You increase this
+is a huge overhead.
+
+1135
+00:53:32,030 --> 00:53:34,189
+It's two X overhead. Yes.
+
+1136
+00:53:34,189 --> 00:53:35,990
+This probably isn't like what's
+
+1137
+00:53:35,990 --> 00:53:37,509
+implemented like actual system.
+
+1138
+00:53:37,509 --> 00:53:41,509
+Huh? This isn't what's
+implement actual It is not.
+
+1139
+00:53:41,509 --> 00:53:43,389
+But the reason we're
+
+1140
+00:53:43,389 --> 00:53:45,029
+talking about this is
+because we want to
+
+1141
+00:53:45,029 --> 00:53:48,109
+appreciate that what's
+implemented in the real system,
+
+1142
+00:53:48,109 --> 00:53:49,949
+including XV six, is
+
+1143
+00:53:49,949 --> 00:53:51,709
+a lot more performance while
+
+1144
+00:53:51,709 --> 00:53:54,109
+ensuring crash
+consistency, right?
+
+1145
+00:53:54,109 --> 00:53:56,390
+And so if I just jump
+to that straight,
+
+1146
+00:53:56,390 --> 00:53:58,909
+you would not appreciate
+that difference.
+
+1147
+00:53:58,909 --> 00:54:01,149
+And so the question here is,
+
+1148
+00:54:01,149 --> 00:54:03,149
+do you need a flash in between
+
+1149
+00:54:03,149 --> 00:54:06,509
+the vertex three and a
+vertex four and five?
+
+1150
+00:54:07,090 --> 00:54:11,649
+In other words, should
+we allow, right?
+
+1151
+00:54:11,649 --> 00:54:14,129
+What does that mean? What
+does this question mean?
+
+1152
+00:54:14,129 --> 00:54:16,529
+It means that should we allow
+
+1153
+00:54:16,529 --> 00:54:22,449
+simultaneously simultaneously
+of operation three and 45?
+
+1154
+00:54:23,410 --> 00:54:28,249
+Can 45 happen before three? Yes.
+
+1155
+00:54:28,249 --> 00:54:31,289
+I'm inclined to say
+no just because
+
+1156
+00:54:31,289 --> 00:54:33,610
+the shadows like flipping
+
+1157
+00:54:33,610 --> 00:54:34,969
+the shadow bit ensures that
+
+1158
+00:54:34,969 --> 00:54:36,849
+you're pointing to
+your current frame,
+
+1159
+00:54:36,849 --> 00:54:38,529
+and then without
+having done that,
+
+1160
+00:54:38,529 --> 00:54:42,059
+four would be copying the
+older version, right?
+
+1161
+00:54:42,059 --> 00:54:44,429
+Yeah, exactly, exactly, right?
+
+1162
+00:54:44,429 --> 00:54:46,829
+It usually takes people
+longer to figure this out.
+
+1163
+00:54:46,829 --> 00:54:48,909
+And so the trick here is that if
+
+1164
+00:54:48,909 --> 00:54:51,430
+you're operating on
+different data blocks,
+
+1165
+00:54:51,430 --> 00:54:53,549
+you could get away
+without a flash, right?
+
+1166
+00:54:53,549 --> 00:54:54,949
+But you cannot ensure that
+
+1167
+00:54:54,949 --> 00:54:56,750
+you're operating on
+different data blocks.
+
+1168
+00:54:56,750 --> 00:54:59,789
+So in the situations in
+the corner cases where
+
+1169
+00:54:59,789 --> 00:55:02,189
+a subsequent update
+is actually to
+
+1170
+00:55:02,189 --> 00:55:05,069
+the same data blocks that
+was just previously mutated,
+
+1171
+00:55:05,069 --> 00:55:07,310
+you actually need to
+perform this flash
+
+1172
+00:55:07,310 --> 00:55:10,029
+because otherwise you would
+
+1173
+00:55:10,029 --> 00:55:13,589
+be copying the older
+version of the data.
+
+1174
+00:55:13,589 --> 00:55:19,709
+Do you see that? Does
+everybody see that? Okay.
+
+1175
+00:55:19,709 --> 00:55:22,339
+Question. Hold on a second.
+
+1176
+00:55:22,339 --> 00:55:24,980
+Does that make sense to bundle
+
+1177
+00:55:24,980 --> 00:55:26,900
+the one to flush
+
+1178
+00:55:26,900 --> 00:55:29,739
+the operation with an additional
+flush after the degree,
+
+1179
+00:55:29,739 --> 00:55:32,739
+just to ensure that in the
+event that you are going to be
+
+1180
+00:55:32,739 --> 00:55:36,379
+writing or reading from
+the new data once again,
+
+1181
+00:55:36,379 --> 00:55:37,819
+you are always going to
+
+1182
+00:55:37,819 --> 00:55:41,339
+have the correct
+shadowing of the screen?
+
+1183
+00:55:41,339 --> 00:55:44,059
+Yeah, basically,
+yes. That's right.
+
+1184
+00:55:44,059 --> 00:55:47,819
+Yeah. So, this
+means that we need
+
+1185
+00:55:47,819 --> 00:55:49,579
+a flush operation and
+
+1186
+00:55:49,579 --> 00:55:51,339
+a flush operation between
+
+1187
+00:55:51,339 --> 00:55:53,619
+every single one of
+these bubbles, right?
+
+1188
+00:55:53,619 --> 00:55:55,699
+And the flush operation across
+
+1189
+00:55:55,699 --> 00:55:58,789
+the individual
+mutations to the file.
+
+1190
+00:55:58,789 --> 00:56:02,519
+Okay, so that seems
+very, very expensive.
+
+1191
+00:56:02,519 --> 00:56:05,159
+Now, what have we achieved?
+
+1192
+00:56:05,159 --> 00:56:08,719
+Like, remember, let's go
+back to the high level.
+
+1193
+00:56:08,719 --> 00:56:11,999
+What did we want? We want
+ethnicity and ordering, right?
+
+1194
+00:56:11,999 --> 00:56:13,639
+Because otherwise things looked
+
+1195
+00:56:13,639 --> 00:56:16,559
+dire without ethnicity
+and ordering primitives,
+
+1196
+00:56:16,559 --> 00:56:18,119
+right here, as we've established
+
+1197
+00:56:18,119 --> 00:56:19,960
+in the beginning
+of this lecture.
+
+1198
+00:56:19,960 --> 00:56:22,799
+Have we achieved ethnicity?
+
+1199
+00:56:23,280 --> 00:56:26,329
+Have we achieved ordering?
+
+1200
+00:56:26,329 --> 00:56:28,419
+Right? So this seems like
+
+1201
+00:56:28,419 --> 00:56:31,340
+a sane solution because
+it achieved correctness,
+
+1202
+00:56:31,340 --> 00:56:33,899
+right? We've achieved eeity.
+
+1203
+00:56:33,899 --> 00:56:35,500
+Precisely how have we achieved
+
+1204
+00:56:35,500 --> 00:56:38,979
+eeicity by virtue of using
+a Boolean shadow bit,
+
+1205
+00:56:38,979 --> 00:56:40,819
+which only has the ability to
+
+1206
+00:56:40,819 --> 00:56:43,259
+switch between the two
+versions zero and non zero.
+
+1207
+00:56:43,259 --> 00:56:45,860
+So the bit flip is
+crash consistent.
+
+1208
+00:56:45,860 --> 00:56:47,699
+So if I were to
+ask you precisely
+
+1209
+00:56:47,699 --> 00:56:50,499
+how is showing
+achieving atomicity,
+
+1210
+00:56:50,499 --> 00:56:52,379
+you should be able to
+give me this answer.
+
+1211
+00:56:52,379 --> 00:56:54,419
+It achieves eomicity by
+
+1212
+00:56:54,419 --> 00:56:57,260
+virtue of using a
+Boolean shadow bit flip,
+
+1213
+00:56:57,260 --> 00:56:59,500
+which only exists in
+one of two states.
+
+1214
+00:56:59,500 --> 00:57:01,339
+There is no partial
+state possible.
+
+1215
+00:57:01,339 --> 00:57:05,249
+And therefore, this mechanism
+is crash consistent.
+
+1216
+00:57:05,249 --> 00:57:08,279
+Okay? And what are the
+costs of shadowing?
+
+1217
+00:57:08,279 --> 00:57:10,239
+Well, as someone has
+already pointed out,
+
+1218
+00:57:10,239 --> 00:57:11,719
+it's a two space,
+
+1219
+00:57:11,719 --> 00:57:14,280
+very bad, plus the
+shadow bit block.
+
+1220
+00:57:14,280 --> 00:57:15,799
+It also requires a right to
+
+1221
+00:57:15,799 --> 00:57:18,039
+a shadow bit on every
+version update, right?
+
+1222
+00:57:18,039 --> 00:57:20,280
+And so it's at least
+two disk writes
+
+1223
+00:57:20,280 --> 00:57:23,319
+a copy and an update
+as one right,
+
+1224
+00:57:23,319 --> 00:57:24,999
+which could be coalesced,
+
+1225
+00:57:24,999 --> 00:57:27,679
+right, and a shadow
+as another right.
+
+1226
+00:57:27,679 --> 00:57:30,159
+The shadow must be
+a separate bit,
+
+1227
+00:57:30,159 --> 00:57:33,919
+so it must exist somewhere
+else on the disk, right?
+
+1228
+00:57:33,919 --> 00:57:36,319
+And often this results in
+
+1229
+00:57:36,319 --> 00:57:40,159
+large amounts of wasted
+space. Can we do better?
+
+1230
+00:57:40,380 --> 00:57:43,500
+Does it make sense for
+us to use shadowing?
+
+1231
+00:57:43,500 --> 00:57:44,859
+I think people have
+started asking,
+
+1232
+00:57:44,859 --> 00:57:46,420
+no, this seems really odd.
+
+1233
+00:57:46,420 --> 00:57:48,539
+Why would I ever use that? Yeah.
+
+1234
+00:57:48,539 --> 00:57:50,659
+About the flushing.
+
+1235
+00:57:50,659 --> 00:57:52,899
+So I know you said that
+
+1236
+00:57:52,899 --> 00:57:55,179
+we ensure right after
+right consistency.
+
+1237
+00:57:55,179 --> 00:57:58,139
+Do we ensure read after
+write consistency?
+
+1238
+00:58:04,910 --> 00:58:07,709
+Yes, I believe so. I actually
+
+1239
+00:58:07,709 --> 00:58:09,429
+got the same
+question a year ago,
+
+1240
+00:58:09,429 --> 00:58:12,469
+and I'm going to go with
+a yes on that, okay?
+
+1241
+00:58:12,469 --> 00:58:14,149
+I believe that's true. Yeah.
+
+1242
+00:58:14,149 --> 00:58:17,069
+Let go back to the previous
+slide for a second.
+
+1243
+00:58:17,069 --> 00:58:20,509
+If we insure read after
+write consistency,
+
+1244
+00:58:20,509 --> 00:58:22,669
+don't we not have
+to flush between
+
+1245
+00:58:22,669 --> 00:58:25,430
+three and then 45
+because wouldn't the 45
+
+1246
+00:58:25,430 --> 00:58:27,989
+have to refer to
+
+1247
+00:58:27,989 --> 00:58:29,309
+reading the shadow it and
+
+1248
+00:58:29,309 --> 00:58:32,029
+we're trying to write
+to it before it anyway?
+
+1249
+00:58:32,550 --> 00:58:34,749
+Well, in this particular case,
+
+1250
+00:58:34,749 --> 00:58:36,509
+you're making a copy, right?
+
+1251
+00:58:36,509 --> 00:58:39,189
+And so, let's take
+
+1252
+00:58:39,189 --> 00:58:41,269
+this offline because it's
+already a three oh two.
+
+1253
+00:58:41,269 --> 00:58:43,030
+I can discuss this
+with you afterwards.
+
+1254
+00:58:43,030 --> 00:58:44,830
+But basically, there
+are some corner cases
+
+1255
+00:58:44,830 --> 00:58:45,989
+there that require flush.
+
+1256
+00:58:45,989 --> 00:58:48,629
+I'm going to try to
+get to the punch line
+
+1257
+00:58:48,629 --> 00:58:51,749
+here that what we really
+want to use is logging,
+
+1258
+00:58:51,749 --> 00:58:53,269
+which is also called journaling.
+
+1259
+00:58:53,269 --> 00:58:55,909
+And this is also what's
+implemented in this XV six.
+
+1260
+00:58:55,909 --> 00:58:57,349
+And we're going to pick up
+
+1261
+00:58:57,349 --> 00:58:59,350
+on logging in the next lecture.
+
+1262
+00:58:59,350 --> 00:59:02,830
+So logging is a very
+interesting data structure,
+
+1263
+00:59:02,830 --> 00:59:06,509
+and it's the data
+structure that is enjoying
+
+1264
+00:59:06,509 --> 00:59:08,509
+even a lot of active research in
+
+1265
+00:59:08,509 --> 00:59:11,229
+the scientific
+community for systems.
+
+1266
+00:59:11,229 --> 00:59:12,789
+And so we'll give it
+
+1267
+00:59:12,789 --> 00:59:15,190
+full treatment over the
+course of the next lecture.
+
+1268
+00:59:15,190 --> 00:59:17,749
+So have a good weekend and
+I'll see you on Tuesday.
+
+1269
+00:59:17,749 --> 00:59:19,069
+Thank you.
+
+1270
+00:59:39,469 --> 00:59:41,549
+Okay.

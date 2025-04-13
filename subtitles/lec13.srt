@@ -1,0 +1,6440 @@
+1
+00:00:41,870 --> 00:00:51,870
+So actually
+
+2
+00:00:52,910 --> 00:00:59,569
+so it
+
+3
+00:00:59,569 --> 00:01:01,549
+would be unable to
+
+4
+00:01:38,360 --> 00:01:39,640
+All right.
+
+5
+00:01:39,640 --> 00:01:41,695
+Let's go ahead and get started.
+
+6
+00:01:41,695 --> 00:01:45,510
+We have a ton of material
+to blast through today.
+
+7
+00:01:45,510 --> 00:01:49,290
+So I'm not even going
+to remind you that you
+
+8
+00:01:49,290 --> 00:01:53,469
+do have a lab to do tomorrow.
+Couldn't help myself.
+
+9
+00:01:53,469 --> 00:01:55,929
+At the end of last lecture,
+
+10
+00:01:55,929 --> 00:01:59,490
+we stopped at a specific
+example we wanted to go over,
+
+11
+00:01:59,490 --> 00:02:01,330
+which is round robin scheduling.
+
+12
+00:02:01,330 --> 00:02:02,970
+And this round
+robin scheduling is
+
+13
+00:02:02,970 --> 00:02:05,550
+the default schedule
+in XV six, okay?
+
+14
+00:02:05,550 --> 00:02:06,950
+So let's go ahead and take
+
+15
+00:02:06,950 --> 00:02:09,250
+a look at this
+example right here.
+
+16
+00:02:09,250 --> 00:02:12,689
+What you have basically
+going top to bottom here on
+
+17
+00:02:12,689 --> 00:02:15,310
+the left hand side are
+the various processes
+
+18
+00:02:15,310 --> 00:02:17,569
+with the tuple, okay?
+
+19
+00:02:17,569 --> 00:02:20,069
+The tuple consists of two parts.
+
+20
+00:02:20,069 --> 00:02:22,409
+The first part is when
+this process arrived,
+
+21
+00:02:22,409 --> 00:02:24,810
+and the second part is
+basically the duration,
+
+22
+00:02:24,810 --> 00:02:26,729
+the expected duration
+of the process.
+
+23
+00:02:26,729 --> 00:02:29,489
+Okay. It says here,
+arrival time burst time.
+
+24
+00:02:29,489 --> 00:02:31,169
+So what that means
+is that this is when
+
+25
+00:02:31,169 --> 00:02:33,429
+the process arrived
+into the system,
+
+26
+00:02:33,429 --> 00:02:35,430
+and the second
+component is basically
+
+27
+00:02:35,430 --> 00:02:37,750
+how much time does it need
+in order to complete.
+
+28
+00:02:37,750 --> 00:02:42,249
+Okay? And the Basically,
+
+29
+00:02:42,249 --> 00:02:45,189
+what you start out
+with is the CPU is
+
+30
+00:02:45,189 --> 00:02:50,710
+scheduled to run process
+one, P one here.
+
+31
+00:02:50,710 --> 00:02:53,450
+It only needs a single
+time unit to complete,
+
+32
+00:02:53,450 --> 00:02:55,789
+so it completes the schedule
+
+33
+00:02:55,789 --> 00:02:58,689
+of switches to P two,
+at time equals to one,
+
+34
+00:02:58,689 --> 00:03:00,749
+runs that for two
+time units because
+
+35
+00:03:00,749 --> 00:03:02,809
+that's all the time you
+needed, completes it,
+
+36
+00:03:02,809 --> 00:03:05,110
+switches to P three, o,
+
+37
+00:03:05,110 --> 00:03:07,230
+and runs that for
+three time units
+
+38
+00:03:07,230 --> 00:03:09,805
+because that's the length
+of our time quantum.
+
+39
+00:03:09,805 --> 00:03:12,059
+And then even
+though it still has
+
+40
+00:03:12,059 --> 00:03:14,599
+one more time unit left
+in P three to finish,
+
+41
+00:03:14,599 --> 00:03:17,119
+it nevertheless
+switches to P four.
+
+42
+00:03:17,119 --> 00:03:20,600
+P four is round for three
+time units right here,
+
+43
+00:03:20,600 --> 00:03:24,239
+and the total duration
+that's expected for P four
+
+44
+00:03:24,239 --> 00:03:25,619
+is six and six minus
+
+45
+00:03:25,619 --> 00:03:28,180
+three has three remaining
+units to complete.
+
+46
+00:03:28,180 --> 00:03:30,740
+And so it's not
+done with P four,
+
+47
+00:03:30,740 --> 00:03:33,199
+but it's going to switch
+to P five because it's
+
+48
+00:03:33,199 --> 00:03:36,099
+a round Robin
+scheduler. All right.
+
+49
+00:03:36,099 --> 00:03:38,780
+And now we're running P
+five for three time units,
+
+50
+00:03:38,780 --> 00:03:40,279
+and it's also not done.
+
+51
+00:03:40,279 --> 00:03:46,035
+And by that time, we are
+at time equals to 12.
+
+52
+00:03:46,035 --> 00:03:48,450
+Okay, time equus to 12.
+
+53
+00:03:48,450 --> 00:03:51,109
+And by that time, we
+have one, two, three,
+
+54
+00:03:51,109 --> 00:03:54,369
+four, five, five new processes
+that entered the system,
+
+55
+00:03:54,369 --> 00:03:55,970
+so the round robin can actually
+
+56
+00:03:55,970 --> 00:03:58,570
+continue to the new
+processes that arrived
+
+57
+00:03:58,570 --> 00:04:03,289
+into our runable Q
+and picks up P six.
+
+58
+00:04:03,289 --> 00:04:06,210
+I picks up P six and runs
+that for three time units,
+
+59
+00:04:06,210 --> 00:04:07,709
+not done with that, moves
+
+60
+00:04:07,709 --> 00:04:09,649
+on to P seven and
+so on and so forth.
+
+61
+00:04:09,649 --> 00:04:12,149
+What are the problems here?
+
+62
+00:04:12,149 --> 00:04:14,269
+If any, does this
+
+63
+00:04:14,269 --> 00:04:17,110
+look like a perfect
+scheduler to you guys?
+
+64
+00:04:17,570 --> 00:04:21,390
+So dark black color is
+
+65
+00:04:21,390 --> 00:04:25,449
+basically when the process is
+actually running on a CPU.
+
+66
+00:04:25,449 --> 00:04:29,269
+Light gray is the time
+that it is in the system,
+
+67
+00:04:29,269 --> 00:04:33,430
+in fact, in the runnable
+state, but it's not running.
+
+68
+00:04:33,430 --> 00:04:35,090
+So is anything just
+
+69
+00:04:35,090 --> 00:04:37,545
+immediately jumping out
+at you as an issue?
+
+70
+00:04:37,545 --> 00:04:42,440
+Yeah. That's switching.
+
+71
+00:04:42,440 --> 00:04:45,619
+Okay. But if the
+switching cost is zero,
+
+72
+00:04:45,619 --> 00:04:48,419
+let's say, in this case, yes.
+
+73
+00:04:48,419 --> 00:04:51,739
+Psychos very small amount
+
+74
+00:04:51,739 --> 00:04:54,160
+of time but teaming
+up for his initial is
+
+75
+00:04:54,160 --> 00:04:56,660
+still preempted to wait as long
+
+76
+00:04:56,660 --> 00:04:59,499
+as it basically scales up
+the size of the queue.
+
+77
+00:04:59,499 --> 00:05:03,020
+Right. There's a large wait time
+
+78
+00:05:03,020 --> 00:05:07,159
+short time remaining efficient.
+
+79
+00:05:07,159 --> 00:05:12,120
+Right. So, what's
+your name again?
+
+80
+00:05:12,740 --> 00:05:16,039
+Aman. What he is referring
+
+81
+00:05:16,039 --> 00:05:18,820
+to is this process P
+three right here, right?
+
+82
+00:05:18,820 --> 00:05:22,719
+Notice that it only had a
+single time unit to execute,
+
+83
+00:05:22,719 --> 00:05:24,380
+and it would be
+completely finished.
+
+84
+00:05:24,380 --> 00:05:26,819
+But no, we moved on
+from that process,
+
+85
+00:05:26,819 --> 00:05:28,759
+and we're not going to come
+back to that process until
+
+86
+00:05:28,759 --> 00:05:31,000
+we took a full cycle
+through the Runnable ue.
+
+87
+00:05:31,000 --> 00:05:32,300
+And you guys will see that when
+
+88
+00:05:32,300 --> 00:05:33,700
+you start working
+on your lab three,
+
+89
+00:05:33,700 --> 00:05:35,820
+I know you're all locked in
+on your lab two right now.
+
+90
+00:05:35,820 --> 00:05:37,920
+Actually, how many of you
+are done with Lab two,
+
+91
+00:05:37,920 --> 00:05:40,520
+and you're actually
+receptive to this material?
+
+92
+00:05:40,520 --> 00:05:42,760
+Oh, that's why you're
+all here, right?
+
+93
+00:05:42,760 --> 00:05:45,420
+And all the empty
+seats right there,
+
+94
+00:05:45,420 --> 00:05:47,019
+they're thinking
+that they can catch
+
+95
+00:05:47,019 --> 00:05:49,580
+up on this after Friday, right?
+
+96
+00:05:49,760 --> 00:05:52,460
+Of course, I'm not going
+to get a yes from them,
+
+97
+00:05:52,460 --> 00:05:56,580
+but maybe later because
+it is recorded.
+
+98
+00:05:56,580 --> 00:05:59,019
+So, yeah, that's actually
+a really good point,
+
+99
+00:05:59,019 --> 00:06:00,559
+and it's one of the issues
+
+100
+00:06:00,559 --> 00:06:01,959
+with the Round Robin scheduler.
+
+101
+00:06:01,959 --> 00:06:05,299
+Even though the system
+actually has information
+
+102
+00:06:05,299 --> 00:06:06,940
+about how much work is
+
+103
+00:06:06,940 --> 00:06:09,839
+remaining in this
+particular process,
+
+104
+00:06:09,839 --> 00:06:12,760
+and there are mechanisms
+that we have at
+
+105
+00:06:12,760 --> 00:06:15,540
+our disposal to take advantage
+of this information.
+
+106
+00:06:15,540 --> 00:06:18,419
+Nevertheless, the
+policy itself sucks.
+
+107
+00:06:18,419 --> 00:06:21,819
+The policy is unaware of the
+duration of the process.
+
+108
+00:06:21,819 --> 00:06:23,780
+The policy is unaware of
+
+109
+00:06:23,780 --> 00:06:25,840
+this additional information
+that is provided
+
+110
+00:06:25,840 --> 00:06:27,340
+to us on input to
+
+111
+00:06:27,340 --> 00:06:30,795
+this policy algorithm.
+Any other problems?
+
+112
+00:06:30,795 --> 00:06:36,949
+Yeah. Outside of
+projects and onwards,
+
+113
+00:06:36,949 --> 00:06:40,130
+the pretty much take forever
+to, like, actually read.
+
+114
+00:06:40,130 --> 00:06:43,350
+Right, yeah. So remember,
+I told you guys,
+
+115
+00:06:43,350 --> 00:06:45,310
+we spent a whole like
+
+116
+00:06:45,310 --> 00:06:49,370
+last lecture talking very
+high level stuff, right?
+
+117
+00:06:49,370 --> 00:06:51,970
+But that very high level
+stuff really touched
+
+118
+00:06:51,970 --> 00:06:54,429
+upon some very fundamental
+and important things.
+
+119
+00:06:54,429 --> 00:06:56,169
+And remember, once
+and for the rest of
+
+120
+00:06:56,169 --> 00:06:59,149
+your professional or
+academic careers,
+
+121
+00:06:59,149 --> 00:07:01,189
+right, it is very
+important to reason
+
+122
+00:07:01,189 --> 00:07:04,310
+precisely about the success
+metrics that you care about.
+
+123
+00:07:04,310 --> 00:07:05,890
+So here, let's say
+
+124
+00:07:05,890 --> 00:07:07,309
+the success metric is actually
+
+125
+00:07:07,309 --> 00:07:08,710
+an end to end response time.
+
+126
+00:07:08,710 --> 00:07:10,430
+How do we define it again?
+
+127
+00:07:10,430 --> 00:07:12,890
+We define it as the
+time between when
+
+128
+00:07:12,890 --> 00:07:16,169
+the process into the system
+
+129
+00:07:16,169 --> 00:07:18,929
+and the process
+out of the system,
+
+130
+00:07:18,929 --> 00:07:21,029
+fill in the blank, please.
+
+131
+00:07:21,950 --> 00:07:25,010
+Yeah, enters and exits
+the system, right?
+
+132
+00:07:25,010 --> 00:07:27,070
+And so, basically, when
+
+133
+00:07:27,070 --> 00:07:29,110
+it enters the system,
+that's its arrival time.
+
+134
+00:07:29,110 --> 00:07:30,409
+When it exits the system,
+
+135
+00:07:30,409 --> 00:07:34,829
+that's when it was
+completed by the system.
+
+136
+00:07:34,829 --> 00:07:37,770
+And so that entire time
+is end to response time.
+
+137
+00:07:37,770 --> 00:07:40,249
+If this is our success metric,
+
+138
+00:07:40,249 --> 00:07:43,170
+if this is our if this
+is what we care about,
+
+139
+00:07:43,170 --> 00:07:44,910
+how do you think how well
+
+140
+00:07:44,910 --> 00:07:47,384
+do you think we're doing
+with the scheduler?
+
+141
+00:07:47,384 --> 00:07:49,580
+Not great at all, right?
+
+142
+00:07:49,580 --> 00:07:53,419
+And so how can we
+tell quantitatively?
+
+143
+00:07:53,419 --> 00:07:54,360
+Can you convince me
+
+144
+00:07:54,360 --> 00:07:56,999
+quantitatively that
+we're not doing great?
+
+145
+00:07:56,999 --> 00:07:59,860
+Remember the CGF, right?
+
+146
+00:07:59,860 --> 00:08:02,079
+You have a list of processes.
+
+147
+00:08:02,079 --> 00:08:03,720
+For every single one of them,
+
+148
+00:08:03,720 --> 00:08:05,660
+you can write down a number that
+
+149
+00:08:05,660 --> 00:08:09,139
+corresponds to the length
+of this rectangle, okay?
+
+150
+00:08:09,139 --> 00:08:11,220
+And you're going to
+get a distribution,
+
+151
+00:08:11,220 --> 00:08:14,455
+and you can tell me what
+the median is, right?
+
+152
+00:08:14,455 --> 00:08:16,730
+You can tell me
+what the mean is.
+
+153
+00:08:16,730 --> 00:08:18,610
+You can tell me what
+the tail latency is.
+
+154
+00:08:18,610 --> 00:08:20,509
+You can give me the
+entire cumulative
+
+155
+00:08:20,509 --> 00:08:23,070
+distribution
+function, a CDF plot.
+
+156
+00:08:23,070 --> 00:08:26,589
+Okay? Just by looking
+at this one example.
+
+157
+00:08:26,589 --> 00:08:29,330
+And if I start asking
+questions, well,
+
+158
+00:08:29,330 --> 00:08:32,370
+what if I do a shortest
+job first, right?
+
+159
+00:08:32,370 --> 00:08:36,309
+Instead of this or shortest
+remaining time first,
+
+160
+00:08:36,309 --> 00:08:38,369
+instead of this, right?
+
+161
+00:08:38,369 --> 00:08:39,909
+Then it's going to all of
+
+162
+00:08:39,909 --> 00:08:42,789
+a sudden change the success
+metric that we care about.
+
+163
+00:08:42,789 --> 00:08:44,550
+It's going to change
+the end to end
+
+164
+00:08:44,550 --> 00:08:45,709
+response time that we can
+
+165
+00:08:45,709 --> 00:08:48,060
+measure for every
+single process.
+
+166
+00:08:48,060 --> 00:08:52,570
+Redraw the plot. Overlay the CDF
+
+167
+00:08:52,570 --> 00:08:56,530
+for the two policies
+that you're comparing.
+
+168
+00:08:56,530 --> 00:08:59,729
+Figure out how does it
+compare with respect to mean?
+
+169
+00:08:59,729 --> 00:09:01,129
+How does it compare with respect
+
+170
+00:09:01,129 --> 00:09:02,410
+to worst case performance?
+
+171
+00:09:02,410 --> 00:09:04,049
+How does it compare
+with respect to
+
+172
+00:09:04,049 --> 00:09:06,780
+99th percentile or tail latency?
+
+173
+00:09:06,780 --> 00:09:09,089
+Do you see how cool it is?
+
+174
+00:09:09,089 --> 00:09:11,230
+And so I actually wanted
+
+175
+00:09:11,230 --> 00:09:13,329
+to write a quick and
+dirty, you know,
+
+176
+00:09:13,329 --> 00:09:15,049
+Python simulator for this to
+
+177
+00:09:15,049 --> 00:09:16,489
+actually demonstrate that if
+
+178
+00:09:16,489 --> 00:09:17,869
+you switch between the policies,
+
+179
+00:09:17,869 --> 00:09:19,430
+give everything else constant.
+
+180
+00:09:19,430 --> 00:09:21,029
+This is your workload.
+
+181
+00:09:21,029 --> 00:09:23,310
+The workload consists
+of the processes,
+
+182
+00:09:23,310 --> 00:09:26,269
+when they arrive
+and how much work
+
+183
+00:09:26,269 --> 00:09:29,409
+they carry that needs
+to be executed, right?
+
+184
+00:09:29,409 --> 00:09:31,109
+And on the right hand side, this
+
+185
+00:09:31,109 --> 00:09:32,609
+is basically your
+set of resources,
+
+186
+00:09:32,609 --> 00:09:35,369
+which is a single CPU in
+this particular case, right?
+
+187
+00:09:35,369 --> 00:09:37,410
+Both of those things constant.
+
+188
+00:09:37,410 --> 00:09:40,330
+The information provided to
+the scheduler is constant.
+
+189
+00:09:40,330 --> 00:09:42,070
+Everything is
+constant. All you are
+
+190
+00:09:42,070 --> 00:09:43,949
+changing is the policy
+you're going to get.
+
+191
+00:09:43,949 --> 00:09:46,250
+You can get much
+better performance
+
+192
+00:09:46,250 --> 00:09:49,149
+with respect to the success
+metrics you care about.
+
+193
+00:09:49,149 --> 00:09:50,609
+Now, what if I told you that
+
+194
+00:09:50,609 --> 00:09:53,169
+those processes actually
+have latencies?
+
+195
+00:09:53,169 --> 00:09:56,250
+All of those processes are
+actually not just processes,
+
+196
+00:09:56,250 --> 00:09:58,569
+but they are
+autoregressive decode
+
+197
+00:09:58,569 --> 00:10:01,054
+for successive token
+generation LLM.
+
+198
+00:10:01,054 --> 00:10:04,999
+They actually have a TBT time
+between Token SEO, right?
+
+199
+00:10:04,999 --> 00:10:06,720
+And that becomes a constraint
+
+200
+00:10:06,720 --> 00:10:08,259
+within which the
+scheduler actually
+
+201
+00:10:08,259 --> 00:10:12,159
+has to run these tasks
+in the system, right?
+
+202
+00:10:12,159 --> 00:10:14,459
+Is the Round Robin scheduler at
+
+203
+00:10:14,459 --> 00:10:17,899
+all informed about
+this information or
+
+204
+00:10:17,899 --> 00:10:19,720
+does it does it make
+
+205
+00:10:19,720 --> 00:10:21,699
+its control decisions in
+
+206
+00:10:21,699 --> 00:10:24,000
+a way that's informed
+of these deadlines?
+
+207
+00:10:24,000 --> 00:10:27,410
+No, right? So why
+
+208
+00:10:27,410 --> 00:10:30,149
+would we even want to such a
+schedule in the first place?
+
+209
+00:10:30,149 --> 00:10:34,149
+What are the advantages?
+Yeah. I think
+
+210
+00:10:34,149 --> 00:10:36,009
+you went first. The one
+in the middle. Yeah.
+
+211
+00:10:36,009 --> 00:10:39,669
+Yes. Slightly longer processes
+
+212
+00:10:39,669 --> 00:10:43,429
+don't just take them all the
+time. There's no starvation.
+
+213
+00:10:43,429 --> 00:10:46,409
+Okay, so basically starvation
+free system, right?
+
+214
+00:10:46,409 --> 00:10:47,890
+Because we're
+guaranteed to cycle
+
+215
+00:10:47,890 --> 00:10:49,649
+through them at some
+fixed quantum of time.
+
+216
+00:10:49,649 --> 00:10:51,619
+You guys see that? It's actually
+
+217
+00:10:51,619 --> 00:10:53,120
+a pretty desirable property.
+
+218
+00:10:53,120 --> 00:10:56,600
+Like, for example, when you
+show up to office hours and,
+
+219
+00:10:56,600 --> 00:10:58,199
+you know, there's like
+ten of you, right?
+
+220
+00:10:58,199 --> 00:11:00,599
+And there's 1 hour, and
+someone comes with,
+
+221
+00:11:00,599 --> 00:11:02,279
+I haven't even
+started on lab two,
+
+222
+00:11:02,279 --> 00:11:04,399
+help me out here, and
+someone says, Oh,
+
+223
+00:11:04,399 --> 00:11:05,599
+I have a very quick question on
+
+224
+00:11:05,599 --> 00:11:08,039
+this hand graded
+assignment on lab one.
+
+225
+00:11:08,039 --> 00:11:11,379
+Do you want the entirety
+of the time to go
+
+226
+00:11:11,379 --> 00:11:12,740
+towards the first guy before
+
+227
+00:11:12,740 --> 00:11:14,380
+the second person is serviced?
+
+228
+00:11:14,380 --> 00:11:16,219
+No, right? You want
+
+229
+00:11:16,219 --> 00:11:18,080
+some sort of round
+rob in fairness here.
+
+230
+00:11:18,080 --> 00:11:20,639
+You want starvation
+freedom, okay?
+
+231
+00:11:20,639 --> 00:11:23,040
+Because some of you, especially
+with the short requests,
+
+232
+00:11:23,040 --> 00:11:25,390
+and you're going to experience
+head of line blocking.
+
+233
+00:11:25,390 --> 00:11:26,920
+Scheduling is everywhere.
+
+234
+00:11:26,920 --> 00:11:29,420
+I'm telling you, you can
+think about you can find
+
+235
+00:11:29,420 --> 00:11:33,339
+scheduling formalisms and a way
+
+236
+00:11:33,339 --> 00:11:34,279
+to think about everything
+
+237
+00:11:34,279 --> 00:11:35,780
+from resource
+management perspective
+
+238
+00:11:35,780 --> 00:11:37,400
+if you start thinking
+deeply enough.
+
+239
+00:11:37,400 --> 00:11:39,979
+So the advantages are
+starvation freedom,
+
+240
+00:11:39,979 --> 00:11:43,539
+fairness, guarantees, and it's
+also super simple, right?
+
+241
+00:11:43,539 --> 00:11:45,200
+Like, you can write this policy
+
+242
+00:11:45,200 --> 00:11:46,520
+in a couple of lines of code.
+
+243
+00:11:46,520 --> 00:11:48,440
+And in fact, that's
+what Xpix does.
+
+244
+00:11:48,440 --> 00:11:50,180
+You know, it has like
+two or three lines
+
+245
+00:11:50,180 --> 00:11:51,599
+of code that just iterates over
+
+246
+00:11:51,599 --> 00:11:55,660
+a set a set of bis
+runable processes,
+
+247
+00:11:55,660 --> 00:11:57,819
+and it moves on to
+
+248
+00:11:57,819 --> 00:12:00,000
+the next one consecutively,
+very, very simple.
+
+249
+00:12:00,000 --> 00:12:02,570
+In a single for loop.
+We'll see that code.
+
+250
+00:12:02,570 --> 00:12:04,899
+The disadvantages we've
+already discussed.
+
+251
+00:12:04,899 --> 00:12:07,580
+So let's just blast
+through them real quick.
+
+252
+00:12:07,580 --> 00:12:09,279
+So the advantages are we
+
+253
+00:12:09,279 --> 00:12:11,180
+assign a fixed time
+unit per process.
+
+254
+00:12:11,180 --> 00:12:13,820
+So that means we get to
+every single student.
+
+255
+00:12:13,820 --> 00:12:15,819
+We kind of at least
+give them a chance,
+
+256
+00:12:15,819 --> 00:12:18,160
+you know, to get
+started on their task.
+
+257
+00:12:18,160 --> 00:12:19,660
+And if it's a short task,
+
+258
+00:12:19,660 --> 00:12:22,419
+we actually get a chance to
+finish that task, right?
+
+259
+00:12:22,419 --> 00:12:24,985
+So there's no head of
+line blocking here.
+
+260
+00:12:24,985 --> 00:12:27,250
+The starvation freedom.
+
+261
+00:12:27,250 --> 00:12:28,989
+He's a very good advantage of
+
+262
+00:12:28,989 --> 00:12:32,270
+round robin scheduling that
+should not be forgotten,
+
+263
+00:12:32,270 --> 00:12:34,589
+but there are significant
+disadvantages.
+
+264
+00:12:34,589 --> 00:12:36,789
+It does not distinguish between
+
+265
+00:12:36,789 --> 00:12:39,029
+the urgency or the
+priority of the processes.
+
+266
+00:12:39,029 --> 00:12:40,390
+It's deadline unaware.
+
+267
+00:12:40,390 --> 00:12:42,569
+So if I were to impose the
+deadline, it doesn't care.
+
+268
+00:12:42,569 --> 00:12:45,029
+You know, it's just going
+to move on to the next one.
+
+269
+00:12:45,029 --> 00:12:48,030
+Do you guys know if any
+deadline aware policies,
+
+270
+00:12:48,030 --> 00:12:49,969
+off the top of your head?
+
+271
+00:12:49,969 --> 00:12:56,319
+Yeah. What? Priority.
+Okay, well,
+
+272
+00:12:56,319 --> 00:12:59,400
+it's a bit of a you can use
+
+273
+00:12:59,400 --> 00:13:03,239
+priority as a mechanism to
+represent deadlines, right?
+
+274
+00:13:03,239 --> 00:13:06,280
+And, yeah. But actually,
+
+275
+00:13:06,280 --> 00:13:08,340
+you can use deadlines explicitly
+
+276
+00:13:08,340 --> 00:13:10,400
+in your scheduler
+policy as well.
+
+277
+00:13:10,400 --> 00:13:13,040
+So anyway, this is
+completely deadline unaware.
+
+278
+00:13:13,040 --> 00:13:15,519
+It doesn't handle the disparity
+between throughput and
+
+279
+00:13:15,519 --> 00:13:17,839
+latency because
+
+280
+00:13:17,839 --> 00:13:20,519
+it's completely latency
+insensitive, right?
+
+281
+00:13:20,519 --> 00:13:21,859
+It just does the simple thing
+
+282
+00:13:21,859 --> 00:13:23,620
+of moving to the next process.
+
+283
+00:13:23,620 --> 00:13:28,089
+So there are a bunch of
+different ways we can think of
+
+284
+00:13:28,089 --> 00:13:31,149
+scheduling as I was
+hoping you would sort
+
+285
+00:13:31,149 --> 00:13:34,950
+of appreciate by the
+end of this lecture.
+
+286
+00:13:34,950 --> 00:13:37,909
+You know, what are some of
+the other scheduling policies
+
+287
+00:13:37,909 --> 00:13:39,509
+we can think of, right?
+
+288
+00:13:39,509 --> 00:13:41,170
+Round Rob and FIFO.
+
+289
+00:13:41,170 --> 00:13:44,790
+So the E Ware policy I
+was referring to is EDF,
+
+290
+00:13:44,790 --> 00:13:48,709
+earliest deadline first
+policy. It exists.
+
+291
+00:13:48,709 --> 00:13:50,570
+It's actually fairly powerful,
+
+292
+00:13:50,570 --> 00:13:52,010
+especially when your resources
+
+293
+00:13:52,010 --> 00:13:54,489
+or workloads are
+homogeneous, okay?
+
+294
+00:13:54,489 --> 00:13:56,869
+Someone, I think in the
+middle row over there
+
+295
+00:13:56,869 --> 00:13:59,709
+mentioned last time
+shortest job, right?
+
+296
+00:13:59,709 --> 00:14:01,109
+And there are two
+variants of that.
+
+297
+00:14:01,109 --> 00:14:02,770
+You can actually
+run shortest job
+
+298
+00:14:02,770 --> 00:14:04,669
+first by taking care
+
+299
+00:14:04,669 --> 00:14:06,650
+of shortest requests
+in their entirety,
+
+300
+00:14:06,650 --> 00:14:08,189
+or you can be
+preemptive and you can
+
+301
+00:14:08,189 --> 00:14:10,329
+do shortest remaining
+time first, right,
+
+302
+00:14:10,329 --> 00:14:11,890
+by preempting them anyway,
+
+303
+00:14:11,890 --> 00:14:14,270
+but then prioritizing the tasks
+
+304
+00:14:14,270 --> 00:14:16,049
+that have the least
+amount of time left over.
+
+305
+00:14:16,049 --> 00:14:17,650
+So if you were to go back here,
+
+306
+00:14:17,650 --> 00:14:21,909
+because let's say we're
+context switching here, right,
+
+307
+00:14:21,909 --> 00:14:23,995
+from P three to something,
+
+308
+00:14:23,995 --> 00:14:26,920
+and if we're switching
+from P three to something,
+
+309
+00:14:26,920 --> 00:14:28,819
+P one and P two were
+already done, right?
+
+310
+00:14:28,819 --> 00:14:30,339
+So what do we have
+in the runable Q?
+
+311
+00:14:30,339 --> 00:14:33,839
+We have P three and we
+have P four and P five.
+
+312
+00:14:33,839 --> 00:14:36,779
+P four and P five haven't
+even started yet, right?
+
+313
+00:14:36,779 --> 00:14:40,119
+And so they have six
+units of work left and
+
+314
+00:14:40,119 --> 00:14:43,480
+eight units of work
+left respectively.
+
+315
+00:14:43,480 --> 00:14:46,539
+But our P three only
+had one unit of work.
+
+316
+00:14:46,539 --> 00:14:48,359
+So the scheduler here,
+
+317
+00:14:48,359 --> 00:14:51,000
+if it were shortest
+remaining time policy,
+
+318
+00:14:51,000 --> 00:14:52,939
+what would it do?
+
+319
+00:14:54,150 --> 00:14:59,450
+Yeah. Sorry?
+
+320
+00:14:59,450 --> 00:15:06,549
+No, no, Which specific process
+would it conteate Yeah.
+
+321
+00:15:10,150 --> 00:15:12,910
+The PTN hasn't arrived yet.
+
+322
+00:15:12,910 --> 00:15:14,470
+Oh.
+
+323
+00:15:14,900 --> 00:15:20,199
+P two has completed. Yeah, see?
+
+324
+00:15:20,199 --> 00:15:21,860
+It seems like pretty
+straightforward,
+
+325
+00:15:21,860 --> 00:15:25,539
+but you can't immediately
+answer that question.
+
+326
+00:15:25,539 --> 00:15:27,779
+Two. It'll be P
+three again, right?
+
+327
+00:15:27,779 --> 00:15:29,899
+And it's a bit of a trick
+question because we've just
+
+328
+00:15:29,899 --> 00:15:32,479
+contact switched out
+of P three, right?
+
+329
+00:15:32,479 --> 00:15:34,220
+Our time quantum has ended.
+
+330
+00:15:34,220 --> 00:15:36,360
+We finished running
+a particular task,
+
+331
+00:15:36,360 --> 00:15:38,940
+whatever the hell it is,
+right, for three time units.
+
+332
+00:15:38,940 --> 00:15:41,339
+And so we are contact switching
+back into the kernel.
+
+333
+00:15:41,339 --> 00:15:44,220
+The scheduler context, we're
+making a control decision,
+
+334
+00:15:44,220 --> 00:15:46,000
+who gets to go next.
+
+335
+00:15:46,000 --> 00:15:48,519
+Okay? What do we have
+in the Runnable Q?
+
+336
+00:15:48,519 --> 00:15:50,039
+P one is out, P two is out.
+
+337
+00:15:50,039 --> 00:15:51,480
+P three is still there, P four
+
+338
+00:15:51,480 --> 00:15:52,979
+is still there, P
+five is still there.
+
+339
+00:15:52,979 --> 00:15:54,999
+What is the shortest
+remaining time?
+
+340
+00:15:54,999 --> 00:15:56,579
+P three, okay?
+
+341
+00:15:56,579 --> 00:15:58,399
+So we get to pick P
+three again. Yes.
+
+342
+00:15:58,399 --> 00:16:00,880
+Like, is the time quinta,
+like an interrupt,
+
+343
+00:16:00,880 --> 00:16:02,379
+it's like an external timer
+
+344
+00:16:02,379 --> 00:16:04,739
+that hits every time
+the interruptus?
+
+345
+00:16:04,739 --> 00:16:06,639
+Yeah, basically,
+you literally have
+
+346
+00:16:06,639 --> 00:16:10,299
+a software interrupt
+that runs on a timer,
+
+347
+00:16:10,299 --> 00:16:11,940
+and it interrupts basically
+
+348
+00:16:11,940 --> 00:16:13,600
+whatever's currently
+running on a CPU and
+
+349
+00:16:13,600 --> 00:16:15,419
+the handler for that
+interrupt is the one
+
+350
+00:16:15,419 --> 00:16:16,479
+responsible for you to
+
+351
+00:16:16,479 --> 00:16:18,859
+switch between the
+processes and the.
+
+352
+00:16:19,420 --> 00:16:22,700
+It's like a trap. It's a trap.
+
+353
+00:16:22,700 --> 00:16:25,499
+Yeah. Because without that,
+
+354
+00:16:25,499 --> 00:16:26,779
+the only option you have is
+
+355
+00:16:26,779 --> 00:16:29,140
+cooperative
+scheduling and yield.
+
+356
+00:16:29,140 --> 00:16:31,459
+And we'll hopefully get to that.
+
+357
+00:16:31,459 --> 00:16:33,879
+If not this lecture,
+the next lecture.
+
+358
+00:16:33,879 --> 00:16:38,739
+Okay. Are any of them ideal?
+That's a trick question.
+
+359
+00:16:38,940 --> 00:16:46,340
+Can you just give me a
+policy that is the best?
+
+360
+00:16:49,580 --> 00:16:54,079
+Why can't we just solve this
+problem once and for all?
+
+361
+00:16:54,079 --> 00:16:56,419
+Come up with an algorithm that
+
+362
+00:16:56,419 --> 00:16:58,960
+just solves all
+scheduling problems.
+
+363
+00:16:58,960 --> 00:16:59,964
+Yes.
+
+364
+00:16:59,964 --> 00:17:01,569
+Metric.
+
+365
+00:17:01,569 --> 00:17:05,109
+It depends on your
+success metric, okay?
+
+366
+00:17:05,150 --> 00:17:07,789
+Right. So you need kind of
+
+367
+00:17:07,789 --> 00:17:11,549
+different that caters to
+different success metrics.
+
+368
+00:17:11,549 --> 00:17:13,749
+That's correct. Anything
+else that sort of
+
+369
+00:17:13,749 --> 00:17:16,309
+is problematic here? Yes.
+
+370
+00:17:16,309 --> 00:17:17,930
+It depends on your workload,
+
+371
+00:17:17,930 --> 00:17:21,789
+how long your jobs
+are on average.
+
+372
+00:17:21,910 --> 00:17:24,350
+It depends on your workload.
+
+373
+00:17:24,350 --> 00:17:27,790
+Now, when you say
+that on a test,
+
+374
+00:17:27,790 --> 00:17:31,309
+I will want you to be
+more precise, okay?
+
+375
+00:17:31,309 --> 00:17:33,329
+When you say that,
+I will want you to
+
+376
+00:17:33,329 --> 00:17:35,815
+think about the properties
+of the workload.
+
+377
+00:17:35,815 --> 00:17:37,479
+Like what properties of
+
+378
+00:17:37,479 --> 00:17:40,060
+the workload do you
+specifically have in mind?
+
+379
+00:17:40,060 --> 00:17:42,819
+And there are a couple of Oh,
+you have an answer to that?
+
+380
+00:17:42,819 --> 00:17:44,679
+Yeah, I was just going
+to say the priority
+
+381
+00:17:44,679 --> 00:17:47,679
+of the different schedules.
+
+382
+00:17:47,679 --> 00:17:49,079
+Now, see, there
+was nothing about
+
+383
+00:17:49,079 --> 00:17:51,179
+priority in that
+workload, right?
+
+384
+00:17:51,179 --> 00:17:55,420
+In Linux, you can assign
+priorities. That is true.
+
+385
+00:17:55,420 --> 00:17:58,199
+But if I give you a
+specific example like this,
+
+386
+00:17:58,199 --> 00:18:02,119
+priority wasn't part
+of your input, right?
+
+387
+00:18:02,119 --> 00:18:05,059
+So be careful about that. You
+don't always get priority.
+
+388
+00:18:05,059 --> 00:18:08,299
+And I don't have time
+to talk about this,
+
+389
+00:18:08,299 --> 00:18:11,199
+but, you know, priority,
+in my opinion,
+
+390
+00:18:11,199 --> 00:18:13,019
+is actually a shortcut to
+
+391
+00:18:13,019 --> 00:18:15,719
+implement policies like
+earliest deadline first,
+
+392
+00:18:15,719 --> 00:18:19,020
+like the actual maximizing
+value type of things.
+
+393
+00:18:19,020 --> 00:18:20,919
+It's sort of a proxy for
+
+394
+00:18:20,919 --> 00:18:23,620
+capturing those things
+in a static way.
+
+395
+00:18:23,620 --> 00:18:25,520
+And it is sub optimal.
+
+396
+00:18:25,520 --> 00:18:26,840
+So I actually really don't
+
+397
+00:18:26,840 --> 00:18:28,320
+like priority based schedulers.
+
+398
+00:18:28,320 --> 00:18:37,020
+Yes. So is that a
+property of the workload,
+
+399
+00:18:37,020 --> 00:18:39,319
+or is it the property
+of the system?
+
+400
+00:18:39,319 --> 00:18:41,720
+Sort of a telemetry that you
+could measure when you're
+
+401
+00:18:41,720 --> 00:18:44,199
+running the system in
+steady state, right?
+
+402
+00:18:44,199 --> 00:18:47,479
+So that's part of the
+telemetry of the system, yes.
+
+403
+00:18:47,479 --> 00:18:51,899
+Workload. That would be
+
+404
+00:18:51,899 --> 00:18:55,319
+a case where you want to do
+something like short first.
+
+405
+00:18:55,319 --> 00:18:58,300
+But if you have
+longer processing,
+
+406
+00:18:58,300 --> 00:19:00,119
+mix the shorter process.
+
+407
+00:19:00,119 --> 00:19:05,850
+Right. That's an example
+where no longer.
+
+408
+00:19:06,170 --> 00:19:11,010
+Exactly. So basically the
+distribution of job durations.
+
+409
+00:19:11,010 --> 00:19:14,789
+That's a most succinct way to
+capture what you just said.
+
+410
+00:19:14,789 --> 00:19:16,589
+One of the properties
+
+411
+00:19:16,589 --> 00:19:19,710
+is the distribution
+of job durations.
+
+412
+00:19:19,710 --> 00:19:22,469
+They could be, for example,
+all completely homogenous.
+
+413
+00:19:22,469 --> 00:19:24,190
+Then you can very
+tightly pin pack
+
+414
+00:19:24,190 --> 00:19:26,289
+them very tightly and you can
+
+415
+00:19:26,289 --> 00:19:30,870
+actually have almost zero
+weight between those processes.
+
+416
+00:19:30,870 --> 00:19:33,230
+Or if they could be
+heterogeneous and they don't
+
+417
+00:19:33,230 --> 00:19:34,449
+quite fit into your time
+
+418
+00:19:34,449 --> 00:19:36,034
+quantum and you
+have to break it.
+
+419
+00:19:36,034 --> 00:19:38,480
+Right? Or anything in between.
+
+420
+00:19:38,480 --> 00:19:42,199
+And so depending on
+this distribution,
+
+421
+00:19:42,199 --> 00:19:45,740
+you can sort of apply different
+scheduling heuristics
+
+422
+00:19:45,740 --> 00:19:49,300
+will be more amenable to
+those specific properties.
+
+423
+00:19:49,300 --> 00:19:51,779
+I should also mention
+that interestingly,
+
+424
+00:19:51,779 --> 00:19:56,160
+a lot of people actually
+miss arrival times.
+
+425
+00:19:56,160 --> 00:19:58,739
+So arrival time is
+another property
+
+426
+00:19:58,739 --> 00:20:00,179
+of the workload, you know,
+
+427
+00:20:00,179 --> 00:20:04,420
+and only the workload
+that has a huge effect
+
+428
+00:20:04,420 --> 00:20:06,839
+on the performance of
+
+429
+00:20:06,839 --> 00:20:09,640
+the system and scheduling
+policy in particular.
+
+430
+00:20:09,640 --> 00:20:14,539
+But let's not get into
+that right now. Okay. So
+
+431
+00:20:14,650 --> 00:20:17,030
+Well, it seems like it's
+
+432
+00:20:17,030 --> 00:20:20,829
+sort of an insurmountable
+task, but we do have Linux.
+
+433
+00:20:20,829 --> 00:20:25,350
+We do have MacOS running
+on your laptops,
+
+434
+00:20:25,350 --> 00:20:27,269
+clearly, they are doing
+something and you have
+
+435
+00:20:27,269 --> 00:20:28,570
+thousands of processes running
+
+436
+00:20:28,570 --> 00:20:29,749
+there at any given
+point in time.
+
+437
+00:20:29,749 --> 00:20:32,729
+How the hell do they
+do that, right?
+
+438
+00:20:32,729 --> 00:20:34,810
+And they don't even
+have any information
+
+439
+00:20:34,810 --> 00:20:37,289
+about the duration of
+your tasks, by the way.
+
+440
+00:20:37,289 --> 00:20:39,349
+So what do they do, right?
+
+441
+00:20:39,349 --> 00:20:41,390
+Well, this is the enabling
+
+442
+00:20:41,390 --> 00:20:44,069
+motivations observation
+that we can work with.
+
+443
+00:20:44,069 --> 00:20:45,969
+Processes that constantly use
+
+444
+00:20:45,969 --> 00:20:48,389
+full CPU are likely
+lower priority
+
+445
+00:20:48,389 --> 00:20:50,000
+than those that mostly sleep.
+
+446
+00:20:50,000 --> 00:20:53,209
+Example here, sort of a
+motivating example here is,
+
+447
+00:20:53,209 --> 00:20:56,029
+let's say you have a network
+server that mostly sleeps,
+
+448
+00:20:56,029 --> 00:20:58,089
+but whenever you get
+a network packet,
+
+449
+00:20:58,089 --> 00:20:59,550
+you want to process
+it right away,
+
+450
+00:20:59,550 --> 00:21:02,109
+right, with high urgency.
+
+451
+00:21:02,230 --> 00:21:05,489
+Whereas, in contrast to that,
+
+452
+00:21:05,489 --> 00:21:08,349
+let's say you have a cron job
+that just runs or a batch
+
+453
+00:21:08,349 --> 00:21:12,910
+job that has very high
+arithmetic intensity,
+
+454
+00:21:12,910 --> 00:21:17,289
+but it doesn't it consumes
+the CPU quite a bit,
+
+455
+00:21:17,289 --> 00:21:19,610
+but it doesn't necessarily
+have that same kind
+
+456
+00:21:19,610 --> 00:21:22,950
+of urgency as a server
+running in the bag.
+
+457
+00:21:24,510 --> 00:21:27,069
+Okay, so the idea here is
+
+458
+00:21:27,069 --> 00:21:30,190
+that as a CPU consuming
+resource runs,
+
+459
+00:21:30,190 --> 00:21:32,130
+you want to reduce its priority,
+
+460
+00:21:32,130 --> 00:21:35,069
+right, and reduce priority
+
+461
+00:21:35,069 --> 00:21:36,949
+from processes that
+always consume full CPU.
+
+462
+00:21:36,949 --> 00:21:38,650
+Yeah, you want to
+reduce its priority,
+
+463
+00:21:38,650 --> 00:21:42,769
+and as the process sleeps
+or doesn't consume the CPU,
+
+464
+00:21:42,769 --> 00:21:44,910
+you want to increase
+its priority.
+
+465
+00:21:44,910 --> 00:21:46,969
+So let's see how that works
+
+466
+00:21:46,969 --> 00:21:49,769
+specifically in the
+context of this example.
+
+467
+00:21:49,769 --> 00:21:51,369
+So you have two jobs. You have
+
+468
+00:21:51,369 --> 00:21:53,390
+a Jeep learning
+training job running.
+
+469
+00:21:53,390 --> 00:21:55,049
+Horizontally, you have time,
+
+470
+00:21:55,049 --> 00:21:56,930
+vertically, you have priority.
+
+471
+00:21:56,930 --> 00:21:58,989
+Higher priority has to be
+
+472
+00:21:58,989 --> 00:22:01,429
+scheduled or has to be
+prioritized, right?
+
+473
+00:22:01,429 --> 00:22:03,170
+And your Deep
+learning training job
+
+474
+00:22:03,170 --> 00:22:04,630
+is a very long running job.
+
+475
+00:22:04,630 --> 00:22:06,829
+It occupies the
+CPU all the time.
+
+476
+00:22:06,829 --> 00:22:08,289
+And so over time, what
+
+477
+00:22:08,289 --> 00:22:09,870
+we're doing is we're
+going to lower
+
+478
+00:22:09,870 --> 00:22:15,929
+its priority as it keeps
+occupying and consuming CPU.
+
+479
+00:22:15,929 --> 00:22:17,969
+Now here, we have
+
+480
+00:22:17,969 --> 00:22:21,049
+a periodic sequence of
+
+481
+00:22:21,049 --> 00:22:24,689
+activity coming from our
+server that mostly sleeps,
+
+482
+00:22:24,689 --> 00:22:26,529
+but sometimes wakes
+up because it
+
+483
+00:22:26,529 --> 00:22:28,930
+receives a request that
+needs to be processed.
+
+484
+00:22:28,930 --> 00:22:30,649
+And this is, for example,
+
+485
+00:22:30,649 --> 00:22:34,489
+something let's say an
+inference server would do.
+
+486
+00:22:34,489 --> 00:22:37,469
+An inference server would
+basically get a request.
+
+487
+00:22:37,469 --> 00:22:41,109
+An image with a cat
+that needs to basically
+
+488
+00:22:41,109 --> 00:22:44,809
+perform image classification
+task on that request,
+
+489
+00:22:44,809 --> 00:22:49,089
+on that image, and return
+an answer to the client.
+
+490
+00:22:49,089 --> 00:22:51,429
+And this is sort of
+happening periodically.
+
+491
+00:22:51,429 --> 00:22:53,049
+It doesn't happen all the time.
+
+492
+00:22:53,049 --> 00:22:55,650
+So what we're going
+to do is while
+
+493
+00:22:55,650 --> 00:22:59,769
+that inference server is
+occupying CPU resources, right?
+
+494
+00:22:59,769 --> 00:23:05,190
+While it's doing that, we're
+going to lower its priority.
+
+495
+00:23:05,190 --> 00:23:08,150
+But while it's
+sleeping over here,
+
+496
+00:23:08,150 --> 00:23:09,709
+while it's slipping, we're going
+
+497
+00:23:09,709 --> 00:23:11,370
+to increase its priority.
+
+498
+00:23:11,370 --> 00:23:13,029
+And then we're going
+to keep doing that.
+
+499
+00:23:13,029 --> 00:23:14,469
+As it's using the CPU,
+
+500
+00:23:14,469 --> 00:23:17,029
+we're going to lower the
+priority and then increase it,
+
+501
+00:23:17,029 --> 00:23:19,509
+lower and increase it, and
+so on and so forth, right?
+
+502
+00:23:19,509 --> 00:23:22,890
+And so the result of
+this is that, of course,
+
+503
+00:23:22,890 --> 00:23:25,050
+depending on the properties
+of this workload,
+
+504
+00:23:25,050 --> 00:23:27,749
+its priority is going to
+
+505
+00:23:27,749 --> 00:23:29,190
+remain pretty high while
+
+506
+00:23:29,190 --> 00:23:30,909
+this one is going to
+start dropping off.
+
+507
+00:23:30,909 --> 00:23:32,209
+And so guess what's going to
+
+508
+00:23:32,209 --> 00:23:34,309
+happen when the new
+request comes in,
+
+509
+00:23:34,309 --> 00:23:36,250
+while your deep
+learning training job
+
+510
+00:23:36,250 --> 00:23:38,230
+continues chugging along.
+
+511
+00:23:38,230 --> 00:23:43,149
+We will do what with the
+inference server task.
+
+512
+00:23:43,870 --> 00:23:47,590
+Yeah. Deep learning
+training task
+
+513
+00:23:47,590 --> 00:23:49,169
+and take care of it first.
+
+514
+00:23:49,169 --> 00:23:51,349
+Right, right. Because
+it's going to
+
+515
+00:23:51,349 --> 00:23:53,669
+maintain as high priority
+because of the sort of
+
+516
+00:23:53,669 --> 00:23:55,489
+priority dynamics over time
+
+517
+00:23:55,489 --> 00:23:58,750
+indicated in the
+red zigzag line,
+
+518
+00:23:58,750 --> 00:24:01,089
+right, is going to maintain at
+
+519
+00:24:01,089 --> 00:24:02,809
+relatively high
+priority compared
+
+520
+00:24:02,809 --> 00:24:04,170
+to the Jeep learning
+training task.
+
+521
+00:24:04,170 --> 00:24:05,569
+So what we're going to do if
+
+522
+00:24:05,569 --> 00:24:07,269
+we have a single
+resource, right,
+
+523
+00:24:07,269 --> 00:24:08,590
+we will actually preempt
+
+524
+00:24:08,590 --> 00:24:09,809
+the Jeep learning
+training job in
+
+525
+00:24:09,809 --> 00:24:13,509
+order to schedule our
+inference survey task. Okay?
+
+526
+00:24:13,509 --> 00:24:18,269
+Yeah. Dynamic allocated priority
+
+527
+00:24:18,269 --> 00:24:22,229
+every single let's every time
+the quantum window arrives,
+
+528
+00:24:22,229 --> 00:24:24,770
+you a let's reassess
+
+529
+00:24:24,770 --> 00:24:27,769
+which process should
+be preempted or Yeah.
+
+530
+00:24:27,769 --> 00:24:32,649
+At every point in time,
+do we add another stage
+
+531
+00:24:32,649 --> 00:24:34,689
+of priority to the
+casks and then
+
+532
+00:24:34,689 --> 00:24:37,289
+just remove one from
+the running one?
+
+533
+00:24:37,289 --> 00:24:39,050
+Basically, there are
+some very efficient
+
+534
+00:24:39,050 --> 00:24:40,809
+algorithms that just in
+
+535
+00:24:40,809 --> 00:24:42,450
+order one complexity can give
+
+536
+00:24:42,450 --> 00:24:45,270
+you an estimate
+of that priority.
+
+537
+00:24:45,270 --> 00:24:47,410
+So let me just go
+through the next slide,
+
+538
+00:24:47,410 --> 00:24:48,550
+and I think it'll
+
+539
+00:24:48,550 --> 00:24:50,989
+capture the answer to
+your question, okay?
+
+540
+00:24:50,989 --> 00:24:53,189
+So basically, what the
+Linux scheduler does,
+
+541
+00:24:53,189 --> 00:24:56,149
+which is an example of a modern
+high performance system,
+
+542
+00:24:56,149 --> 00:24:58,529
+it implements the
+weighted fair queuing.
+
+543
+00:24:58,529 --> 00:25:01,069
+And what that does
+is that it shares
+
+544
+00:25:01,069 --> 00:25:03,610
+the resources proportionally
+to the process's weight.
+
+545
+00:25:03,610 --> 00:25:05,889
+So for example, you
+have two processes.
+
+546
+00:25:05,889 --> 00:25:07,990
+You have an inference
+serve task,
+
+547
+00:25:07,990 --> 00:25:10,329
+and you have a Jeep
+learning training task,
+
+548
+00:25:10,329 --> 00:25:11,949
+and one of them is going to be
+
+549
+00:25:11,949 --> 00:25:14,290
+allocated higher
+amount of weight.
+
+550
+00:25:14,290 --> 00:25:17,069
+And so if that
+
+551
+00:25:17,069 --> 00:25:19,690
+let's say twice twice
+the amount of weight.
+
+552
+00:25:19,690 --> 00:25:21,349
+And if that is going to happen,
+
+553
+00:25:21,349 --> 00:25:23,349
+you will allocate
+twice the amount
+
+554
+00:25:23,349 --> 00:25:25,010
+of resources to that task.
+
+555
+00:25:25,010 --> 00:25:27,890
+And the resources here are
+spatiotemporal resources.
+
+556
+00:25:27,890 --> 00:25:30,170
+Let's say if you have one CPU,
+
+557
+00:25:30,170 --> 00:25:32,049
+you will probably
+allocate twice as
+
+558
+00:25:32,049 --> 00:25:35,310
+many time quanta to that task.
+
+559
+00:25:35,310 --> 00:25:37,050
+Or maybe if you're allocating
+
+560
+00:25:37,050 --> 00:25:38,769
+multiple CPUs at the same time,
+
+561
+00:25:38,769 --> 00:25:42,649
+that process is going to get
+twice the number of course.
+
+562
+00:25:42,649 --> 00:25:44,850
+Okay. And so CFS,
+
+563
+00:25:44,850 --> 00:25:49,809
+the completely fair scheduler
+is the Linux's solution to
+
+564
+00:25:49,809 --> 00:25:53,169
+this dynamic behavior of
+
+565
+00:25:53,169 --> 00:25:55,109
+the priority of the
+different tasks.
+
+566
+00:25:55,109 --> 00:25:56,609
+And it's an implementation of
+
+567
+00:25:56,609 --> 00:25:59,429
+the weighted fair queuing, okay?
+
+568
+00:25:59,429 --> 00:26:01,869
+So that's basically
+what the Linux does.
+
+569
+00:26:01,869 --> 00:26:03,970
+It uses CFS.
+
+570
+00:26:03,970 --> 00:26:07,269
+Okay, and so I will
+conclude the discussion of
+
+571
+00:26:07,269 --> 00:26:09,029
+scheduling by referring to
+
+572
+00:26:09,029 --> 00:26:10,830
+the hard and soft
+real time problem,
+
+573
+00:26:10,830 --> 00:26:14,090
+real time operating systems
+because I mentioned
+
+574
+00:26:14,090 --> 00:26:15,469
+them previously
+and I just want to
+
+575
+00:26:15,469 --> 00:26:18,024
+complete that thread
+of thought, right?
+
+576
+00:26:18,024 --> 00:26:20,819
+They are fundamentally different
+
+577
+00:26:20,819 --> 00:26:23,840
+because both of
+them are SLO aware,
+
+578
+00:26:23,840 --> 00:26:26,200
+by the way, both of them
+are aware of the deadline.
+
+579
+00:26:26,200 --> 00:26:27,539
+So that's one property that
+
+580
+00:26:27,539 --> 00:26:31,440
+these two operating
+system types share.
+
+581
+00:26:31,440 --> 00:26:32,980
+Now, what is the difference?
+
+582
+00:26:32,980 --> 00:26:34,380
+The difference is that the hard
+
+583
+00:26:34,380 --> 00:26:36,620
+real time operating systems,
+
+584
+00:26:36,620 --> 00:26:39,019
+the situation there is
+that they need to complete
+
+585
+00:26:39,019 --> 00:26:41,259
+critical tasks within a
+guaranteed amount of time.
+
+586
+00:26:41,259 --> 00:26:42,699
+And if that doesn't happen,
+
+587
+00:26:42,699 --> 00:26:44,439
+you know, something
+terrible happens.
+
+588
+00:26:44,439 --> 00:26:46,040
+There's going to
+be loss of life.
+
+589
+00:26:46,040 --> 00:26:47,840
+Your drone is going to fall down
+
+590
+00:26:47,840 --> 00:26:49,779
+into the enemy
+territory. I don't know.
+
+591
+00:26:49,779 --> 00:26:50,899
+There's something
+that you really,
+
+592
+00:26:50,899 --> 00:26:52,649
+really don't want to happen.
+
+593
+00:26:52,649 --> 00:26:55,679
+And this is usually
+something that is
+
+594
+00:26:55,679 --> 00:26:58,820
+applicable to various embedded
+devices, medical devices.
+
+595
+00:26:58,820 --> 00:27:00,420
+You know, I've seen
+your info cards.
+
+596
+00:27:00,420 --> 00:27:01,559
+I think some of you are actually
+
+597
+00:27:01,559 --> 00:27:03,479
+working on medical
+device research.
+
+598
+00:27:03,479 --> 00:27:05,639
+So that's going to
+be appealing to
+
+599
+00:27:05,639 --> 00:27:08,500
+you to look into hard real
+time operating systems.
+
+600
+00:27:08,500 --> 00:27:10,600
+Now, soft real time systems,
+
+601
+00:27:10,600 --> 00:27:13,180
+they share the property
+that they're SLO aware.
+
+602
+00:27:13,180 --> 00:27:14,639
+They are latency aware.
+
+603
+00:27:14,639 --> 00:27:17,120
+And they do want
+those latency SLOs,
+
+604
+00:27:17,120 --> 00:27:19,580
+those latency deadlines
+to be satisfied.
+
+605
+00:27:19,580 --> 00:27:21,580
+However, if they're
+not satisfied,
+
+606
+00:27:21,580 --> 00:27:23,879
+right, it's sort
+of less critical.
+
+607
+00:27:23,879 --> 00:27:26,079
+You can probably lose money,
+you can lose revenue,
+
+608
+00:27:26,079 --> 00:27:27,900
+but you're not going
+to lose a life,
+
+609
+00:27:27,900 --> 00:27:30,450
+or your drone is not going
+to fall out of the sky.
+
+610
+00:27:30,450 --> 00:27:34,199
+Okay. So that's a soft
+real time system.
+
+611
+00:27:34,199 --> 00:27:36,360
+And from a mathematical
+standpoint,
+
+612
+00:27:36,360 --> 00:27:37,979
+there's a fundamental
+difference here
+
+613
+00:27:37,979 --> 00:27:40,180
+because with hard real
+time operating systems,
+
+614
+00:27:40,180 --> 00:27:42,740
+you treat a deadline
+as a constraint.
+
+615
+00:27:42,740 --> 00:27:46,000
+Okay? So from anyone who's
+
+616
+00:27:46,000 --> 00:27:49,080
+looked into optimization
+problem formulation,
+
+617
+00:27:49,080 --> 00:27:50,739
+you know, it has an
+objective function
+
+618
+00:27:50,739 --> 00:27:52,380
+and it has a set of constraints.
+
+619
+00:27:52,380 --> 00:27:56,420
+Now, in hard real time, a
+latency SLO is a constraint.
+
+620
+00:27:56,420 --> 00:27:58,959
+So it's a constraint
+satisfaction problem.
+
+621
+00:27:58,959 --> 00:28:01,779
+In soft real time, we are
+
+622
+00:28:01,779 --> 00:28:04,719
+treating SLO attainment
+as an objective function.
+
+623
+00:28:04,719 --> 00:28:07,420
+What that means is that
+we are trying to maximize
+
+624
+00:28:07,420 --> 00:28:08,879
+the number of tasks for which
+
+625
+00:28:08,879 --> 00:28:11,130
+the latency SLO was satisfied.
+
+626
+00:28:11,130 --> 00:28:12,539
+Do you see the difference?
+
+627
+00:28:12,539 --> 00:28:13,820
+It's a very concrete
+
+628
+00:28:13,820 --> 00:28:16,499
+mathematical difference
+between those two, as well.
+
+629
+00:28:16,499 --> 00:28:17,979
+And this is not
+something you can
+
+630
+00:28:17,979 --> 00:28:20,480
+read in any textbook,
+by the way.
+
+631
+00:28:24,960 --> 00:28:26,999
+Okay.
+
+632
+00:28:27,240 --> 00:28:30,539
+Yeah, I told you I can talk
+about scheduling forever,
+
+633
+00:28:30,539 --> 00:28:31,959
+but we have to switch,
+
+634
+00:28:31,959 --> 00:28:34,739
+unfortunately, allow me a minute
+
+635
+00:28:34,739 --> 00:28:36,559
+to switch to a different
+deck of slides,
+
+636
+00:28:36,559 --> 00:28:39,360
+which is the one that
+I planned for today.
+
+637
+00:28:45,690 --> 00:28:50,789
+Okay. So today, we want
+to talk about ordering,
+
+638
+00:28:50,789 --> 00:28:53,190
+waiting, and we've already
+
+639
+00:28:53,190 --> 00:28:54,749
+talked about scheduling, right?
+
+640
+00:28:54,749 --> 00:28:57,849
+So let's go back to our
+synchronization primitives.
+
+641
+00:28:57,849 --> 00:28:59,509
+We've discussed locking and
+
+642
+00:28:59,509 --> 00:29:01,390
+what locking actually enforces.
+
+643
+00:29:01,390 --> 00:29:04,550
+So let's sort of contact switch
+into that mindset again.
+
+644
+00:29:04,550 --> 00:29:06,249
+Now, why did we need locks,
+
+645
+00:29:06,249 --> 00:29:08,490
+and what do the locks enable
+
+646
+00:29:08,490 --> 00:29:12,109
+at a high level. Do
+you guys remember?
+
+647
+00:29:12,109 --> 00:29:19,540
+Yes. Access, shared resources,
+cross multiple screenton.
+
+648
+00:29:19,540 --> 00:29:22,800
+Access. Just access
+to shared resources?
+
+649
+00:29:22,800 --> 00:29:24,339
+Because that's a
+liveness. It's not
+
+650
+00:29:24,339 --> 00:29:26,459
+a safety property, right? Yes.
+
+651
+00:29:26,459 --> 00:29:28,859
+You, yeah. So it
+
+652
+00:29:28,859 --> 00:29:34,000
+poses relative atomicity
+between two running processes.
+
+653
+00:29:34,000 --> 00:29:37,400
+Okay. Why?
+
+654
+00:29:37,920 --> 00:29:42,799
+How does that happen? So it
+enables relative atomicity.
+
+655
+00:29:42,799 --> 00:29:44,339
+You basically jump to the end.
+
+656
+00:29:44,339 --> 00:29:47,899
+It is true that it enables
+relative atomicity.
+
+657
+00:29:47,899 --> 00:29:50,480
+And that ensures the
+safety property.
+
+658
+00:29:50,480 --> 00:29:52,699
+But how does that
+happen exactly?
+
+659
+00:29:52,699 --> 00:29:54,199
+Yeah.
+
+660
+00:29:56,620 --> 00:30:02,119
+So it imposes, actually,
+you're correct.
+
+661
+00:30:02,119 --> 00:30:05,319
+So it imposes some
+sort of order, okay?
+
+662
+00:30:05,319 --> 00:30:06,979
+It imposes order in which
+
+663
+00:30:06,979 --> 00:30:10,000
+a critical section is
+going to be accessed.
+
+664
+00:30:10,000 --> 00:30:12,279
+So it is true that
+it's enabling access,
+
+665
+00:30:12,279 --> 00:30:15,279
+and it is true that it's
+enabling relative atomicity.
+
+666
+00:30:15,279 --> 00:30:17,100
+But add those two
+things combined,
+
+667
+00:30:17,100 --> 00:30:20,039
+what you actually
+end up with is that
+
+668
+00:30:20,039 --> 00:30:23,039
+it ensures mutually
+exclusive access,
+
+669
+00:30:23,039 --> 00:30:24,119
+first of all, right?
+
+670
+00:30:24,119 --> 00:30:26,520
+So put that qualifier
+on your answer.
+
+671
+00:30:26,520 --> 00:30:29,839
+And second, it imposes
+a dynamic order of
+
+672
+00:30:29,839 --> 00:30:33,939
+access that is safe to
+the shared resource.
+
+673
+00:30:33,939 --> 00:30:36,979
+So let's consider those two
+timelines, T one and T two.
+
+674
+00:30:36,979 --> 00:30:39,219
+And let's say we have
+on the left hand side,
+
+675
+00:30:39,219 --> 00:30:41,119
+we have some critical section.
+
+676
+00:30:41,119 --> 00:30:44,499
+We're going to put
+an acquiring release
+
+677
+00:30:44,499 --> 00:30:46,059
+around that critical section.
+
+678
+00:30:46,059 --> 00:30:48,899
+On the right hand side, we
+also have a critical section.
+
+679
+00:30:48,899 --> 00:30:50,579
+Let's put an acquiring release
+
+680
+00:30:50,579 --> 00:30:51,899
+around that critical section.
+
+681
+00:30:51,899 --> 00:30:53,899
+And so with the logs,
+
+682
+00:30:53,899 --> 00:30:58,349
+we are ensuring that what are
+we ensuring specifically?
+
+683
+00:30:58,349 --> 00:31:00,629
+We're ensuring that let's say
+
+684
+00:31:00,629 --> 00:31:05,270
+the block on the right hand
+side is in its entirety,
+
+685
+00:31:05,270 --> 00:31:08,250
+either executing before or it's
+
+686
+00:31:08,250 --> 00:31:11,969
+executing after the block
+on the left hand side.
+
+687
+00:31:11,969 --> 00:31:15,089
+Do you guys see that? That
+gets back to the point that
+
+688
+00:31:15,089 --> 00:31:19,109
+he made about
+relative atomicity.
+
+689
+00:31:19,109 --> 00:31:23,069
+In some sense, you basically
+ensured that there's
+
+690
+00:31:23,069 --> 00:31:25,390
+this dynamic ordering that's
+
+691
+00:31:25,390 --> 00:31:28,849
+taking place between the
+critical section axis.
+
+692
+00:31:30,610 --> 00:31:35,709
+Okay. So now the
+follow up question
+
+693
+00:31:35,709 --> 00:31:37,729
+is whether or not I actually
+
+694
+00:31:37,729 --> 00:31:39,390
+need the locks to
+avoid a data as,
+
+695
+00:31:39,390 --> 00:31:40,749
+because we were trying to avoid
+
+696
+00:31:40,749 --> 00:31:43,530
+the database in the left
+hand in the previous slide.
+
+697
+00:31:43,530 --> 00:31:46,609
+Just as a reminder, it's
+really important for you to
+
+698
+00:31:46,609 --> 00:31:50,129
+memorize the definition
+for what a database is.
+
+699
+00:31:50,129 --> 00:31:53,109
+The database is
+when you have two
+
+700
+00:31:53,109 --> 00:31:56,989
+unordered is to the same
+location in memory,
+
+701
+00:31:56,989 --> 00:31:58,489
+so shared resource, right,
+
+702
+00:31:58,489 --> 00:32:00,710
+at least one of
+which is a write.
+
+703
+00:32:00,710 --> 00:32:02,290
+If that is the case,
+
+704
+00:32:02,290 --> 00:32:04,670
+you have a database
+by definition.
+
+705
+00:32:04,670 --> 00:32:06,490
+Whether or not it manifests
+
+706
+00:32:06,490 --> 00:32:08,130
+itself in your code
+is irrelevant.
+
+707
+00:32:08,130 --> 00:32:09,569
+You still have a database.
+
+708
+00:32:09,569 --> 00:32:12,109
+And remember that there are
+implications of that, right?
+
+709
+00:32:12,109 --> 00:32:14,269
+Be DRF zero says that if
+
+710
+00:32:14,269 --> 00:32:16,649
+there's a database,
+all bets are off.
+
+711
+00:32:16,649 --> 00:32:18,689
+Okay? So whether or
+
+712
+00:32:18,689 --> 00:32:21,390
+not the database manifests
+itself is irrelevant.
+
+713
+00:32:21,390 --> 00:32:23,589
+You will have a database
+in your code if you have
+
+714
+00:32:23,589 --> 00:32:26,729
+two unordered accesses to a
+shared location in memory,
+
+715
+00:32:26,729 --> 00:32:29,409
+at least one of which in
+write is a right. Okay?
+
+716
+00:32:29,409 --> 00:32:34,530
+So do oxadOering we added logs.
+
+717
+00:32:35,010 --> 00:32:38,409
+First of all, did we take
+care of the database?
+
+718
+00:32:38,409 --> 00:32:40,309
+The logs gave us the ability
+
+719
+00:32:40,309 --> 00:32:42,189
+to take care of the
+database, right?
+
+720
+00:32:42,189 --> 00:32:45,369
+Yes. Are we sure of that?
+
+721
+00:32:47,050 --> 00:32:51,329
+Okay. The answer is yes.
+
+722
+00:32:51,329 --> 00:32:55,449
+The answer is yes. But
+how did this happen?
+
+723
+00:32:55,449 --> 00:32:57,390
+This happened because
+we actually imposed
+
+724
+00:32:57,390 --> 00:33:00,429
+dynamic order of access
+to this critical section.
+
+725
+00:33:00,429 --> 00:33:04,269
+So we have ACS two X, ACS to Y.
+
+726
+00:33:04,269 --> 00:33:05,669
+We put the locks around it.
+
+727
+00:33:05,669 --> 00:33:08,569
+Remember, just to put that
+on this slide as well.
+
+728
+00:33:08,569 --> 00:33:10,669
+And that sort of ensured that
+
+729
+00:33:10,669 --> 00:33:12,769
+one block executes before
+
+730
+00:33:12,769 --> 00:33:15,410
+or after relative
+to the other block.
+
+731
+00:33:15,410 --> 00:33:18,204
+So this ensured
+dynamic ordering.
+
+732
+00:33:18,204 --> 00:33:20,800
+So it provides us with
+an ordering mechanism,
+
+733
+00:33:20,800 --> 00:33:24,040
+but this has a very weak
+ordering semantics.
+
+734
+00:33:24,040 --> 00:33:26,899
+And I'm getting into some
+advanced terminology here,
+
+735
+00:33:26,899 --> 00:33:28,479
+but it's actually
+useful for you to
+
+736
+00:33:28,479 --> 00:33:30,299
+understand why we
+need the next set
+
+737
+00:33:30,299 --> 00:33:31,999
+of primitives that we're going
+
+738
+00:33:31,999 --> 00:33:33,979
+to use for the purposes
+of synchronization.
+
+739
+00:33:33,979 --> 00:33:36,699
+So the locks have a weak
+ordering semantics.
+
+740
+00:33:36,699 --> 00:33:38,739
+And the weakness here comes from
+
+741
+00:33:38,739 --> 00:33:41,320
+the fact that the
+ordering is dynamic.
+
+742
+00:33:41,320 --> 00:33:43,659
+So you don't know which one
+is going to happen first.
+
+743
+00:33:43,659 --> 00:33:45,519
+It's either the first
+one or the second one.
+
+744
+00:33:45,519 --> 00:33:47,739
+It doesn't really matter, right?
+
+745
+00:33:47,739 --> 00:33:50,839
+You don't have a strong
+ordering guarantee.
+
+746
+00:33:50,839 --> 00:33:53,259
+And the reason why
+this happens is
+
+747
+00:33:53,259 --> 00:33:56,475
+because you reduce the
+space of possibilities.
+
+748
+00:33:56,475 --> 00:33:59,650
+Okay, Oh, Jesus.
+
+749
+00:33:59,650 --> 00:34:01,609
+Let's go through
+this really quickly.
+
+750
+00:34:01,609 --> 00:34:05,009
+Take a look at this
+code. You have a struct.
+
+751
+00:34:05,009 --> 00:34:07,209
+It's a typical, you know,
+
+752
+00:34:07,209 --> 00:34:09,829
+singly linked list
+structure, okay?
+
+753
+00:34:09,829 --> 00:34:11,969
+You guys should be
+familiar with this by now.
+
+754
+00:34:11,969 --> 00:34:13,550
+Then you have a global variable,
+
+755
+00:34:13,550 --> 00:34:15,769
+struct list over here,
+
+756
+00:34:15,769 --> 00:34:17,449
+and I'm sure you have that in
+
+757
+00:34:17,449 --> 00:34:19,349
+your lab two already, right?
+
+758
+00:34:19,349 --> 00:34:21,549
+And it's a pointer that's sort
+
+759
+00:34:21,549 --> 00:34:23,579
+of initialized to Null right?
+
+760
+00:34:23,579 --> 00:34:25,559
+And then you have this insert,
+
+761
+00:34:25,559 --> 00:34:27,479
+which now on its own,
+
+762
+00:34:27,479 --> 00:34:30,159
+local stack kind of
+instantiates well,
+
+763
+00:34:30,159 --> 00:34:31,700
+with this malloc line 13
+
+764
+00:34:31,700 --> 00:34:33,379
+right here is going
+to instantiate or
+
+765
+00:34:33,379 --> 00:34:38,319
+heap alloc data struct
+element, right,
+
+766
+00:34:38,319 --> 00:34:41,639
+is going to then write
+the data into data,
+
+767
+00:34:41,639 --> 00:34:45,539
+and then it'll make L next
+pointer point to global list,
+
+768
+00:34:45,539 --> 00:34:47,199
+and then the global
+list is going to
+
+769
+00:34:47,199 --> 00:34:48,819
+point to the thing that you've
+
+770
+00:34:48,819 --> 00:34:52,799
+just that you've just
+heap allocated, okay?
+
+771
+00:34:52,799 --> 00:34:54,740
+Now, you have two threads,
+
+772
+00:34:54,740 --> 00:34:56,639
+T one and T two that are trying
+
+773
+00:34:56,639 --> 00:34:59,879
+to actually use this
+at the same time.
+
+774
+00:35:02,639 --> 00:35:05,439
+So let's break
+this down a little
+
+775
+00:35:05,439 --> 00:35:07,719
+bit at the course
+of granularity.
+
+776
+00:35:07,719 --> 00:35:09,099
+So let's say T one at
+
+777
+00:35:09,099 --> 00:35:11,639
+some point is going to
+create L one, right?
+
+778
+00:35:11,639 --> 00:35:14,519
+Then it's going to L
+one next assign list
+
+779
+00:35:14,519 --> 00:35:16,239
+and then list assign L one.
+
+780
+00:35:16,239 --> 00:35:18,559
+And on the right hand side,
+
+781
+00:35:18,559 --> 00:35:20,999
+Thread two is also going to
+
+782
+00:35:20,999 --> 00:35:24,079
+attempt or even process
+two, doesn't matter.
+
+783
+00:35:24,079 --> 00:35:26,539
+It's going to attempt
+to create L two,
+
+784
+00:35:26,539 --> 00:35:28,279
+then L two next assign list,
+
+785
+00:35:28,279 --> 00:35:31,959
+and then list assigned L two.
+What's the problem here?
+
+786
+00:35:32,520 --> 00:35:35,559
+Do we have a database?
+
+787
+00:35:38,719 --> 00:35:42,199
+If we don't have a
+database, we're done.
+
+788
+00:35:53,969 --> 00:36:04,489
+Links because there's
+no guarantees.
+
+789
+00:36:04,809 --> 00:36:07,989
+Okay, so when I ask
+this question, right,
+
+790
+00:36:07,989 --> 00:36:11,230
+you may have an idea
+of the right answer,
+
+791
+00:36:11,230 --> 00:36:14,049
+but the precision that
+I'm looking for, right,
+
+792
+00:36:14,049 --> 00:36:17,429
+is going back to
+the definition of
+
+793
+00:36:17,429 --> 00:36:21,289
+what the database is, right?
+
+794
+00:36:21,289 --> 00:36:23,809
+And what does the
+definition say?
+
+795
+00:36:24,409 --> 00:36:26,929
+The components of
+the definition,
+
+796
+00:36:26,929 --> 00:36:29,070
+they included some
+sort of shared axis.
+
+797
+00:36:29,070 --> 00:36:30,949
+What is that, right?
+
+798
+00:36:30,949 --> 00:36:34,050
+The other components
+are that two axises,
+
+799
+00:36:34,050 --> 00:36:35,490
+what are the two axises?
+
+800
+00:36:35,490 --> 00:36:37,549
+And then which one of
+them is the right?
+
+801
+00:36:37,549 --> 00:36:40,069
+So in order to answer
+this question on a test,
+
+802
+00:36:40,069 --> 00:36:43,189
+you would have to give me
+those precise components
+
+803
+00:36:43,189 --> 00:36:44,569
+that match the definition.
+
+804
+00:36:44,569 --> 00:36:46,349
+So is anyone ready to do that?
+
+805
+00:36:46,349 --> 00:36:55,229
+Yes. Two other There
+
+806
+00:36:55,229 --> 00:36:57,669
+are two unordered operations
+
+807
+00:36:57,909 --> 00:37:01,629
+one next equals list
+knows next equals list,
+
+808
+00:37:01,629 --> 00:37:05,109
+both of which are
+light operations.
+
+809
+00:37:05,109 --> 00:37:09,309
+So first of all, what's
+the shared thing here?
+
+810
+00:37:09,710 --> 00:37:12,550
+Right, right. So
+the shared resource
+
+811
+00:37:12,550 --> 00:37:13,889
+is this list struct, right?
+
+812
+00:37:13,889 --> 00:37:15,689
+Do you guys see that
+that's the shared thing.
+
+813
+00:37:15,689 --> 00:37:20,609
+Now, do we have two
+axises to list, right?
+
+814
+00:37:20,609 --> 00:37:22,769
+This is the access to list.
+
+815
+00:37:22,769 --> 00:37:25,269
+This is the access
+to list, right?
+
+816
+00:37:25,269 --> 00:37:27,029
+This is the access to list.
+
+817
+00:37:27,029 --> 00:37:28,509
+This is the access to list.
+
+818
+00:37:28,509 --> 00:37:31,009
+Now, is at least
+one of them right?
+
+819
+00:37:31,009 --> 00:37:33,109
+Right. So now we've
+
+820
+00:37:33,109 --> 00:37:35,469
+satisfied those three
+conditions of a definition.
+
+821
+00:37:35,469 --> 00:37:37,649
+And therefore, by implication,
+
+822
+00:37:37,649 --> 00:37:41,629
+truly mathematically, you
+have a database, okay?
+
+823
+00:37:42,360 --> 00:37:45,299
+All right, so how do we this
+
+824
+00:37:45,299 --> 00:37:47,219
+is o, now let's
+walk through this.
+
+825
+00:37:47,219 --> 00:37:49,019
+What can possibly go wrong?
+
+826
+00:37:49,019 --> 00:37:51,459
+You can create L two on
+the right hand side,
+
+827
+00:37:51,459 --> 00:37:54,479
+follow the arrows, basically,
+follow the arrows.
+
+828
+00:37:54,479 --> 00:37:56,659
+And let's say that
+our execution was
+
+829
+00:37:56,659 --> 00:37:59,439
+serialized and interlafd
+in the following fashion.
+
+830
+00:37:59,439 --> 00:38:01,519
+You created L two,
+then created one,
+
+831
+00:38:01,519 --> 00:38:03,479
+then L two next assigned list,
+
+832
+00:38:03,479 --> 00:38:06,479
+and then you did an L
+one next assigned list,
+
+833
+00:38:06,479 --> 00:38:08,519
+and then you did List asignL
+
+834
+00:38:08,519 --> 00:38:11,439
+two and list assignLO.
+Is that okay?
+
+835
+00:38:12,520 --> 00:38:22,699
+No. Yeah.
+
+836
+00:38:24,540 --> 00:38:27,179
+You're going to lose something.
+
+837
+00:38:27,179 --> 00:38:29,779
+Basically, the bottom line here
+
+838
+00:38:29,779 --> 00:38:32,180
+is that you're going to
+use one of the inserts.
+
+839
+00:38:32,180 --> 00:38:34,619
+Now, make sure you see that.
+
+840
+00:38:38,020 --> 00:38:40,380
+And I will take this offline,
+
+841
+00:38:40,380 --> 00:38:42,139
+make sure you take
+this offline and
+
+842
+00:38:42,139 --> 00:38:44,239
+walk through this code
+and make sure that you
+
+843
+00:38:44,239 --> 00:38:46,520
+trace this execution
+and convince yourself
+
+844
+00:38:46,520 --> 00:38:49,180
+that one of the inserts is
+going to be lost, okay?
+
+845
+00:38:49,180 --> 00:38:51,099
+Because here, the L two
+
+846
+00:38:51,099 --> 00:38:54,059
+next is now pointing to
+the global list, right?
+
+847
+00:38:54,059 --> 00:38:57,439
+Then we make a one next
+point to the global list,
+
+848
+00:38:57,439 --> 00:39:01,599
+and then we reassign list to
+0.2 and list to 0.2 el one.
+
+849
+00:39:01,599 --> 00:39:03,679
+One of the updates
+is going to be lost.
+
+850
+00:39:03,679 --> 00:39:06,319
+And that, of course,
+is undesirable.
+
+851
+00:39:06,319 --> 00:39:09,019
+And the reason why the
+interleaving happens is
+
+852
+00:39:09,019 --> 00:39:11,020
+because we have a
+database condition
+
+853
+00:39:11,020 --> 00:39:12,459
+that we haven't done
+anything about.
+
+854
+00:39:12,459 --> 00:39:14,119
+So let's do something about it.
+
+855
+00:39:14,119 --> 00:39:17,540
+Let's put locks around
+the critical section.
+
+856
+00:39:17,540 --> 00:39:19,179
+And the critical
+section here is,
+
+857
+00:39:19,179 --> 00:39:21,309
+of course, the read from a list.
+
+858
+00:39:21,309 --> 00:39:23,999
+To assign into next
+and the right to
+
+859
+00:39:23,999 --> 00:39:26,079
+list on the left hand side
+
+860
+00:39:26,079 --> 00:39:27,859
+and the same thing on
+the right hand side.
+
+861
+00:39:27,859 --> 00:39:30,219
+You want those two operations
+
+862
+00:39:30,219 --> 00:39:32,880
+that read and write
+the list variable,
+
+863
+00:39:32,880 --> 00:39:34,440
+which is a shared resource,
+
+864
+00:39:34,440 --> 00:39:39,000
+you want those two operations
+to be transaction, okay?
+
+865
+00:39:39,160 --> 00:39:41,640
+And so the acquiring release
+
+866
+00:39:41,640 --> 00:39:43,039
+slapped around those two things
+
+867
+00:39:43,039 --> 00:39:45,039
+is going to take care of it.
+
+868
+00:39:45,040 --> 00:39:48,719
+Now, conceptually what
+you've done using
+
+869
+00:39:48,719 --> 00:39:50,179
+the set of locks is that you've
+
+870
+00:39:50,179 --> 00:39:51,899
+reduced a set of possibilities.
+
+871
+00:39:51,899 --> 00:39:54,699
+You've imposed this
+dynamic order on
+
+872
+00:39:54,699 --> 00:39:56,219
+the execution of those two
+
+873
+00:39:56,219 --> 00:39:58,999
+relatively atomic
+blocks of code.
+
+874
+00:40:01,650 --> 00:40:06,330
+Okay. Now, are there any
+other ways to add ordering?
+
+875
+00:40:06,330 --> 00:40:08,169
+Because remember, I
+told you that logs
+
+876
+00:40:08,169 --> 00:40:10,430
+actually give you weak
+ordering semantics.
+
+877
+00:40:10,430 --> 00:40:13,090
+Do you need logs,
+
+878
+00:40:13,090 --> 00:40:15,009
+or is there some other way for
+
+879
+00:40:15,009 --> 00:40:16,710
+you to in principle,
+add ordering?
+
+880
+00:40:16,710 --> 00:40:19,170
+Because try to conceptualize
+what is happening.
+
+881
+00:40:19,170 --> 00:40:21,629
+What is happening is
+that essentially you
+
+882
+00:40:21,629 --> 00:40:24,549
+have even outside of
+computer science,
+
+883
+00:40:24,549 --> 00:40:27,749
+you have just a single piece
+
+884
+00:40:27,749 --> 00:40:29,469
+of thing that everybody
+wants, right?
+
+885
+00:40:29,469 --> 00:40:31,289
+A resource that everybody wants.
+
+886
+00:40:31,289 --> 00:40:33,589
+And you don't want people
+to compete for it.
+
+887
+00:40:33,589 --> 00:40:35,549
+You don't want the
+consumers to compete for
+
+888
+00:40:35,549 --> 00:40:38,110
+that shared resource
+simultaneously.
+
+889
+00:40:38,110 --> 00:40:40,590
+So you have to impose
+some sort of ordering.
+
+890
+00:40:40,590 --> 00:40:42,310
+Ox is one way to impose
+
+891
+00:40:42,310 --> 00:40:44,169
+ordering with weak
+ordering semantics,
+
+892
+00:40:44,169 --> 00:40:46,769
+but is it the only
+way to do that?
+
+893
+00:40:49,640 --> 00:40:52,979
+So let's start thinking
+of an example here.
+
+894
+00:40:52,979 --> 00:40:55,579
+Really help you with the
+answer to that question.
+
+895
+00:40:55,579 --> 00:40:57,179
+Think of an example. So let's
+
+896
+00:40:57,179 --> 00:40:59,960
+try to build a producer
+consumer queue.
+
+897
+00:41:01,040 --> 00:41:03,419
+You have two threads.
+One of them is
+
+898
+00:41:03,419 --> 00:41:05,860
+a producer that sort of
+adds elements to the queue,
+
+899
+00:41:05,860 --> 00:41:07,560
+and the other one is a consumer.
+
+900
+00:41:07,560 --> 00:41:09,419
+So what is the consumer doing?
+
+901
+00:41:09,419 --> 00:41:10,760
+As long as there are elements
+
+902
+00:41:10,760 --> 00:41:12,199
+to take, remove them, right?
+
+903
+00:41:12,199 --> 00:41:13,780
+But if there are no elements,
+
+904
+00:41:13,780 --> 00:41:16,379
+what we want the consumer
+to do is we want to
+
+905
+00:41:16,379 --> 00:41:21,290
+wait for the next element to
+show up to the queue, okay?
+
+906
+00:41:21,290 --> 00:41:25,539
+We want to wait. So the
+concept here is the concept of
+
+907
+00:41:25,539 --> 00:41:28,300
+waiting that is not
+really provided
+
+908
+00:41:28,300 --> 00:41:31,779
+to you by the locks themselves
+because logs are mutexes.
+
+909
+00:41:31,779 --> 00:41:35,500
+They enforce mutual exclusivity
+and dynamic ordering.
+
+910
+00:41:35,500 --> 00:41:37,559
+They do not give
+you any ability to
+
+911
+00:41:37,559 --> 00:41:41,259
+wait until something
+happens, right?
+
+912
+00:41:41,259 --> 00:41:42,839
+It cannot be given.
+
+913
+00:41:42,839 --> 00:41:45,700
+The concept of waiting cannot
+
+914
+00:41:45,700 --> 00:41:49,379
+be given to you by
+using mutexes alone.
+
+915
+00:41:49,379 --> 00:41:52,659
+You need to have something else.
+
+916
+00:41:53,760 --> 00:41:58,919
+That will provide you with
+stronger ordering guarantees.
+
+917
+00:41:58,919 --> 00:42:03,959
+Okay. And remember, when
+I ask you to think about
+
+918
+00:42:03,959 --> 00:42:08,979
+sort of the if
+something is wrong with
+
+919
+00:42:08,979 --> 00:42:12,079
+a particular implementation of
+
+920
+00:42:12,079 --> 00:42:15,259
+a multi threaded or multi
+process application,
+
+921
+00:42:15,259 --> 00:42:17,460
+you need to think about
+these three properties
+
+922
+00:42:17,460 --> 00:42:19,800
+that I already introduced
+to you previously,
+
+923
+00:42:19,800 --> 00:42:22,120
+the safety property,
+the liveness property,
+
+924
+00:42:22,120 --> 00:42:23,740
+and the efficiency property.
+
+925
+00:42:23,740 --> 00:42:26,479
+So let's try to
+step through that.
+
+926
+00:42:26,980 --> 00:42:29,279
+So the goal here, again,
+
+927
+00:42:29,279 --> 00:42:32,519
+is a computer efficient
+waiting primitive, right?
+
+928
+00:42:32,519 --> 00:42:34,059
+Because what you could have done
+
+929
+00:42:34,059 --> 00:42:35,559
+is you could have just put
+
+930
+00:42:35,559 --> 00:42:37,419
+a bunch of logs around on
+
+931
+00:42:37,419 --> 00:42:39,299
+the producer side and
+the consumer side,
+
+932
+00:42:39,299 --> 00:42:41,219
+and we'll get to
+that that slide.
+
+933
+00:42:41,219 --> 00:42:42,679
+You actually see the code for
+
+934
+00:42:42,679 --> 00:42:44,700
+this very specifically written.
+
+935
+00:42:44,700 --> 00:42:46,359
+But what's going to happen if
+
+936
+00:42:46,359 --> 00:42:48,420
+you just use logs
+without waiting?
+
+937
+00:42:48,420 --> 00:42:50,879
+The consumer is going to spin,
+
+938
+00:42:50,879 --> 00:42:55,200
+waiting for the element to
+be deposited into the queue,
+
+939
+00:42:55,200 --> 00:42:58,920
+and it will have to
+endlessly keep checking
+
+940
+00:42:58,920 --> 00:43:00,879
+for that condition
+of whether or not
+
+941
+00:43:00,879 --> 00:43:04,299
+the queue is empty before it
+can pop the element, right?
+
+942
+00:43:06,310 --> 00:43:08,789
+So if that's the
+implementation you're
+
+943
+00:43:08,789 --> 00:43:11,550
+going with, do you
+have liveness?
+
+944
+00:43:13,910 --> 00:43:17,310
+Can the system make progress?
+
+945
+00:43:17,390 --> 00:43:22,770
+That's liveness. Good stuck.
+
+946
+00:43:22,770 --> 00:43:25,730
+Okay, let's get to that in
+the context of this example.
+
+947
+00:43:25,730 --> 00:43:27,649
+But I want you to start
+thinking about this.
+
+948
+00:43:27,649 --> 00:43:29,330
+Do you have liveness?
+Do you have safety?
+
+949
+00:43:29,330 --> 00:43:31,210
+Do you have efficiency, okay?
+
+950
+00:43:31,210 --> 00:43:33,869
+And that's going to be one
+of the ways that we'll
+
+951
+00:43:33,869 --> 00:43:37,210
+try to implement the producer
+consumer relationship.
+
+952
+00:43:37,210 --> 00:43:40,390
+So here, the motivation
+is for us to introduce
+
+953
+00:43:40,390 --> 00:43:42,450
+a different
+synchronization primitive
+
+954
+00:43:42,450 --> 00:43:44,050
+that's not just a mutex.
+
+955
+00:43:44,050 --> 00:43:46,469
+I'm trying to convince
+you guys that
+
+956
+00:43:46,469 --> 00:43:48,149
+just a mutex alone is
+
+957
+00:43:48,149 --> 00:43:50,930
+insufficient because it has
+weak ordering semantics,
+
+958
+00:43:50,930 --> 00:43:54,229
+and it's also inefficient
+in terms of computation.
+
+959
+00:43:54,229 --> 00:43:56,570
+Okay? We want something
+
+960
+00:43:56,570 --> 00:43:59,350
+that is much more
+efficient that will simply
+
+961
+00:43:59,350 --> 00:44:02,319
+allow one of the threads to wait
+
+962
+00:44:02,319 --> 00:44:07,129
+until some interesting
+condition becomes true.
+
+963
+00:44:07,129 --> 00:44:09,129
+Okay? So let's go through that.
+
+964
+00:44:09,129 --> 00:44:11,869
+So we need some way
+to wait efficiently.
+
+965
+00:44:11,869 --> 00:44:14,689
+So our main weighting
+primitive that I
+
+966
+00:44:14,689 --> 00:44:15,889
+think a lot of you already
+
+967
+00:44:15,889 --> 00:44:17,970
+familiar with is a
+condition variable.
+
+968
+00:44:17,970 --> 00:44:19,989
+Have you heard about
+a condition variable?
+
+969
+00:44:19,989 --> 00:44:22,089
+Have you used the
+condition variable before?
+
+970
+00:44:22,089 --> 00:44:27,470
+Okay? Now, just like in
+all the previous lectures,
+
+971
+00:44:27,470 --> 00:44:29,069
+I asked you this question and
+
+972
+00:44:29,069 --> 00:44:31,365
+then expect to be mind blown.
+
+973
+00:44:31,365 --> 00:44:33,399
+And hopefully we'll achieve this
+
+974
+00:44:33,399 --> 00:44:35,479
+by in the next 10 minutes or so.
+
+975
+00:44:35,479 --> 00:44:37,999
+So the traditional interface
+that sort of gives us
+
+976
+00:44:37,999 --> 00:44:41,879
+the ability to use condition
+variables is the weight.
+
+977
+00:44:41,879 --> 00:44:43,859
+You pass a lock, okay?
+
+978
+00:44:43,859 --> 00:44:45,600
+And this weight primitive allows
+
+979
+00:44:45,600 --> 00:44:48,399
+a process calling
+weight to go to sleep,
+
+980
+00:44:48,399 --> 00:44:49,820
+and as it's sleeping,
+
+981
+00:44:49,820 --> 00:44:51,339
+it releases the lock, but if
+
+982
+00:44:51,339 --> 00:44:53,699
+it wakes up, it
+holds the lock back.
+
+983
+00:44:53,699 --> 00:44:57,119
+Remember that? So
+how many of you
+
+984
+00:44:57,119 --> 00:44:58,980
+are familiar with this interface
+
+985
+00:44:58,980 --> 00:45:01,005
+for conditional variables?
+
+986
+00:45:01,005 --> 00:45:04,209
+So you guys have used
+conditional variables, right,
+
+987
+00:45:04,209 --> 00:45:06,590
+but you don't necessarily
+remember what the interface
+
+988
+00:45:06,590 --> 00:45:09,269
+for conditional variables
+is, right? Okay, good.
+
+989
+00:45:09,269 --> 00:45:10,969
+So this is going to
+
+990
+00:45:10,969 --> 00:45:12,910
+be useful then to go
+through this example.
+
+991
+00:45:12,910 --> 00:45:15,130
+Then you have a
+second primitive,
+
+992
+00:45:15,130 --> 00:45:17,150
+which is really important,
+which is a signal.
+
+993
+00:45:17,150 --> 00:45:18,549
+And the responsibility of
+
+994
+00:45:18,549 --> 00:45:21,090
+the signal is to wake
+up one of the waiters.
+
+995
+00:45:21,090 --> 00:45:23,650
+So if any of the
+waiters is sleeping,
+
+996
+00:45:23,650 --> 00:45:27,149
+you need to have a mechanism
+in order to be able to wake
+
+997
+00:45:27,149 --> 00:45:28,770
+up that sleeping process
+
+998
+00:45:28,770 --> 00:45:31,944
+because how else is it
+going to get out of sleep?
+
+999
+00:45:31,944 --> 00:45:35,319
+You see that? Once a
+process goes to sleep,
+
+1000
+00:45:35,319 --> 00:45:36,619
+it cannot wake itself up.
+
+1001
+00:45:36,619 --> 00:45:38,000
+There needs to be an external
+
+1002
+00:45:38,000 --> 00:45:40,079
+mechanism that wakes itself up.
+
+1003
+00:45:40,079 --> 00:45:42,539
+And that external
+mechanism is a signal.
+
+1004
+00:45:42,539 --> 00:45:44,979
+So the weight and signal
+are operating like a pair.
+
+1005
+00:45:44,979 --> 00:45:47,640
+Now, the variant of a signal,
+
+1006
+00:45:47,640 --> 00:45:50,479
+which is not
+
+1007
+00:45:50,479 --> 00:45:52,979
+a necessary condition,
+but it's there, right?
+
+1008
+00:45:52,979 --> 00:45:57,080
+Is a broadcast because you
+can wake up all the waiters.
+
+1009
+00:45:57,310 --> 00:45:59,549
+So it's a primitive that gives
+
+1010
+00:45:59,549 --> 00:46:01,069
+you the ability to wake up every
+
+1011
+00:46:01,069 --> 00:46:02,629
+single one of the
+processes that's
+
+1012
+00:46:02,629 --> 00:46:05,249
+sleeping on a particular
+conditional variable.
+
+1013
+00:46:05,249 --> 00:46:07,349
+All right. So can we write
+
+1014
+00:46:07,349 --> 00:46:09,330
+a producer consumer cue
+
+1015
+00:46:09,330 --> 00:46:12,489
+using the conditional
+variables and the lock?
+
+1016
+00:46:12,489 --> 00:46:16,469
+So now, please
+work with me here.
+
+1017
+00:46:16,469 --> 00:46:18,449
+This is supposed
+to be interactive.
+
+1018
+00:46:18,449 --> 00:46:20,449
+We have a producer on
+the left hand side.
+
+1019
+00:46:20,449 --> 00:46:23,089
+We have a consumer on the
+right hand side, right?
+
+1020
+00:46:23,089 --> 00:46:24,949
+The producer is trying to push,
+
+1021
+00:46:24,949 --> 00:46:28,670
+the consumer is trying to
+pop and return a variable.
+
+1022
+00:46:28,870 --> 00:46:31,490
+Does this work
+what you currently
+
+1023
+00:46:31,490 --> 00:46:33,270
+have on the slide?
+Really quickly?
+
+1024
+00:46:33,270 --> 00:46:37,649
+No, because Data ase.
+
+1025
+00:46:37,649 --> 00:46:39,870
+Thank you. Yeah, I wanted
+to hear that, okay?
+
+1026
+00:46:39,870 --> 00:46:41,709
+So we've tried to take care of
+
+1027
+00:46:41,709 --> 00:46:44,309
+a database by putting the
+set of locks around this.
+
+1028
+00:46:44,309 --> 00:46:46,850
+We've protected
+the producer push
+
+1029
+00:46:46,850 --> 00:46:49,430
+with a set of locks.
+Is this sufficient?
+
+1030
+00:46:49,430 --> 00:46:55,450
+No, because we still have we
+still have a database, okay?
+
+1031
+00:46:55,450 --> 00:46:57,269
+No, that's a trick question,
+
+1032
+00:46:57,269 --> 00:47:00,010
+but we still have a database.
+
+1033
+00:47:00,330 --> 00:47:02,869
+Now, let's put the
+set of locks on
+
+1034
+00:47:02,869 --> 00:47:07,209
+the right hand side.
+Did it take care of it?
+
+1035
+00:47:07,209 --> 00:47:12,309
+Why not? Uh huh.
+
+1036
+00:47:12,309 --> 00:47:13,909
+Because the consumer can pop
+
+1037
+00:47:13,909 --> 00:47:15,689
+when the queue is empty, right?
+
+1038
+00:47:15,689 --> 00:47:18,070
+So is that a liveness violation?
+
+1039
+00:47:18,070 --> 00:47:19,430
+Is it an efficiency violation
+
+1040
+00:47:19,430 --> 00:47:21,270
+or is it a safety violation?
+
+1041
+00:47:21,270 --> 00:47:24,910
+Safety. Okay? So this
+specific problem
+
+1042
+00:47:24,910 --> 00:47:27,190
+this specific solution
+has a problem
+
+1043
+00:47:27,190 --> 00:47:29,490
+because there's a
+safety violation.
+
+1044
+00:47:29,490 --> 00:47:30,909
+How do we resolve this?
+
+1045
+00:47:30,909 --> 00:47:33,389
+We don't want the pop
+
+1046
+00:47:33,389 --> 00:47:35,469
+to happen if the queue
+is empty, right?
+
+1047
+00:47:35,469 --> 00:47:38,809
+Okay, yeah, so we've
+gone through this.
+
+1048
+00:47:38,809 --> 00:47:40,229
+Okay, so let's try to put
+
+1049
+00:47:40,229 --> 00:47:41,809
+a NIF statement right
+in front of that.
+
+1050
+00:47:41,809 --> 00:47:44,269
+If the queue is not
+empty, then pop.
+
+1051
+00:47:44,269 --> 00:47:48,889
+Does that take care
+of it? Oh, come on.
+
+1052
+00:47:48,889 --> 00:47:53,409
+Can somebody say yes? All right.
+
+1053
+00:47:53,409 --> 00:47:56,009
+Why does it not take care of it?
+
+1054
+00:47:58,530 --> 00:48:01,949
+Let's see. I want more people.
+
+1055
+00:48:01,949 --> 00:48:05,209
+Yes. Checks.
+
+1056
+00:48:05,209 --> 00:48:13,370
+And pushing checks.
+
+1057
+00:48:16,130 --> 00:48:19,089
+So this is actually the kind of
+
+1058
+00:48:19,089 --> 00:48:21,769
+implementation that
+you could have, right?
+
+1059
+00:48:21,769 --> 00:48:23,549
+When I mentioned that you
+can implement it with
+
+1060
+00:48:23,549 --> 00:48:26,149
+locks and wi dering
+semantics, right?
+
+1061
+00:48:26,149 --> 00:48:29,270
+This essentially
+makes the consumer
+
+1062
+00:48:29,270 --> 00:48:31,590
+busy wait until the
+queue becomes non empty,
+
+1063
+00:48:31,590 --> 00:48:34,289
+and when it becomes
+non empty, it can pop.
+
+1064
+00:48:35,220 --> 00:48:40,260
+So do we have liveness?
+
+1065
+00:48:40,380 --> 00:48:43,940
+We have liveness because the
+system can make progress.
+
+1066
+00:48:43,940 --> 00:48:45,540
+The producer can produce,
+
+1067
+00:48:45,540 --> 00:48:47,320
+the consumer can consume.
+
+1068
+00:48:47,320 --> 00:48:49,140
+I don't think there's
+anything preventing
+
+1069
+00:48:49,140 --> 00:48:52,080
+the producer or the consumer
+from making progress.
+
+1070
+00:48:52,080 --> 00:48:54,639
+Do we have safety? We're not
+
+1071
+00:48:54,639 --> 00:48:57,219
+blowing up when the
+queue is empty, right?
+
+1072
+00:48:57,219 --> 00:49:00,679
+If the queue so let's see.
+
+1073
+00:49:00,679 --> 00:49:02,780
+Let's go through all
+these scenarios.
+
+1074
+00:49:02,780 --> 00:49:05,260
+If the queue is
+empty, what happens?
+
+1075
+00:49:06,910 --> 00:49:10,949
+And the consumer is going to
+release the lock and it's
+
+1076
+00:49:10,949 --> 00:49:14,469
+going to basically get out
+of the consume call, right?
+
+1077
+00:49:14,469 --> 00:49:16,410
+And so it unblocks the producer.
+
+1078
+00:49:16,410 --> 00:49:18,769
+There are no deadlock
+situations here.
+
+1079
+00:49:18,769 --> 00:49:21,429
+There's no circular
+dependencies here.
+
+1080
+00:49:21,429 --> 00:49:24,070
+Everything appears to be
+fine with respect to safety,
+
+1081
+00:49:24,070 --> 00:49:27,110
+right? But is it efficient?
+
+1082
+00:49:27,110 --> 00:49:35,540
+Oh, why? Yeah. Like consumer
+can talking schedule.
+
+1083
+00:49:35,540 --> 00:49:38,139
+And in that case,
+you're never going to
+
+1084
+00:49:38,139 --> 00:49:42,939
+us and just keep on scheduling
+it acquiring lock in.
+
+1085
+00:49:42,939 --> 00:49:45,239
+Yeah, so basically in
+this particular case,
+
+1086
+00:49:45,239 --> 00:49:48,499
+the consumer is having a
+problem with efficiency, right?
+
+1087
+00:49:48,499 --> 00:49:50,960
+Because it's simply
+spinning and constantly
+
+1088
+00:49:50,960 --> 00:49:53,600
+checking unnecessarily
+checking the queue,
+
+1089
+00:49:53,600 --> 00:49:55,539
+even though the queue may only
+
+1090
+00:49:55,539 --> 00:49:57,699
+sporadically receive an element.
+
+1091
+00:49:57,699 --> 00:49:59,699
+This is highly
+inefficient, right?
+
+1092
+00:49:59,699 --> 00:50:02,819
+So what we want instead is
+we want to use a weight
+
+1093
+00:50:02,819 --> 00:50:03,959
+primitive and go to
+
+1094
+00:50:03,959 --> 00:50:06,000
+sleep if there's
+nothing in the queue.
+
+1095
+00:50:06,000 --> 00:50:07,759
+Okay? So notice how I
+
+1096
+00:50:07,759 --> 00:50:09,799
+change the code on the
+right hand side in case
+
+1097
+00:50:09,799 --> 00:50:11,720
+you haven't noticed the consumer
+
+1098
+00:50:11,720 --> 00:50:13,880
+is now checking is if
+the queue is empty,
+
+1099
+00:50:13,880 --> 00:50:16,040
+I want to go to sleep, okay?
+
+1100
+00:50:16,040 --> 00:50:17,800
+And remember, just
+as a reminder,
+
+1101
+00:50:17,800 --> 00:50:20,859
+the weight takes a lock
+as a parameter and
+
+1102
+00:50:20,859 --> 00:50:24,660
+is going to release the
+lock while it's sleeping.
+
+1103
+00:50:24,660 --> 00:50:27,699
+But in order to get out
+of the weight call,
+
+1104
+00:50:27,699 --> 00:50:29,739
+it's going to
+reacquire the lock.
+
+1105
+00:50:29,739 --> 00:50:31,699
+So we're holding the lock
+
+1106
+00:50:31,699 --> 00:50:33,739
+when we're calling
+the weight, okay?
+
+1107
+00:50:33,739 --> 00:50:35,179
+And we're holding the lock
+
+1108
+00:50:35,179 --> 00:50:36,679
+when we're getting
+out of the weight.
+
+1109
+00:50:36,679 --> 00:50:40,219
+But while we are blocking
+inside the weight,
+
+1110
+00:50:40,219 --> 00:50:44,509
+the lock is going to be
+released, okay? Now,
+
+1111
+00:50:44,509 --> 00:50:46,339
+Did that take care of it?
+
+1112
+00:50:46,339 --> 00:50:48,000
+Do we still have safety?
+
+1113
+00:50:48,000 --> 00:50:49,620
+Do we still have liveness?
+
+1114
+00:50:49,620 --> 00:50:51,800
+Do we still have
+We got efficiency.
+
+1115
+00:50:51,800 --> 00:50:53,580
+We solve the efficiency problem.
+
+1116
+00:50:53,580 --> 00:50:56,539
+I think we're fine
+with liveness. Yes.
+
+1117
+00:50:56,539 --> 00:50:58,480
+I don't think there's liveness,
+
+1118
+00:50:58,480 --> 00:51:03,140
+there's a deadlock that can
+happen. What's the deadlock?
+
+1119
+00:51:03,140 --> 00:51:10,769
+We're not signaling after
+we push. You guys see that?
+
+1120
+00:51:11,690 --> 00:51:14,329
+So what's going
+to happen is that
+
+1121
+00:51:14,329 --> 00:51:16,329
+the consumer thread is
+going to go to sleep,
+
+1122
+00:51:16,329 --> 00:51:19,469
+but is there anything
+that's making it wake up?
+
+1123
+00:51:19,469 --> 00:51:21,809
+No. You need both of
+
+1124
+00:51:21,809 --> 00:51:24,230
+them for the system
+to operate exactly.
+
+1125
+00:51:24,230 --> 00:51:26,309
+Yes. Quick question.
+
+1126
+00:51:26,309 --> 00:51:28,930
+Yeah. Why is it wild?
+
+1127
+00:51:28,930 --> 00:51:31,889
+Because we didn't get there yet.
+
+1128
+00:51:33,170 --> 00:51:37,210
+Okay. We need a signal, okay?
+
+1129
+00:51:37,970 --> 00:51:40,249
+Now, you don't answer
+that question.
+
+1130
+00:51:40,249 --> 00:51:42,609
+Are we done? Yes.
+
+1131
+00:51:42,609 --> 00:51:46,629
+Because if multiple threads
+are waiting on a signal,
+
+1132
+00:51:46,629 --> 00:51:48,429
+they might all wake up and
+
+1133
+00:51:48,429 --> 00:51:50,489
+they're all collectively
+at the same time.
+
+1134
+00:51:50,489 --> 00:51:54,070
+So we need to continuously
+check if the is empty.
+
+1135
+00:51:54,070 --> 00:51:58,429
+Mismck I see.
+
+1136
+00:51:58,429 --> 00:52:00,169
+Okay, there's usually a
+
+1137
+00:52:00,169 --> 00:52:01,590
+simpler there's usually
+
+1138
+00:52:01,590 --> 00:52:03,870
+a simpler problem
+that people identify.
+
+1139
+00:52:03,870 --> 00:52:08,410
+Have you heard of things
+like spurious wakes?
+
+1140
+00:52:09,160 --> 00:52:12,339
+No. So you will
+definitely hear it in
+
+1141
+00:52:12,339 --> 00:52:15,159
+the context of X XV six.
+
+1142
+00:52:15,159 --> 00:52:17,719
+There are these things called
+spurious wake ups that
+
+1143
+00:52:17,719 --> 00:52:20,580
+can make a process wake up
+from a weight primitive,
+
+1144
+00:52:20,580 --> 00:52:24,019
+even though there was
+no signal or broadcast.
+
+1145
+00:52:24,019 --> 00:52:26,860
+And so what happens if
+the consumer actually
+
+1146
+00:52:26,860 --> 00:52:30,039
+sits in a wait and then
+spuriously wakes up,
+
+1147
+00:52:30,039 --> 00:52:32,839
+and there's still
+nothing in the queue.
+
+1148
+00:52:32,920 --> 00:52:36,239
+And it's going to
+proceed to pop, right?
+
+1149
+00:52:36,239 --> 00:52:38,180
+I'll just use a laser pointer.
+
+1150
+00:52:38,180 --> 00:52:39,659
+So basically, right now,
+
+1151
+00:52:39,659 --> 00:52:41,920
+the consumer is sitting
+in the wait, okay?
+
+1152
+00:52:41,920 --> 00:52:43,540
+And there's a spurious wakeup.
+
+1153
+00:52:43,540 --> 00:52:46,399
+We woken up. We have
+woken up from the weight,
+
+1154
+00:52:46,399 --> 00:52:48,099
+and we proceed to pop,
+
+1155
+00:52:48,099 --> 00:52:49,340
+but the queue is still empty.
+
+1156
+00:52:49,340 --> 00:52:51,960
+So that violates the
+safety property.
+
+1157
+00:52:51,960 --> 00:52:54,440
+So spurious wakeus definitely
+
+1158
+00:52:54,440 --> 00:52:56,559
+cause a problem in
+this particular case.
+
+1159
+00:52:56,559 --> 00:52:59,260
+So that's why, well, actually,
+
+1160
+00:52:59,260 --> 00:53:06,339
+but even if there's
+no, uh, Right.
+
+1161
+00:53:06,339 --> 00:53:08,960
+But even if there's
+no spurious wakeup
+
+1162
+00:53:08,960 --> 00:53:11,179
+heard that there's still
+actually a problem.
+
+1163
+00:53:11,179 --> 00:53:14,520
+Now let's assume that there
+are no spurious wakeups.
+
+1164
+00:53:14,840 --> 00:53:17,320
+If there are no spurious wakeus,
+
+1165
+00:53:17,320 --> 00:53:19,239
+there's still a problem
+with this code.
+
+1166
+00:53:19,239 --> 00:53:22,519
+Now, as he mentioned
+on the far left,
+
+1167
+00:53:22,519 --> 00:53:25,839
+what happens is that if you
+have multiple consumers,
+
+1168
+00:53:25,839 --> 00:53:28,940
+right, we can actually
+
+1169
+00:53:28,940 --> 00:53:32,720
+construct a scenario where
+we have a safety violation.
+
+1170
+00:53:35,790 --> 00:53:38,389
+And in the interest of time,
+
+1171
+00:53:38,389 --> 00:53:40,869
+normally, I would have
+you think through it.
+
+1172
+00:53:40,869 --> 00:53:42,589
+But in the interest of time, I'm
+
+1173
+00:53:42,589 --> 00:53:44,109
+just going to walk through what
+
+1174
+00:53:44,109 --> 00:53:45,790
+the safety violation
+here is unless
+
+1175
+00:53:45,790 --> 00:53:48,550
+somebody wants to give
+me a safety violation.
+
+1176
+00:53:49,390 --> 00:53:53,370
+So if you were to get this code,
+
+1177
+00:53:53,370 --> 00:53:55,810
+and you have one producer
+in the left column,
+
+1178
+00:53:55,810 --> 00:53:58,549
+two consumer threads in
+the middle and the right,
+
+1179
+00:53:58,670 --> 00:54:04,090
+can we construct a scenario
+that violates safety?
+
+1180
+00:54:04,090 --> 00:54:06,889
+Yeah. Us if one
+
+1181
+00:54:06,889 --> 00:54:09,890
+consumer wakes up and
+then pops from the queue,
+
+1182
+00:54:09,890 --> 00:54:11,770
+then the other consumer
+
+1183
+00:54:11,770 --> 00:54:13,949
+gets signal and comes
+
+1184
+00:54:13,949 --> 00:54:16,710
+out and tries to pump
+it's already empty.
+
+1185
+00:54:17,030 --> 00:54:21,309
+But if one consumer
+wakes up, right?
+
+1186
+00:54:21,309 --> 00:54:23,129
+And pops and what? Does it still
+
+1187
+00:54:23,129 --> 00:54:25,409
+hold the log or does
+it release the lock?
+
+1188
+00:54:25,409 --> 00:54:27,929
+It releases the log.
+
+1189
+00:54:27,929 --> 00:54:29,989
+Okay, so then it
+released the log,
+
+1190
+00:54:29,989 --> 00:54:32,549
+okay, so it got out of the
+critical section, then what?
+
+1191
+00:54:32,549 --> 00:54:36,329
+The other consumer
+Where was it before?
+
+1192
+00:54:36,329 --> 00:54:39,589
+What was consumer to doing?
+
+1193
+00:54:39,589 --> 00:54:41,669
+Waiting. So you're saying
+
+1194
+00:54:41,669 --> 00:54:43,189
+both of them were
+waiting, right?
+
+1195
+00:54:43,189 --> 00:54:45,589
+Okay. Now, why would the
+second consumer wake up?
+
+1196
+00:54:45,589 --> 00:54:47,330
+We're not doing a broadcast.
+
+1197
+00:54:47,330 --> 00:54:50,779
+We're doing a signal. Okay.
+
+1198
+00:54:50,779 --> 00:54:54,920
+What determines which
+consumer wakes up the signal?
+
+1199
+00:54:54,920 --> 00:54:59,739
+Undefined. There can
+be some policy, right?
+
+1200
+00:54:59,739 --> 00:55:02,820
+Maybe, but this is
+actually irrelevant.
+
+1201
+00:55:02,820 --> 00:55:08,259
+It can be undefined. Yeah.
+Calling CD signal in there
+
+1202
+00:55:08,259 --> 00:55:10,660
+will take both of the consumer
+
+1203
+00:55:10,660 --> 00:55:15,040
+wants to call CD weight log.
+
+1204
+00:55:15,639 --> 00:55:19,179
+Both try to acquire
+the log to wake up.
+
+1205
+00:55:19,179 --> 00:55:22,080
+Only one of the signal
+
+1206
+00:55:22,080 --> 00:55:23,919
+the definition of signal is that
+
+1207
+00:55:23,919 --> 00:55:26,364
+it wakes up exactly one sleep.
+
+1208
+00:55:26,364 --> 00:55:28,990
+Yeah, we're not
+doing a broadcast.
+
+1209
+00:55:28,990 --> 00:55:30,690
+So I'm giving you
+this definition.
+
+1210
+00:55:30,690 --> 00:55:33,030
+Signal wakes up
+exactly one sleeper.
+
+1211
+00:55:33,030 --> 00:55:34,789
+Now with the broadcast, I think
+
+1212
+00:55:34,789 --> 00:55:36,889
+the far back, you
+would be right.
+
+1213
+00:55:36,889 --> 00:55:39,149
+If they're both waiting, right?
+
+1214
+00:55:39,149 --> 00:55:40,929
+If they're both waiting and
+
+1215
+00:55:40,929 --> 00:55:42,329
+you're doing a broadcast here,
+
+1216
+00:55:42,329 --> 00:55:44,030
+that would be another
+safety violation.
+
+1217
+00:55:44,030 --> 00:55:45,409
+So I actually don't
+think that you
+
+1218
+00:55:45,409 --> 00:55:47,449
+gave an answer to the
+original question.
+
+1219
+00:55:47,449 --> 00:55:49,809
+So nobody knows
+what the answer is.
+
+1220
+00:55:49,809 --> 00:55:51,510
+What is the safety violation?
+
+1221
+00:55:51,510 --> 00:55:52,849
+Yes.
+
+1222
+00:55:52,850 --> 00:55:56,989
+Keep on signaling the consumer.
+
+1223
+00:55:56,989 --> 00:55:59,610
+That you keep on signaling?
+
+1224
+00:56:04,310 --> 00:56:12,650
+Uh huh. Yeah, it's possible.
+
+1225
+00:56:12,650 --> 00:56:15,429
+It's possible. Yeah.
+So it is actually
+
+1226
+00:56:15,429 --> 00:56:18,689
+possible for one of the
+consumers to never wake up.
+
+1227
+00:56:18,689 --> 00:56:20,729
+But that would be like
+a scheduling problem.
+
+1228
+00:56:20,729 --> 00:56:23,069
+It's sort of a starvation
+of a particular thread,
+
+1229
+00:56:23,069 --> 00:56:25,989
+where we can construct
+a scenario, I guess,
+
+1230
+00:56:25,989 --> 00:56:28,889
+where the consumer to
+
+1231
+00:56:28,889 --> 00:56:30,650
+just gets extremely unlucky
+
+1232
+00:56:30,650 --> 00:56:32,689
+and it just keeps
+getting stuck in wait.
+
+1233
+00:56:32,689 --> 00:56:35,389
+And we always prioritize,
+let's say, consumer one.
+
+1234
+00:56:35,389 --> 00:56:38,889
+Let's say we wrote a brain
+that scheduling policy, right?
+
+1235
+00:56:38,889 --> 00:56:42,890
+And it just always
+schedules a lower PID.
+
+1236
+00:56:42,890 --> 00:56:45,249
+For a consumer. And then
+
+1237
+00:56:45,249 --> 00:56:47,610
+we've introduced a
+starvation problem,
+
+1238
+00:56:47,610 --> 00:56:49,229
+but that's not a
+problem with this code.
+
+1239
+00:56:49,229 --> 00:56:50,869
+That's a problem with
+the scheduling policy.
+
+1240
+00:56:50,869 --> 00:56:52,230
+A very interesting observation.
+
+1241
+00:56:52,230 --> 00:56:53,670
+They do work in tandem,
+
+1242
+00:56:53,670 --> 00:56:55,709
+and the combination of
+those two things can
+
+1243
+00:56:55,709 --> 00:56:59,289
+actually create safety
+issues as well.
+
+1244
+00:56:59,289 --> 00:57:02,950
+Okay, so here's what happens.
+
+1245
+00:57:02,950 --> 00:57:05,389
+All right, so you
+have a producer
+
+1246
+00:57:05,389 --> 00:57:06,729
+and you have two consumers.
+
+1247
+00:57:06,729 --> 00:57:10,470
+Now, producer is
+indeed signaling.
+
+1248
+00:57:10,620 --> 00:57:13,219
+The producer is
+indeed signaling.
+
+1249
+00:57:13,219 --> 00:57:15,359
+Now, let's imagine
+that consumer one
+
+1250
+00:57:15,359 --> 00:57:18,219
+is actually in the
+weight right here.
+
+1251
+00:57:18,219 --> 00:57:19,919
+Consumer one is in the weight,
+
+1252
+00:57:19,919 --> 00:57:22,419
+and remember when consumer
+one is in the weight,
+
+1253
+00:57:22,419 --> 00:57:24,299
+the lock is not held,
+
+1254
+00:57:24,299 --> 00:57:26,899
+okay? And it's sleeping.
+
+1255
+00:57:26,899 --> 00:57:30,080
+And so it starts to go through
+the wake up procedure.
+
+1256
+00:57:30,080 --> 00:57:32,240
+It starts to go through
+the wake up procedure,
+
+1257
+00:57:32,240 --> 00:57:34,579
+but hasn't acquired
+the lock yet.
+
+1258
+00:57:34,579 --> 00:57:37,679
+Consumer two is for
+whatever reason,
+
+1259
+00:57:37,679 --> 00:57:40,619
+scheduled by the
+scheduler. Consumer two.
+
+1260
+00:57:40,619 --> 00:57:46,119
+So sorry, producer signaled
+and unlocked, okay?
+
+1261
+00:57:46,119 --> 00:57:48,719
+Signaled and unlocked.
+So consumer two got out.
+
+1262
+00:57:48,719 --> 00:57:51,720
+This triggered C one to
+start a wake up procedure.
+
+1263
+00:57:51,720 --> 00:57:53,680
+The wake up procedure involves
+
+1264
+00:57:53,680 --> 00:57:55,079
+locking the lock and then
+
+1265
+00:57:55,079 --> 00:57:56,899
+getting out of the
+blocking wake call.
+
+1266
+00:57:56,899 --> 00:57:59,159
+But it hasn't had a
+chance to do that yet.
+
+1267
+00:57:59,159 --> 00:58:02,600
+C two comes in, grabs the
+lock, checks the queue.
+
+1268
+00:58:02,600 --> 00:58:06,000
+The queue is not empty,
+pops and returns.
+
+1269
+00:58:06,000 --> 00:58:09,459
+Okay? Now the queue
+is empty, right?
+
+1270
+00:58:09,459 --> 00:58:11,619
+And C one finally reacquires
+
+1271
+00:58:11,619 --> 00:58:14,060
+the lock because the lock
+is not held by anyone.
+
+1272
+00:58:14,060 --> 00:58:17,820
+And pops a queue and
+there's a safety violation.
+
+1273
+00:58:18,650 --> 00:58:20,469
+Okay?
+
+1274
+00:58:20,469 --> 00:58:23,250
+So that can actually happen.
+
+1275
+00:58:23,250 --> 00:58:25,129
+So what I'm trying
+to tell you is that
+
+1276
+00:58:25,129 --> 00:58:27,649
+you can get really funny
+interleavings here,
+
+1277
+00:58:27,649 --> 00:58:29,810
+even if you don't
+have spurious wakes.
+
+1278
+00:58:29,810 --> 00:58:31,929
+And so this really motivates
+
+1279
+00:58:31,929 --> 00:58:33,590
+what someone said
+in the beginning,
+
+1280
+00:58:33,590 --> 00:58:37,369
+I think that was you, why
+are you not using Wil?
+
+1281
+00:58:40,570 --> 00:58:43,749
+You really need to
+be using a Wile.
+
+1282
+00:58:43,749 --> 00:58:45,849
+And the While will
+take care of that,
+
+1283
+00:58:45,849 --> 00:58:47,789
+but you didn't know why.
+
+1284
+00:58:47,789 --> 00:58:50,629
+And this class is
+all about the why.
+
+1285
+00:58:50,629 --> 00:58:57,089
+Yes. Wakeup same time. No.
+
+1286
+00:58:58,160 --> 00:59:00,719
+So while we'll take care of it.
+
+1287
+00:59:00,719 --> 00:59:02,939
+So basically what
+you're checking here is
+
+1288
+00:59:02,939 --> 00:59:05,419
+that while the queue is
+empty, you go back to wait.
+
+1289
+00:59:05,419 --> 00:59:07,659
+So this takes care of
+spurious wakeus, right?
+
+1290
+00:59:07,659 --> 00:59:10,179
+You woke up, you check
+the queue, right?
+
+1291
+00:59:10,179 --> 00:59:12,199
+You woke up for whatever
+reason, I don't know.
+
+1292
+00:59:12,199 --> 00:59:13,779
+Including the spurious wake up,
+
+1293
+00:59:13,779 --> 00:59:15,259
+maybe you were signaled, maybe
+
+1294
+00:59:15,259 --> 00:59:16,679
+you were not signaled,
+doesn't matter.
+
+1295
+00:59:16,679 --> 00:59:19,059
+Just check the queue and see
+if you can pop something.
+
+1296
+00:59:19,059 --> 00:59:20,579
+If you can pop something great,
+
+1297
+00:59:20,579 --> 00:59:21,799
+if not, go back to sleep.
+
+1298
+00:59:21,799 --> 00:59:23,699
+That takes care of
+that. It also takes
+
+1299
+00:59:23,699 --> 00:59:25,959
+care of the situation that
+I have just described.
+
+1300
+00:59:25,959 --> 00:59:28,019
+That's the solution,
+right? Are we done?
+
+1301
+00:59:28,019 --> 00:59:29,819
+So the answer is we are done.
+
+1302
+00:59:29,819 --> 00:59:32,520
+Okay? This is the
+correct solution.
+
+1303
+00:59:32,890 --> 00:59:35,149
+So when we wait, we really
+
+1304
+00:59:35,149 --> 00:59:36,609
+need to do that in a while loop.
+
+1305
+00:59:36,609 --> 00:59:38,310
+Please remember that forever.
+
+1306
+00:59:38,310 --> 00:59:39,689
+If you didn't know that, this is
+
+1307
+00:59:39,689 --> 00:59:41,689
+a very important and
+useful thing to know.
+
+1308
+00:59:41,689 --> 00:59:44,229
+And this is actually do
+
+1309
+00:59:44,229 --> 00:59:47,529
+we need to be in the Wil
+loop because of a data as?
+
+1310
+00:59:47,610 --> 00:59:50,169
+Or do we need to be
+in the Wile loop
+
+1311
+00:59:50,169 --> 00:59:52,045
+because of a race condition?
+
+1312
+00:59:52,045 --> 00:59:55,219
+There was actually no in
+the interest of time,
+
+1313
+00:59:55,219 --> 00:59:56,959
+I'm just going to give
+you answers, right?
+
+1314
+00:59:56,959 --> 00:59:59,879
+There's no data as in
+that particular case,
+
+1315
+00:59:59,879 --> 01:00:01,199
+but there is a race condition,
+
+1316
+01:00:01,199 --> 01:00:03,719
+and so that's why we needed
+to introduce a wild Loop.
+
+1317
+01:00:03,719 --> 01:00:05,779
+Now, where should I
+place the signal?
+
+1318
+01:00:05,779 --> 01:00:08,919
+And I promise this is
+going to be my last slide.
+
+1319
+01:00:08,919 --> 01:00:10,800
+Where should I place the signal?
+
+1320
+01:00:10,800 --> 01:00:12,360
+So we have a couple of options.
+
+1321
+01:00:12,360 --> 01:00:15,139
+Now, the produce
+the consumer code
+
+1322
+01:00:15,139 --> 01:00:16,419
+is the bottom right hand corner
+
+1323
+01:00:16,419 --> 01:00:17,599
+just for your reference, okay?
+
+1324
+01:00:17,599 --> 01:00:19,339
+It's not going to
+change. Now, there are
+
+1325
+01:00:19,339 --> 01:00:21,839
+three different ways that
+we can write the producer.
+
+1326
+01:00:21,839 --> 01:00:23,279
+We can put the signal where it
+
+1327
+01:00:23,279 --> 01:00:25,379
+was right after push, right?
+
+1328
+01:00:25,379 --> 01:00:30,079
+Can we put the signal outside
+of the lock and lock?
+
+1329
+01:00:36,260 --> 01:00:39,659
+I will reason through this, yes.
+
+1330
+01:00:40,060 --> 01:00:46,579
+Someone can signal
+to you. I think.
+
+1331
+01:00:47,580 --> 01:00:50,639
+But is that a problem?
+Because the purpose of
+
+1332
+01:00:50,639 --> 01:00:52,079
+the signal is to make
+
+1333
+01:00:52,079 --> 01:00:54,360
+sure that it's to
+guarantee liveness.
+
+1334
+01:00:54,360 --> 01:00:56,299
+Without having a signal
+
+1335
+01:00:56,299 --> 01:00:58,200
+one time when you
+didn't have a signal,
+
+1336
+01:00:58,200 --> 01:00:59,939
+that was a liveness
+violation, right?
+
+1337
+01:00:59,939 --> 01:01:03,039
+Because nobody would wake
+up, nobody could wake up.
+
+1338
+01:01:03,039 --> 01:01:05,659
+But if some consumer woke
+up for whatever reason,
+
+1339
+01:01:05,659 --> 01:01:06,820
+they're going to consume
+
+1340
+01:01:06,820 --> 01:01:08,240
+that element that
+you've just produced.
+
+1341
+01:01:08,240 --> 01:01:09,499
+So that's fine, right?
+
+1342
+01:01:09,499 --> 01:01:15,740
+Now, can we put the signal
+before this critical section?
+
+1343
+01:01:15,740 --> 01:01:19,179
+No, right? And here's
+how to think about it.
+
+1344
+01:01:19,179 --> 01:01:21,060
+Here's what we are
+trying to achieve.
+
+1345
+01:01:21,060 --> 01:01:23,700
+What we are trying to
+achieve here, guys,
+
+1346
+01:01:23,700 --> 01:01:26,019
+is we're trying to establish
+this happens before
+
+1347
+01:01:26,019 --> 01:01:28,720
+relationship between a
+producer and a consumer.
+
+1348
+01:01:28,720 --> 01:01:30,540
+So in other words,
+
+1349
+01:01:30,540 --> 01:01:32,719
+making it a little
+bit more concrete.
+
+1350
+01:01:32,719 --> 01:01:34,299
+We want to make sure that
+
+1351
+01:01:34,299 --> 01:01:37,319
+the push happens
+before the pop, right?
+
+1352
+01:01:37,319 --> 01:01:39,620
+That's what we would
+like to achieve.
+
+1353
+01:01:39,620 --> 01:01:42,679
+Now, how do we do
+that? So that's
+
+1354
+01:01:42,679 --> 01:01:45,339
+sort of what we would like to
+enforce. This is our goal.
+
+1355
+01:01:45,339 --> 01:01:47,399
+And we do that by introducing
+
+1356
+01:01:47,399 --> 01:01:50,320
+these two synchronization
+primitives that work in tandem,
+
+1357
+01:01:50,320 --> 01:01:51,959
+the signal and the weight.
+
+1358
+01:01:51,959 --> 01:01:54,239
+And by construction, by design,
+
+1359
+01:01:54,239 --> 01:01:56,379
+the signal and the
+weight already have
+
+1360
+01:01:56,379 --> 01:01:59,699
+a happens before relationship
+between them, right?
+
+1361
+01:01:59,699 --> 01:02:02,099
+Because the signal is going to
+
+1362
+01:02:02,099 --> 01:02:04,580
+complete before the
+weight completes.
+
+1363
+01:02:04,580 --> 01:02:08,499
+We by construction have
+designed a pair of primitives
+
+1364
+01:02:08,499 --> 01:02:09,879
+in such a way that it
+
+1365
+01:02:09,879 --> 01:02:12,239
+gives us this happens
+before relationship.
+
+1366
+01:02:12,239 --> 01:02:15,840
+Now, as long as the push
+happens before the signal,
+
+1367
+01:02:15,840 --> 01:02:18,219
+and by transitivity and
+
+1368
+01:02:18,219 --> 01:02:20,919
+the weight happens
+before the pop,
+
+1369
+01:02:20,919 --> 01:02:22,819
+by transitivity, you're going to
+
+1370
+01:02:22,819 --> 01:02:25,549
+have push happening
+before the pop.
+
+1371
+01:02:25,549 --> 01:02:28,539
+Do you see that? So let
+
+1372
+01:02:28,539 --> 01:02:29,959
+me walk through
+that one more time.
+
+1373
+01:02:29,959 --> 01:02:32,239
+This is by construction.
+We already have an edge.
+
+1374
+01:02:32,239 --> 01:02:34,099
+This happens before
+relationship graph.
+
+1375
+01:02:34,099 --> 01:02:35,479
+It's a graph, okay?
+
+1376
+01:02:35,479 --> 01:02:37,740
+We're just putting in the
+edges into this graph,
+
+1377
+01:02:37,740 --> 01:02:39,020
+and there are four vertices,
+
+1378
+01:02:39,020 --> 01:02:40,759
+push, signal, wait, pop,
+
+1379
+01:02:40,759 --> 01:02:43,559
+push, signal, wait,
+pop. We have an edge.
+
+1380
+01:02:43,559 --> 01:02:45,859
+Okay? We want to
+
+1381
+01:02:45,859 --> 01:02:48,139
+ensure that there's a
+path between push and
+
+1382
+01:02:48,139 --> 01:02:50,999
+pop in this directed
+acyclic graph
+
+1383
+01:02:50,999 --> 01:02:53,180
+in it happens before
+relationship graph.
+
+1384
+01:02:53,180 --> 01:02:55,740
+Okay? Now, as long
+as the push happens
+
+1385
+01:02:55,740 --> 01:02:58,579
+before the signal and the
+weight happens before the pop,
+
+1386
+01:02:58,579 --> 01:03:01,554
+by transitivity, you're
+going to get that path.
+
+1387
+01:03:01,554 --> 01:03:06,109
+So anyway you put push and
+signal relative to each other,
+
+1388
+01:03:06,109 --> 01:03:08,949
+to make sure that
+this holds true,
+
+1389
+01:03:08,949 --> 01:03:10,809
+we have ensured that there is
+
+1390
+01:03:10,809 --> 01:03:13,989
+a happens before relationship
+between push and pop.
+
+1391
+01:03:17,030 --> 01:03:20,010
+And that's where I'll
+end the lecture.
+
+1392
+01:03:20,010 --> 01:03:21,829
+Thank you.

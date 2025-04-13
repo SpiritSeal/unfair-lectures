@@ -1,0 +1,6842 @@
+1
+00:00:17,360 --> 00:00:19,399
+Yeah.
+
+2
+00:00:43,500 --> 00:00:46,099
+I have no idea
+
+3
+00:01:20,620 --> 00:01:27,980
+um, All right.
+
+4
+00:01:27,980 --> 00:01:29,580
+Let's go ahead and get started.
+
+5
+00:01:29,580 --> 00:01:32,799
+We have a ton of material
+to blast through.
+
+6
+00:01:32,840 --> 00:01:35,220
+So today we're supposed to be
+
+7
+00:01:35,220 --> 00:01:37,479
+talking about user
+and kernel threads.
+
+8
+00:01:37,479 --> 00:01:40,899
+And basically, how do
+you create, organize,
+
+9
+00:01:40,899 --> 00:01:43,459
+and manage userspace threads,
+
+10
+00:01:43,459 --> 00:01:45,139
+and we have different design
+
+11
+00:01:45,139 --> 00:01:46,880
+choices, Associated with that.
+
+12
+00:01:46,880 --> 00:01:49,619
+Before I get into the
+user and kernel threads,
+
+13
+00:01:49,619 --> 00:01:51,859
+I wanted to finish something
+from the previous lecture,
+
+14
+00:01:51,859 --> 00:01:53,960
+we're going to get to
+that right after going
+
+15
+00:01:53,960 --> 00:01:56,899
+through a couple of
+slides of administratvia.
+
+16
+00:01:56,899 --> 00:01:59,539
+Okay? So first and foremost,
+
+17
+00:01:59,539 --> 00:02:01,880
+lab three has now been released.
+
+18
+00:02:01,880 --> 00:02:03,940
+So, believe it or not, you guys
+
+19
+00:02:03,940 --> 00:02:06,680
+are you're done with lab two.
+
+20
+00:02:06,680 --> 00:02:08,599
+You only have two
+labs remaining.
+
+21
+00:02:08,599 --> 00:02:11,339
+This lab is the biggest
+lab, however, right?
+
+22
+00:02:11,339 --> 00:02:13,120
+So please do start early.
+
+23
+00:02:13,120 --> 00:02:14,659
+I wanted to say a few things
+
+24
+00:02:14,659 --> 00:02:18,400
+about the timeline
+associated with this lab.
+
+25
+00:02:18,400 --> 00:02:21,600
+This lab is going to
+consist of multiple parts.
+
+26
+00:02:21,600 --> 00:02:23,400
+It's a multi part lab.
+
+27
+00:02:23,400 --> 00:02:26,199
+The first part is on scheduling,
+
+28
+00:02:26,199 --> 00:02:28,279
+and then the rest
+of it kind of has
+
+29
+00:02:28,279 --> 00:02:30,400
+to do with the threading
+library implementation,
+
+30
+00:02:30,400 --> 00:02:33,100
+which we're also going to
+talk about in this lecture.
+
+31
+00:02:33,100 --> 00:02:36,560
+This is not a coincidence, okay?
+
+32
+00:02:39,250 --> 00:02:43,069
+Okay, so the timeline
+is that you do have
+
+33
+00:02:43,069 --> 00:02:46,510
+five weeks allocated for
+lab three, calendar weeks.
+
+34
+00:02:46,510 --> 00:02:47,729
+So if you look at the schedule,
+
+35
+00:02:47,729 --> 00:02:50,030
+you will see that you
+can count to five.
+
+36
+00:02:50,030 --> 00:02:52,549
+There are five weeks indeed
+allocated to lab three,
+
+37
+00:02:52,549 --> 00:02:54,769
+it may seem like
+quite a bit of time.
+
+38
+00:02:54,769 --> 00:02:58,409
+However, one of those
+weeks is a spring break.
+
+39
+00:02:58,409 --> 00:03:00,269
+And, you know, we want
+to make sure we do
+
+40
+00:03:00,269 --> 00:03:02,190
+not impose on your
+spring break too much.
+
+41
+00:03:02,190 --> 00:03:03,730
+Of course, it's
+entirely your choice
+
+42
+00:03:03,730 --> 00:03:05,309
+what you do with your
+spring break, right?
+
+43
+00:03:05,309 --> 00:03:06,589
+But we wanted to make sure that
+
+44
+00:03:06,589 --> 00:03:08,189
+we don't count that one week
+
+45
+00:03:08,189 --> 00:03:10,229
+into the amount of
+time we think you
+
+46
+00:03:10,229 --> 00:03:12,509
+have for the purposes of
+completing your lab three.
+
+47
+00:03:12,509 --> 00:03:14,219
+So you now have four.
+
+48
+00:03:14,219 --> 00:03:16,809
+Okay? Another week, we also
+
+49
+00:03:16,809 --> 00:03:19,329
+have a midterm between now and
+the time lab three is due,
+
+50
+00:03:19,329 --> 00:03:21,949
+so you need to have some
+time to prepare for that.
+
+51
+00:03:21,949 --> 00:03:24,670
+I'm saying one week
+of midterm prep.
+
+52
+00:03:24,670 --> 00:03:27,049
+Having said that, I do encourage
+
+53
+00:03:27,049 --> 00:03:29,350
+you to actually start
+early and start
+
+54
+00:03:29,350 --> 00:03:30,690
+even as early as
+
+55
+00:03:30,690 --> 00:03:32,469
+this week and get
+
+56
+00:03:32,469 --> 00:03:34,209
+through the slides, get
+through the videos.
+
+57
+00:03:34,209 --> 00:03:35,610
+There's a lot of video material
+
+58
+00:03:35,610 --> 00:03:37,809
+out there on the media gallery.
+
+59
+00:03:37,809 --> 00:03:40,910
+And so that you're well prepared
+
+60
+00:03:40,910 --> 00:03:42,010
+for the kinds of
+
+61
+00:03:42,010 --> 00:03:44,484
+midterm exam questions
+we're going to ask.
+
+62
+00:03:44,484 --> 00:03:47,420
+They are going to be quite
+different from your labs.
+
+63
+00:03:47,420 --> 00:03:49,419
+So the questions we're
+going to ask will
+
+64
+00:03:49,419 --> 00:03:52,320
+be primarily conceptual
+slash design,
+
+65
+00:03:52,320 --> 00:03:54,600
+slash system
+architecture questions,
+
+66
+00:03:54,600 --> 00:03:56,280
+the thinking kinds of questions,
+
+67
+00:03:56,280 --> 00:03:57,919
+where we'll be asking you about
+
+68
+00:03:57,919 --> 00:04:01,080
+trade offs associated with
+various design choices,
+
+69
+00:04:01,080 --> 00:04:02,779
+as we have been doing over
+
+70
+00:04:02,779 --> 00:04:03,559
+the course of all of
+
+71
+00:04:03,559 --> 00:04:05,299
+these lectures that
+you guys went to.
+
+72
+00:04:05,299 --> 00:04:06,779
+So I just wanted to be
+
+73
+00:04:06,779 --> 00:04:08,719
+explicit about this
+that it will be
+
+74
+00:04:08,719 --> 00:04:12,260
+different from the lab
+assignments you've done, okay?
+
+75
+00:04:12,260 --> 00:04:14,139
+And so it does take
+some time to do
+
+76
+00:04:14,139 --> 00:04:15,899
+some midterm preparation in
+
+77
+00:04:15,899 --> 00:04:18,960
+addition to the time you're
+investing in your labs.
+
+78
+00:04:18,960 --> 00:04:22,040
+So that leaves us with
+three weeks, right?
+
+79
+00:04:22,040 --> 00:04:23,279
+And that's the same amount
+
+80
+00:04:23,279 --> 00:04:24,960
+of time you had
+for your lab two.
+
+81
+00:04:24,960 --> 00:04:27,480
+How well did your lab two go
+
+82
+00:04:27,480 --> 00:04:31,220
+if you didn't start
+early, right?
+
+83
+00:04:31,220 --> 00:04:33,959
+Well, was there an answer?
+
+84
+00:04:33,959 --> 00:04:39,409
+How did it go? Yeah.
+
+85
+00:04:39,409 --> 00:04:42,410
+I mean, I literally
+spoke with a handful of
+
+86
+00:04:42,410 --> 00:04:43,589
+students who didn't start
+
+87
+00:04:43,589 --> 00:04:45,150
+until three days
+before the deadline,
+
+88
+00:04:45,150 --> 00:04:48,769
+and this has multiple
+implications.
+
+89
+00:04:48,769 --> 00:04:50,850
+It's going to create a
+lot of stress on you,
+
+90
+00:04:50,850 --> 00:04:52,910
+it's going to also
+create a lot of
+
+91
+00:04:52,910 --> 00:04:55,150
+stress on the TAs,
+but especially you,
+
+92
+00:04:55,150 --> 00:04:56,710
+and you may end
+up in a situation
+
+93
+00:04:56,710 --> 00:04:57,990
+where you're so
+stressed that you
+
+94
+00:04:57,990 --> 00:05:01,990
+make decisions you would
+not have made otherwise.
+
+95
+00:05:01,990 --> 00:05:04,630
+And we do watch out for
+those things, right?
+
+96
+00:05:04,630 --> 00:05:06,709
+So please make sure
+this doesn't happen.
+
+97
+00:05:06,709 --> 00:05:09,930
+The best way to
+proactively avoid all of
+
+98
+00:05:09,930 --> 00:05:11,750
+these stressful situations is if
+
+99
+00:05:11,750 --> 00:05:14,675
+you start early enough set.
+
+100
+00:05:14,675 --> 00:05:17,340
+We're trying to help you
+as much as possible.
+
+101
+00:05:17,340 --> 00:05:18,980
+One of the ways we're
+trying to help you with
+
+102
+00:05:18,980 --> 00:05:21,519
+Lab three is we
+created a midpoint,
+
+103
+00:05:21,519 --> 00:05:24,459
+I guess, a halfway
+checkpoint, okay?
+
+104
+00:05:24,459 --> 00:05:27,259
+And what is this
+halfway checkpoint?
+
+105
+00:05:27,860 --> 00:05:32,080
+It's due on March 14, yes.
+
+106
+00:05:32,080 --> 00:05:34,800
+This is Pi day,
+
+107
+00:05:34,800 --> 00:05:36,760
+so easy to remember.
+
+108
+00:05:36,760 --> 00:05:40,000
+March 14 is basically
+what we're looking
+
+109
+00:05:40,000 --> 00:05:41,419
+for is for you to get through
+
+110
+00:05:41,419 --> 00:05:42,900
+parts one and two of the lab.
+
+111
+00:05:42,900 --> 00:05:47,579
+And this will correspond
+to the first 21 tests.
+
+112
+00:05:47,579 --> 00:05:50,219
+And so, basically,
+
+113
+00:05:51,400 --> 00:05:54,220
+what's going to
+happen is that we're
+
+114
+00:05:54,220 --> 00:05:56,420
+going to give you six
+bonus points, right?
+
+115
+00:05:56,420 --> 00:05:58,120
+This is going to
+count as a bonus on
+
+116
+00:05:58,120 --> 00:06:00,379
+top of your lab
+three assignment.
+
+117
+00:06:00,379 --> 00:06:04,620
+And we will weigh these six
+points by the fraction of
+
+118
+00:06:04,620 --> 00:06:06,139
+the tests one through
+
+119
+00:06:06,139 --> 00:06:08,820
+21 that you have completed
+by the deadline,
+
+120
+00:06:08,820 --> 00:06:10,199
+by the checkpoint deadline.
+
+121
+00:06:10,199 --> 00:06:14,170
+Does that make sense? So
+it's not an all or nothing.
+
+122
+00:06:14,170 --> 00:06:16,569
+You can get partial
+bonus credit,
+
+123
+00:06:16,569 --> 00:06:19,150
+and that's going to depend
+on how many tests you've
+
+124
+00:06:19,150 --> 00:06:23,369
+completed in this range, okay?
+
+125
+00:06:23,369 --> 00:06:26,150
+And I can guarantee you that
+people will be saying, Oh,
+
+126
+00:06:26,150 --> 00:06:30,210
+I actually completed more
+tests in this range. Okay?
+
+127
+00:06:30,210 --> 00:06:32,290
+So if you complete
+seven tests out of
+
+128
+00:06:32,290 --> 00:06:34,429
+this range, it's
+seven out of 21.
+
+129
+00:06:34,429 --> 00:06:37,769
+One third times six
+is how many points?
+
+130
+00:06:37,940 --> 00:06:40,120
+Two points, okay?
+
+131
+00:06:40,120 --> 00:06:44,179
+Even if you completed the
+rest of the tests after 21,
+
+132
+00:06:44,179 --> 00:06:46,420
+you're more than
+welcome to do that,
+
+133
+00:06:46,420 --> 00:06:48,079
+but that's not going
+to count towards
+
+134
+00:06:48,079 --> 00:06:50,479
+your checkpoint
+bonus points, right?
+
+135
+00:06:50,479 --> 00:06:52,980
+So that's kind of how we
+are structurally trying
+
+136
+00:06:52,980 --> 00:06:56,100
+to help you get
+through this lab.
+
+137
+00:06:56,100 --> 00:06:58,739
+And the checkpoint,
+not coincidentally,
+
+138
+00:06:58,739 --> 00:07:01,540
+is going to be due Friday
+before your spring break.
+
+139
+00:07:01,540 --> 00:07:05,119
+So just for all
+practical purposes,
+
+140
+00:07:05,119 --> 00:07:06,480
+aim for that checkpoint as
+
+141
+00:07:06,480 --> 00:07:09,020
+your lab deadline,
+and you will be fine.
+
+142
+00:07:10,580 --> 00:07:16,259
+Okay. So this year is different.
+
+143
+00:07:16,259 --> 00:07:19,020
+We actually changed
+the auto grader to
+
+144
+00:07:19,020 --> 00:07:22,820
+calculate the score for you
+so that there's no confusion,
+
+145
+00:07:22,820 --> 00:07:25,420
+right, and there's no manual
+calculation involved.
+
+146
+00:07:25,420 --> 00:07:26,580
+The autograder is going to
+
+147
+00:07:26,580 --> 00:07:28,760
+calculate the checkpoint
+score for you,
+
+148
+00:07:28,760 --> 00:07:30,220
+and it will be logged as part
+
+149
+00:07:30,220 --> 00:07:31,980
+of every submission
+that you make.
+
+150
+00:07:31,980 --> 00:07:34,459
+Okay? Then we're going to
+extract this information,
+
+151
+00:07:34,459 --> 00:07:36,480
+and we're going to port
+it over to Canvas as
+
+152
+00:07:36,480 --> 00:07:41,379
+your checkpoint score.
+Does that make sense?
+
+153
+00:07:41,760 --> 00:07:45,360
+Alright, I do want to go
+quickly through this.
+
+154
+00:07:45,360 --> 00:07:47,079
+Oh, I forgot.
+
+155
+00:07:47,079 --> 00:07:48,640
+This is not the only bonus that
+
+156
+00:07:48,640 --> 00:07:50,220
+you get on lab three, right?
+
+157
+00:07:50,220 --> 00:07:52,400
+There's also a custom
+schedule design question.
+
+158
+00:07:52,400 --> 00:07:53,780
+How could we not have
+
+159
+00:07:53,780 --> 00:07:58,360
+a custom scheduling design
+question in this class, right?
+
+160
+00:07:58,360 --> 00:08:01,919
+Try to outperform
+the stock schedulers
+
+161
+00:08:01,919 --> 00:08:04,020
+that you will be implementing
+as part of the lab.
+
+162
+00:08:04,020 --> 00:08:05,960
+And if you're successful
+at doing that,
+
+163
+00:08:05,960 --> 00:08:08,599
+refer for details to the SPAC.
+
+164
+00:08:08,599 --> 00:08:10,040
+You're also going to get
+
+165
+00:08:10,040 --> 00:08:11,960
+an additional bonus opportunity
+
+166
+00:08:11,960 --> 00:08:14,759
+with the custom
+scheduler design write.
+
+167
+00:08:15,620 --> 00:08:19,060
+It's not due for the checkpoint.
+You can do that later.
+
+168
+00:08:19,060 --> 00:08:20,580
+You can submit it
+at the very end of
+
+169
+00:08:20,580 --> 00:08:22,319
+your lab because we don't
+
+170
+00:08:22,319 --> 00:08:23,940
+want to spend your time on
+
+171
+00:08:23,940 --> 00:08:26,140
+the bonus before you've
+completed the entire lab.
+
+172
+00:08:26,140 --> 00:08:30,500
+Does that make sense?
+Alright. Exam, people
+
+173
+00:08:30,500 --> 00:08:32,839
+have started asking for an exam.
+
+174
+00:08:32,839 --> 00:08:35,160
+I think of it as a good sign.
+
+175
+00:08:35,160 --> 00:08:36,620
+So for this section,
+
+176
+00:08:36,620 --> 00:08:38,539
+my section, Section C,
+
+177
+00:08:38,539 --> 00:08:41,320
+we are going to have
+an exam on Tuesday,
+
+178
+00:08:41,320 --> 00:08:44,400
+March 11 at this time
+in this location.
+
+179
+00:08:44,400 --> 00:08:47,689
+Is that clear? If you're
+
+180
+00:08:47,689 --> 00:08:50,409
+going to show up somewhere
+else, please do not blame me.
+
+181
+00:08:50,409 --> 00:08:52,730
+This section,
+Section C, Tuesday,
+
+182
+00:08:52,730 --> 00:08:56,389
+March 11 2250 in this
+location at this time.
+
+183
+00:08:56,389 --> 00:08:58,290
+It will be an in class exam.
+
+184
+00:08:58,290 --> 00:09:00,149
+It will be administered
+on Canvas.
+
+185
+00:09:00,149 --> 00:09:03,169
+It will be proctored. Please
+bring your bus cards.
+
+186
+00:09:03,169 --> 00:09:04,729
+They will be checked
+because we don't
+
+187
+00:09:04,729 --> 00:09:07,049
+want people from another
+section to show up.
+
+188
+00:09:07,049 --> 00:09:10,869
+Okay? So go to the
+section that you're in.
+
+189
+00:09:10,869 --> 00:09:13,729
+Even if you're collaborating
+with a partner from
+
+190
+00:09:13,729 --> 00:09:15,089
+another section for the purposes
+
+191
+00:09:15,089 --> 00:09:16,530
+of your labs, that
+doesn't matter.
+
+192
+00:09:16,530 --> 00:09:17,909
+You're registered
+for the section,
+
+193
+00:09:17,909 --> 00:09:20,410
+you show up for this
+section to take an exam.
+
+194
+00:09:20,410 --> 00:09:23,310
+I think I've belabored
+that point quite a bit.
+
+195
+00:09:23,310 --> 00:09:26,809
+Topic coverage, everything
+up to and excluding
+
+196
+00:09:26,809 --> 00:09:33,229
+security is going to be up
+for grabs for Exam one.
+
+197
+00:09:33,229 --> 00:09:35,990
+This includes, but
+is not limited
+
+198
+00:09:35,990 --> 00:09:38,069
+to I'm trying to be
+
+199
+00:09:38,069 --> 00:09:39,329
+legal here because I know that
+
+200
+00:09:39,329 --> 00:09:40,709
+someone is going to pick it up.
+
+201
+00:09:40,709 --> 00:09:43,729
+Isolation and protection,
+kernel organization,
+
+202
+00:09:43,729 --> 00:09:45,150
+virtual memory management,
+
+203
+00:09:45,150 --> 00:09:47,410
+interrupts and concurrency
+and scheduling.
+
+204
+00:09:47,410 --> 00:09:48,929
+We just went over that over
+
+205
+00:09:48,929 --> 00:09:50,984
+the course of the
+past week, right?
+
+206
+00:09:50,984 --> 00:09:52,820
+User and kernel threading,
+
+207
+00:09:52,820 --> 00:09:54,300
+we're covering that today,
+
+208
+00:09:54,300 --> 00:09:55,880
+and OS and networking,
+
+209
+00:09:55,880 --> 00:09:59,199
+we're planning to cover
+that on Thursday.
+
+210
+00:09:59,199 --> 00:10:01,360
+And what we will be testing,
+
+211
+00:10:01,360 --> 00:10:03,360
+again, is not your
+lab knowledge.
+
+212
+00:10:03,360 --> 00:10:06,179
+What we will be testing is
+the lecture material and
+
+213
+00:10:06,179 --> 00:10:07,479
+the content that
+we will be asking
+
+214
+00:10:07,479 --> 00:10:10,260
+thinking design
+questions on the exam.
+
+215
+00:10:11,300 --> 00:10:14,019
+The best way to
+prepare for that is to
+
+216
+00:10:14,019 --> 00:10:17,179
+go back and study the
+lecture material.
+
+217
+00:10:17,450 --> 00:10:22,729
+Okay. And so now before we
+start talking about threading,
+
+218
+00:10:22,729 --> 00:10:27,709
+I want to go back and
+give me a second.
+
+219
+00:10:27,709 --> 00:10:29,490
+I want to go back
+and finish something
+
+220
+00:10:29,490 --> 00:10:31,650
+that we discussed during
+
+221
+00:10:31,650 --> 00:10:35,150
+the previous lecture
+because this actually sets
+
+222
+00:10:35,150 --> 00:10:39,150
+up the context really nicely
+for this lecture today.
+
+223
+00:10:39,150 --> 00:10:41,189
+Okay? So remember this?
+
+224
+00:10:41,189 --> 00:10:43,209
+This is where we
+ended up. We sort of
+
+225
+00:10:43,209 --> 00:10:45,630
+went through where you
+want to place your signal.
+
+226
+00:10:45,630 --> 00:10:47,869
+We established how
+this combination of
+
+227
+00:10:47,869 --> 00:10:50,609
+signal and weight happens
+
+228
+00:10:50,609 --> 00:10:53,110
+actually creates and
+reinforces a happens before
+
+229
+00:10:53,110 --> 00:10:54,789
+relationship between
+the producer
+
+230
+00:10:54,789 --> 00:10:56,409
+and the consumer,
+which is what we want.
+
+231
+00:10:56,409 --> 00:10:58,589
+That's where we stop. Okay?
+
+232
+00:10:58,589 --> 00:11:00,949
+Now, the next thing that
+I wanted to talk about
+
+233
+00:11:00,949 --> 00:11:03,309
+is what is the mechanism for
+waiting in the first place?
+
+234
+00:11:03,309 --> 00:11:05,370
+So we've established that
+we want to be able to wait.
+
+235
+00:11:05,370 --> 00:11:07,769
+Wait is a nice primitive
+to have, okay?
+
+236
+00:11:07,769 --> 00:11:09,069
+But then how do we wait?
+
+237
+00:11:09,069 --> 00:11:10,749
+What's the mechanism
+for waiting?
+
+238
+00:11:10,749 --> 00:11:13,330
+And maybe let's start
+asking some questions.
+
+239
+00:11:13,330 --> 00:11:16,529
+Well, do you expect the
+user space application
+
+240
+00:11:16,529 --> 00:11:19,450
+or the kernel to
+switch the processes?
+
+241
+00:11:21,330 --> 00:11:24,110
+So who's going to
+switch the processes,
+
+242
+00:11:24,110 --> 00:11:26,529
+the user space or the kernel?
+
+243
+00:11:26,529 --> 00:11:28,029
+Yes. The kernel.
+
+244
+00:11:28,029 --> 00:11:29,340
+And why is that?
+
+245
+00:11:29,340 --> 00:11:31,990
+Access to everything.
+
+246
+00:11:31,990 --> 00:11:33,829
+Because this is something
+that you think is
+
+247
+00:11:33,829 --> 00:11:35,949
+going to require some
+privileged tactics, right?
+
+248
+00:11:35,949 --> 00:11:38,509
+Okay. And so how
+
+249
+00:11:38,509 --> 00:11:41,109
+do we handle the switches
+within the kernel, right?
+
+250
+00:11:41,109 --> 00:11:44,490
+And more generally, how do
+we put processes to sleep?
+
+251
+00:11:44,490 --> 00:11:47,010
+So you may find it
+counterintuitive,
+
+252
+00:11:47,010 --> 00:11:48,909
+and at least I did when
+
+253
+00:11:48,909 --> 00:11:51,169
+I was first going
+through this material.
+
+254
+00:11:51,169 --> 00:11:53,649
+But it's interesting
+to note that
+
+255
+00:11:53,649 --> 00:11:56,510
+a process cannot actually
+put itself to sleep.
+
+256
+00:11:56,510 --> 00:11:57,929
+Like, you think that this is
+
+257
+00:11:57,929 --> 00:12:00,229
+a very trivial operation.
+You just call sleep, right?
+
+258
+00:12:00,229 --> 00:12:01,650
+You know, What's the problem.
+
+259
+00:12:01,650 --> 00:12:03,789
+But the user space
+application actually is
+
+260
+00:12:03,789 --> 00:12:07,710
+completely unable to go to
+sleep without Kernel's help.
+
+261
+00:12:07,790 --> 00:12:11,669
+It's a very, very simple
+primitive, sleep, right?
+
+262
+00:12:11,669 --> 00:12:13,050
+You cannot do that without
+
+263
+00:12:13,050 --> 00:12:17,019
+the kernel. Very
+interesting, right?
+
+264
+00:12:17,019 --> 00:12:19,139
+And then once we'll get to that.
+
+265
+00:12:19,139 --> 00:12:22,079
+And then once we
+talk about this,
+
+266
+00:12:22,079 --> 00:12:24,179
+how do we wake up the
+sleeping process is?
+
+267
+00:12:24,179 --> 00:12:27,919
+Sort of what's the
+mechanism for that, right?
+
+268
+00:12:27,919 --> 00:12:31,319
+So one way to sort of
+
+269
+00:12:31,319 --> 00:12:34,820
+implement sleeping is Sorry,
+hold on. What happens?
+
+270
+00:12:34,820 --> 00:12:36,319
+Yeah, what happens? We will
+
+271
+00:12:36,319 --> 00:12:37,699
+also talk about what happens on
+
+272
+00:12:37,699 --> 00:12:41,220
+the CPU when the process
+waits for another.
+
+273
+00:12:41,220 --> 00:12:44,100
+And can we use the CPU more
+productively in the meantime?
+
+274
+00:12:44,100 --> 00:12:45,739
+Because the simplest
+possible thing to
+
+275
+00:12:45,739 --> 00:12:47,739
+do when you're
+waiting in a sleep is
+
+276
+00:12:47,739 --> 00:12:49,225
+to basically just sleep
+
+277
+00:12:49,225 --> 00:12:51,630
+and maintain the context
+that you've established,
+
+278
+00:12:51,630 --> 00:12:56,390
+maintain all the data
+locality, the entire context.
+
+279
+00:12:56,390 --> 00:12:59,569
+I'm just going to be very
+general here instead
+
+280
+00:12:59,569 --> 00:13:03,029
+of swapping out the context
+
+281
+00:13:03,029 --> 00:13:05,789
+and switching to another
+threat of execution, right?
+
+282
+00:13:05,789 --> 00:13:07,289
+But is this the efficient way
+
+283
+00:13:07,289 --> 00:13:09,594
+of using the CPU when
+you're sleeping?
+
+284
+00:13:09,594 --> 00:13:11,659
+In the interest of
+time, you know,
+
+285
+00:13:11,659 --> 00:13:14,259
+normally I would give
+you an opportunity to
+
+286
+00:13:14,259 --> 00:13:15,939
+give me the obvious answers
+
+287
+00:13:15,939 --> 00:13:17,399
+to the obvious questions, right?
+
+288
+00:13:17,399 --> 00:13:18,999
+But in the interest
+of time, clearly,
+
+289
+00:13:18,999 --> 00:13:21,219
+this is not a very
+productive way
+
+290
+00:13:21,219 --> 00:13:22,939
+of using the CPU, right?
+
+291
+00:13:22,939 --> 00:13:25,819
+We probably want to do
+something else, right?
+
+292
+00:13:25,819 --> 00:13:30,519
+We probably want to switch
+the control and the residency
+
+293
+00:13:30,519 --> 00:13:32,339
+of the CPU to another
+running process
+
+294
+00:13:32,339 --> 00:13:35,139
+while the previous
+process sleeps, right?
+
+295
+00:13:35,139 --> 00:13:38,959
+So that means it
+seems obvious, right?
+
+296
+00:13:38,959 --> 00:13:40,559
+Of course, you want
+to do that, right?
+
+297
+00:13:40,559 --> 00:13:43,639
+But did you think about
+the implications of this?
+
+298
+00:13:43,639 --> 00:13:47,259
+There's even such a
+minor thing like this,
+
+299
+00:13:47,259 --> 00:13:48,959
+whether or not we're sleeping on
+
+300
+00:13:48,959 --> 00:13:51,360
+a CPU and occupying
+the CPU while
+
+301
+00:13:51,360 --> 00:13:52,840
+we sleep or we switch to
+
+302
+00:13:52,840 --> 00:13:55,659
+another process actually
+creates a trade off.
+
+303
+00:13:55,659 --> 00:13:58,000
+What is the trade off?
+
+304
+00:14:02,360 --> 00:14:07,145
+Yeah. Headed, switching
+to another process.
+
+305
+00:14:07,145 --> 00:14:09,609
+Yeah, there's some overhead
+
+306
+00:14:09,609 --> 00:14:13,069
+associated with the operation
+of switching itself, right?
+
+307
+00:14:13,069 --> 00:14:15,509
+You need to save the context
+
+308
+00:14:15,509 --> 00:14:17,550
+of the process you're switching
+
+309
+00:14:17,550 --> 00:14:19,709
+from and restore the context
+
+310
+00:14:19,709 --> 00:14:21,969
+of the process you're
+switching to, right?
+
+311
+00:14:21,969 --> 00:14:25,070
+And that overhead
+is non negligible.
+
+312
+00:14:25,070 --> 00:14:28,070
+And there are some
+additional latent issues
+
+313
+00:14:28,070 --> 00:14:29,430
+associated with
+switching between
+
+314
+00:14:29,430 --> 00:14:30,930
+the processes. What are they?
+
+315
+00:14:30,930 --> 00:14:32,769
+Let's just recall what they are.
+
+316
+00:14:32,769 --> 00:14:34,149
+Because these are the kinds of
+
+317
+00:14:34,149 --> 00:14:35,129
+questions that you guys are
+
+318
+00:14:35,129 --> 00:14:36,249
+going to be getting on the test.
+
+319
+00:14:36,249 --> 00:14:38,570
+So I'm trying to
+really get you into
+
+320
+00:14:38,570 --> 00:14:40,869
+this mind set of
+
+321
+00:14:40,869 --> 00:14:43,650
+thinking about things a little
+bit more philosophical,
+
+322
+00:14:43,650 --> 00:14:46,085
+a little bit more conceptual.
+
+323
+00:14:46,085 --> 00:14:48,439
+So other than the
+contact switch,
+
+324
+00:14:48,439 --> 00:14:51,119
+what else what else are
+we paying for this?
+
+325
+00:14:51,119 --> 00:14:54,999
+We need to when the process
+
+326
+00:14:54,999 --> 00:14:56,560
+that we put to sleep
+wakes back up,
+
+327
+00:14:56,560 --> 00:14:57,619
+then either it has to
+
+328
+00:14:57,619 --> 00:14:58,999
+wait for the process
+that's currently on
+
+329
+00:14:58,999 --> 00:15:01,559
+the CBU to exit or we have
+to preempt that process,
+
+330
+00:15:01,559 --> 00:15:03,699
+which adds more complexity
+to our implementation.
+
+331
+00:15:03,699 --> 00:15:06,480
+Now, when we're in the
+sleep Cisco, basically,
+
+332
+00:15:06,480 --> 00:15:10,360
+we're putting the
+proc one to sleep,
+
+333
+00:15:10,360 --> 00:15:12,559
+and so we don't have
+to go back to that.
+
+334
+00:15:12,559 --> 00:15:14,939
+But what I'm trying to
+get to here, right?
+
+335
+00:15:14,939 --> 00:15:18,100
+Was there another
+somewhere here?
+
+336
+00:15:18,100 --> 00:15:20,675
+There was another cost, yes.
+
+337
+00:15:20,675 --> 00:15:22,969
+Yeah, basically, you're going
+
+338
+00:15:22,969 --> 00:15:24,449
+to lose all the caches, right?
+
+339
+00:15:24,449 --> 00:15:26,229
+And the TLB flush,
+
+340
+00:15:26,229 --> 00:15:28,290
+you're going to load the entire
+
+341
+00:15:28,290 --> 00:15:31,750
+virtual memory address space
+
+342
+00:15:31,750 --> 00:15:35,609
+for the destination process
+you're switching to, right?
+
+343
+00:15:35,609 --> 00:15:39,389
+Flushing the TLB and the
+data locality and so forth.
+
+344
+00:15:39,389 --> 00:15:41,489
+All of that is going
+out of the window.
+
+345
+00:15:41,489 --> 00:15:43,949
+So now that I've spoken
+through all of this,
+
+346
+00:15:43,949 --> 00:15:46,729
+do we really want to
+switch between processes,
+
+347
+00:15:46,729 --> 00:15:48,410
+right? In the kernel?
+
+348
+00:15:48,410 --> 00:15:50,529
+Or do we want to
+try to avoid that?
+
+349
+00:15:50,529 --> 00:15:52,070
+And we're going to be talking
+
+350
+00:15:52,070 --> 00:15:53,950
+about this and how we actually
+
+351
+00:15:53,950 --> 00:15:55,829
+achieve hopefully the best
+
+352
+00:15:55,829 --> 00:15:58,034
+of both worlds by the
+end of this lecture.
+
+353
+00:15:58,034 --> 00:16:00,539
+And God help me. We
+have so little time.
+
+354
+00:16:00,539 --> 00:16:03,200
+And I should mention
+one thing, okay?
+
+355
+00:16:03,200 --> 00:16:04,879
+You guys may be unaware of this,
+
+356
+00:16:04,879 --> 00:16:06,600
+but this is the first
+time where this class
+
+357
+00:16:06,600 --> 00:16:08,680
+was switched to a 50
+minute time slot,
+
+358
+00:16:08,680 --> 00:16:11,659
+and it's crazy because
+the amount of material I
+
+359
+00:16:11,659 --> 00:16:12,960
+have was even more than an hour
+
+360
+00:16:12,960 --> 00:16:14,779
+and 15 minutes I had earlier.
+
+361
+00:16:14,779 --> 00:16:16,720
+And so I'm trying to go through
+
+362
+00:16:16,720 --> 00:16:18,919
+this material as fast as I
+can, but at the same time,
+
+363
+00:16:18,919 --> 00:16:20,959
+I don't want to give up on
+the quality of teaching,
+
+364
+00:16:20,959 --> 00:16:23,160
+and I want to engage
+you in the process
+
+365
+00:16:23,160 --> 00:16:24,919
+interactively as we kind
+
+366
+00:16:24,919 --> 00:16:26,599
+of go through these
+concepts together.
+
+367
+00:16:26,599 --> 00:16:28,459
+And so it's a very,
+very challenging
+
+368
+00:16:28,459 --> 00:16:30,829
+kind of semester for
+the instructors.
+
+369
+00:16:30,829 --> 00:16:34,019
+Okay, so we need to figure
+
+370
+00:16:34,019 --> 00:16:36,659
+out what needs to be saved
+when we are sleeping, right?
+
+371
+00:16:36,659 --> 00:16:38,099
+So let's just go through that.
+
+372
+00:16:38,099 --> 00:16:40,160
+We need to save the
+user address space
+
+373
+00:16:40,160 --> 00:16:41,980
+because as we
+previously mentioned,
+
+374
+00:16:41,980 --> 00:16:44,980
+and I think you mentioned
+here on the right hand side,
+
+375
+00:16:44,980 --> 00:16:47,280
+right, we're switching
+address spaces.
+
+376
+00:16:47,280 --> 00:16:50,539
+We need to save user context.
+What am I referring to?
+
+377
+00:16:50,539 --> 00:16:53,280
+What is our mechanism
+for actually
+
+378
+00:16:53,280 --> 00:16:56,620
+capturing the context of
+the processes universe?
+
+379
+00:16:56,620 --> 00:16:58,499
+It's the set of
+registers, right?
+
+380
+00:16:58,499 --> 00:17:00,880
+We have this nice mechanism
+
+381
+00:17:00,880 --> 00:17:03,199
+of the set of registers
+that captures that.
+
+382
+00:17:03,199 --> 00:17:06,479
+Then we also need to save
+the kernel address space and
+
+383
+00:17:06,479 --> 00:17:08,199
+the kernel context
+in addition to
+
+384
+00:17:08,199 --> 00:17:10,699
+that. How do we save them?
+
+385
+00:17:10,699 --> 00:17:14,339
+Well, let's go through
+this very simple example
+
+386
+00:17:14,339 --> 00:17:17,359
+of a shell, calling
+another process.
+
+387
+00:17:17,359 --> 00:17:18,819
+Let's say cat, right?
+
+388
+00:17:18,819 --> 00:17:23,560
+So we have a shell right
+here in user space,
+
+389
+00:17:23,560 --> 00:17:26,660
+and we have a cat right
+here in user space.
+
+390
+00:17:26,660 --> 00:17:29,379
+The red line is the user
+space kernel space divide,
+
+391
+00:17:29,379 --> 00:17:31,679
+and let's see what's
+happening in the kernel.
+
+392
+00:17:31,679 --> 00:17:33,499
+Boom, the first thing that
+
+393
+00:17:33,499 --> 00:17:36,825
+happens is that you need
+to save user context.
+
+394
+00:17:36,825 --> 00:17:40,369
+That's when you're calling
+
+395
+00:17:40,369 --> 00:17:42,550
+into the kernel context
+
+396
+00:17:42,550 --> 00:17:45,130
+associated with
+the process shell.
+
+397
+00:17:45,130 --> 00:17:48,570
+That's the first
+user context save.
+
+398
+00:17:48,570 --> 00:17:52,489
+What happens after that
+is so now we're in
+
+399
+00:17:52,489 --> 00:17:57,210
+the kernel context associated
+with the process shell.
+
+400
+00:17:57,650 --> 00:18:00,250
+We're calling a switch function,
+
+401
+00:18:00,250 --> 00:18:03,549
+which is responsible for
+saving the kernel context for
+
+402
+00:18:03,549 --> 00:18:05,829
+shell before we get
+
+403
+00:18:05,829 --> 00:18:08,770
+into the kernel context
+for the scheduler.
+
+404
+00:18:08,770 --> 00:18:11,889
+That's another context switch.
+
+405
+00:18:11,889 --> 00:18:15,449
+Now we are on the
+scheduler stack
+
+406
+00:18:15,449 --> 00:18:18,959
+inside the kernel. Okay.
+
+407
+00:18:18,959 --> 00:18:22,640
+We're on the scheduler
+stack inside the kernel.
+
+408
+00:18:22,640 --> 00:18:24,999
+I'm being very deliberate
+with my words.
+
+409
+00:18:24,999 --> 00:18:29,000
+Okay. After that, the switch
+is going to be called
+
+410
+00:18:29,000 --> 00:18:31,360
+again when the scheduler
+
+411
+00:18:31,360 --> 00:18:35,339
+decides to run the next
+process in the runable Q.
+
+412
+00:18:35,339 --> 00:18:38,079
+Let's just say that
+the next process
+
+413
+00:18:38,079 --> 00:18:41,019
+in the runable Q is
+the CAT process.
+
+414
+00:18:41,019 --> 00:18:44,259
+So what it's going to do
+on switch is it's going to
+
+415
+00:18:44,259 --> 00:18:47,599
+load the kernel context for
+the destination process,
+
+416
+00:18:47,599 --> 00:18:49,620
+in this case, CAT.
+
+417
+00:18:49,620 --> 00:18:52,760
+It's not switching right away.
+
+418
+00:18:55,070 --> 00:18:59,349
+Once it's done
+that, we are still
+
+419
+00:18:59,349 --> 00:19:05,909
+inside the kernel on
+the CAT's kernel stack.
+
+420
+00:19:06,910 --> 00:19:10,090
+And finally, we're going to load
+
+421
+00:19:10,090 --> 00:19:11,569
+the user contacts before we
+
+422
+00:19:11,569 --> 00:19:14,589
+hand the control to
+the CAT process.
+
+423
+00:19:15,630 --> 00:19:20,270
+How many contact
+switches have we made?
+
+424
+00:19:26,640 --> 00:19:28,659
+Yeah.
+
+425
+00:19:28,659 --> 00:19:32,019
+Four. Okay. Can you
+enumerate them?
+
+426
+00:19:32,019 --> 00:19:34,419
+First is from user space to
+
+427
+00:19:34,419 --> 00:19:37,300
+kernel space when we go from
+Shell to its kernel staff.
+
+428
+00:19:37,300 --> 00:19:39,119
+Sorry, can you speak up.
+
+429
+00:19:39,119 --> 00:19:41,479
+The first is from user space to
+
+430
+00:19:41,479 --> 00:19:43,780
+kernel space move to
+its kernel stack.
+
+431
+00:19:43,780 --> 00:19:45,419
+The next is when you switch to
+
+432
+00:19:45,419 --> 00:19:48,259
+the kernel stack of the
+scheduler. Right. That's two.
+
+433
+00:19:48,259 --> 00:19:50,779
+When you switch to
+the kernel stack of
+
+434
+00:19:50,779 --> 00:19:52,439
+CAT the last one
+
+435
+00:19:52,439 --> 00:19:54,080
+is when you switch back
+to the user stack?
+
+436
+00:19:54,080 --> 00:19:56,940
+Yeah, four contact switches,
+right? That's insane.
+
+437
+00:19:56,940 --> 00:20:00,029
+You thought there was
+only one. There are
+
+438
+00:20:00,029 --> 00:20:02,349
+actually four contact
+switches here.
+
+439
+00:20:02,349 --> 00:20:04,690
+Now, granted, they're
+actually fairly
+
+440
+00:20:04,690 --> 00:20:06,749
+lightweight, but
+still, nevertheless,
+
+441
+00:20:06,749 --> 00:20:08,049
+four contact switches is
+
+442
+00:20:08,049 --> 00:20:10,309
+a lot and there are
+some additional latent,
+
+443
+00:20:10,309 --> 00:20:13,229
+as we mentioned, disadvantages
+
+444
+00:20:13,229 --> 00:20:16,439
+associated with the contact
+switch every single time.
+
+445
+00:20:16,439 --> 00:20:20,909
+Right? So what do we need to
+save when we're sleeping?
+
+446
+00:20:20,909 --> 00:20:22,510
+As I mentioned, address space?
+
+447
+00:20:22,510 --> 00:20:25,529
+That's saved in the Px
+page directory, right?
+
+448
+00:20:25,529 --> 00:20:27,169
+That's going to
+be taken care of.
+
+449
+00:20:27,169 --> 00:20:28,670
+Now, user context,
+
+450
+00:20:28,670 --> 00:20:30,949
+that's going to be saved
+on a call to the kernel.
+
+451
+00:20:30,949 --> 00:20:34,330
+So as we saw on the
+previous slide, right here,
+
+452
+00:20:34,330 --> 00:20:36,949
+the user context is
+going to be saved as we
+
+453
+00:20:36,949 --> 00:20:41,109
+are calling into the kernel
+from the user space, okay?
+
+454
+00:20:41,109 --> 00:20:44,130
+It's going to be saved
+there. The kernel context
+
+455
+00:20:44,130 --> 00:20:45,889
+is the one that's tricky.
+
+456
+00:20:45,889 --> 00:20:48,009
+The kernel context
+right here is going to
+
+457
+00:20:48,009 --> 00:20:50,714
+have to be switched
+saved explicitly.
+
+458
+00:20:50,714 --> 00:20:53,279
+Right? When we're going
+
+459
+00:20:53,279 --> 00:20:56,180
+from one kernel stack to
+another kernel stack,
+
+460
+00:20:56,180 --> 00:20:58,079
+we have to make sure that we are
+
+461
+00:20:58,079 --> 00:21:00,559
+switching those kernel
+contexts explicitly.
+
+462
+00:21:00,559 --> 00:21:02,599
+And I will show you how
+
+463
+00:21:02,599 --> 00:21:04,779
+elegant the mechanism
+is for this.
+
+464
+00:21:04,779 --> 00:21:06,920
+And sort of it
+didn't really blow
+
+465
+00:21:06,920 --> 00:21:09,379
+my mind because it all
+made sense, right?
+
+466
+00:21:09,379 --> 00:21:11,700
+But it's still very
+elegant to go through.
+
+467
+00:21:11,700 --> 00:21:14,079
+And this happens inside
+the switch function.
+
+468
+00:21:14,079 --> 00:21:15,299
+So what does the
+switch function?
+
+469
+00:21:15,299 --> 00:21:17,639
+Have you guys seen the
+switch function right now?
+
+470
+00:21:17,639 --> 00:21:19,579
+Has anyone looked at
+the switch function?
+
+471
+00:21:19,579 --> 00:21:22,419
+Do you know what language
+it is written in?
+
+472
+00:21:22,560 --> 00:21:26,079
+Yeah, the switch function
+is assembly, right?
+
+473
+00:21:26,079 --> 00:21:28,180
+And before I show
+you the assembly,
+
+474
+00:21:28,180 --> 00:21:29,639
+maybe let's kind of
+
+475
+00:21:29,639 --> 00:21:31,500
+walk through what it's
+supposed to be doing.
+
+476
+00:21:31,500 --> 00:21:33,940
+So it takes two
+context structures.
+
+477
+00:21:33,940 --> 00:21:38,579
+It pushes all the C. So think
+of the context switch as,
+
+478
+00:21:38,579 --> 00:21:40,439
+you know, an edge, right,
+
+479
+00:21:40,439 --> 00:21:42,819
+from A to B and A is the old,
+
+480
+00:21:42,819 --> 00:21:44,399
+B is the new, right?
+
+481
+00:21:44,399 --> 00:21:48,359
+And so the Cole is the A vertex,
+
+482
+00:21:48,359 --> 00:21:50,500
+and the collar is sorry,
+
+483
+00:21:50,500 --> 00:21:51,780
+the Cole is the B vertex,
+
+484
+00:21:51,780 --> 00:21:53,300
+the color is the A vertex.
+
+485
+00:21:53,300 --> 00:21:56,339
+So we push all the Cole saved
+registers to the first,
+
+486
+00:21:56,339 --> 00:21:59,440
+then we swap the new stack
+from the contact structure.
+
+487
+00:21:59,440 --> 00:22:02,739
+We pop all the cole saved
+registers from the new stack,
+
+488
+00:22:02,739 --> 00:22:04,479
+and then we return.
+
+489
+00:22:04,479 --> 00:22:06,479
+So let's just look at
+
+490
+00:22:06,479 --> 00:22:08,844
+the assembly code for
+the switch function.
+
+491
+00:22:08,844 --> 00:22:11,470
+So it's beautiful, okay?
+
+492
+00:22:11,470 --> 00:22:14,730
+Because we have two arguments
+on the stack right here.
+
+493
+00:22:14,730 --> 00:22:16,589
+So on line 11, right here,
+
+494
+00:22:16,589 --> 00:22:17,730
+what we're doing is we're
+
+495
+00:22:17,730 --> 00:22:19,990
+taking the first four
+bytes off the stack,
+
+496
+00:22:19,990 --> 00:22:22,870
+which corresponds to the pointer
+
+497
+00:22:22,870 --> 00:22:24,769
+to the old context, okay?
+
+498
+00:22:24,769 --> 00:22:27,209
+And we're loading into
+the EAX register.
+
+499
+00:22:27,209 --> 00:22:31,049
+Then we're taking the second
+four bytes off the stack,
+
+500
+00:22:31,049 --> 00:22:34,089
+okay, off the stack, right?
+
+501
+00:22:34,089 --> 00:22:37,770
+And we're saving this
+into the EDX register.
+
+502
+00:22:37,770 --> 00:22:39,510
+And this is a memory address
+
+503
+00:22:39,510 --> 00:22:41,950
+associated with the new context.
+
+504
+00:22:41,950 --> 00:22:45,350
+So now EAX is a memory
+pointer to the old context.
+
+505
+00:22:45,350 --> 00:22:48,810
+EDX is a memory pointer
+to the new context.
+
+506
+00:22:48,810 --> 00:22:51,310
+Okay? Now, what
+we're doing is we're
+
+507
+00:22:51,310 --> 00:22:53,510
+going to save the
+Colley saved registers.
+
+508
+00:22:53,510 --> 00:22:57,770
+There's four of them,
+the EBP EBX ESI EDI.
+
+509
+00:22:57,770 --> 00:23:01,269
+Okay? And here's where
+the magic happens.
+
+510
+00:23:01,269 --> 00:23:05,049
+Two assembly line instructions
+on lines 21 and 22 is
+
+511
+00:23:05,049 --> 00:23:06,930
+what switches the stacks
+
+512
+00:23:06,930 --> 00:23:09,990
+between the kernel
+contexts. It's beautiful.
+
+513
+00:23:09,990 --> 00:23:13,750
+We're moving the kernel
+stack pointer into
+
+514
+00:23:13,750 --> 00:23:15,349
+the memory address pointed to
+
+515
+00:23:15,349 --> 00:23:18,029
+by EAX register, which is old.
+
+516
+00:23:18,029 --> 00:23:19,830
+That means we're saving
+
+517
+00:23:19,830 --> 00:23:23,289
+the kernel the
+current stack pointer
+
+518
+00:23:23,289 --> 00:23:25,460
+into the old structure.
+
+519
+00:23:25,460 --> 00:23:28,989
+And the next line on line 22 is
+
+520
+00:23:28,989 --> 00:23:33,449
+basically moving whatever
+was pointed to by EDX,
+
+521
+00:23:33,449 --> 00:23:37,970
+which is the new contact
+structure into the ESP register,
+
+522
+00:23:37,970 --> 00:23:40,669
+which essentially
+replaces the stack.
+
+523
+00:23:40,669 --> 00:23:44,650
+And that's it. So now
+
+524
+00:23:44,650 --> 00:23:46,729
+basically we've
+conceptually been
+
+525
+00:23:46,729 --> 00:23:48,869
+discussing how you need
+to switch the stacks,
+
+526
+00:23:48,869 --> 00:23:50,830
+how you need to
+switch the contexts.
+
+527
+00:23:50,830 --> 00:23:53,949
+You're looking at these two
+assembly line instructions.
+
+528
+00:23:53,949 --> 00:23:56,229
+You've just switched the stacks.
+
+529
+00:24:01,220 --> 00:24:03,300
+Alright. Well, there's
+
+530
+00:24:03,300 --> 00:24:05,159
+some additional
+elegancy that happens,
+
+531
+00:24:05,159 --> 00:24:07,039
+which in retrospect is obvious.
+
+532
+00:24:07,039 --> 00:24:10,680
+We're popping now that now
+starting at Line 20 well,
+
+533
+00:24:10,680 --> 00:24:12,639
+right after Line
+22, whatever it is,
+
+534
+00:24:12,639 --> 00:24:14,179
+right, we're actually on
+
+535
+00:24:14,179 --> 00:24:19,959
+the new stack on the destination
+stack on the Cole stack.
+
+536
+00:24:19,959 --> 00:24:22,799
+And we're going to
+pop from that stack,
+
+537
+00:24:22,799 --> 00:24:25,399
+the Cole destination,
+
+538
+00:24:25,399 --> 00:24:30,379
+new stack being very
+deliberate, very precise.
+
+539
+00:24:30,379 --> 00:24:32,799
+Everything in reverse
+of push, right?
+
+540
+00:24:32,799 --> 00:24:34,979
+So we pushed EBP EBX, ESI,
+
+541
+00:24:34,979 --> 00:24:38,299
+EGI, we're going to pop
+EGI, ESI, EBX, EBP.
+
+542
+00:24:38,299 --> 00:24:41,139
+Make sense? And you're
+done with switch.
+
+543
+00:24:41,139 --> 00:24:43,879
+That's how the kernel contacts
+are going to be switched.
+
+544
+00:24:43,879 --> 00:24:48,419
+All right. Any
+questions about this?
+
+545
+00:24:48,940 --> 00:24:53,440
+Yeah. What in doing sorry.
+
+546
+00:24:53,440 --> 00:24:57,519
+Lines 11 and 12.
+Yeah, they're taking
+
+547
+00:24:57,519 --> 00:25:01,839
+the top element from the
+stack of the current stack,
+
+548
+00:25:01,839 --> 00:25:04,835
+and they're moving it to EAX.
+
+549
+00:25:04,835 --> 00:25:07,070
+And what you pushed
+on the stack,
+
+550
+00:25:07,070 --> 00:25:08,269
+basically you're
+calling this switch
+
+551
+00:25:08,269 --> 00:25:09,930
+function with two pointers.
+
+552
+00:25:09,930 --> 00:25:13,589
+So basically, this right
+
+553
+00:25:13,589 --> 00:25:16,830
+here is actually taking the
+top four bytes of the stack,
+
+554
+00:25:16,830 --> 00:25:18,689
+which corresponds to the
+
+555
+00:25:18,689 --> 00:25:21,510
+pointer pointing to
+the old context.
+
+556
+00:25:21,510 --> 00:25:24,390
+Yeah, where the old
+context will be saved.
+
+557
+00:25:24,390 --> 00:25:27,170
+Before you call switch,
+you push those two guys?
+
+558
+00:25:27,170 --> 00:25:30,549
+No, no, you're going to call
+switch with those arguments.
+
+559
+00:25:30,549 --> 00:25:31,929
+And the arguments
+are going to be
+
+560
+00:25:31,929 --> 00:25:34,830
+saved on top of the stack.
+
+561
+00:25:34,830 --> 00:25:35,409
+All over.
+
+562
+00:25:35,409 --> 00:25:38,649
+Yeah. So the implementation
+of a function call with
+
+563
+00:25:38,649 --> 00:25:40,589
+arguments in assembly is
+
+564
+00:25:40,589 --> 00:25:43,569
+that it's going to push the
+arguments on the stack.
+
+565
+00:25:44,240 --> 00:25:49,040
+Okay. You guys covered
+that in 2,200.
+
+566
+00:25:50,160 --> 00:25:55,039
+All right. All right.
+Any other questions?
+
+567
+00:26:00,680 --> 00:26:02,859
+Now, what does this
+have to do with
+
+568
+00:26:02,859 --> 00:26:05,119
+user and kernel
+threading, right?
+
+569
+00:26:09,080 --> 00:26:13,019
+Okay. So let's switch
+
+570
+00:26:13,019 --> 00:26:14,219
+to user and kernel threading
+
+571
+00:26:14,219 --> 00:26:16,240
+now because I gave
+you this context,
+
+572
+00:26:16,240 --> 00:26:19,159
+and you guys will be able
+to appreciate why this
+
+573
+00:26:19,159 --> 00:26:23,019
+is important as we discuss
+user and kernel threading.
+
+574
+00:26:23,019 --> 00:26:25,039
+Okay.
+
+575
+00:26:29,920 --> 00:26:34,059
+So why do we want threading?
+
+576
+00:26:34,059 --> 00:26:37,839
+This is supposed to be a
+general discussion, right?
+
+577
+00:26:40,200 --> 00:26:43,440
+Because, clearly, as with
+anything in systems,
+
+578
+00:26:43,440 --> 00:26:45,340
+when you introduce sort
+of a new mechanism,
+
+579
+00:26:45,340 --> 00:26:47,340
+and threading is a
+mechanism of something,
+
+580
+00:26:47,340 --> 00:26:48,879
+we're going to get to that, you
+
+581
+00:26:48,879 --> 00:26:51,199
+have some complexity
+associated with that.
+
+582
+00:26:51,199 --> 00:26:53,220
+So can we live in a
+world without threats?
+
+583
+00:26:53,220 --> 00:26:57,439
+Come on, guys, help me out
+here. Why do we need threats?
+
+584
+00:26:58,170 --> 00:27:03,089
+Yes. Like, graphics, maybe
+you separate threads.
+
+585
+00:27:03,089 --> 00:27:09,569
+What's that? Se graphics
+graphics or something. Okay.
+
+586
+00:27:10,610 --> 00:27:13,430
+But why do it on
+separate threads?
+
+587
+00:27:13,430 --> 00:27:15,390
+Can't you do it in
+a single thread?
+
+588
+00:27:15,390 --> 00:27:23,129
+In a single process. So you
+
+589
+00:27:23,129 --> 00:27:25,009
+can always serialize any kind
+
+590
+00:27:25,009 --> 00:27:26,769
+of parallel computation, right?
+
+591
+00:27:26,769 --> 00:27:27,589
+Yeah.
+
+592
+00:27:27,589 --> 00:27:29,890
+Yeah. You can always
+
+593
+00:27:29,890 --> 00:27:31,190
+impose an order on whatever
+
+594
+00:27:31,190 --> 00:27:32,489
+parallel computation
+you're doing.
+
+595
+00:27:32,489 --> 00:27:33,810
+So you could do
+everything you're
+
+596
+00:27:33,810 --> 00:27:36,239
+doing in parallel
+sequential, right?
+
+597
+00:27:36,239 --> 00:27:38,789
+So why do we need threads?
+
+598
+00:27:38,789 --> 00:27:41,730
+Yes. I net holping stuff.
+
+599
+00:27:41,730 --> 00:27:43,130
+We talk about fiming out, you're
+
+600
+00:27:43,130 --> 00:27:45,049
+waiting for one thing to go,
+
+601
+00:27:45,049 --> 00:27:46,189
+and then there's another
+
+602
+00:27:46,189 --> 00:27:48,590
+timer's running on
+another thread.
+
+603
+00:27:48,590 --> 00:27:51,850
+I see. Very high level rig.
+
+604
+00:27:51,850 --> 00:27:54,350
+Okay. Okay. So basically,
+
+605
+00:27:54,350 --> 00:27:55,729
+you're providing
+a use case where
+
+606
+00:27:55,729 --> 00:27:57,269
+threading could be
+useful because you can
+
+607
+00:27:57,269 --> 00:27:59,749
+wait on a thread on
+
+608
+00:27:59,749 --> 00:28:00,950
+some socket that's waiting
+
+609
+00:28:00,950 --> 00:28:02,609
+for some network
+activity, right?
+
+610
+00:28:02,609 --> 00:28:05,710
+And what you're yes.
+
+611
+00:28:06,870 --> 00:28:09,129
+Threading is useful for,
+
+612
+00:28:09,129 --> 00:28:11,829
+like, IO scenario. Uh huh.
+
+613
+00:28:11,829 --> 00:28:13,999
+So imagine like you had
+
+614
+00:28:13,999 --> 00:28:18,419
+a graph users track
+
+615
+00:28:18,419 --> 00:28:21,700
+you just had a single
+thread of execution,
+
+616
+00:28:21,700 --> 00:28:26,540
+maybe there's some does
+something this semester class.
+
+617
+00:28:26,540 --> 00:28:29,560
+Right, so what you're implying
+
+618
+00:28:29,560 --> 00:28:31,139
+here is that we actually
+
+619
+00:28:31,139 --> 00:28:33,059
+want threading for
+performance, right?
+
+620
+00:28:33,059 --> 00:28:35,259
+So in many cases, you're
+actually going to get
+
+621
+00:28:35,259 --> 00:28:37,079
+some performance benefits by
+
+622
+00:28:37,079 --> 00:28:39,039
+either executing
+something in parallel,
+
+623
+00:28:39,039 --> 00:28:40,299
+as you mentioned, right,
+
+624
+00:28:40,299 --> 00:28:41,879
+because you can
+actually split it up
+
+625
+00:28:41,879 --> 00:28:43,520
+into multiple threads
+of execution.
+
+626
+00:28:43,520 --> 00:28:45,400
+All of a sudden,
+instead of serializing
+
+627
+00:28:45,400 --> 00:28:47,639
+this in a single
+sequential stream,
+
+628
+00:28:47,639 --> 00:28:49,239
+that was one use case, right?
+
+629
+00:28:49,239 --> 00:28:51,039
+So you're getting
+performance out of that.
+
+630
+00:28:51,039 --> 00:28:53,339
+Yes, there's a raised
+hand at the back.
+
+631
+00:28:53,339 --> 00:28:58,659
+So, I actually think it also
+provides more modular in.
+
+632
+00:28:58,659 --> 00:29:01,919
+Yeah, so there are also
+software engineering kind
+
+633
+00:29:01,919 --> 00:29:04,819
+of principles associated
+with threading, right?
+
+634
+00:29:04,819 --> 00:29:07,160
+It basically helps you
+kind of modularize
+
+635
+00:29:07,160 --> 00:29:08,499
+your code a little
+bit so that you
+
+636
+00:29:08,499 --> 00:29:10,279
+can reason about
+it better, right?
+
+637
+00:29:10,279 --> 00:29:11,860
+Because, for example, if there's
+
+638
+00:29:11,860 --> 00:29:14,799
+some unrelated activity that
+has to do with UI, right,
+
+639
+00:29:14,799 --> 00:29:16,079
+you probably just
+want to put it in
+
+640
+00:29:16,079 --> 00:29:18,079
+a separate thread
+and not have to
+
+641
+00:29:18,079 --> 00:29:20,740
+intertwine these
+heterogeneous blocks
+
+642
+00:29:20,740 --> 00:29:23,839
+of code in the same sequence
+of instructions, right?
+
+643
+00:29:23,839 --> 00:29:25,719
+So that's another benefit,
+
+644
+00:29:25,719 --> 00:29:28,180
+and that doesn't have anything
+to do with performance.
+
+645
+00:29:28,180 --> 00:29:30,899
+And as a matter of
+fact, if I had time,
+
+646
+00:29:30,899 --> 00:29:33,370
+I would tell most stories,
+
+647
+00:29:33,370 --> 00:29:35,650
+for example, we use
+threads forever.
+
+648
+00:29:35,650 --> 00:29:37,809
+We used threads way before 2004
+
+649
+00:29:37,809 --> 00:29:39,529
+when Moore's law
+became a problem
+
+650
+00:29:39,529 --> 00:29:44,049
+when we actually had multi
+process or systems, right?
+
+651
+00:29:44,049 --> 00:29:46,209
+So threading actually
+helps even when you
+
+652
+00:29:46,209 --> 00:29:48,589
+have a single core, right?
+
+653
+00:29:48,589 --> 00:29:51,509
+So there must be some
+advantages associated with
+
+654
+00:29:51,509 --> 00:29:53,169
+threading other than just
+
+655
+00:29:53,169 --> 00:29:55,630
+trying to run
+things in parallel.
+
+656
+00:29:55,630 --> 00:29:57,669
+Um, so we can get
+
+657
+00:29:57,669 --> 00:30:00,250
+performance with multiprocessing,
+right? We don't.
+
+658
+00:30:00,250 --> 00:30:01,789
+And in addition to
+this, we can also
+
+659
+00:30:01,789 --> 00:30:03,690
+get performance with
+multiprocessing.
+
+660
+00:30:03,690 --> 00:30:06,369
+So even if we do
+make an argument for
+
+661
+00:30:06,369 --> 00:30:08,249
+threads that's rooted in
+
+662
+00:30:08,249 --> 00:30:10,589
+extracting more
+performance out of them,
+
+663
+00:30:10,589 --> 00:30:12,989
+you could have achieved
+that with just
+
+664
+00:30:12,989 --> 00:30:16,249
+using multiprocessing
+system, right?
+
+665
+00:30:16,249 --> 00:30:22,449
+What's wrong with that? And as
+
+666
+00:30:22,449 --> 00:30:24,790
+a matter of fact,
+even more generally,
+
+667
+00:30:24,790 --> 00:30:29,489
+here there's this whole
+design space exploration,
+
+668
+00:30:29,489 --> 00:30:32,210
+and in fact, papers written
+about these trade offs
+
+669
+00:30:32,210 --> 00:30:33,350
+between threading versus
+
+670
+00:30:33,350 --> 00:30:35,310
+multiprocessing
+versus event based.
+
+671
+00:30:35,310 --> 00:30:37,509
+Those are all the
+different ways in
+
+672
+00:30:37,509 --> 00:30:40,209
+which you can
+approach something,
+
+673
+00:30:40,209 --> 00:30:42,010
+in which you can
+achieve something.
+
+674
+00:30:42,010 --> 00:30:44,150
+And the question is,
+what is that something?
+
+675
+00:30:44,150 --> 00:30:48,539
+Yes. Have a lot of
+
+676
+00:30:48,539 --> 00:30:50,859
+print and also maybe not have
+
+677
+00:30:50,859 --> 00:30:54,240
+so much shared state
+or Shared state.
+
+678
+00:30:54,240 --> 00:30:56,120
+Okay, good, good. So now,
+
+679
+00:30:56,120 --> 00:30:58,060
+he's talking about
+properties now.
+
+680
+00:30:58,060 --> 00:31:00,260
+We've gone through the use
+cases, which is great.
+
+681
+00:31:00,260 --> 00:31:02,119
+Now, out of those
+use cases, right,
+
+682
+00:31:02,119 --> 00:31:04,979
+as we start thinking about
+design space exploration,
+
+683
+00:31:04,979 --> 00:31:07,999
+we are starting to think
+about properties, right?
+
+684
+00:31:07,999 --> 00:31:09,719
+And so he mentioned one thing,
+
+685
+00:31:09,719 --> 00:31:12,380
+right, which is
+sharing resources.
+
+686
+00:31:12,380 --> 00:31:14,759
+So in a multiprocessing system,
+
+687
+00:31:14,759 --> 00:31:16,719
+you are by design,
+
+688
+00:31:16,719 --> 00:31:19,220
+kind of creating a
+separate address space
+
+689
+00:31:19,220 --> 00:31:21,099
+for every single process
+in the system, right?
+
+690
+00:31:21,099 --> 00:31:23,379
+And that's what you wanted.
+We were talking about
+
+691
+00:31:23,379 --> 00:31:26,679
+this from the very beginning
+of the class. It gives you a
+
+692
+00:31:26,679 --> 00:31:30,179
+It gives you this notion
+of being by yourself in
+
+693
+00:31:30,179 --> 00:31:33,539
+the system gives you isolation
+and protection, right?
+
+694
+00:31:33,539 --> 00:31:35,159
+But threading actually very
+
+695
+00:31:35,159 --> 00:31:37,600
+actively breaks that and says,
+
+696
+00:31:37,600 --> 00:31:39,720
+I don't want you
+isolation and protection.
+
+697
+00:31:39,720 --> 00:31:42,760
+By design, I actually want
+to share the resources.
+
+698
+00:31:42,760 --> 00:31:44,960
+And the reason for this
+is because it is more
+
+699
+00:31:44,960 --> 00:31:46,539
+performant than doing this
+
+700
+00:31:46,539 --> 00:31:48,599
+in a multiprocessing
+fashion, right?
+
+701
+00:31:48,599 --> 00:31:50,019
+So it actually strikes
+
+702
+00:31:50,019 --> 00:31:52,220
+a different balance in
+this trade off space.
+
+703
+00:31:52,220 --> 00:31:54,025
+What is that trade off space?
+
+704
+00:31:54,025 --> 00:31:57,049
+Isolation, performance,
+two axis, right?
+
+705
+00:31:57,049 --> 00:31:59,749
+So if I were to ask you this
+question about something as
+
+706
+00:31:59,749 --> 00:32:00,870
+trivial as the difference
+
+707
+00:32:00,870 --> 00:32:02,669
+between threading
+and multiprocessing,
+
+708
+00:32:02,669 --> 00:32:04,990
+I encourage you to
+think about what trade
+
+709
+00:32:04,990 --> 00:32:07,249
+off space is induced by
+
+710
+00:32:07,249 --> 00:32:09,649
+these two design
+choices and what kind
+
+711
+00:32:09,649 --> 00:32:12,310
+of point they strike
+in this design choice.
+
+712
+00:32:12,310 --> 00:32:13,929
+So threading, you can get
+
+713
+00:32:13,929 --> 00:32:16,889
+more performance because you're
+sharing resources, right?
+
+714
+00:32:16,889 --> 00:32:19,190
+But you get less isolation.
+
+715
+00:32:19,190 --> 00:32:21,050
+And there's an additional
+
+716
+00:32:21,050 --> 00:32:22,789
+complexity cost
+associated with that,
+
+717
+00:32:22,789 --> 00:32:25,850
+because now you need to
+worry about concurrence.
+
+718
+00:32:26,920 --> 00:32:29,579
+Okay. And we're
+not even going to
+
+719
+00:32:29,579 --> 00:32:31,579
+get into the event based
+systems because you can
+
+720
+00:32:31,579 --> 00:32:34,479
+actually implement an
+event based system
+
+721
+00:32:34,480 --> 00:32:38,200
+in a single process
+on a single thread.
+
+722
+00:32:38,200 --> 00:32:41,279
+But what's interesting
+is that all three of
+
+723
+00:32:41,279 --> 00:32:44,400
+these different design
+choices give you the ability,
+
+724
+00:32:44,400 --> 00:32:49,840
+give you the abstraction
+of concurrency.
+
+725
+00:32:49,880 --> 00:32:53,460
+So threading gives you
+the abstraction here.
+
+726
+00:32:53,460 --> 00:32:55,599
+That's what I'm trying
+to get to, which
+
+727
+00:32:55,599 --> 00:32:57,059
+is different from parallelism.
+
+728
+00:32:57,059 --> 00:32:58,399
+And we're going to get to that.
+
+729
+00:32:58,399 --> 00:33:01,079
+There's a lot of confusion
+that usually arises when
+
+730
+00:33:01,079 --> 00:33:04,279
+people try to conflate
+concurrency and parallelism.
+
+731
+00:33:04,279 --> 00:33:05,999
+We're going to try
+to define both of
+
+732
+00:33:05,999 --> 00:33:08,420
+those by the end of this class.
+
+733
+00:33:08,420 --> 00:33:10,359
+Right now, at this
+point in time,
+
+734
+00:33:10,359 --> 00:33:13,139
+I want you to remember
+that threading is
+
+735
+00:33:13,139 --> 00:33:18,139
+a mechanism that enables the
+abstraction of concurrence.
+
+736
+00:33:18,500 --> 00:33:21,960
+Okay, so we talked
+about the benefits.
+
+737
+00:33:21,960 --> 00:33:23,020
+I'm going to just blast
+
+738
+00:33:23,020 --> 00:33:24,619
+through them in the
+interest of time.
+
+739
+00:33:24,619 --> 00:33:27,680
+You get threading does enable
+
+740
+00:33:27,680 --> 00:33:30,980
+paralysm and it does that
+with shared memory resources.
+
+741
+00:33:30,980 --> 00:33:33,400
+Threading gives
+us an abstraction
+
+742
+00:33:33,400 --> 00:33:36,600
+to share a resource
+like the address space.
+
+743
+00:33:36,600 --> 00:33:39,559
+And it's a way to multi process
+
+744
+00:33:39,559 --> 00:33:41,980
+or manage concurrency with
+shared memory resources.
+
+745
+00:33:41,980 --> 00:33:43,579
+There are some challenges and it
+
+746
+00:33:43,579 --> 00:33:45,800
+doesn't introduces,
+so it's not for free.
+
+747
+00:33:45,800 --> 00:33:47,279
+Like one of the challenges is
+
+748
+00:33:47,279 --> 00:33:49,680
+actually synchronization,
+as I discussed.
+
+749
+00:33:49,680 --> 00:33:52,359
+So what is even a thread, right?
+
+750
+00:33:52,359 --> 00:34:00,819
+Let's see. We'll actually
+
+751
+00:34:00,819 --> 00:34:02,500
+get to the definition
+of a thread
+
+752
+00:34:02,500 --> 00:34:03,960
+probably on the next slide.
+
+753
+00:34:03,960 --> 00:34:05,260
+So let's just skip the top
+
+754
+00:34:05,260 --> 00:34:06,819
+of this slide in the
+interest of time.
+
+755
+00:34:06,819 --> 00:34:09,299
+There are some additional
+benefits to threading, right?
+
+756
+00:34:09,299 --> 00:34:11,619
+I talked about and
+encouraged you to think,
+
+757
+00:34:11,619 --> 00:34:14,179
+what happens if we only
+have a single core?
+
+758
+00:34:14,179 --> 00:34:17,980
+So we used threads
+even way before 2004.
+
+759
+00:34:17,980 --> 00:34:20,219
+We can use threads
+very effectively,
+
+760
+00:34:20,219 --> 00:34:23,599
+even when there's a single
+kind of physical core,
+
+761
+00:34:23,599 --> 00:34:25,079
+and we can get
+
+762
+00:34:25,079 --> 00:34:26,399
+both performance benefits and
+
+763
+00:34:26,399 --> 00:34:29,680
+non performance benefits
+associated with threading.
+
+764
+00:34:29,710 --> 00:34:33,669
+Okay. Organization,
+as someone mentioned,
+
+765
+00:34:33,669 --> 00:34:35,549
+basically, and the ability to
+
+766
+00:34:35,549 --> 00:34:37,309
+process asynchronous events is
+
+767
+00:34:37,309 --> 00:34:38,530
+one of the benefits
+of threading.
+
+768
+00:34:38,530 --> 00:34:40,789
+It has nothing to do
+with performance, right?
+
+769
+00:34:40,789 --> 00:34:43,929
+One of the use cases here
+is having a UI thread
+
+770
+00:34:43,929 --> 00:34:48,110
+and a background process
+that runs simultaneously.
+
+771
+00:34:48,110 --> 00:34:50,609
+So it gives us the ability to
+
+772
+00:34:50,609 --> 00:34:54,110
+achieve this notion
+of simultaneity.
+
+773
+00:34:54,110 --> 00:34:57,529
+It provides us with
+the abstraction of
+
+774
+00:34:57,529 --> 00:35:01,060
+concurrency
+simultaneity of action.
+
+775
+00:35:01,060 --> 00:35:04,209
+And what do I mean
+by concurrency?
+
+776
+00:35:04,209 --> 00:35:06,409
+What I mean by concurrency is
+
+777
+00:35:06,409 --> 00:35:09,609
+this basically illusion
+of the ability to
+
+778
+00:35:09,609 --> 00:35:12,750
+make progress on multiple
+simultaneous threads
+
+779
+00:35:12,750 --> 00:35:14,909
+of execution at
+exactly the same time.
+
+780
+00:35:14,909 --> 00:35:17,189
+Okay? So in other words,
+
+781
+00:35:17,189 --> 00:35:19,469
+you have multiple
+threads of Well,
+
+782
+00:35:19,469 --> 00:35:22,270
+I probably don't want to
+multiple streams of execution.
+
+783
+00:35:22,270 --> 00:35:23,569
+Let me use a different word
+
+784
+00:35:23,569 --> 00:35:25,450
+so that you don't confuse
+it with threading.
+
+785
+00:35:25,450 --> 00:35:27,710
+You have multiple
+streams of execution,
+
+786
+00:35:27,710 --> 00:35:30,029
+and we have the ability
+to actually make
+
+787
+00:35:30,029 --> 00:35:32,929
+progress on all of those
+streams at the same time.
+
+788
+00:35:32,929 --> 00:35:36,210
+So that's what
+concurrency implies.
+
+789
+00:35:37,250 --> 00:35:40,889
+And so the abstraction
+of concurrency,
+
+790
+00:35:40,889 --> 00:35:43,790
+as is the case for every
+single abstraction
+
+791
+00:35:43,790 --> 00:35:45,069
+we introduced in this class,
+
+792
+00:35:45,069 --> 00:35:46,349
+you know, there are
+mechanisms that
+
+793
+00:35:46,349 --> 00:35:48,029
+enable those abstractions, okay?
+
+794
+00:35:48,029 --> 00:35:49,609
+So there's this
+relationship between
+
+795
+00:35:49,609 --> 00:35:52,089
+an abstraction and
+a mechanism, right?
+
+796
+00:35:52,089 --> 00:35:55,069
+The mechanism enable
+abstractions.
+
+797
+00:35:55,069 --> 00:35:58,250
+One of those mechanisms
+is threading.
+
+798
+00:35:58,340 --> 00:36:01,799
+Okay. So threading is
+
+799
+00:36:01,799 --> 00:36:05,359
+a mechanism mechanism of
+what? Let's just recap this.
+
+800
+00:36:05,359 --> 00:36:07,620
+It's a mechanism for enabling
+
+801
+00:36:07,620 --> 00:36:10,219
+the abstraction of concurrency.
+What is concurrency?
+
+802
+00:36:10,219 --> 00:36:12,420
+It's the ability to
+seamlessly execute
+
+803
+00:36:12,420 --> 00:36:15,779
+independent streams of
+execution at the same time.
+
+804
+00:36:15,779 --> 00:36:18,259
+Are there other
+ways of doing that?
+
+805
+00:36:18,259 --> 00:36:19,499
+In other words, are there some
+
+806
+00:36:19,499 --> 00:36:21,499
+other mechanisms
+for concurrency?
+
+807
+00:36:21,499 --> 00:36:23,479
+Yes, other than threads,
+
+808
+00:36:23,479 --> 00:36:26,239
+we also have multiprocessing
+and event based systems.
+
+809
+00:36:26,239 --> 00:36:28,719
+And interestingly enough,
+event based systems are so
+
+810
+00:36:28,719 --> 00:36:33,059
+lightweight that they sometimes
+outperform the other two.
+
+811
+00:36:33,400 --> 00:36:37,679
+Yeah, no time for anecdotes.
+
+812
+00:36:37,679 --> 00:36:39,679
+Okay. But I've
+implemented one of
+
+813
+00:36:39,679 --> 00:36:40,799
+those systems in the past
+
+814
+00:36:40,799 --> 00:36:42,360
+when I was a postdoc
+at Berkeley.
+
+815
+00:36:42,360 --> 00:36:45,080
+It was a very highly
+performed system.
+
+816
+00:36:45,360 --> 00:36:47,459
+What's also interesting with
+
+817
+00:36:47,459 --> 00:36:49,139
+event based systems,
+if we had time,
+
+818
+00:36:49,139 --> 00:36:50,879
+we'd talk more about
+this is that it's
+
+819
+00:36:50,879 --> 00:36:53,529
+a voluntary
+preemptive mechanism.
+
+820
+00:36:53,529 --> 00:36:57,240
+So the takeaway here
+is that using threads,
+
+821
+00:36:57,240 --> 00:37:01,020
+we actually gain a convenient
+abstraction of concurrency.
+
+822
+00:37:01,860 --> 00:37:06,499
+Okay. And this kind
+of breaks it down
+
+823
+00:37:06,499 --> 00:37:08,739
+what the advantages and
+
+824
+00:37:08,739 --> 00:37:10,360
+disadvantages or the properties
+
+825
+00:37:10,360 --> 00:37:11,879
+of each of the mechanism are,
+
+826
+00:37:11,879 --> 00:37:14,739
+each of the three mechanisms
+of concurrency are.
+
+827
+00:37:14,739 --> 00:37:17,759
+Multiprocessing, what is it?
+
+828
+00:37:17,759 --> 00:37:20,280
+Processes that share
+compute resources,
+
+829
+00:37:20,280 --> 00:37:21,720
+but not memory resources.
+
+830
+00:37:21,720 --> 00:37:23,779
+The key property
+that's guaranteed here
+
+831
+00:37:23,779 --> 00:37:26,300
+by design is the memory
+space isolation.
+
+832
+00:37:26,300 --> 00:37:29,239
+Threads, they ask this
+disruptive question.
+
+833
+00:37:29,239 --> 00:37:31,939
+I don't want the
+isolation guarantees that
+
+834
+00:37:31,939 --> 00:37:34,579
+are provided to me by the
+multi processing system.
+
+835
+00:37:34,579 --> 00:37:36,280
+What happens if I break
+
+836
+00:37:36,280 --> 00:37:40,019
+this isolation guarantee
+deliberately by design, right?
+
+837
+00:37:40,019 --> 00:37:42,199
+And so, therefore,
+the key property of
+
+838
+00:37:42,199 --> 00:37:44,439
+the threading system
+or threads in general,
+
+839
+00:37:44,439 --> 00:37:48,729
+is that they do share
+memory resources by design.
+
+840
+00:37:48,729 --> 00:37:50,780
+And event based systems,
+
+841
+00:37:50,780 --> 00:37:52,919
+they are implemented
+on a single process,
+
+842
+00:37:52,919 --> 00:37:56,499
+single thread, and they're
+voluntarily preemptive.
+
+843
+00:37:56,499 --> 00:37:58,659
+So basically, the
+way this works is
+
+844
+00:37:58,659 --> 00:38:00,599
+that you're executing
+events one at a time.
+
+845
+00:38:00,599 --> 00:38:02,199
+As soon as you've
+completed executing
+
+846
+00:38:02,199 --> 00:38:04,939
+an event that was added
+to the event loop,
+
+847
+00:38:04,939 --> 00:38:07,019
+you kind of move on
+to the next event in
+
+848
+00:38:07,019 --> 00:38:09,599
+the sequence that was added
+on the event loop, right?
+
+849
+00:38:09,599 --> 00:38:12,045
+And so it's voluntarily
+preemptive.
+
+850
+00:38:12,045 --> 00:38:14,469
+There are a couple of
+definitions you will find in
+
+851
+00:38:14,469 --> 00:38:17,449
+literature for what
+the thread is, right?
+
+852
+00:38:17,449 --> 00:38:19,489
+The first one says Thread of
+
+853
+00:38:19,489 --> 00:38:21,489
+execution is the
+smallest sequence of
+
+854
+00:38:21,489 --> 00:38:23,129
+programmed instructions
+that can be
+
+855
+00:38:23,129 --> 00:38:25,410
+managed independently
+by a scheduler.
+
+856
+00:38:25,410 --> 00:38:27,770
+So that's interesting.
+Why is it interesting?
+
+857
+00:38:27,770 --> 00:38:29,349
+Because they're
+thinking of a thread
+
+858
+00:38:29,349 --> 00:38:31,070
+as a block of execution
+
+859
+00:38:31,070 --> 00:38:32,729
+at the granularity that is
+
+860
+00:38:32,729 --> 00:38:35,009
+visible to the scheduler, right?
+
+861
+00:38:35,009 --> 00:38:36,449
+And it connects to what we
+
+862
+00:38:36,449 --> 00:38:38,609
+want to talk about next, right?
+
+863
+00:38:38,609 --> 00:38:42,869
+The second definition here
+is that what's a thread?
+
+864
+00:38:42,869 --> 00:38:45,109
+A thread is also
+sometimes called
+
+865
+00:38:45,109 --> 00:38:48,469
+a lightweight process
+or LWP in Linux, right?
+
+866
+00:38:48,469 --> 00:38:52,310
+Is a basic unit of
+CPU utilization.
+
+867
+00:38:52,310 --> 00:38:54,709
+And then sort of it moves on to
+
+868
+00:38:54,709 --> 00:38:57,149
+say that it consists
+of a thread ID,
+
+869
+00:38:57,149 --> 00:39:00,970
+a program counter, a
+register set, and a stack.
+
+870
+00:39:00,970 --> 00:39:03,249
+So it's useful, right,
+
+871
+00:39:03,249 --> 00:39:06,729
+because it kind of becomes
+very prescriptive about how
+
+872
+00:39:06,729 --> 00:39:08,449
+to implement the mechanism of
+
+873
+00:39:08,449 --> 00:39:10,469
+threading in an
+operating system.
+
+874
+00:39:10,469 --> 00:39:11,789
+But at the same time, it is
+
+875
+00:39:11,789 --> 00:39:14,329
+an implementation detail, right?
+
+876
+00:39:14,409 --> 00:39:17,489
+It has its own program
+counter, which is useful.
+
+877
+00:39:17,489 --> 00:39:19,289
+It has its own register stack,
+
+878
+00:39:19,289 --> 00:39:24,090
+which is useful and register
+set and its own stack.
+
+879
+00:39:24,090 --> 00:39:26,789
+Okay. Any questions so far?
+
+880
+00:39:26,789 --> 00:39:29,409
+I'm going pretty
+fast through this.
+
+881
+00:39:33,389 --> 00:39:36,689
+Okay. So the main property of
+
+882
+00:39:36,689 --> 00:39:38,089
+threads is the fact that it
+
+883
+00:39:38,089 --> 00:39:39,989
+shares memory with
+another thread, right?
+
+884
+00:39:39,989 --> 00:39:42,629
+And you already knew
+that from 2,200.
+
+885
+00:39:42,629 --> 00:39:45,170
+What we did here is
+we just explored
+
+886
+00:39:45,170 --> 00:39:47,189
+the design space and kind of
+
+887
+00:39:47,189 --> 00:39:49,829
+conceptualized that it's a
+mechanism of concurrency
+
+888
+00:39:49,829 --> 00:39:51,269
+as an abstraction that
+you want to be able
+
+889
+00:39:51,269 --> 00:39:53,714
+to provide as an
+operating system.
+
+890
+00:39:53,714 --> 00:39:56,659
+Okay, some of the other benefits
+
+891
+00:39:56,659 --> 00:39:58,499
+we discussed is that
+responsiveness,
+
+892
+00:39:58,499 --> 00:39:59,719
+right, especially when you
+
+893
+00:39:59,719 --> 00:40:01,420
+have an interactive application.
+
+894
+00:40:01,420 --> 00:40:03,619
+And this is actually rooted
+
+895
+00:40:03,619 --> 00:40:07,619
+fundamentally within the
+abstraction of concurrency.
+
+896
+00:40:07,619 --> 00:40:12,160
+If you have an activity,
+
+897
+00:40:12,160 --> 00:40:13,900
+an application level activity,
+
+898
+00:40:13,900 --> 00:40:16,059
+like interacting with
+the user, right?
+
+899
+00:40:16,059 --> 00:40:20,459
+And you want it to be
+interactive, naturally,
+
+900
+00:40:20,459 --> 00:40:24,099
+you wanted to make progress
+in conjunction with
+
+901
+00:40:24,099 --> 00:40:25,899
+all the other activities
+
+902
+00:40:25,899 --> 00:40:28,099
+that are happening in
+the application, right?
+
+903
+00:40:28,099 --> 00:40:31,379
+Which means that naturally
+you need concurrency,
+
+904
+00:40:31,379 --> 00:40:34,719
+and this concurrency is
+provided by threading.
+
+905
+00:40:34,719 --> 00:40:36,879
+So responsiveness is
+one of the benefits
+
+906
+00:40:36,879 --> 00:40:40,500
+almost by logical
+implication, okay?
+
+907
+00:40:40,500 --> 00:40:43,300
+Resource sharing
+is another benefit
+
+908
+00:40:43,300 --> 00:40:45,480
+the default definition
+of processes,
+
+909
+00:40:45,480 --> 00:40:47,139
+they define separate
+arrest spaces,
+
+910
+00:40:47,139 --> 00:40:49,559
+threading shares
+memory by default.
+
+911
+00:40:49,559 --> 00:40:50,959
+The economy here is
+
+912
+00:40:50,959 --> 00:40:54,439
+an important consideration
+because we are actually able
+
+913
+00:40:54,439 --> 00:40:56,199
+to create and destruct
+
+914
+00:40:56,199 --> 00:40:59,680
+threads much faster and
+with a lot less overhead,
+
+915
+00:40:59,680 --> 00:41:03,219
+and we already discussed what
+the overheads are, okay?
+
+916
+00:41:03,219 --> 00:41:05,199
+Because I have a bullet here.
+
+917
+00:41:05,199 --> 00:41:07,479
+You know, you want to
+be able to explain when
+
+918
+00:41:07,479 --> 00:41:09,820
+you say that something
+something has overhead,
+
+919
+00:41:09,820 --> 00:41:11,099
+you want to be able to be very
+
+920
+00:41:11,099 --> 00:41:13,319
+precise about what
+that overhead is.
+
+921
+00:41:13,319 --> 00:41:15,950
+But we already discussed
+this in this lecture.
+
+922
+00:41:15,950 --> 00:41:20,299
+Um, and we can take advantage
+of multiprocessors, right,
+
+923
+00:41:20,299 --> 00:41:22,759
+and achieve true
+parallelism versus
+
+924
+00:41:22,759 --> 00:41:28,659
+single processor illusion
+of parallelism. Okay.
+
+925
+00:41:28,659 --> 00:41:31,919
+So the learning
+objective, I guess,
+
+926
+00:41:31,919 --> 00:41:34,280
+for this lecture is to discuss
+
+927
+00:41:34,280 --> 00:41:35,819
+the design trade offs when
+
+928
+00:41:35,819 --> 00:41:38,999
+implementing threading support
+in your system, right?
+
+929
+00:41:38,999 --> 00:41:41,119
+What is the best
+way to structure
+
+930
+00:41:41,119 --> 00:41:42,700
+and enable threading support?
+
+931
+00:41:42,700 --> 00:41:46,039
+Because as it turns out,
+there's no one way to do it.
+
+932
+00:41:46,039 --> 00:41:48,260
+Okay? What is the
+real difference
+
+933
+00:41:48,260 --> 00:41:50,000
+between a thread and a process?
+
+934
+00:41:50,000 --> 00:41:52,219
+Does there really
+need to be one?
+
+935
+00:41:52,219 --> 00:41:53,679
+What is the interface for
+
+936
+00:41:53,679 --> 00:41:56,409
+thread creation and destruction
+and threat management?
+
+937
+00:41:56,409 --> 00:41:59,659
+And so in the next year
+five or six slides,
+
+938
+00:41:59,659 --> 00:42:01,379
+I'm going to give you
+kind of something that's
+
+939
+00:42:01,379 --> 00:42:04,099
+sort of the key essence
+of this lecture.
+
+940
+00:42:04,099 --> 00:42:05,879
+And we've finally
+built up to that.
+
+941
+00:42:05,879 --> 00:42:07,739
+We've built up the definitions.
+
+942
+00:42:07,739 --> 00:42:09,599
+We've built up the motivation,
+
+943
+00:42:09,599 --> 00:42:11,400
+and we sort of built
+up the context
+
+944
+00:42:11,400 --> 00:42:13,380
+to appreciate the
+next five slides.
+
+945
+00:42:13,380 --> 00:42:16,019
+Okay? That's what we've
+been doing. So here we go.
+
+946
+00:42:16,019 --> 00:42:17,979
+Here's one way that we can
+
+947
+00:42:17,979 --> 00:42:20,750
+actually support user
+space threading.
+
+948
+00:42:20,750 --> 00:42:23,339
+This design choice is
+called one to one.
+
+949
+00:42:23,339 --> 00:42:26,559
+In other words, for every
+single user space thread,
+
+950
+00:42:26,559 --> 00:42:28,259
+you have a corresponding kernel
+
+951
+00:42:28,259 --> 00:42:30,359
+space thread or kernel context.
+
+952
+00:42:30,359 --> 00:42:33,119
+Just like in that previous
+example that I flipped
+
+953
+00:42:33,119 --> 00:42:35,799
+through with the shell and CAT,
+
+954
+00:42:35,799 --> 00:42:38,119
+you had a user space
+context for shell,
+
+955
+00:42:38,119 --> 00:42:39,959
+kernel space context for shell,
+
+956
+00:42:39,959 --> 00:42:41,739
+Uerspace context for CAT,
+
+957
+00:42:41,739 --> 00:42:43,539
+kernel space context for CAT.
+
+958
+00:42:43,539 --> 00:42:45,359
+Okay? So the number of
+
+959
+00:42:45,359 --> 00:42:47,879
+userspace treads should be
+
+960
+00:42:47,879 --> 00:42:51,300
+the same as the number
+of kernel space threads.
+
+961
+00:42:53,940 --> 00:42:56,539
+Is that good?
+
+962
+00:42:58,380 --> 00:43:01,499
+Do we like this design?
+
+963
+00:43:06,500 --> 00:43:09,100
+Is this the most
+prevalent design?
+
+964
+00:43:09,100 --> 00:43:12,420
+Have you seen this design
+in operating systems?
+
+965
+00:43:14,160 --> 00:43:16,639
+We don't know.
+
+966
+00:43:17,320 --> 00:43:20,319
+Well, let's reason
+about it, right?
+
+967
+00:43:20,319 --> 00:43:22,599
+What are the advantages
+and disadvantages
+
+968
+00:43:22,599 --> 00:43:25,839
+again of this design
+choice, right?
+
+969
+00:43:25,839 --> 00:43:27,859
+The attributes here are
+
+970
+00:43:27,859 --> 00:43:30,139
+that you do get
+improved concurrency.
+
+971
+00:43:30,139 --> 00:43:32,279
+You have the ability
+of running them in
+
+972
+00:43:32,279 --> 00:43:34,799
+parallel and literally
+in parallel, right?
+
+973
+00:43:34,799 --> 00:43:38,120
+So if I have two threads,
+user space threads,
+
+974
+00:43:38,120 --> 00:43:40,000
+they will have two
+corresponding kernel
+
+975
+00:43:40,000 --> 00:43:42,279
+space threads
+associated with them.
+
+976
+00:43:42,279 --> 00:43:44,359
+And what is the schedule C?
+
+977
+00:43:44,359 --> 00:43:45,920
+The kernel scheduler.
+
+978
+00:43:45,920 --> 00:43:48,319
+What is the kernel schedule C?
+
+979
+00:43:48,910 --> 00:43:52,989
+What is it schedule? Yes.
+
+980
+00:43:54,110 --> 00:43:57,209
+Yeah, it sees this, right?
+
+981
+00:43:57,209 --> 00:43:59,409
+It sees the individual
+kernel threads.
+
+982
+00:43:59,409 --> 00:44:02,809
+Does it see the userspace
+threads? It does not, right?
+
+983
+00:44:02,809 --> 00:44:05,869
+Can it make scheduling
+decisions that
+
+984
+00:44:05,869 --> 00:44:07,429
+are aware of what's
+
+985
+00:44:07,429 --> 00:44:09,450
+happening with the
+user space threads?
+
+986
+00:44:09,450 --> 00:44:11,749
+It cannot, right?
+
+987
+00:44:11,749 --> 00:44:13,730
+And therein lies the problem.
+
+988
+00:44:13,730 --> 00:44:15,709
+So here, in this
+particular case,
+
+989
+00:44:15,709 --> 00:44:17,650
+if we have a one to one mapping,
+
+990
+00:44:17,650 --> 00:44:19,289
+we're literally scheduling at
+
+991
+00:44:19,289 --> 00:44:22,090
+the granularity of userspace
+threads in the kernel.
+
+992
+00:44:22,090 --> 00:44:25,690
+And that's how we can actually
+
+993
+00:44:25,690 --> 00:44:29,470
+get true multiprocessor
+parallelism.
+
+994
+00:44:29,470 --> 00:44:33,329
+So if we have multiple
+cores, let's say four.
+
+995
+00:44:33,329 --> 00:44:34,710
+Let's make it very concrete.
+
+996
+00:44:34,710 --> 00:44:36,769
+We can have four kernel contexts
+
+997
+00:44:36,769 --> 00:44:38,569
+running at exactly
+the same time.
+
+998
+00:44:38,569 --> 00:44:41,090
+Therefore, we can have
+four user space threads
+
+999
+00:44:41,090 --> 00:44:43,109
+running at exactly
+the same time, right?
+
+1000
+00:44:43,109 --> 00:44:45,409
+We can achieve
+parallelism this way.
+
+1001
+00:44:45,409 --> 00:44:47,129
+The disadvantage here is that
+
+1002
+00:44:47,129 --> 00:44:48,629
+there's additional overhead to
+
+1003
+00:44:48,629 --> 00:44:50,029
+create the kernel thread
+
+1004
+00:44:50,029 --> 00:44:51,909
+for every single
+user thread, right?
+
+1005
+00:44:51,909 --> 00:44:54,129
+So anytime there's
+a user thread,
+
+1006
+00:44:54,129 --> 00:44:56,529
+you need to create the
+corresponding kernel.
+
+1007
+00:44:56,529 --> 00:44:58,330
+Now, how many user threads
+
+1008
+00:44:58,330 --> 00:45:00,730
+do we want in the
+system, typically?
+
+1009
+00:45:00,730 --> 00:45:04,859
+5500,
+
+1010
+00:45:04,859 --> 00:45:12,180
+5,000 processes.
+
+1011
+00:45:12,180 --> 00:45:14,099
+Yeah, yeah, but it's a lot.
+
+1012
+00:45:14,099 --> 00:45:17,839
+Usually, if you look at your
+just regular laptop, right,
+
+1013
+00:45:17,839 --> 00:45:19,659
+and you do an HTp there
+
+1014
+00:45:19,659 --> 00:45:23,319
+or some kind of a
+processor count,
+
+1015
+00:45:23,319 --> 00:45:25,099
+process count, you will find
+
+1016
+00:45:25,099 --> 00:45:26,620
+that there are
+thousands of processes,
+
+1017
+00:45:26,620 --> 00:45:29,699
+each of which can actually
+have multiple threads, right?
+
+1018
+00:45:29,699 --> 00:45:32,645
+And so, clearly,
+this doesn't scale.
+
+1019
+00:45:32,645 --> 00:45:34,610
+Okay, so this is one design.
+
+1020
+00:45:34,610 --> 00:45:37,009
+Here's a flip into
+
+1021
+00:45:37,009 --> 00:45:39,930
+the complete opposite side
+of the design spectrum.
+
+1022
+00:45:39,930 --> 00:45:42,129
+So think of design
+as a space, right?
+
+1023
+00:45:42,129 --> 00:45:43,809
+It can be one dimensional.
+
+1024
+00:45:43,809 --> 00:45:45,650
+It can be multidimensional,
+
+1025
+00:45:45,650 --> 00:45:48,829
+and it has the kind of
+opposite sides, right?
+
+1026
+00:45:48,829 --> 00:45:50,329
+So this is the opposite side of
+
+1027
+00:45:50,329 --> 00:45:52,129
+the spectrum where
+the design choice is
+
+1028
+00:45:52,129 --> 00:45:53,709
+a many to one user to
+
+1029
+00:45:53,709 --> 00:45:56,469
+kernel thread mapping.
+So what does that mean?
+
+1030
+00:45:56,469 --> 00:45:59,970
+That means that you have
+N user space threads,
+
+1031
+00:45:59,970 --> 00:46:02,270
+and they're all going to share
+
+1032
+00:46:02,270 --> 00:46:06,359
+a single kernel thread. Right?
+
+1033
+00:46:06,359 --> 00:46:08,179
+So first of all, why
+
+1034
+00:46:08,179 --> 00:46:10,099
+should we even talk about
+something like this?
+
+1035
+00:46:10,099 --> 00:46:12,539
+Well, we just
+discussed how there's
+
+1036
+00:46:12,539 --> 00:46:14,780
+additional overhead to create
+
+1037
+00:46:14,780 --> 00:46:16,799
+kernel threats for every
+single user threat.
+
+1038
+00:46:16,799 --> 00:46:18,800
+Well, this one
+eliminates this overhead
+
+1039
+00:46:18,800 --> 00:46:21,654
+because there's only one
+kernel context, right?
+
+1040
+00:46:21,654 --> 00:46:24,990
+It's also very simple
+and efficient,
+
+1041
+00:46:24,990 --> 00:46:27,490
+and you don't even
+need to contact
+
+1042
+00:46:27,490 --> 00:46:30,510
+switch between the
+kernel contexts anymore.
+
+1043
+00:46:30,510 --> 00:46:33,629
+So clearly, you've
+accomplished something, right?
+
+1044
+00:46:33,629 --> 00:46:35,609
+Clearly, there are
+some advantages and
+
+1045
+00:46:35,609 --> 00:46:37,769
+some reasons why you might
+want something like this.
+
+1046
+00:46:37,769 --> 00:46:40,450
+That's called user
+space threading.
+
+1047
+00:46:40,450 --> 00:46:44,369
+In other words, the threads
+only exist in user space,
+
+1048
+00:46:44,369 --> 00:46:46,209
+and they are all multiplexed on
+
+1049
+00:46:46,209 --> 00:46:51,330
+a single shared kernel
+thread context.
+
+1050
+00:46:51,330 --> 00:46:53,309
+We're going to get through
+
+1051
+00:46:53,309 --> 00:46:55,889
+more illustrations that
+sort of highlight that.
+
+1052
+00:46:55,889 --> 00:46:58,309
+Now, tell me what are
+the advantages and
+
+1053
+00:46:58,309 --> 00:47:01,109
+disadvantages associated
+with this one?
+
+1054
+00:47:01,430 --> 00:47:05,309
+Yeah. But let's say
+
+1055
+00:47:05,309 --> 00:47:08,430
+one of the user threads
+decides to wait on something.
+
+1056
+00:47:08,430 --> 00:47:11,190
+That means that every other
+thread in that process
+
+1057
+00:47:11,190 --> 00:47:12,449
+is blocked because they're
+
+1058
+00:47:12,449 --> 00:47:14,009
+halting to read it in
+the kernel thread.
+
+1059
+00:47:14,009 --> 00:47:15,329
+If the kernel thread were to
+
+1060
+00:47:15,329 --> 00:47:17,409
+see Thread one,
+that, two, three,
+
+1061
+00:47:17,409 --> 00:47:19,970
+34, one is waiting,
+
+1062
+00:47:19,970 --> 00:47:22,019
+it blows all the erst.
+
+1063
+00:47:22,019 --> 00:47:23,890
+Yeah, exactly. So basically,
+
+1064
+00:47:23,890 --> 00:47:25,830
+if there's any blocking behavior
+
+1065
+00:47:25,830 --> 00:47:28,230
+in any of these
+user space threads,
+
+1066
+00:47:28,230 --> 00:47:30,269
+because the kernel thread
+
+1067
+00:47:30,269 --> 00:47:32,549
+is unaware of what's
+happening above it,
+
+1068
+00:47:32,549 --> 00:47:35,270
+right, the entire kernel
+thread is going to be blocked.
+
+1069
+00:47:35,270 --> 00:47:37,349
+So you could end up in
+a situation where you
+
+1070
+00:47:37,349 --> 00:47:39,789
+have some work that
+could be done, right?
+
+1071
+00:47:39,789 --> 00:47:42,230
+And you may even have
+some additional resources
+
+1072
+00:47:42,230 --> 00:47:43,809
+to do that work, right?
+
+1073
+00:47:43,809 --> 00:47:46,529
+But you're not going to be
+able to make progress because
+
+1074
+00:47:46,529 --> 00:47:51,009
+of any blocking behavior of
+any of the threads, yes.
+
+1075
+00:47:51,410 --> 00:47:56,369
+As some kernel threads.
+
+1076
+00:47:57,700 --> 00:48:03,039
+And then elastics another
+combines the best of both.
+
+1077
+00:48:03,039 --> 00:48:04,899
+There is a way. There is
+
+1078
+00:48:04,899 --> 00:48:06,620
+a way to have the
+best of both worlds,
+
+1079
+00:48:06,620 --> 00:48:08,700
+and that's called the
+hybrid threading model.
+
+1080
+00:48:08,700 --> 00:48:10,099
+And that's what we're going to,
+
+1081
+00:48:10,099 --> 00:48:11,479
+you know, end this lecture with.
+
+1082
+00:48:11,479 --> 00:48:12,959
+But let's get there
+in the next ten
+
+1083
+00:48:12,959 --> 00:48:15,480
+or 12 minutes or so, okay?
+
+1084
+00:48:15,480 --> 00:48:19,760
+So this is, in essence,
+
+1085
+00:48:19,760 --> 00:48:21,559
+a foray into what's called
+
+1086
+00:48:21,559 --> 00:48:23,640
+the user space
+threading library.
+
+1087
+00:48:23,640 --> 00:48:25,600
+As a matter of fact,
+you can implement
+
+1088
+00:48:25,600 --> 00:48:28,199
+threading entirely in
+user space, right?
+
+1089
+00:48:28,199 --> 00:48:30,539
+And this is pretty revelatory.
+
+1090
+00:48:30,539 --> 00:48:32,179
+Why is it revelatory?
+
+1091
+00:48:32,179 --> 00:48:37,019
+Um because you need
+
+1092
+00:48:37,019 --> 00:48:38,719
+to remind yourself of
+
+1093
+00:48:38,719 --> 00:48:41,699
+the switch function that we've
+just gone through, right?
+
+1094
+00:48:41,699 --> 00:48:43,460
+Did the switch function
+
+1095
+00:48:43,460 --> 00:48:46,359
+require any privileged
+instructions?
+
+1096
+00:48:47,780 --> 00:48:51,939
+Do you remember those two
+assembly level instructions
+
+1097
+00:48:51,939 --> 00:48:54,160
+that it had to execute
+to switch stacks?
+
+1098
+00:48:54,160 --> 00:48:55,840
+Was there anything privileged
+
+1099
+00:48:55,840 --> 00:48:57,779
+about those assembly
+level instructions?
+
+1100
+00:48:57,779 --> 00:49:04,299
+Anyone? I was doing
+a move, right?
+
+1101
+00:49:05,300 --> 00:49:11,359
+Of the ESP register into
+the old context, right?
+
+1102
+00:49:11,359 --> 00:49:13,319
+And then it was basically moving
+
+1103
+00:49:13,319 --> 00:49:16,200
+the new context into
+the ESP register.
+
+1104
+00:49:16,200 --> 00:49:17,459
+That's it, right? That's not
+
+1105
+00:49:17,459 --> 00:49:19,899
+very doesn't sound
+very privileged to me.
+
+1106
+00:49:19,899 --> 00:49:22,619
+You can do that in user space.
+
+1107
+00:49:24,450 --> 00:49:27,850
+So what that means is
+that miraculously,
+
+1108
+00:49:27,850 --> 00:49:30,429
+you can actually have multiple
+stacks in user space,
+
+1109
+00:49:30,429 --> 00:49:32,290
+and you can actually manage
+
+1110
+00:49:32,290 --> 00:49:33,969
+all of those stacks entirely by
+
+1111
+00:49:33,969 --> 00:49:36,349
+yourself in user space
+
+1112
+00:49:36,349 --> 00:49:39,090
+without any help from
+the kernel whatsoever.
+
+1113
+00:49:39,090 --> 00:49:40,730
+And that's amazing.
+
+1114
+00:49:40,730 --> 00:49:44,209
+That's one of the labs that
+you would actually do in
+
+1115
+00:49:44,209 --> 00:49:46,469
+advanced operating
+systems if you proceed to
+
+1116
+00:49:46,469 --> 00:49:49,625
+take that class, 421-06-0210.
+
+1117
+00:49:49,625 --> 00:49:52,839
+Okay. And so by the time
+you finish Lab three,
+
+1118
+00:49:52,839 --> 00:49:55,760
+which actually implements
+kernel fretting support
+
+1119
+00:49:55,760 --> 00:49:58,080
+in the kernel in this class,
+
+1120
+00:49:58,080 --> 00:50:00,280
+and by the time
+you finish writing
+
+1121
+00:50:00,280 --> 00:50:02,839
+your userspace threading
+library in 4210,
+
+1122
+00:50:02,839 --> 00:50:06,760
+you will have done it
+in both possible ways.
+
+1123
+00:50:06,760 --> 00:50:09,760
+You will have become
+kind of a world expert
+
+1124
+00:50:09,760 --> 00:50:12,720
+in both kernel threading
+and user threading.
+
+1125
+00:50:12,720 --> 00:50:16,279
+And there are very few
+people who can do both.
+
+1126
+00:50:17,660 --> 00:50:21,939
+So the context switch can
+actually happen in user space.
+
+1127
+00:50:21,939 --> 00:50:24,459
+We can build this
+library in user space.
+
+1128
+00:50:24,459 --> 00:50:28,799
+And basically, the way
+to think about this
+
+1129
+00:50:28,799 --> 00:50:33,479
+is that threads are by
+design cooperative, right?
+
+1130
+00:50:33,479 --> 00:50:36,079
+And because they're by
+design cooperative,
+
+1131
+00:50:36,079 --> 00:50:39,699
+you have to necessarily
+by implication,
+
+1132
+00:50:39,699 --> 00:50:41,659
+think that you can
+have a cooperative
+
+1133
+00:50:41,659 --> 00:50:43,279
+scheduler in order
+to schedule them.
+
+1134
+00:50:43,279 --> 00:50:45,540
+And a cooperative
+scheduler does not require
+
+1135
+00:50:45,540 --> 00:50:48,360
+the kernel support, okay?
+
+1136
+00:50:48,360 --> 00:50:49,800
+Because the threads yield,
+
+1137
+00:50:49,800 --> 00:50:51,519
+they cooperate with each other.
+
+1138
+00:50:51,519 --> 00:50:53,500
+You can switch
+between the threads
+
+1139
+00:50:53,500 --> 00:50:55,739
+without pre empting them.
+
+1140
+00:50:56,540 --> 00:51:01,039
+Now, in the situations where
+you are not cooperative,
+
+1141
+00:51:01,039 --> 00:51:03,060
+you need a preemptive scheduler,
+
+1142
+00:51:03,060 --> 00:51:05,400
+then you need the
+kernel's involvement
+
+1143
+00:51:05,400 --> 00:51:06,660
+because only the kernel
+
+1144
+00:51:06,660 --> 00:51:08,859
+can break somebody's threat of
+
+1145
+00:51:08,859 --> 00:51:13,119
+execution and switch contexts.
+
+1146
+00:51:13,119 --> 00:51:17,209
+Okay? Alright, so why
+
+1147
+00:51:17,209 --> 00:51:19,209
+does a user space threading
+library make sense?
+
+1148
+00:51:19,209 --> 00:51:21,689
+The key observation
+that we've made is that
+
+1149
+00:51:21,689 --> 00:51:23,029
+the threading mechanism is
+
+1150
+00:51:23,029 --> 00:51:24,689
+designed, actually,
+what I just said.
+
+1151
+00:51:24,689 --> 00:51:26,309
+Now, I put it on the slide for
+
+1152
+00:51:26,309 --> 00:51:27,869
+you guys because
+sometimes you may
+
+1153
+00:51:27,869 --> 00:51:31,069
+not follow what I'm saying.
+
+1154
+00:51:31,069 --> 00:51:32,849
+So here it is on the slide.
+
+1155
+00:51:32,849 --> 00:51:34,569
+The key observation
+that we've made,
+
+1156
+00:51:34,569 --> 00:51:36,349
+the threading mechanism
+is designed with
+
+1157
+00:51:36,349 --> 00:51:37,569
+an implicit assumption of
+
+1158
+00:51:37,569 --> 00:51:39,930
+cooperation between
+units of execution.
+
+1159
+00:51:39,930 --> 00:51:42,089
+That's the key
+observation that kind
+
+1160
+00:51:42,089 --> 00:51:44,350
+of gives you some
+food for thought.
+
+1161
+00:51:44,350 --> 00:51:47,190
+What is the implication
+of that key observation?
+
+1162
+00:51:47,190 --> 00:51:48,829
+Well, the implication is that
+
+1163
+00:51:48,829 --> 00:51:51,090
+cooperative scheduler
+should be sufficient.
+
+1164
+00:51:51,090 --> 00:51:53,530
+Well, if cooperative scheduler
+should be sufficient,
+
+1165
+00:51:53,530 --> 00:51:55,909
+you can do that in user space.
+
+1166
+00:51:55,909 --> 00:51:58,930
+User space co op
+scheduler can switch
+
+1167
+00:51:58,930 --> 00:52:01,450
+between user space threads
+and user space tacks
+
+1168
+00:52:01,450 --> 00:52:04,210
+without relying on the
+preemptive behavior
+
+1169
+00:52:04,210 --> 00:52:06,830
+that is enabled by the kernel.
+
+1170
+00:52:06,830 --> 00:52:10,630
+If you need preemptive behavior
+for anything whatsoever,
+
+1171
+00:52:10,630 --> 00:52:12,149
+you need to have the kernel to
+
+1172
+00:52:12,149 --> 00:52:14,669
+step in and do
+this work for you.
+
+1173
+00:52:14,669 --> 00:52:17,949
+Does that make sense? Like,
+I'm trying to build up
+
+1174
+00:52:17,949 --> 00:52:22,030
+the logic that actually goes
+into these design decisions.
+
+1175
+00:52:22,220 --> 00:52:24,839
+And yes, you do
+
+1176
+00:52:24,839 --> 00:52:26,919
+need to worry about
+synchronization primitives,
+
+1177
+00:52:26,919 --> 00:52:30,279
+but as we've discussed
+during the previous week,
+
+1178
+00:52:30,279 --> 00:52:33,139
+you can actually build the
+synchronization primitives
+
+1179
+00:52:33,139 --> 00:52:34,420
+with user space atomics
+
+1180
+00:52:34,420 --> 00:52:36,099
+and concurrency
+primitives, right?
+
+1181
+00:52:36,099 --> 00:52:39,179
+So in the end, we make the
+conclusion that there are
+
+1182
+00:52:39,179 --> 00:52:40,519
+no privileged instructions that
+
+1183
+00:52:40,519 --> 00:52:41,519
+are needed from the kernel
+
+1184
+00:52:41,519 --> 00:52:42,640
+in order for you to develop
+
+1185
+00:52:42,640 --> 00:52:44,715
+a user space threading library.
+
+1186
+00:52:44,715 --> 00:52:47,370
+Because the thread
+context, the stacks,
+
+1187
+00:52:47,370 --> 00:52:49,369
+the register state is all
+
+1188
+00:52:49,369 --> 00:52:52,229
+available to the
+application in user space.
+
+1189
+00:52:52,229 --> 00:52:54,949
+Kernel space is
+unnecessary for this.
+
+1190
+00:52:54,949 --> 00:52:57,110
+So that means finally,
+
+1191
+00:52:57,110 --> 00:52:58,369
+the punch line here,
+
+1192
+00:52:58,369 --> 00:53:01,470
+which I already said
+is that switching
+
+1193
+00:53:01,470 --> 00:53:02,809
+the stacks is possible in
+
+1194
+00:53:02,809 --> 00:53:05,889
+user space. Does
+that make sense?
+
+1195
+00:53:05,889 --> 00:53:08,749
+And how you would
+actually explain this to
+
+1196
+00:53:08,749 --> 00:53:10,389
+somebody else why this
+
+1197
+00:53:10,389 --> 00:53:12,069
+is actually possible
+in user space.
+
+1198
+00:53:12,069 --> 00:53:13,949
+And if I were to
+ask you on a test,
+
+1199
+00:53:13,949 --> 00:53:16,409
+why is it possible
+to do in user space?
+
+1200
+00:53:16,409 --> 00:53:19,449
+You have to be able to reason
+through this yourself. Yes.
+
+1201
+00:53:19,449 --> 00:53:21,630
+So would you need two
+different schedulers,
+
+1202
+00:53:21,630 --> 00:53:24,349
+one in the user space for
+the thread and then one
+
+1203
+00:53:24,349 --> 00:53:28,130
+in the kernel for
+universal processes?
+
+1204
+00:53:28,260 --> 00:53:30,859
+Sorry, could you
+repeat the question?
+
+1205
+00:53:30,859 --> 00:53:34,120
+Two different schedulers,
+one for the threads.
+
+1206
+00:53:34,120 --> 00:53:36,599
+Space Yes, absolutely.
+
+1207
+00:53:36,599 --> 00:53:38,840
+Now we're dealing with
+two different schedulers,
+
+1208
+00:53:38,840 --> 00:53:40,500
+one user space scheduler,
+
+1209
+00:53:40,500 --> 00:53:42,499
+and that doesn't mean that we've
+
+1210
+00:53:42,499 --> 00:53:44,700
+completely got rid of the
+kernel space scheduler.
+
+1211
+00:53:44,700 --> 00:53:46,020
+Now we have two schedulers
+
+1212
+00:53:46,020 --> 00:53:47,839
+happening at the
+same time, right?
+
+1213
+00:53:47,839 --> 00:53:52,459
+The user space scheduler is
+going to be responsible for
+
+1214
+00:53:52,459 --> 00:53:59,259
+multiplexing user space contexts
+within a kernel thread.
+
+1215
+00:53:59,259 --> 00:54:01,700
+And the kernel space scheduler
+
+1216
+00:54:01,700 --> 00:54:03,540
+is responsible for
+context switching
+
+1217
+00:54:03,540 --> 00:54:07,999
+between the kernel
+threads. Makes sense.
+
+1218
+00:54:07,999 --> 00:54:10,554
+And we have some
+examples of this here.
+
+1219
+00:54:10,554 --> 00:54:13,209
+So on the left hand side,
+
+1220
+00:54:13,209 --> 00:54:16,069
+we're basically looking at
+what the kernel sees, okay?
+
+1221
+00:54:16,069 --> 00:54:19,090
+So let's see that the
+kernel sees a process.
+
+1222
+00:54:19,090 --> 00:54:21,450
+This process consists
+of two threads.
+
+1223
+00:54:21,450 --> 00:54:24,689
+So this is this red block
+corresponds to thread one.
+
+1224
+00:54:24,689 --> 00:54:26,509
+This is red block
+corresponds to thread two.
+
+1225
+00:54:26,509 --> 00:54:27,869
+They share an address space.
+
+1226
+00:54:27,869 --> 00:54:30,930
+And there's a different
+proc right here, okay?
+
+1227
+00:54:30,930 --> 00:54:34,269
+And in the red box,
+
+1228
+00:54:34,269 --> 00:54:35,769
+you basically have this one
+
+1229
+00:54:35,769 --> 00:54:37,789
+to one kernel threading model.
+
+1230
+00:54:37,789 --> 00:54:39,889
+So the kernel that means
+that the kernel sees
+
+1231
+00:54:39,889 --> 00:54:41,969
+every user space
+thread corresponding
+
+1232
+00:54:41,969 --> 00:54:45,349
+to its own separate
+kernel space thread.
+
+1233
+00:54:45,349 --> 00:54:49,400
+On the right hand side,
+yeah, as I mentioned,
+
+1234
+00:54:49,400 --> 00:54:51,439
+the kernel scheduler
+is responsible for
+
+1235
+00:54:51,439 --> 00:54:53,940
+switching between
+the kernel contexts.
+
+1236
+00:54:53,940 --> 00:54:56,500
+On the right hand side, you
+have user spaced threads,
+
+1237
+00:54:56,500 --> 00:54:57,980
+each with its own stack,
+
+1238
+00:54:57,980 --> 00:55:01,720
+right, but they are completely
+invisible to the kernel.
+
+1239
+00:55:01,720 --> 00:55:05,559
+And so with the left hand
+side implementation,
+
+1240
+00:55:05,559 --> 00:55:07,140
+the kernel scheduler,
+
+1241
+00:55:07,140 --> 00:55:09,279
+I should say, has the ability to
+
+1242
+00:55:09,279 --> 00:55:12,799
+actually switch between the
+threads, one, two, three.
+
+1243
+00:55:12,799 --> 00:55:14,299
+Let's say round robin, right?
+
+1244
+00:55:14,299 --> 00:55:15,779
+Then one, two, three,
+
+1245
+00:55:15,779 --> 00:55:18,379
+again, one, two, three,
+and so on and so forth.
+
+1246
+00:55:18,379 --> 00:55:20,739
+So it understands and has
+
+1247
+00:55:20,739 --> 00:55:24,620
+visibility into which processes
+have multiple threads.
+
+1248
+00:55:24,620 --> 00:55:27,349
+If it doesn't have
+that visibility,
+
+1249
+00:55:27,349 --> 00:55:32,219
+then it basically is not
+going to be able to make
+
+1250
+00:55:32,219 --> 00:55:34,879
+the scheduling decisions in
+
+1251
+00:55:34,879 --> 00:55:37,259
+favor of multi
+threaded applications.
+
+1252
+00:55:37,259 --> 00:55:39,079
+It will allocate them
+the same amount of
+
+1253
+00:55:39,079 --> 00:55:41,899
+time and space and
+resources, right,
+
+1254
+00:55:41,899 --> 00:55:43,780
+as to the other process
+
+1255
+00:55:43,780 --> 00:55:45,499
+that doesn't have
+any threads running
+
+1256
+00:55:45,499 --> 00:55:49,939
+in the user space
+application at all, right?
+
+1257
+00:55:50,440 --> 00:55:53,620
+So here, this is going
+to be one process.
+
+1258
+00:55:53,620 --> 00:55:55,879
+This whole thing on
+the right hand side,
+
+1259
+00:55:55,879 --> 00:55:58,199
+the green box is going to be
+
+1260
+00:55:58,199 --> 00:56:00,820
+one process from the
+perspective of the kernel.
+
+1261
+00:56:00,820 --> 00:56:03,900
+And when the kernel performs
+the switch to that process,
+
+1262
+00:56:03,900 --> 00:56:05,959
+it will have to multiplex all of
+
+1263
+00:56:05,959 --> 00:56:09,599
+its threads within the
+context of one kernel thread.
+
+1264
+00:56:10,820 --> 00:56:16,099
+Okay. Yeah, that's basically
+what I described right here.
+
+1265
+00:56:16,099 --> 00:56:18,139
+So on the left hand side,
+you have the kernel,
+
+1266
+00:56:18,139 --> 00:56:19,419
+what the kernel sees, right?
+
+1267
+00:56:19,419 --> 00:56:22,439
+It only sees this
+single red box,
+
+1268
+00:56:22,439 --> 00:56:24,459
+the kernel context, right?
+
+1269
+00:56:24,459 --> 00:56:27,079
+But what it doesn't know
+is that it could be
+
+1270
+00:56:27,079 --> 00:56:28,779
+a multi threaded
+application with
+
+1271
+00:56:28,779 --> 00:56:31,439
+multiple user space threads
+associated with that.
+
+1272
+00:56:31,439 --> 00:56:33,499
+And it just decides
+which process to
+
+1273
+00:56:33,499 --> 00:56:36,719
+go to schedule
+next in a way that
+
+1274
+00:56:36,719 --> 00:56:37,959
+is completely unaware of
+
+1275
+00:56:37,959 --> 00:56:39,600
+the multi threaded behavior
+
+1276
+00:56:39,600 --> 00:56:42,980
+of one of these kernel contexts.
+
+1277
+00:56:43,200 --> 00:56:45,439
+So that means that there's
+
+1278
+00:56:45,439 --> 00:56:48,720
+a semantic gap from the
+kernel's perspective,
+
+1279
+00:56:49,480 --> 00:56:52,580
+that is one of the disadvantages
+
+1280
+00:56:52,580 --> 00:56:55,840
+of the userspace
+threading library.
+
+1281
+00:56:55,840 --> 00:57:00,340
+Okay, so yeah, not going to
+have the breakout discussion.
+
+1282
+00:57:00,340 --> 00:57:03,619
+So here are the advantages
+of the kernel space
+
+1283
+00:57:03,619 --> 00:57:07,375
+versus advantages of the
+user space threading, okay?
+
+1284
+00:57:07,375 --> 00:57:09,349
+On the left hand side, we get
+
+1285
+00:57:09,349 --> 00:57:11,190
+parallelism, we get preemption.
+
+1286
+00:57:11,190 --> 00:57:13,449
+So kernel space
+threading gives us
+
+1287
+00:57:13,449 --> 00:57:16,150
+the ability to perform
+preemptive scheduling,
+
+1288
+00:57:16,150 --> 00:57:17,869
+as I mentioned, right?
+
+1289
+00:57:17,869 --> 00:57:20,450
+We have more information
+available to the kernel,
+
+1290
+00:57:20,450 --> 00:57:22,849
+as I mentioned with the
+example on the previous slide,
+
+1291
+00:57:22,849 --> 00:57:27,129
+because the kernel knows
+that this application,
+
+1292
+00:57:27,129 --> 00:57:29,349
+this process has
+multiple threads because
+
+1293
+00:57:29,349 --> 00:57:32,169
+all threads are visible
+to the kernel, right?
+
+1294
+00:57:32,169 --> 00:57:34,010
+This gives us better ability
+
+1295
+00:57:34,010 --> 00:57:35,949
+to control resource utilization,
+
+1296
+00:57:35,949 --> 00:57:39,450
+and we can make thread
+aware process scheduling.
+
+1297
+00:57:39,450 --> 00:57:43,499
+We've already discussed this.
+On the right hand side.
+
+1298
+00:57:43,499 --> 00:57:45,219
+So what's interesting if you're
+
+1299
+00:57:45,219 --> 00:57:47,159
+doing your threading
+in the user space,
+
+1300
+00:57:47,159 --> 00:57:48,280
+you have more information
+
+1301
+00:57:48,280 --> 00:57:50,199
+about what this
+application is doing.
+
+1302
+00:57:50,199 --> 00:57:53,060
+You have more
+semantic information.
+
+1303
+00:57:53,060 --> 00:57:55,339
+One concrete example
+I can give you is,
+
+1304
+00:57:55,339 --> 00:57:57,519
+let's say it's a map
+reduce application, right?
+
+1305
+00:57:57,519 --> 00:57:59,679
+And we all know that you
+need to schedule through
+
+1306
+00:57:59,679 --> 00:58:01,119
+all the map threads
+before you can
+
+1307
+00:58:01,119 --> 00:58:03,139
+start reduced threads,
+for instance, right?
+
+1308
+00:58:03,139 --> 00:58:05,020
+It's a very simple example.
+
+1309
+00:58:05,020 --> 00:58:08,345
+And so at the application
+level scheduler,
+
+1310
+00:58:08,345 --> 00:58:10,590
+you know which threads
+are map threads
+
+1311
+00:58:10,590 --> 00:58:11,809
+and which threads
+are reduced threads,
+
+1312
+00:58:11,809 --> 00:58:13,589
+so you can actually
+prioritize them
+
+1313
+00:58:13,589 --> 00:58:15,970
+accordingly in your
+scheduling decisions.
+
+1314
+00:58:15,970 --> 00:58:17,550
+So that's what this semantic
+
+1315
+00:58:17,550 --> 00:58:18,929
+awareness is corresponding to.
+
+1316
+00:58:18,929 --> 00:58:22,050
+This application level
+semantic awareness
+
+1317
+00:58:22,050 --> 00:58:25,030
+in user space
+scheduling decisions.
+
+1318
+00:58:25,030 --> 00:58:26,669
+You got rid of some of the
+
+1319
+00:58:26,669 --> 00:58:28,669
+context switching
+overheads right here.
+
+1320
+00:58:28,669 --> 00:58:30,709
+And of course, because
+you're staying within
+
+1321
+00:58:30,709 --> 00:58:32,630
+the same process and
+you're sharing memory,
+
+1322
+00:58:32,630 --> 00:58:33,309
+you have a lot of
+
+1323
+00:58:33,309 --> 00:58:35,129
+cache locality as one
+of the benefits if
+
+1324
+00:58:35,129 --> 00:58:39,769
+your user space
+threading design choice.
+
+1325
+00:58:39,769 --> 00:58:42,240
+These threads are
+actually lightweight.
+
+1326
+00:58:42,240 --> 00:58:43,809
+And you guys will see that in
+
+1327
+00:58:43,809 --> 00:58:46,029
+the context of lab three,
+why they are lighter weight.
+
+1328
+00:58:46,029 --> 00:58:47,550
+You have very concrete,
+
+1329
+00:58:47,550 --> 00:58:49,950
+very hands on code
+level understanding
+
+1330
+00:58:49,950 --> 00:58:51,349
+of what this bullet point means,
+
+1331
+00:58:51,349 --> 00:58:53,410
+which is really exciting, okay?
+
+1332
+00:58:53,410 --> 00:58:54,649
+And there's much lighter
+
+1333
+00:58:54,649 --> 00:58:56,009
+weight overhead of
+thread creation,
+
+1334
+00:58:56,009 --> 00:58:58,129
+and you will also understand
+why this means after
+
+1335
+00:58:58,129 --> 00:59:00,990
+you're done with
+lab three, okay?
+
+1336
+00:59:00,990 --> 00:59:03,230
+And so these are
+some of the examples
+
+1337
+00:59:03,230 --> 00:59:05,969
+that some of the people
+have already alluded to.
+
+1338
+00:59:05,969 --> 00:59:08,369
+What happens if we actually are
+
+1339
+00:59:08,369 --> 00:59:12,370
+doing user space versus
+kernel space threading.
+
+1340
+00:59:12,370 --> 00:59:14,649
+So let's say that we have
+
+1341
+00:59:14,649 --> 00:59:17,549
+a single kernel
+space thread, right,
+
+1342
+00:59:17,549 --> 00:59:19,389
+that tries to,
+
+1343
+00:59:19,389 --> 00:59:24,119
+um go through and there are
+two user space threads,
+
+1344
+00:59:24,119 --> 00:59:25,359
+thread one and thread two, but
+
+1345
+00:59:25,359 --> 00:59:26,980
+they're sharing in
+the same context.
+
+1346
+00:59:26,980 --> 00:59:29,639
+So Thread one has the
+ability to do some work,
+
+1347
+00:59:29,639 --> 00:59:31,159
+and then it goes
+to sleep, and now
+
+1348
+00:59:31,159 --> 00:59:33,499
+we're blocking on sleep, right?
+
+1349
+00:59:33,499 --> 00:59:35,239
+So there are two problems with
+
+1350
+00:59:35,239 --> 00:59:36,980
+this user space
+threading situation.
+
+1351
+00:59:36,980 --> 00:59:38,739
+I'm just going to get
+through this, right?
+
+1352
+00:59:38,739 --> 00:59:42,340
+Thread one sleeps,
+and this is a ciscoL,
+
+1353
+00:59:42,340 --> 00:59:44,860
+it will yield the CPU
+to a different process.
+
+1354
+00:59:44,860 --> 00:59:47,739
+So even though there's still
+
+1355
+00:59:47,739 --> 00:59:49,259
+some work remaining to
+
+1356
+00:59:49,259 --> 00:59:51,159
+be done in this
+particular process,
+
+1357
+00:59:51,159 --> 00:59:53,520
+we're going to yield
+the control of the CPU.
+
+1358
+00:59:53,520 --> 00:59:55,720
+So PC one has just lost the CPU,
+
+1359
+00:59:55,720 --> 00:59:57,389
+even though it has more work.
+
+1360
+00:59:57,389 --> 00:59:59,179
+And the second problem here
+
+1361
+00:59:59,179 --> 01:00:01,219
+has to do with this
+read right here.
+
+1362
+01:00:01,219 --> 01:00:02,919
+So let's say we
+finished the sleep,
+
+1363
+01:00:02,919 --> 01:00:04,539
+and now we're going
+into the read.
+
+1364
+01:00:04,539 --> 01:00:08,859
+As we discussed, it's going
+to block our kernel thread,
+
+1365
+01:00:08,859 --> 01:00:10,419
+even though there's some work
+
+1366
+01:00:10,419 --> 01:00:11,379
+that could have been done in
+
+1367
+01:00:11,379 --> 01:00:12,800
+parallel while we're waiting
+
+1368
+01:00:12,800 --> 01:00:14,200
+for the blocking read to return.
+
+1369
+01:00:14,200 --> 01:00:16,809
+So that's the second
+problem with this, right?
+
+1370
+01:00:16,809 --> 01:00:20,419
+And so we can handle
+this by breaking it up
+
+1371
+01:00:20,419 --> 01:00:22,359
+into one kernel thread
+
+1372
+01:00:22,359 --> 01:00:24,499
+each for each of the
+user space threads.
+
+1373
+01:00:24,499 --> 01:00:27,839
+This is going to solve
+this problem, right?
+
+1374
+01:00:27,839 --> 01:00:29,499
+It's going to address
+this problem,
+
+1375
+01:00:29,499 --> 01:00:31,460
+but it introduces
+its own challenges
+
+1376
+01:00:31,460 --> 01:00:33,420
+of kernel context overhead,
+
+1377
+01:00:33,420 --> 01:00:36,199
+managing multiple contexts,
+and so on and so forth.
+
+1378
+01:00:36,199 --> 01:00:38,719
+So the question is, can we
+get the best of both worlds?
+
+1379
+01:00:38,719 --> 01:00:40,059
+Somebody asked me this, right?
+
+1380
+01:00:40,059 --> 01:00:43,820
+Can I allocate
+user space threads
+
+1381
+01:00:43,940 --> 01:00:46,759
+to N kernel space threads?
+
+1382
+01:00:46,759 --> 01:00:50,600
+So this is what I refer to
+as the hybrid threading.
+
+1383
+01:00:50,600 --> 01:00:53,979
+It's sort of a design
+choice in between.
+
+1384
+01:00:55,679 --> 01:00:58,740
+And as the name would
+suggest, basically,
+
+1385
+01:00:58,740 --> 01:01:01,599
+you have a handful of
+kernel threads that you're
+
+1386
+01:01:01,599 --> 01:01:03,139
+multiplexing over and you have
+
+1387
+01:01:03,139 --> 01:01:04,499
+many more user space threads
+
+1388
+01:01:04,499 --> 01:01:06,299
+than there are kernel
+threads, okay?
+
+1389
+01:01:06,299 --> 01:01:08,119
+So now, what are
+the advantages and
+
+1390
+01:01:08,119 --> 01:01:09,919
+disadvantages
+associated with that?
+
+1391
+01:01:09,919 --> 01:01:11,959
+Now, let's see what
+problem did it solve,
+
+1392
+01:01:11,959 --> 01:01:14,559
+first of all, if any?
+
+1393
+01:01:16,320 --> 01:01:20,389
+Yeah. Stay.
+
+1394
+01:01:23,510 --> 01:01:25,929
+Yeah, it's this blocking thing.
+
+1395
+01:01:25,929 --> 01:01:27,929
+It's the annoying
+blocking thing that
+
+1396
+01:01:27,929 --> 01:01:30,969
+you that we've
+talked about, right?
+
+1397
+01:01:30,969 --> 01:01:32,969
+It's going to take
+care of that because
+
+1398
+01:01:32,969 --> 01:01:38,884
+now you have more kind of
+threats to multiplex over.
+
+1399
+01:01:38,884 --> 01:01:41,119
+And so the advantages are
+
+1400
+01:01:41,119 --> 01:01:43,579
+the user space threads
+can run in parallel,
+
+1401
+01:01:43,579 --> 01:01:46,199
+right, because you have
+multiple kernel contexts
+
+1402
+01:01:46,199 --> 01:01:47,899
+to multiplex over.
+
+1403
+01:01:47,899 --> 01:01:50,460
+You also have fewer
+context switches.
+
+1404
+01:01:50,460 --> 01:01:52,879
+This is relative to
+one to one, okay?
+
+1405
+01:01:52,879 --> 01:01:54,379
+So this is relative to
+
+1406
+01:01:54,379 --> 01:01:56,119
+one to one right
+here because one to
+
+1407
+01:01:56,119 --> 01:01:59,840
+one has one kernel context
+per user space context.
+
+1408
+01:01:59,840 --> 01:02:02,440
+You have lightweight
+user space threads,
+
+1409
+01:02:02,440 --> 01:02:04,280
+so you're basically
+taking advantage
+
+1410
+01:02:04,280 --> 01:02:06,779
+of userspace threading
+here, right?
+
+1411
+01:02:06,779 --> 01:02:10,644
+So you're dealing with small
+user space threading cost.
+
+1412
+01:02:10,644 --> 01:02:12,569
+But there are still
+disadvantages
+
+1413
+01:02:12,569 --> 01:02:14,349
+because you are still subject to
+
+1414
+01:02:14,349 --> 01:02:17,109
+kernel thread stalls
+because you're multiplexing
+
+1415
+01:02:17,109 --> 01:02:18,649
+multiple user spaced threads per
+
+1416
+01:02:18,649 --> 01:02:20,969
+single kernel context, right?
+
+1417
+01:02:20,969 --> 01:02:22,869
+So you can still
+
+1418
+01:02:22,869 --> 01:02:25,029
+experience some of this thread
+
+1419
+01:02:25,029 --> 01:02:26,489
+blocking that we talked about,
+
+1420
+01:02:26,489 --> 01:02:29,760
+and it's still not
+cooperative use of the CPU.
+
+1421
+01:02:29,760 --> 01:02:34,929
+So it depends on the kernels
+ability to preempt, right?
+
+1422
+01:02:34,929 --> 01:02:37,869
+So, at the end of all of this,
+
+1423
+01:02:37,869 --> 01:02:40,109
+the question is, what
+
+1424
+01:02:40,109 --> 01:02:42,249
+are the operating systems
+actually do, right?
+
+1425
+01:02:42,249 --> 01:02:43,909
+So we have these
+three design choices.
+
+1426
+01:02:43,909 --> 01:02:46,370
+Just tell me what's actually
+happening in practice.
+
+1427
+01:02:46,370 --> 01:02:49,349
+In practice, mostly it's
+kernel threading, right?
+
+1428
+01:02:49,349 --> 01:02:50,869
+But there are some
+tips and tricks
+
+1429
+01:02:50,869 --> 01:02:53,429
+that the modern operating
+systems are doing.
+
+1430
+01:02:53,429 --> 01:02:56,659
+For example, many
+of the operations
+
+1431
+01:02:56,659 --> 01:02:58,219
+are kind of pushed as
+
+1432
+01:02:58,219 --> 01:03:00,259
+many as possible are
+pushed to user space.
+
+1433
+01:03:00,259 --> 01:03:02,159
+The futex Cisco allows
+
+1434
+01:03:02,159 --> 01:03:04,179
+mostly user space
+concurrency primitive,
+
+1435
+01:03:04,179 --> 01:03:05,379
+so it only depends on
+
+1436
+01:03:05,379 --> 01:03:07,079
+the kernel for the
+purposes of sleep and
+
+1437
+01:03:07,079 --> 01:03:08,359
+wake up because I
+
+1438
+01:03:08,359 --> 01:03:10,559
+mentioned that we have to
+have the kernel for those.
+
+1439
+01:03:10,559 --> 01:03:13,220
+But all of the synchronization,
+
+1440
+01:03:13,220 --> 01:03:15,079
+all of the atomics are
+
+1441
+01:03:15,079 --> 01:03:18,219
+actually being handled
+at in user space.
+
+1442
+01:03:18,219 --> 01:03:19,959
+There's a trade off between
+
+1443
+01:03:19,959 --> 01:03:21,580
+the user and kernel efficiency,
+
+1444
+01:03:21,580 --> 01:03:24,379
+where the kernel manages
+IO sleeping, right?
+
+1445
+01:03:24,379 --> 01:03:26,239
+It gives us the ability to
+
+1446
+01:03:26,239 --> 01:03:28,679
+kick out a process that's
+just waiting on IO to
+
+1447
+01:03:28,679 --> 01:03:31,519
+happen for the more
+efficient use of
+
+1448
+01:03:31,519 --> 01:03:34,159
+the physical resources
+or while a process
+
+1449
+01:03:34,159 --> 01:03:37,999
+is sleeping switches to a
+different context, right?
+
+1450
+01:03:37,999 --> 01:03:41,739
+Okay, so where do
+we stand in XV six?
+
+1451
+01:03:41,739 --> 01:03:44,099
+It's basically the kernel stack.
+
+1452
+01:03:44,099 --> 01:03:46,019
+Each process has its
+own kernel stack,
+
+1453
+01:03:46,019 --> 01:03:48,360
+and there are no
+user space threads.
+
+1454
+01:03:48,360 --> 01:03:50,019
+And your goal is to
+
+1455
+01:03:50,019 --> 01:03:52,679
+develop the support for
+user spaced threads here.
+
+1456
+01:03:52,679 --> 01:03:55,599
+Right? And the schedule on
+top of this actually has
+
+1457
+01:03:55,599 --> 01:03:57,259
+no awareness of threading
+
+1458
+01:03:57,259 --> 01:03:59,440
+and has no S&P
+support whatsoever.
+
+1459
+01:03:59,440 --> 01:04:02,219
+So you get to implement
+that in Lab free.
+
+1460
+01:04:02,219 --> 01:04:04,299
+So you're basically here
+
+1461
+01:04:04,299 --> 01:04:06,460
+from a historical
+Unix perspective,
+
+1462
+01:04:06,460 --> 01:04:09,199
+this is where XV
+six is right here.
+
+1463
+01:04:09,280 --> 01:04:12,079
+And this is where we
+want to be, right?
+
+1464
+01:04:12,079 --> 01:04:14,560
+We want to allow threads
+to be scheduled.
+
+1465
+01:04:14,560 --> 01:04:16,659
+We want to retain
+performance advantages
+
+1466
+01:04:16,659 --> 01:04:18,399
+of threads, share memory,
+
+1467
+01:04:18,399 --> 01:04:20,819
+and take advantage of
+
+1468
+01:04:20,819 --> 01:04:23,399
+the performance of
+the kernel threading,
+
+1469
+01:04:23,399 --> 01:04:25,219
+and we want to be
+able to implement
+
+1470
+01:04:25,219 --> 01:04:27,300
+the synchronization
+primitives like waiting,
+
+1471
+01:04:27,300 --> 01:04:30,280
+spinlocks, mutexes, and
+conditional variables.
+
+1472
+01:04:30,280 --> 01:04:34,259
+And that's Lab three, and I
+will end my lecture here.
+
+1473
+01:04:34,259 --> 01:04:36,279
+Thank you so much.
+
+1474
+01:05:01,830 --> 01:05:04,029
+Hello.
+
+1475
+01:05:06,790 --> 01:05:09,309
+Oh, nice.
+
+1476
+01:05:10,870 --> 01:05:14,269
+A lot. It's a lot.

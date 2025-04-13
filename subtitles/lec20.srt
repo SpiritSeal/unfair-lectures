@@ -1,0 +1,6748 @@
+1
+00:00:23,160 --> 00:00:30,999
+Everyone. Good afternoon.
+Good afternoon.
+
+2
+00:00:32,540 --> 00:00:36,140
+Hey, good to see you too.
+
+3
+00:00:37,580 --> 00:00:41,739
+Okay, so today we're
+going to start, I guess,
+
+4
+00:00:41,739 --> 00:00:46,659
+the last important and large
+ish module in this class,
+
+5
+00:00:46,659 --> 00:00:48,540
+which is file systems.
+
+6
+00:00:48,540 --> 00:00:51,700
+And it's going to take
+us four lectures total.
+
+7
+00:00:51,700 --> 00:00:53,220
+Two of those lectures we're
+
+8
+00:00:53,220 --> 00:00:54,620
+going to talk about
+file systems,
+
+9
+00:00:54,620 --> 00:00:58,019
+and two additional lectures
+we'll be talking about
+
+10
+00:00:58,019 --> 00:01:03,179
+ordering atomicity and
+concurrency in file systems,
+
+11
+00:01:03,179 --> 00:01:04,540
+which is a really,
+really exciting
+
+12
+00:01:04,540 --> 00:01:06,179
+topic that remains to be
+
+13
+00:01:06,179 --> 00:01:10,220
+actually a topic of
+active area of research.
+
+14
+00:01:10,220 --> 00:01:13,179
+And as a matter of fact, it
+is so important In fact,
+
+15
+00:01:13,179 --> 00:01:16,259
+the file systems as a whole
+is so important band.
+
+16
+00:01:16,259 --> 00:01:19,100
+For example, at Carnegie Mellon,
+
+17
+00:01:19,100 --> 00:01:20,779
+which is where I
+got my PhD from,
+
+18
+00:01:20,779 --> 00:01:22,219
+there's a dedicated class
+
+19
+00:01:22,219 --> 00:01:24,260
+just talking about file systems.
+
+20
+00:01:24,260 --> 00:01:26,779
+And here we are going
+to discuss this in
+
+21
+00:01:26,779 --> 00:01:29,899
+a couple of lectures in
+a 3,000 level class.
+
+22
+00:01:29,899 --> 00:01:32,659
+So there's definitely a
+lot to talk about, right?
+
+23
+00:01:32,659 --> 00:01:34,579
+So let's go ahead
+and get started.
+
+24
+00:01:34,579 --> 00:01:41,499
+I we all know lab three is
+due this Friday due today.
+
+25
+00:01:41,499 --> 00:01:44,140
+And Friday is tomorrow.
+
+26
+00:01:44,380 --> 00:01:47,299
+Great news item, right?
+
+27
+00:01:47,299 --> 00:01:49,379
+This is probably the best lab.
+
+28
+00:01:49,379 --> 00:01:52,979
+If you do have any late
+days remaining, I mean,
+
+29
+00:01:52,979 --> 00:01:56,179
+just probabilistically thinking,
+I would encourage you to
+
+30
+00:01:56,179 --> 00:01:57,859
+actually spend those late days
+
+31
+00:01:57,859 --> 00:01:59,579
+on lab three, if you
+need to, of course.
+
+32
+00:01:59,579 --> 00:02:00,659
+Like, if you feel like, oh, my
+
+33
+00:02:00,659 --> 00:02:02,019
+God, I'm running out of time,
+
+34
+00:02:02,019 --> 00:02:04,219
+don't count on it because
+if you count on it,
+
+35
+00:02:04,219 --> 00:02:05,499
+you will spend them, right?
+
+36
+00:02:05,499 --> 00:02:07,179
+Do try to meet the deadline.
+
+37
+00:02:07,179 --> 00:02:10,005
+But at the same time, if
+you think about lab three,
+
+38
+00:02:10,005 --> 00:02:11,509
+we're spending them on lab
+
+39
+00:02:11,509 --> 00:02:13,230
+three versus spending
+them on lab four.
+
+40
+00:02:13,230 --> 00:02:15,549
+Lab three is 20% of
+the final grade,
+
+41
+00:02:15,549 --> 00:02:17,749
+Lab four is 10% of
+the final grade.
+
+42
+00:02:17,749 --> 00:02:19,670
+So it just makes sense
+
+43
+00:02:19,670 --> 00:02:21,950
+to sort of spend them on lab
+three instead of lab four.
+
+44
+00:02:21,950 --> 00:02:23,670
+And lab four is
+relatively speaking,
+
+45
+00:02:23,670 --> 00:02:26,790
+going to be a breeze
+compared to Lab three.
+
+46
+00:02:26,790 --> 00:02:29,230
+I don't want to set the
+expectations too low.
+
+47
+00:02:29,230 --> 00:02:30,909
+All of this is
+relatively speaking,
+
+48
+00:02:30,909 --> 00:02:33,510
+all of this is probabilistic
+and everyone is different.
+
+49
+00:02:33,510 --> 00:02:36,229
+But that is just sort of
+the general guideline
+
+50
+00:02:36,229 --> 00:02:39,110
+that I wanted to share with
+you in case this is useful.
+
+51
+00:02:39,110 --> 00:02:41,070
+Speaking of Lab four,
+
+52
+00:02:41,070 --> 00:02:43,989
+which is going to be
+all about file systems,
+
+53
+00:02:43,989 --> 00:02:46,670
+it's going to be released
+tomorrow, Friday,
+
+54
+00:02:46,670 --> 00:02:49,560
+March 28, The time does fly.
+
+55
+00:02:49,560 --> 00:02:51,840
+You know, it really feels weird
+
+56
+00:02:51,840 --> 00:02:54,280
+that we are almost at the
+end of the semester, right?
+
+57
+00:02:54,280 --> 00:02:55,800
+You'll be done
+before you know it.
+
+58
+00:02:55,800 --> 00:02:57,760
+And as a matter of
+fact, exam two,
+
+59
+00:02:57,760 --> 00:03:00,919
+it sort of really was a
+surprise for me personally.
+
+60
+00:03:00,919 --> 00:03:03,080
+I mean, it's a
+statement of fact,
+
+61
+00:03:03,080 --> 00:03:04,559
+so it shouldn't be a surprise.
+
+62
+00:03:04,559 --> 00:03:06,240
+So we knew that from the
+start of the semester,
+
+63
+00:03:06,240 --> 00:03:08,439
+but it's a surprise how
+fast the time flies.
+
+64
+00:03:08,439 --> 00:03:11,639
+We will be holding an
+exam two on Wednesday,
+
+65
+00:03:11,639 --> 00:03:15,990
+April 16, which is only
+20 days from today.
+
+66
+00:03:15,990 --> 00:03:18,140
+Only 20 days from today.
+
+67
+00:03:18,140 --> 00:03:19,820
+And in this period of time,
+
+68
+00:03:19,820 --> 00:03:22,020
+you have to get your lab three,
+
+69
+00:03:22,020 --> 00:03:25,820
+and you have to get your lab
+four done and submit it.
+
+70
+00:03:25,820 --> 00:03:29,020
+And then since the
+lab four is going to
+
+71
+00:03:29,020 --> 00:03:32,099
+be due the Friday
+before that Wednesday,
+
+72
+00:03:32,099 --> 00:03:34,060
+you will have
+approximately five days
+
+73
+00:03:34,060 --> 00:03:35,780
+of doing nothing but focusing on
+
+74
+00:03:35,780 --> 00:03:39,339
+the preparation for the
+comprehensive final exam
+
+75
+00:03:39,339 --> 00:03:40,700
+for CS 30 to ten,
+
+76
+00:03:40,700 --> 00:03:44,560
+which has become your
+most favorite class ever.
+
+77
+00:03:44,560 --> 00:03:46,979
+Yay.
+
+78
+00:03:48,260 --> 00:03:50,900
+The new material that will be
+
+79
+00:03:50,900 --> 00:03:52,819
+added to your plate
+for preparation
+
+80
+00:03:52,819 --> 00:03:54,500
+to exam two is going to be
+
+81
+00:03:54,500 --> 00:03:56,699
+file systems, ordering
+and atomicity.
+
+82
+00:03:56,699 --> 00:03:58,900
+This is pretty
+complex stuff, okay?
+
+83
+00:03:58,900 --> 00:04:01,219
+And it's very
+conceptually novel.
+
+84
+00:04:01,219 --> 00:04:03,140
+It's going to be
+to a lot of you.
+
+85
+00:04:03,140 --> 00:04:04,779
+In addition to this, we'll have
+
+86
+00:04:04,779 --> 00:04:06,580
+some discussion over
+distributed systems.
+
+87
+00:04:06,580 --> 00:04:09,420
+I'll try to squeeze in as
+much as I can in 15 minutes.
+
+88
+00:04:09,420 --> 00:04:13,019
+Distributed systems is a
+whole area of research.
+
+89
+00:04:13,019 --> 00:04:15,260
+I actually happened
+to take a theory of
+
+90
+00:04:15,260 --> 00:04:16,979
+distributed systems
+class that was
+
+91
+00:04:16,979 --> 00:04:20,005
+zero coding, 100% math.
+
+92
+00:04:20,005 --> 00:04:22,309
+And I spent this
+whole semester doing
+
+93
+00:04:22,309 --> 00:04:24,469
+that when I was doing
+my masters, actually.
+
+94
+00:04:24,469 --> 00:04:26,309
+And so each of those areas,
+
+95
+00:04:26,309 --> 00:04:29,109
+they are meant to really
+give you a flavor for
+
+96
+00:04:29,109 --> 00:04:31,669
+how much depth there is in every
+
+97
+00:04:31,669 --> 00:04:34,789
+single one of these
+cis ark threads, okay?
+
+98
+00:04:34,789 --> 00:04:37,429
+So cis ark thread is a
+thread in its own right,
+
+99
+00:04:37,429 --> 00:04:39,030
+obviously, from
+your perspective,
+
+100
+00:04:39,030 --> 00:04:41,069
+but it's actually
+sub threaded into
+
+101
+00:04:41,069 --> 00:04:44,230
+the specializations and
+area specializations,
+
+102
+00:04:44,230 --> 00:04:47,230
+each of which warrants
+its own area of study.
+
+103
+00:04:47,230 --> 00:04:50,319
+So that's pretty cool. Yeah, and
+
+104
+00:04:50,319 --> 00:04:52,359
+we're going to have the
+Exam two prep lecture
+
+105
+00:04:52,359 --> 00:04:53,639
+on Tuesday 415,
+
+106
+00:04:53,639 --> 00:04:56,279
+which is one day
+before the exam two.
+
+107
+00:04:56,279 --> 00:04:57,919
+Exam two will be joint.
+
+108
+00:04:57,919 --> 00:05:00,559
+It will take place wherever
+
+109
+00:05:00,559 --> 00:05:03,129
+you are doing your
+supervised labs right now.
+
+110
+00:05:03,129 --> 00:05:07,100
+So it will be different from
+exam one in that respect,
+
+111
+00:05:07,100 --> 00:05:10,579
+and you will have more
+than 50 minutes to do it.
+
+112
+00:05:10,579 --> 00:05:13,739
+So I cannot share with
+
+113
+00:05:13,739 --> 00:05:16,980
+you the exact time limit that
+we're going to decide upon.
+
+114
+00:05:16,980 --> 00:05:19,499
+I would like to reserve
+that until later when we
+
+115
+00:05:19,499 --> 00:05:21,019
+actually have made progress
+
+116
+00:05:21,019 --> 00:05:22,659
+on putting together that exam,
+
+117
+00:05:22,659 --> 00:05:25,580
+but I can guarantee you that
+it will be more than 1 hour.
+
+118
+00:05:25,580 --> 00:05:26,899
+You will be given more than
+
+119
+00:05:26,899 --> 00:05:28,859
+1 hour to complete it for sure.
+
+120
+00:05:28,859 --> 00:05:31,340
+As an estimate, a rule of thumb,
+
+121
+00:05:31,340 --> 00:05:33,660
+think about it as
+a two hour exam.
+
+122
+00:05:33,660 --> 00:05:38,140
+Okay, so let's start
+talking about file systems.
+
+123
+00:05:38,140 --> 00:05:41,899
+You know, it seems like such
+an obvious topic because
+
+124
+00:05:41,899 --> 00:05:43,580
+you're pretty much
+using a file system
+
+125
+00:05:43,580 --> 00:05:45,659
+every single time you touch
+your computer, right?
+
+126
+00:05:45,659 --> 00:05:47,979
+And so you must have some
+preconceived notions
+
+127
+00:05:47,979 --> 00:05:49,779
+about what a file system
+really is, right?
+
+128
+00:05:49,779 --> 00:05:52,299
+So let's talk about it.
+What is a file system?
+
+129
+00:05:52,299 --> 00:05:55,419
+And what is a file system
+when we mention that name?
+
+130
+00:05:55,419 --> 00:05:57,620
+You know, can anyone
+venture a guess?
+
+131
+00:05:57,620 --> 00:06:02,349
+What does it mean
+to you? How would
+
+132
+00:06:02,349 --> 00:06:04,109
+you define a file system?
+
+133
+00:06:04,109 --> 00:06:08,109
+What does it do? Why do we
+need it? Do we need it?
+
+134
+00:06:08,109 --> 00:06:11,069
+Yes. Storing retrieving memory
+
+135
+00:06:11,069 --> 00:06:14,789
+from the disk to external
+memory on your system.
+
+136
+00:06:14,789 --> 00:06:17,309
+Like the packet can do that.
+
+137
+00:06:17,309 --> 00:06:19,510
+So let's not use the word memory
+
+138
+00:06:19,510 --> 00:06:22,429
+because that sort of
+by association kind of
+
+139
+00:06:22,429 --> 00:06:25,429
+leads us to think about
+virtual memory and
+
+140
+00:06:25,429 --> 00:06:26,749
+physical memory and
+
+141
+00:06:26,749 --> 00:06:29,069
+the DRM slots and things
+like that, right?
+
+142
+00:06:29,069 --> 00:06:30,509
+So maybe instead of memory,
+
+143
+00:06:30,509 --> 00:06:31,869
+you meant something else, right?
+
+144
+00:06:31,869 --> 00:06:34,270
+What do you want to
+store and retrieve?
+
+145
+00:06:34,270 --> 00:06:39,029
+Yes. Or state, over a long
+period of time. Okay.
+
+146
+00:06:39,029 --> 00:06:40,589
+Okay, so store some state
+
+147
+00:06:40,589 --> 00:06:42,229
+that you want to be
+able to come back to,
+
+148
+00:06:42,229 --> 00:06:43,989
+right, over a long
+period of time.
+
+149
+00:06:43,989 --> 00:06:45,789
+So it's something right there,
+
+150
+00:06:45,789 --> 00:06:47,110
+if you actually start thinking
+
+151
+00:06:47,110 --> 00:06:48,230
+about it from the perspective
+
+152
+00:06:48,230 --> 00:06:49,350
+of what are the properties
+
+153
+00:06:49,350 --> 00:06:51,109
+associated with
+what he just said,
+
+154
+00:06:51,109 --> 00:06:53,149
+We want persistency, right?
+
+155
+00:06:53,149 --> 00:06:55,389
+We want crash recovery, right?
+
+156
+00:06:55,389 --> 00:06:58,270
+We want some properties.
+
+157
+00:06:58,270 --> 00:07:00,229
+We want isolation,
+we want protection.
+
+158
+00:07:00,229 --> 00:07:02,990
+We want some properties
+that will guarantee
+
+159
+00:07:02,990 --> 00:07:04,429
+durability of the data that we
+
+160
+00:07:04,429 --> 00:07:06,469
+have stored on that
+medium, right?
+
+161
+00:07:06,469 --> 00:07:09,870
+And every single word
+actually by implication,
+
+162
+00:07:09,870 --> 00:07:11,789
+carries more and more
+things that we're going to
+
+163
+00:07:11,789 --> 00:07:14,314
+sort of try to uncover
+in this class, right?
+
+164
+00:07:14,314 --> 00:07:15,759
+And here's a question for you,
+
+165
+00:07:15,759 --> 00:07:18,919
+that's sort of a follow up
+to this thread of thought.
+
+166
+00:07:18,919 --> 00:07:21,439
+Does a file system have
+to relate to disk?
+
+167
+00:07:21,439 --> 00:07:23,559
+Because you mentioned
+storing, right?
+
+168
+00:07:23,559 --> 00:07:25,519
+Storing for a long
+period of time.
+
+169
+00:07:25,519 --> 00:07:28,079
+There's some state, let's
+call it data, okay?
+
+170
+00:07:28,079 --> 00:07:30,879
+Just as a very general
+term, let's call it data.
+
+171
+00:07:30,879 --> 00:07:33,439
+We want to store some data
+over a long period of time.
+
+172
+00:07:33,439 --> 00:07:35,239
+We want to have the
+ability to retrieve it.
+
+173
+00:07:35,239 --> 00:07:37,039
+We want to have the
+ability to access it.
+
+174
+00:07:37,039 --> 00:07:40,039
+Do you have to have
+a disk in order for
+
+175
+00:07:40,039 --> 00:07:44,600
+us to have a meaningful
+conversation about file systems?
+
+176
+00:07:44,740 --> 00:07:48,419
+Oh, nice. I see some
+correct answers
+
+177
+00:07:48,419 --> 00:07:50,860
+that have not been
+verbalized yet.
+
+178
+00:07:50,860 --> 00:07:53,300
+Yes. But not necessarily.
+
+179
+00:07:53,300 --> 00:07:55,940
+You can have virtual outs,
+
+180
+00:07:55,940 --> 00:07:58,459
+which are not really
+tied to a disk.
+
+181
+00:07:58,459 --> 00:08:00,900
+Okay. What's a virtual file?
+
+182
+00:08:00,990 --> 00:08:04,070
+A resource for an
+external computer or
+
+183
+00:08:04,070 --> 00:08:06,630
+a cloud system, which
+you can retrieve.
+
+184
+00:08:06,630 --> 00:08:09,469
+I mean, you're given the
+illusion that it's native to
+
+185
+00:08:09,469 --> 00:08:12,589
+your machines file system,
+but it's really not.
+
+186
+00:08:12,589 --> 00:08:15,509
+Yeah, so file seems to be
+an abstraction, right?
+
+187
+00:08:15,509 --> 00:08:17,469
+It's actually not
+a physical thing.
+
+188
+00:08:17,469 --> 00:08:19,109
+It actually turns out that it's
+
+189
+00:08:19,109 --> 00:08:20,590
+an abstraction that may or may
+
+190
+00:08:20,590 --> 00:08:21,709
+not necessarily have
+
+191
+00:08:21,709 --> 00:08:23,789
+some persistent storage
+behind it, right?
+
+192
+00:08:23,789 --> 00:08:25,590
+So that's pretty cool.
+
+193
+00:08:25,590 --> 00:08:27,549
+And then in that case,
+
+194
+00:08:27,549 --> 00:08:29,709
+where would you store,
+actually the metadata
+
+195
+00:08:29,709 --> 00:08:31,069
+associated with that file?
+
+196
+00:08:31,069 --> 00:08:34,549
+So if it's not backed
+by secondary storage,
+
+197
+00:08:34,549 --> 00:08:37,390
+what could it possibly
+be backed by?
+
+198
+00:08:37,790 --> 00:08:40,630
+Because at the end of the day,
+
+199
+00:08:40,630 --> 00:08:42,350
+I think we agreed
+on one thing so far
+
+200
+00:08:42,350 --> 00:08:44,710
+that we want file
+system to manage data.
+
+201
+00:08:44,710 --> 00:08:46,390
+So where would you
+store that data
+
+202
+00:08:46,390 --> 00:08:48,989
+if you don't have
+secondary storage?
+
+203
+00:09:00,670 --> 00:09:05,310
+No idea? Oh, yes, sorry.
+
+204
+00:09:05,310 --> 00:09:11,280
+I was myopally focused
+in the back. Yeah.
+
+205
+00:09:11,280 --> 00:09:13,560
+Have any of you heard
+about Tempo FS?
+
+206
+00:09:13,560 --> 00:09:15,520
+Have you tried
+building a tempo Fs
+
+207
+00:09:15,520 --> 00:09:17,440
+on the Linux system, right?
+
+208
+00:09:17,440 --> 00:09:19,720
+So empoFs is basically
+
+209
+00:09:19,720 --> 00:09:21,160
+a temporary file system
+
+210
+00:09:21,160 --> 00:09:23,000
+that can actually be
+stored in memory.
+
+211
+00:09:23,000 --> 00:09:26,999
+A RAM disk is a file system
+that can be stored in memory.
+
+212
+00:09:26,999 --> 00:09:29,640
+So you don't actually have
+to have disk in order to
+
+213
+00:09:29,640 --> 00:09:32,760
+talk about or have a file
+system in the first place.
+
+214
+00:09:32,760 --> 00:09:36,160
+Of course, it changes the
+properties that are given to
+
+215
+00:09:36,160 --> 00:09:37,359
+you by this file system
+
+216
+00:09:37,359 --> 00:09:40,279
+because if you press
+the power button,
+
+217
+00:09:40,279 --> 00:09:43,240
+what's going to
+happen to a RM disk?
+
+218
+00:09:43,450 --> 00:09:47,290
+It'll basically become
+ephemeral, right?
+
+219
+00:09:47,290 --> 00:09:50,850
+It has ephemeral properties,
+not persistent properties.
+
+220
+00:09:50,850 --> 00:09:53,170
+So yeah, basically, does
+
+221
+00:09:53,170 --> 00:09:55,530
+a file system need any
+secondary storage?
+
+222
+00:09:55,530 --> 00:09:57,090
+I think we've established that
+
+223
+00:09:57,090 --> 00:09:59,050
+the answer to that is no, right?
+
+224
+00:09:59,050 --> 00:10:00,570
+A very good example of that,
+
+225
+00:10:00,570 --> 00:10:02,969
+as we've established is RMFS.
+
+226
+00:10:02,969 --> 00:10:05,129
+There are some other examples
+
+227
+00:10:05,129 --> 00:10:09,969
+that basically include booting,
+
+228
+00:10:09,969 --> 00:10:12,855
+for example, an
+operating system from an
+
+229
+00:10:12,855 --> 00:10:15,739
+A file system that was
+mounted over the network.
+
+230
+00:10:15,739 --> 00:10:18,620
+So basically, you have this
+notion of thin clients.
+
+231
+00:10:18,620 --> 00:10:20,740
+It used to be pretty
+popular, I don't know,
+
+232
+00:10:20,740 --> 00:10:23,020
+maybe a couple of
+two decades ago,
+
+233
+00:10:23,020 --> 00:10:24,620
+especially in the EDU,
+
+234
+00:10:24,620 --> 00:10:26,180
+in the academic environment,
+
+235
+00:10:26,180 --> 00:10:27,540
+where you had a single sort
+
+236
+00:10:27,540 --> 00:10:30,500
+of supersrver I
+think it was called,
+
+237
+00:10:30,500 --> 00:10:32,700
+and then it had a bunch
+of thin clients that
+
+238
+00:10:32,700 --> 00:10:35,340
+didn't even have any
+local secondary storage,
+
+239
+00:10:35,340 --> 00:10:37,460
+but they were able to
+boot file systems,
+
+240
+00:10:37,460 --> 00:10:40,179
+to boot operating
+system over the network
+
+241
+00:10:40,179 --> 00:10:41,900
+by sort of mounting
+
+242
+00:10:41,900 --> 00:10:45,059
+over the network from
+the super server.
+
+243
+00:10:45,100 --> 00:10:49,699
+Okay. So as we talk
+about file systems,
+
+244
+00:10:49,699 --> 00:10:52,459
+I know it sort of
+becomes evident that
+
+245
+00:10:52,459 --> 00:10:54,780
+we're really talking
+about some way
+
+246
+00:10:54,780 --> 00:10:57,260
+to organize data, right?
+
+247
+00:10:57,260 --> 00:11:01,580
+And as I was sort of trying
+to conceptualize this,
+
+248
+00:11:01,820 --> 00:11:04,939
+it's really important
+to conceptualize
+
+249
+00:11:04,939 --> 00:11:06,700
+very concrete things that you
+
+250
+00:11:06,700 --> 00:11:09,299
+may possibly be
+taking for granted.
+
+251
+00:11:09,299 --> 00:11:11,540
+So here's a relevant
+analogy that I would like
+
+252
+00:11:11,540 --> 00:11:13,780
+to share with you very briefly.
+
+253
+00:11:13,780 --> 00:11:16,660
+So there was a first attempt
+at organizing Internet data.
+
+254
+00:11:16,660 --> 00:11:19,180
+Do you remember what was the
+first attempt at organizing
+
+255
+00:11:19,180 --> 00:11:21,939
+Internet data and what it
+looked like? It wasn't Google.
+
+256
+00:11:21,939 --> 00:11:24,220
+There was something
+before Google.
+
+257
+00:11:27,240 --> 00:11:30,669
+There was life before Google.
+
+258
+00:11:30,669 --> 00:11:34,500
+So that first attempt
+actually looked just like
+
+259
+00:11:34,500 --> 00:11:36,340
+cataloguing the websites into
+
+260
+00:11:36,340 --> 00:11:38,460
+a specific hierarchical
+structure.
+
+261
+00:11:38,460 --> 00:11:41,140
+So Yahoo was a very
+good example of that.
+
+262
+00:11:41,140 --> 00:11:44,660
+I think Alta Vista was
+another good example.
+
+263
+00:11:44,660 --> 00:11:47,180
+You may not have even heard
+of these names now, right?
+
+264
+00:11:47,180 --> 00:11:49,900
+Because it's such an outdated
+way of organizing data,
+
+265
+00:11:49,900 --> 00:11:51,259
+but it was the first approach to
+
+266
+00:11:51,259 --> 00:11:53,140
+organize Internet data, right?
+
+267
+00:11:53,140 --> 00:11:55,860
+And it was it sort of came
+
+268
+00:11:55,860 --> 00:11:58,940
+to be because that's how
+we used to organize data,
+
+269
+00:11:58,940 --> 00:12:00,380
+let's say in the
+library, because
+
+270
+00:12:00,380 --> 00:12:02,299
+the library before Internet,
+
+271
+00:12:02,299 --> 00:12:05,180
+used to be the to go to
+place to go for knowledge,
+
+272
+00:12:05,180 --> 00:12:07,020
+to go for data, right?
+
+273
+00:12:07,020 --> 00:12:08,500
+And the way to organize this
+
+274
+00:12:08,500 --> 00:12:10,500
+was the library catalog system.
+
+275
+00:12:10,500 --> 00:12:12,820
+Okay? So I'm giving
+you a bit of like
+
+276
+00:12:12,820 --> 00:12:14,420
+a historical walkthrough of
+
+277
+00:12:14,420 --> 00:12:16,180
+data organization
+and data management,
+
+278
+00:12:16,180 --> 00:12:18,139
+but it's important to understand
+
+279
+00:12:18,139 --> 00:12:20,460
+that basically things
+have evolved over time,
+
+280
+00:12:20,460 --> 00:12:23,860
+and there are reasons why
+they have evolved over time.
+
+281
+00:12:24,220 --> 00:12:26,659
+When they tried to organize
+
+282
+00:12:26,659 --> 00:12:29,819
+Internet data using
+the cataloging system,
+
+283
+00:12:29,819 --> 00:12:32,059
+they made a fundamental
+assumption,
+
+284
+00:12:32,059 --> 00:12:34,100
+and that fundamental
+assumption was
+
+285
+00:12:34,100 --> 00:12:37,099
+that it held true
+for the libraries,
+
+286
+00:12:37,099 --> 00:12:38,940
+which actually held
+physical books,
+
+287
+00:12:38,940 --> 00:12:41,020
+physical objects that
+you needed to organize.
+
+288
+00:12:41,020 --> 00:12:43,420
+And because they were
+physical, they were finite.
+
+289
+00:12:43,420 --> 00:12:46,580
+You couldn't scale them in
+an exponential fashion.
+
+290
+00:12:46,580 --> 00:12:48,700
+And therefore, the
+cataloging system
+
+291
+00:12:48,700 --> 00:12:50,300
+was actually
+perfectly reasonable.
+
+292
+00:12:50,300 --> 00:12:51,700
+But as soon as you try to
+
+293
+00:12:51,700 --> 00:12:54,400
+organize data that
+is cyber data,
+
+294
+00:12:54,400 --> 00:12:57,660
+scalability properties of
+cyber data are actually
+
+295
+00:12:57,660 --> 00:12:59,499
+significantly
+different compared to
+
+296
+00:12:59,499 --> 00:13:01,780
+the scalability properties
+of physical data,
+
+297
+00:13:01,780 --> 00:13:03,780
+and therefore, the
+same mechanisms of
+
+298
+00:13:03,780 --> 00:13:07,180
+data organization
+will no longer apply.
+
+299
+00:13:07,180 --> 00:13:09,620
+So you needed something else,
+
+300
+00:13:09,620 --> 00:13:12,380
+you needed some sort of
+semantic search, right?
+
+301
+00:13:12,380 --> 00:13:13,940
+You need a page rank.
+
+302
+00:13:13,940 --> 00:13:15,420
+You needed something, some
+
+303
+00:13:15,420 --> 00:13:17,620
+mechanism that could scale with
+
+304
+00:13:17,620 --> 00:13:19,260
+data with exactly the
+
+305
+00:13:19,260 --> 00:13:22,459
+same superlinear
+exponential fashion.
+
+306
+00:13:22,459 --> 00:13:25,140
+And cataloging the
+hierarchy that they
+
+307
+00:13:25,140 --> 00:13:28,180
+tried to impose in
+the 1998, 1999,
+
+308
+00:13:28,180 --> 00:13:29,659
+right before the y2k,
+
+309
+00:13:29,659 --> 00:13:32,060
+it simply did not
+scale as well as
+
+310
+00:13:32,060 --> 00:13:35,000
+the underlying data that
+they tried to organize.
+
+311
+00:13:35,000 --> 00:13:37,260
+Same thing happened
+with the file system.
+
+312
+00:13:37,260 --> 00:13:39,300
+So it's a bit of a diversion,
+
+313
+00:13:39,300 --> 00:13:40,660
+but I think it's important.
+
+314
+00:13:40,660 --> 00:13:42,940
+So there's a lot of thought that
+
+315
+00:13:42,940 --> 00:13:45,820
+people put in into
+managing the user data,
+
+316
+00:13:45,820 --> 00:13:48,619
+including in the operating
+system file systems
+
+317
+00:13:48,619 --> 00:13:50,460
+in the OS file systems.
+
+318
+00:13:50,460 --> 00:13:53,620
+Now, what else can file
+system do for us, right?
+
+319
+00:13:53,620 --> 00:13:55,659
+What if we have multiple users
+
+320
+00:13:55,659 --> 00:13:58,460
+using the data on
+the disk, right?
+
+321
+00:13:58,460 --> 00:14:00,980
+Is there something
+that we want to
+
+322
+00:14:00,980 --> 00:14:02,660
+do about that as an
+operating system?
+
+323
+00:14:02,660 --> 00:14:04,860
+Should we just allow them
+to read and write to
+
+324
+00:14:04,860 --> 00:14:08,524
+arbitrary locations
+in the file system?
+
+325
+00:14:08,524 --> 00:14:12,150
+The answer to that is no, right?
+
+326
+00:14:12,150 --> 00:14:14,390
+Because bad things would happen.
+
+327
+00:14:14,390 --> 00:14:17,070
+So we need to provide
+mechanisms and
+
+328
+00:14:17,070 --> 00:14:20,159
+policies of multiplexing
+those storage resources.
+
+329
+00:14:20,159 --> 00:14:24,009
+We need to provide them
+with a notion of isolation.
+
+330
+00:14:24,009 --> 00:14:25,610
+Again, the same concept,
+
+331
+00:14:25,610 --> 00:14:27,650
+the same abstraction that we've
+
+332
+00:14:27,650 --> 00:14:29,930
+become dependent on
+in the context of
+
+333
+00:14:29,930 --> 00:14:32,289
+operating systems
+is that when I am
+
+334
+00:14:32,289 --> 00:14:34,970
+using the set of resources
+that are given to me,
+
+335
+00:14:34,970 --> 00:14:36,730
+I would like to
+believe that I'm the
+
+336
+00:14:36,730 --> 00:14:38,570
+only one interacting
+with the system.
+
+337
+00:14:38,570 --> 00:14:41,450
+You know, there should be no
+interference if there are
+
+338
+00:14:41,450 --> 00:14:45,490
+other users in the
+system at the same time.
+
+339
+00:14:45,490 --> 00:14:47,010
+There should be no
+interference when
+
+340
+00:14:47,010 --> 00:14:48,849
+I'm trying to access
+those resources,
+
+341
+00:14:48,849 --> 00:14:50,370
+when I'm trying to when
+
+342
+00:14:50,370 --> 00:14:52,009
+I'm trying to use
+those resources.
+
+343
+00:14:52,009 --> 00:14:54,010
+The resource in question
+is the thing that
+
+344
+00:14:54,010 --> 00:14:57,564
+changes across multiple
+modules in this class.
+
+345
+00:14:57,564 --> 00:15:00,759
+Right? We've covered memory.
+
+346
+00:15:00,759 --> 00:15:02,480
+We talked about isolation and
+
+347
+00:15:02,480 --> 00:15:04,440
+how to achieve isolation, right.
+
+348
+00:15:04,440 --> 00:15:06,320
+What else did we cover
+
+349
+00:15:06,320 --> 00:15:09,480
+where isolation was
+really important?
+
+350
+00:15:16,900 --> 00:15:19,500
+All right? It will
+come back to you.
+
+351
+00:15:19,500 --> 00:15:21,459
+File systems is
+another good example
+
+352
+00:15:21,459 --> 00:15:23,100
+where isolation is
+really important.
+
+353
+00:15:23,100 --> 00:15:24,619
+And as an OS,
+
+354
+00:15:24,619 --> 00:15:26,299
+we want to make OS developer,
+
+355
+00:15:26,299 --> 00:15:29,260
+we want to make sure we provide
+that isolation guarantee
+
+356
+00:15:29,260 --> 00:15:32,220
+to the users using
+storage resources, right?
+
+357
+00:15:32,220 --> 00:15:34,699
+We want to provide
+protection mechanisms.
+
+358
+00:15:34,699 --> 00:15:36,739
+So we talked about
+protection mechanisms
+
+359
+00:15:36,739 --> 00:15:39,219
+again across different
+modules in the system.
+
+360
+00:15:39,219 --> 00:15:41,379
+So I'm trying to kind of
+thread things together.
+
+361
+00:15:41,379 --> 00:15:43,180
+They are not
+independent entities.
+
+362
+00:15:43,180 --> 00:15:44,820
+They are high level
+conceptual things
+
+363
+00:15:44,820 --> 00:15:46,620
+and abstractions that actually
+
+364
+00:15:46,620 --> 00:15:51,139
+permeate the different
+verticals of the kernel,
+
+365
+00:15:51,139 --> 00:15:53,459
+different verticals of
+the operating system.
+
+366
+00:15:53,459 --> 00:15:56,900
+And, of course, data
+management as well.
+
+367
+00:15:56,900 --> 00:16:00,980
+And so overall, let's
+go ahead and sort of
+
+368
+00:16:00,980 --> 00:16:05,340
+replace every single instance
+of the word storage.
+
+369
+00:16:05,340 --> 00:16:06,699
+Since we've established
+
+370
+00:16:06,699 --> 00:16:08,899
+that secondary
+storage is necessary,
+
+371
+00:16:08,899 --> 00:16:10,500
+we can go ahead and
+replace that with
+
+372
+00:16:10,500 --> 00:16:12,620
+the word data because
+it's all about data.
+
+373
+00:16:12,620 --> 00:16:14,100
+It's all about that content.
+
+374
+00:16:14,100 --> 00:16:16,780
+It's all about state,
+to your point, right?
+
+375
+00:16:16,780 --> 00:16:20,260
+That we want to be able to
+persist, manage, access,
+
+376
+00:16:20,260 --> 00:16:26,049
+isolate, protect, and retrieve.
+
+377
+00:16:26,049 --> 00:16:30,039
+Any other verbs? Come on,
+
+378
+00:16:30,039 --> 00:16:33,280
+wake up, people. All right.
+
+379
+00:16:33,280 --> 00:16:36,079
+So I guess to summarize,
+
+380
+00:16:36,079 --> 00:16:38,279
+the operating system
+services that are
+
+381
+00:16:38,279 --> 00:16:40,799
+provided by file
+systems are isolation.
+
+382
+00:16:40,799 --> 00:16:42,080
+It's a very important one.
+
+383
+00:16:42,080 --> 00:16:45,080
+We heard this name so many
+times in this class, right?
+
+384
+00:16:45,080 --> 00:16:47,240
+And please do remember or
+
+385
+00:16:47,240 --> 00:16:49,560
+go back to the
+question that I asked,
+
+386
+00:16:49,560 --> 00:16:53,920
+Where does isolation show up
+and what are the mechanisms
+
+387
+00:16:53,920 --> 00:16:56,039
+that we use in order
+to enact isolation
+
+388
+00:16:56,039 --> 00:16:58,360
+across the different verticals
+of the kernel, right?
+
+389
+00:16:58,360 --> 00:17:00,640
+I could ask you about
+the specific examples
+
+390
+00:17:00,640 --> 00:17:02,154
+where isolation is important.
+
+391
+00:17:02,154 --> 00:17:05,270
+Protection, multiplexing,
+
+392
+00:17:05,270 --> 00:17:08,669
+and multiplexing is so
+
+393
+00:17:08,669 --> 00:17:10,069
+yeah, what about
+protection, right?
+
+394
+00:17:10,069 --> 00:17:12,509
+Protection is a mechanism
+by which access to
+
+395
+00:17:12,509 --> 00:17:16,029
+data is protected at
+some granularity, right?
+
+396
+00:17:16,029 --> 00:17:19,189
+So granularity here
+is, for example,
+
+397
+00:17:19,189 --> 00:17:23,589
+files on the resource side
+and on the user side,
+
+398
+00:17:23,589 --> 00:17:25,949
+it's the users that
+
+399
+00:17:25,949 --> 00:17:28,845
+are trying to consume
+the data from the file.
+
+400
+00:17:28,845 --> 00:17:31,299
+Multiplexing. In this case,
+
+401
+00:17:31,299 --> 00:17:33,940
+it's worth defining
+or characterizing
+
+402
+00:17:33,940 --> 00:17:37,060
+that there are two fundamental
+types of multiplexing.
+
+403
+00:17:37,060 --> 00:17:40,019
+There's space multiplexing,
+which means that
+
+404
+00:17:40,019 --> 00:17:44,219
+the ability to multiplex
+access to the same file,
+
+405
+00:17:44,219 --> 00:17:47,259
+for instance, right,
+and time multiplexing,
+
+406
+00:17:47,259 --> 00:17:48,899
+which means ordering access to
+
+407
+00:17:48,899 --> 00:17:51,139
+a particular resource
+across time.
+
+408
+00:17:51,139 --> 00:17:52,860
+So there's a spatial dimension.
+
+409
+00:17:52,860 --> 00:17:55,780
+For example, if the file
+is a multi gigabyte file,
+
+410
+00:17:55,780 --> 00:17:58,179
+you might be able to
+provide direct access to
+
+411
+00:17:58,179 --> 00:18:01,260
+this file to two
+simultaneous users
+
+412
+00:18:01,260 --> 00:18:03,059
+at precisely the
+same time, right?
+
+413
+00:18:03,059 --> 00:18:05,819
+And that could be allowed,
+
+414
+00:18:05,819 --> 00:18:08,670
+for instance, depending on
+the application properties.
+
+415
+00:18:08,670 --> 00:18:12,199
+Or you are thinking about
+time multiplexing where you
+
+416
+00:18:12,199 --> 00:18:16,039
+really do want to sort of take
+a lock on the file, right,
+
+417
+00:18:16,039 --> 00:18:18,160
+update the contents
+of the file or
+
+418
+00:18:18,160 --> 00:18:20,279
+update the contents
+of the Nde and
+
+419
+00:18:20,279 --> 00:18:22,039
+then unlock that before
+
+420
+00:18:22,039 --> 00:18:23,439
+somebody else is allowed
+
+421
+00:18:23,439 --> 00:18:24,880
+to get into that
+critical section.
+
+422
+00:18:24,880 --> 00:18:27,520
+So that would be
+time multiplexing.
+
+423
+00:18:27,520 --> 00:18:29,479
+So those are the two
+different ways of
+
+424
+00:18:29,479 --> 00:18:32,400
+sort of multiplexing
+access to the file.
+
+425
+00:18:32,400 --> 00:18:34,439
+And by the way, they are
+
+426
+00:18:34,439 --> 00:18:36,520
+analogous for this
+in networking,
+
+427
+00:18:36,520 --> 00:18:39,530
+and this distinction
+is fundamental.
+
+428
+00:18:39,530 --> 00:18:42,219
+Okay. Another thing
+that sort of rarely
+
+429
+00:18:42,219 --> 00:18:44,380
+comes up in the discussion
+of file systems,
+
+430
+00:18:44,380 --> 00:18:48,459
+which is naming, right?
+
+431
+00:18:48,459 --> 00:18:50,899
+We talked about
+these four things
+
+432
+00:18:50,899 --> 00:18:53,260
+actually in the
+context of networking,
+
+433
+00:18:53,260 --> 00:18:55,419
+and naming was one
+of them, right?
+
+434
+00:18:55,419 --> 00:18:57,899
+Because the network protocol
+stack actually gives us
+
+435
+00:18:57,899 --> 00:18:59,259
+the ability to name things at
+
+436
+00:18:59,259 --> 00:19:01,259
+the highest level of
+abstraction, right?
+
+437
+00:19:01,259 --> 00:19:05,059
+And that's a very intuitive,
+well defined interface,
+
+438
+00:19:05,059 --> 00:19:06,939
+user friendly interface that we
+
+439
+00:19:06,939 --> 00:19:09,099
+would like to get on top of
+
+440
+00:19:09,099 --> 00:19:10,819
+something that just sends
+
+441
+00:19:10,819 --> 00:19:14,504
+electrical signals
+on the wire, right?
+
+442
+00:19:14,504 --> 00:19:18,309
+So naming is in the file
+systems is critical, right?
+
+443
+00:19:18,309 --> 00:19:20,149
+Of course, one
+example of naming is
+
+444
+00:19:20,149 --> 00:19:22,469
+files, but more generally,
+
+445
+00:19:22,469 --> 00:19:24,789
+it refers to high level
+abstractions that create
+
+446
+00:19:24,789 --> 00:19:28,229
+a user friendly interface
+in order to access data.
+
+447
+00:19:28,229 --> 00:19:30,510
+So in other questions,
+in other words,
+
+448
+00:19:30,510 --> 00:19:34,149
+the way to think about it
+is what is my interface
+
+449
+00:19:34,149 --> 00:19:38,389
+to data that resides
+on this medium, right?
+
+450
+00:19:38,389 --> 00:19:42,630
+Am I going to access it at
+the granularity of blocks?
+
+451
+00:19:43,030 --> 00:19:45,709
+Does anybody want
+to access your data
+
+452
+00:19:45,709 --> 00:19:47,190
+at the granularity of blocks?
+
+453
+00:19:47,190 --> 00:19:51,149
+Like, say, Hey, I need
+this block number 537 and
+
+454
+00:19:51,149 --> 00:19:55,630
+this block number 1032
+and somehow manage
+
+455
+00:19:55,630 --> 00:19:59,630
+the state in the user space
+associated with which
+
+456
+00:19:59,630 --> 00:20:01,430
+blocks correspond to which
+
+457
+00:20:01,430 --> 00:20:04,470
+application specific data
+structures, for instance.
+
+458
+00:20:04,470 --> 00:20:06,109
+Does anybody want to do that?
+
+459
+00:20:06,109 --> 00:20:07,949
+No, right? You really want
+
+460
+00:20:07,949 --> 00:20:10,404
+an operating system
+to do that for you.
+
+461
+00:20:10,404 --> 00:20:13,179
+And so, by the way,
+
+462
+00:20:13,179 --> 00:20:15,420
+the answer to my earlier
+question about isolation,
+
+463
+00:20:15,420 --> 00:20:18,579
+networking was another one
+that really had that property.
+
+464
+00:20:18,579 --> 00:20:20,540
+And networking was
+another module
+
+465
+00:20:20,540 --> 00:20:21,819
+in this class where we really
+
+466
+00:20:21,819 --> 00:20:23,139
+explored all of
+
+467
+00:20:23,139 --> 00:20:25,340
+these four different
+operating system services,
+
+468
+00:20:25,340 --> 00:20:27,099
+and naming was one of them.
+
+469
+00:20:27,099 --> 00:20:30,020
+Okay, so what is a file system?
+
+470
+00:20:30,020 --> 00:20:33,339
+Wikipedia definition,
+at some point, right?
+
+471
+00:20:33,339 --> 00:20:34,780
+It's a multi version system,
+
+472
+00:20:34,780 --> 00:20:37,499
+so who knows what it says
+right now, but at some point,
+
+473
+00:20:37,499 --> 00:20:40,100
+it said that a file system
+
+474
+00:20:40,100 --> 00:20:43,259
+controls how data is stored
+or retrieved, right?
+
+475
+00:20:43,259 --> 00:20:46,139
+So what we've established
+is that file system
+
+476
+00:20:46,139 --> 00:20:50,619
+in general is an abstraction
+to manage data, right?
+
+477
+00:20:50,619 --> 00:20:53,780
+And just like with everything
+else else in this class,
+
+478
+00:20:53,780 --> 00:20:55,299
+it's sort of not set in stone.
+
+479
+00:20:55,299 --> 00:20:56,899
+It's not necessarily fixed.
+
+480
+00:20:56,899 --> 00:20:59,180
+We can actually play around
+with the abstraction.
+
+481
+00:20:59,180 --> 00:21:00,299
+We can play around with
+
+482
+00:21:00,299 --> 00:21:04,220
+the interfaces that it
+exposes to the user,
+
+483
+00:21:04,220 --> 00:21:06,420
+exposes to the application
+
+484
+00:21:06,420 --> 00:21:09,900
+depending on the underlying
+set of assumptions,
+
+485
+00:21:09,900 --> 00:21:13,100
+which may be explicit and
+may sometimes be implicit,
+
+486
+00:21:13,100 --> 00:21:14,819
+just like that
+example that I told
+
+487
+00:21:14,819 --> 00:21:16,939
+you about Internet
+data management.
+
+488
+00:21:16,939 --> 00:21:18,979
+You know, one of the
+assumptions they
+
+489
+00:21:18,979 --> 00:21:21,740
+made is held true
+for the libraries,
+
+490
+00:21:21,740 --> 00:21:24,339
+did not hold true
+for cyber data.
+
+491
+00:21:25,250 --> 00:21:28,650
+We've established
+that file systems
+
+492
+00:21:28,650 --> 00:21:31,569
+do not have to be tied
+to persistent data.
+
+493
+00:21:32,130 --> 00:21:34,930
+We have FS controls to access
+
+494
+00:21:34,930 --> 00:21:39,330
+the data that is also
+exposed by file systems.
+
+495
+00:21:39,330 --> 00:21:43,969
+It exposes the ability to name
+and organize data, right?
+
+496
+00:21:43,970 --> 00:21:46,929
+It exposes the
+ability to share data
+
+497
+00:21:46,929 --> 00:21:49,969
+between multiple users
+and multiple processes.
+
+498
+00:21:49,969 --> 00:21:51,890
+And data, in fact,
+
+499
+00:21:51,890 --> 00:21:53,289
+can be completely read only.
+
+500
+00:21:53,289 --> 00:21:55,650
+It doesn't have to be mutable.
+
+501
+00:21:56,130 --> 00:21:58,609
+Let's see.
+
+502
+00:21:58,660 --> 00:22:02,220
+And it exposes the properties
+
+503
+00:22:02,220 --> 00:22:05,060
+that we've come to depend
+on for operating systems,
+
+504
+00:22:05,060 --> 00:22:07,300
+including naming
+protection, and isolation.
+
+505
+00:22:07,300 --> 00:22:10,580
+As a matter of fact, the
+file system interface,
+
+506
+00:22:10,580 --> 00:22:13,059
+you know, it was sort
+of invented probably,
+
+507
+00:22:13,059 --> 00:22:15,299
+I don't know, four, maybe
+
+508
+00:22:15,299 --> 00:22:17,980
+five decades ago in
+the context of Unix,
+
+509
+00:22:17,980 --> 00:22:20,259
+and it sort of really
+stood the test of time.
+
+510
+00:22:20,259 --> 00:22:23,139
+It sort of really became
+a useful mechanism
+
+511
+00:22:23,139 --> 00:22:26,900
+for being appropriated
+in other contexts,
+
+512
+00:22:26,900 --> 00:22:29,619
+like, for example,
+accessing devices, right?
+
+513
+00:22:29,619 --> 00:22:32,579
+So, you know, how many of
+you have interacted with
+
+514
+00:22:32,579 --> 00:22:39,559
+serial bus drivers in
+Linux, for instance? Right.
+
+515
+00:22:39,559 --> 00:22:43,400
+How many of you have
+interacted with the camera?
+
+516
+00:22:44,360 --> 00:22:48,760
+And where do you find those
+things being mounted?
+
+517
+00:22:49,320 --> 00:22:52,480
+They're mounted actually
+in the file system
+
+518
+00:22:52,480 --> 00:22:56,040
+on slash dev, at least in Linux.
+
+519
+00:22:56,120 --> 00:22:59,959
+And so what that means
+is that there are
+
+520
+00:22:59,959 --> 00:23:02,399
+some specific peripheral
+devices that you
+
+521
+00:23:02,399 --> 00:23:05,280
+can actually interact
+with using the file IO,
+
+522
+00:23:05,280 --> 00:23:08,999
+and this has nothing to do
+with data management and
+
+523
+00:23:08,999 --> 00:23:11,720
+nothing to do with
+data durability
+
+524
+00:23:11,720 --> 00:23:13,120
+or anything of that nature.
+
+525
+00:23:13,120 --> 00:23:15,840
+You're sort of accessing them
+in a reader only fashion.
+
+526
+00:23:15,840 --> 00:23:17,159
+And it just so happens that
+
+527
+00:23:17,159 --> 00:23:19,280
+the file system interface
+
+528
+00:23:19,280 --> 00:23:21,919
+and the file system abstractions
+
+529
+00:23:21,919 --> 00:23:25,399
+have been so tastefully and so
+
+530
+00:23:25,399 --> 00:23:30,910
+elegantly designed
+that it became Um,
+
+531
+00:23:30,910 --> 00:23:33,869
+it transcended the
+use cases that were
+
+532
+00:23:33,869 --> 00:23:37,749
+originally meant to be covered
+by file systems, right?
+
+533
+00:23:37,749 --> 00:23:39,749
+So, as a matter of fact,
+
+534
+00:23:39,749 --> 00:23:42,550
+the interface that is broadly
+
+535
+00:23:42,550 --> 00:23:45,830
+generalizes to a variety
+of data IO scenarios.
+
+536
+00:23:45,830 --> 00:23:49,909
+So how many of you have
+interacted with ProcfS?
+
+537
+00:23:51,270 --> 00:23:52,709
+Yeah.
+
+538
+00:23:52,709 --> 00:23:57,109
+So ProcfS is a very
+interesting example
+
+539
+00:23:57,109 --> 00:24:00,229
+of using file systems, right,
+
+540
+00:24:00,229 --> 00:24:01,829
+for something that has
+nothing to do with
+
+541
+00:24:01,829 --> 00:24:03,669
+files and has nothing to do
+
+542
+00:24:03,669 --> 00:24:08,109
+with kind of content in your
+common and typical sense.
+
+543
+00:24:08,109 --> 00:24:11,349
+Um, It gives you actually,
+
+544
+00:24:11,349 --> 00:24:13,470
+I think I might have a
+separate slide on all
+
+545
+00:24:13,470 --> 00:24:15,709
+of the things that it
+can enable you to do.
+
+546
+00:24:15,709 --> 00:24:17,829
+But generally
+speaking, it gives you
+
+547
+00:24:17,829 --> 00:24:19,909
+sort of this file
+IO interface to
+
+548
+00:24:19,909 --> 00:24:21,829
+a lot of the control plane data
+
+549
+00:24:21,829 --> 00:24:24,549
+that is exposed by the
+Linux kernel itself.
+
+550
+00:24:24,549 --> 00:24:26,349
+So you can actually
+read a lot of
+
+551
+00:24:26,349 --> 00:24:30,229
+useful state in a read only
+fashion, and in some cases,
+
+552
+00:24:30,229 --> 00:24:32,509
+you can also mutate some of
+
+553
+00:24:32,509 --> 00:24:33,989
+the configuration
+options through
+
+554
+00:24:33,989 --> 00:24:37,669
+ProkofS using file o, right?
+
+555
+00:24:37,680 --> 00:24:39,479
+Okay.
+
+556
+00:24:39,479 --> 00:24:42,640
+So the bottom line is that
+
+557
+00:24:42,640 --> 00:24:45,919
+file systems is an abstraction
+to manage data in general.
+
+558
+00:24:45,919 --> 00:24:48,279
+It is used to export or make
+
+559
+00:24:48,279 --> 00:24:51,319
+accessible the data
+to user space, right?
+
+560
+00:24:51,319 --> 00:24:53,479
+It does that in a very narrow
+
+561
+00:24:53,479 --> 00:24:55,839
+was interface fashion, right?
+
+562
+00:24:55,839 --> 00:24:58,920
+You can recall this
+is Sparta analogy,
+
+563
+00:24:58,920 --> 00:25:00,760
+where in the narrow was fashion
+
+564
+00:25:00,760 --> 00:25:03,280
+actually gives you
+a lot of strength.
+
+565
+00:25:03,280 --> 00:25:05,479
+And the file system is
+
+566
+00:25:05,479 --> 00:25:07,840
+adopted for managing the
+Linux control plane.
+
+567
+00:25:07,840 --> 00:25:09,665
+We talked about Proc AFS.
+
+568
+00:25:09,665 --> 00:25:11,489
+So, as a matter of fact,
+
+569
+00:25:11,489 --> 00:25:13,009
+when I was a PhD student,
+
+570
+00:25:13,009 --> 00:25:16,050
+one of the pet projects we
+did was to sort of hack
+
+571
+00:25:16,050 --> 00:25:19,969
+the Linux port to
+Tyler Til Pro 64,
+
+572
+00:25:19,969 --> 00:25:21,569
+which was supposed to work on
+
+573
+00:25:21,569 --> 00:25:24,010
+a mesh network
+ownership interconnect
+
+574
+00:25:24,010 --> 00:25:26,689
+with an eight by eight
+grid, of course, right?
+
+575
+00:25:26,689 --> 00:25:31,369
+And we wanted to sort of
+make scheduling decisions.
+
+576
+00:25:31,369 --> 00:25:33,290
+We were trying to
+hack on a scheduler
+
+577
+00:25:33,290 --> 00:25:36,729
+that guest for Linux port.
+
+578
+00:25:36,729 --> 00:25:38,609
+And what we wanted to do is we
+
+579
+00:25:38,609 --> 00:25:40,849
+wanted to change
+or rather change
+
+580
+00:25:40,849 --> 00:25:43,569
+the placement of an
+application thread
+
+581
+00:25:43,569 --> 00:25:45,170
+closer to the memory controller,
+
+582
+00:25:45,170 --> 00:25:46,090
+which is being used the most.
+
+583
+00:25:46,090 --> 00:25:48,375
+And there were four memory
+controllers on the peripheral.
+
+584
+00:25:48,375 --> 00:25:52,019
+Um, one in each of the
+four corners, right?
+
+585
+00:25:52,019 --> 00:25:55,139
+And so in order for us to
+make these control decisions,
+
+586
+00:25:55,139 --> 00:25:56,419
+we needed to collect the data.
+
+587
+00:25:56,419 --> 00:25:59,219
+Basically, where are all
+the memory accesses going?
+
+588
+00:25:59,219 --> 00:26:00,940
+Which of the four
+memory controllers.
+
+589
+00:26:00,940 --> 00:26:02,460
+So we would maintain a vector,
+
+590
+00:26:02,460 --> 00:26:05,819
+a four element vector to
+maintain that count, right?
+
+591
+00:26:05,819 --> 00:26:09,179
+And we decided to expose that
+through ProkofS as well.
+
+592
+00:26:09,179 --> 00:26:10,860
+So you can actually overload
+
+593
+00:26:10,860 --> 00:26:13,019
+Proofs for a bunch of
+these interesting things.
+
+594
+00:26:13,019 --> 00:26:14,939
+And then the user
+space application
+
+595
+00:26:14,939 --> 00:26:16,900
+would do its own
+scheduling decisions of
+
+596
+00:26:16,900 --> 00:26:18,219
+the threads based on
+
+597
+00:26:18,219 --> 00:26:19,700
+this four element vector
+
+598
+00:26:19,700 --> 00:26:21,580
+that it would extract
+from ProkofS.
+
+599
+00:26:21,580 --> 00:26:23,700
+So that's one
+concrete way of using
+
+600
+00:26:23,700 --> 00:26:26,470
+file systems for something
+that is not a file.
+
+601
+00:26:26,470 --> 00:26:31,840
+Okay, so we talked
+about file systems.
+
+602
+00:26:31,840 --> 00:26:35,920
+We tried to motivate
+file systems,
+
+603
+00:26:35,920 --> 00:26:38,160
+why they are important,
+why they are useful,
+
+604
+00:26:38,160 --> 00:26:39,600
+what they cover, sort of,
+
+605
+00:26:39,600 --> 00:26:41,439
+what is the scope
+and the generality
+
+606
+00:26:41,439 --> 00:26:42,919
+of file systems in general,
+
+607
+00:26:42,919 --> 00:26:46,719
+the fact that they are very
+elegant and very important.
+
+608
+00:26:46,719 --> 00:26:50,680
+We'll also go and
+talk a bit about API,
+
+609
+00:26:50,680 --> 00:26:52,279
+so the design choices that were
+
+610
+00:26:52,279 --> 00:26:54,280
+made to interact with
+the file system,
+
+611
+00:26:54,280 --> 00:26:56,840
+the disk layout, buffer cache,
+
+612
+00:26:56,840 --> 00:27:01,520
+and if we get to it XV six code.
+
+613
+00:27:01,610 --> 00:27:05,889
+So, okay. I'm not sure
+why this slide is here.
+
+614
+00:27:05,889 --> 00:27:07,610
+Oh, yeah, there are
+some new things here.
+
+615
+00:27:07,610 --> 00:27:10,609
+So the abstractions that disk
+based file systems provide,
+
+616
+00:27:10,609 --> 00:27:11,850
+now we're talking about disk
+
+617
+00:27:11,850 --> 00:27:13,769
+based file systems a little bit
+
+618
+00:27:13,769 --> 00:27:14,929
+more specifically than
+
+619
+00:27:14,929 --> 00:27:17,449
+just file systems
+in general, right?
+
+620
+00:27:17,449 --> 00:27:20,189
+So what do they provide?
+They provide naming,
+
+621
+00:27:20,189 --> 00:27:22,530
+They provide byte
+level interfaces.
+
+622
+00:27:22,530 --> 00:27:26,169
+So remember that
+we really want to
+
+623
+00:27:26,169 --> 00:27:27,889
+bridge the gap between hard to
+
+624
+00:27:27,889 --> 00:27:30,449
+use resources at the
+very bottom, right?
+
+625
+00:27:30,449 --> 00:27:36,529
+And the user and application
+level expectations
+
+626
+00:27:36,529 --> 00:27:40,649
+of convenience and
+simplicity and ease of use.
+
+627
+00:27:40,649 --> 00:27:42,689
+Okay? So at the very bottom,
+
+628
+00:27:42,689 --> 00:27:46,329
+you have these hard to use
+things like, for example,
+
+629
+00:27:46,329 --> 00:27:48,810
+blocks and sectors on
+
+630
+00:27:48,810 --> 00:27:50,850
+a secondary storage,
+and at the very top,
+
+631
+00:27:50,850 --> 00:27:53,409
+you have applications that
+really don't want to concern
+
+632
+00:27:53,409 --> 00:27:54,890
+themselves about the location
+
+633
+00:27:54,890 --> 00:27:56,530
+of those blocks and sectors.
+
+634
+00:27:56,530 --> 00:27:58,809
+They just want to read
+a particular piece
+
+635
+00:27:58,809 --> 00:28:00,769
+of data from a
+secondary storage.
+
+636
+00:28:00,769 --> 00:28:03,209
+They want to be able to
+persist a piece of data to
+
+637
+00:28:03,209 --> 00:28:05,089
+secondary storage without really
+
+638
+00:28:05,089 --> 00:28:07,529
+getting into the details
+of how that's done.
+
+639
+00:28:07,529 --> 00:28:10,929
+So the purpose of the operating
+system FS stack, right,
+
+640
+00:28:10,929 --> 00:28:12,889
+is to actually hide
+the complexity
+
+641
+00:28:12,889 --> 00:28:15,449
+of everything that goes
+into making that happen,
+
+642
+00:28:15,449 --> 00:28:18,929
+of everything that bridges
+this semantic gap that enables
+
+643
+00:28:18,929 --> 00:28:20,770
+the simplicity and ease of
+
+644
+00:28:20,770 --> 00:28:23,185
+use from the application
+perspective.
+
+645
+00:28:23,185 --> 00:28:26,360
+And what do they want? They
+want byte level interfaces,
+
+646
+00:28:26,360 --> 00:28:27,719
+right? What do they want?
+
+647
+00:28:27,719 --> 00:28:30,439
+They want isolation,
+protection and
+
+648
+00:28:30,439 --> 00:28:33,759
+mechanisms to make sure that
+the state is not corrupt,
+
+649
+00:28:33,759 --> 00:28:39,279
+to make sure that there's no
+basically leakage of state,
+
+650
+00:28:39,279 --> 00:28:42,839
+and there's no unauthorized
+access to state, right?
+
+651
+00:28:42,839 --> 00:28:45,639
+Other things that are
+being enabled here by
+
+652
+00:28:45,639 --> 00:28:48,000
+the disk based file
+system is locking.
+
+653
+00:28:48,000 --> 00:28:51,360
+So we basically have
+the ability to lock,
+
+654
+00:28:51,520 --> 00:28:54,199
+take a lock on a file while
+
+655
+00:28:54,199 --> 00:28:56,200
+we're updating the
+contents of the file,
+
+656
+00:28:56,200 --> 00:28:58,480
+and then release
+that lock when we're
+
+657
+00:28:58,480 --> 00:29:01,040
+done updating or
+reading from the file.
+
+658
+00:29:01,040 --> 00:29:05,080
+Right? And another thing
+here is multiplexing.
+
+659
+00:29:05,080 --> 00:29:07,240
+We touched upon
+this a few times.
+
+660
+00:29:07,240 --> 00:29:09,039
+In this particular
+case, you can think of
+
+661
+00:29:09,039 --> 00:29:12,360
+a resource as a single
+disk with many files,
+
+662
+00:29:12,360 --> 00:29:18,000
+and multiplexing sort of
+takes care of coordinating
+
+663
+00:29:18,000 --> 00:29:21,919
+the simultaneous access from
+
+664
+00:29:21,919 --> 00:29:24,199
+users and applications to
+
+665
+00:29:24,199 --> 00:29:27,959
+the multiple locations
+on this scarce resource,
+
+666
+00:29:27,959 --> 00:29:31,279
+which is, in this
+particular case, a disk.
+
+667
+00:29:31,360 --> 00:29:34,399
+Any questions so far?
+
+668
+00:29:36,860 --> 00:29:40,539
+In some cases, we want to be
+able to share data, right?
+
+669
+00:29:40,539 --> 00:29:42,580
+So let's say we created a file,
+
+670
+00:29:42,580 --> 00:29:44,140
+Alice created a file,
+
+671
+00:29:44,140 --> 00:29:47,099
+and she wants to share
+it with Bob, right?
+
+672
+00:29:47,660 --> 00:29:54,500
+We want to rely on the operating
+system file system, FS,
+
+673
+00:29:54,500 --> 00:29:58,779
+to actually give us the
+capability, just very,
+
+674
+00:29:58,779 --> 00:30:00,899
+very abstractly, give
+us the capability
+
+675
+00:30:00,899 --> 00:30:03,780
+to sort of share content
+between the different users.
+
+676
+00:30:03,780 --> 00:30:05,220
+So from one perspective,
+
+677
+00:30:05,220 --> 00:30:06,860
+we do want to ensure isolation,
+
+678
+00:30:06,860 --> 00:30:09,460
+but we also don't want
+to completely prevent
+
+679
+00:30:09,460 --> 00:30:11,859
+the sharing from happening
+
+680
+00:30:11,859 --> 00:30:14,779
+in the cases where
+it does make sense.
+
+681
+00:30:20,620 --> 00:30:22,699
+Okay.
+
+682
+00:30:30,300 --> 00:30:33,859
+Yeah, I sort of I did a lot
+of the thinking for you.
+
+683
+00:30:33,859 --> 00:30:36,220
+Normally, I would ask as
+a question, you know,
+
+684
+00:30:36,220 --> 00:30:37,900
+which you would find
+more intuitive,
+
+685
+00:30:37,900 --> 00:30:40,860
+reading the sectors or reading
+blocks or reading bytes.
+
+686
+00:30:40,860 --> 00:30:42,700
+And we've already covered that
+
+687
+00:30:42,700 --> 00:30:44,459
+the byte level
+interface is what we
+
+688
+00:30:44,459 --> 00:30:46,819
+really want because
+it allows us to read,
+
+689
+00:30:46,819 --> 00:30:50,700
+seek, and write a stream of
+bytes that byte granularity.
+
+690
+00:30:50,700 --> 00:30:52,059
+So you can see how
+
+691
+00:30:52,059 --> 00:30:54,019
+these abstractions
+actually help us create
+
+692
+00:30:54,019 --> 00:30:56,460
+useful interfaces
+for the consumers
+
+693
+00:30:56,460 --> 00:30:58,539
+of some systems functionality.
+
+694
+00:30:58,539 --> 00:31:01,939
+The file systems enable
+protection and isolation.
+
+695
+00:31:01,939 --> 00:31:04,419
+It's very important
+because it's required for
+
+696
+00:31:04,419 --> 00:31:07,780
+systems that are a
+priori multi tenant,
+
+697
+00:31:07,780 --> 00:31:09,580
+and it's a primary operating
+
+698
+00:31:09,580 --> 00:31:11,739
+system function
+that we discussed.
+
+699
+00:31:11,739 --> 00:31:14,299
+We enable synchronizing
+
+700
+00:31:14,299 --> 00:31:16,860
+potentially conflicting
+accesses to the same file.
+
+701
+00:31:16,860 --> 00:31:20,019
+And in terms of
+multiplexing here,
+
+702
+00:31:20,019 --> 00:31:22,379
+as I mentioned, we
+have one disk and
+
+703
+00:31:22,379 --> 00:31:25,499
+many distinct files on
+this shared device.
+
+704
+00:31:26,260 --> 00:31:28,619
+And here, it's, again,
+
+705
+00:31:28,619 --> 00:31:31,459
+important to talk
+about granularity.
+
+706
+00:31:31,459 --> 00:31:35,420
+And also, as we
+provide isolation,
+
+707
+00:31:35,420 --> 00:31:36,419
+we want to make sure that we
+
+708
+00:31:36,419 --> 00:31:38,260
+enable data sharing to happen.
+
+709
+00:31:38,260 --> 00:31:43,180
+And one example of using file
+systems is actually pipes,
+
+710
+00:31:43,180 --> 00:31:45,180
+right, for interprocess
+communication.
+
+711
+00:31:45,180 --> 00:31:46,699
+So I believe you've used
+
+712
+00:31:46,699 --> 00:31:48,739
+pipes in the context
+of Lab three,
+
+713
+00:31:48,739 --> 00:31:50,860
+and it's also a very
+important kind of
+
+714
+00:31:50,860 --> 00:31:53,419
+property or interface
+that the file system
+
+715
+00:31:53,419 --> 00:31:56,099
+enables that can be
+used for something
+
+716
+00:31:56,099 --> 00:31:59,259
+other than storing
+things on disk.
+
+717
+00:31:59,259 --> 00:32:00,899
+In this particular
+case, it allows
+
+718
+00:32:00,899 --> 00:32:03,179
+processes to share
+data between them.
+
+719
+00:32:03,179 --> 00:32:06,739
+And sockets is another
+kind of interface.
+
+720
+00:32:06,739 --> 00:32:10,859
+Where you provide the same
+file access interface
+
+721
+00:32:10,859 --> 00:32:13,670
+as in cases.
+
+722
+00:32:15,190 --> 00:32:18,550
+The byte level
+interface is a facade.
+
+723
+00:32:18,550 --> 00:32:19,949
+It's a translation of
+
+724
+00:32:19,949 --> 00:32:23,030
+low level denative to
+process native interfaces.
+
+725
+00:32:23,030 --> 00:32:24,989
+It helps us hide complexity.
+
+726
+00:32:24,989 --> 00:32:26,989
+It also hides various things
+
+727
+00:32:26,989 --> 00:32:28,469
+that we really don't
+want to think about,
+
+728
+00:32:28,469 --> 00:32:31,589
+which is heterogeneity of
+
+729
+00:32:31,589 --> 00:32:35,629
+storage devices and device
+drivers for that matter.
+
+730
+00:32:35,629 --> 00:32:38,429
+We also want to
+depend on this for
+
+731
+00:32:38,429 --> 00:32:41,394
+device availability and
+failure in general.
+
+732
+00:32:41,394 --> 00:32:45,000
+It gives us the option
+of hiding the topology.
+
+733
+00:32:45,000 --> 00:32:46,999
+For example, you don't
+necessarily have to
+
+734
+00:32:46,999 --> 00:32:49,759
+worry about whether or not
+something is local or remote.
+
+735
+00:32:49,759 --> 00:32:52,200
+And as a matter of
+fact, some file systems
+
+736
+00:32:52,200 --> 00:32:54,319
+can be intermittently
+unavailable, right?
+
+737
+00:32:54,319 --> 00:32:57,360
+So network mounted file
+systems, for instance,
+
+738
+00:32:57,360 --> 00:32:59,080
+there's a possibility that
+
+739
+00:32:59,080 --> 00:33:01,199
+depending on the
+granularity of time,
+
+740
+00:33:01,199 --> 00:33:02,839
+you know, there's
+a possibility that
+
+741
+00:33:02,839 --> 00:33:05,239
+the remote file system
+is not available, right?
+
+742
+00:33:05,239 --> 00:33:07,159
+And so if you do nothing,
+
+743
+00:33:07,159 --> 00:33:10,519
+if you don't have any
+sort of painure recovery
+
+744
+00:33:10,519 --> 00:33:14,719
+or unavailability handling
+mechanisms in your OSFS,
+
+745
+00:33:14,719 --> 00:33:16,639
+then your access to
+
+746
+00:33:16,639 --> 00:33:18,480
+files is going to be
+extremely brittle.
+
+747
+00:33:18,480 --> 00:33:22,059
+It will fail all the time. So it
+
+748
+00:33:22,059 --> 00:33:23,699
+file systems also have
+
+749
+00:33:23,699 --> 00:33:25,699
+some mechanisms for
+us to deal with this.
+
+750
+00:33:25,699 --> 00:33:29,539
+In other words, when
+dealing with file systems,
+
+751
+00:33:29,539 --> 00:33:31,979
+we really want to get the
+look and feel of memory.
+
+752
+00:33:31,979 --> 00:33:33,419
+You know, just like
+you're reading and
+
+753
+00:33:33,419 --> 00:33:35,339
+writing to and from
+memory, right,
+
+754
+00:33:35,339 --> 00:33:37,939
+you want to be able
+to interact with
+
+755
+00:33:37,939 --> 00:33:40,419
+the content in the file system
+
+756
+00:33:40,419 --> 00:33:43,059
+in the same kind
+of easy fashion.
+
+757
+00:33:45,760 --> 00:33:47,839
+Okay.
+
+758
+00:33:48,800 --> 00:33:51,799
+We discussed this, right?
+
+759
+00:33:51,799 --> 00:33:54,039
+This is just a reminder slide.
+
+760
+00:33:54,039 --> 00:33:57,319
+And the reason why this
+works is because, you know,
+
+761
+00:33:57,319 --> 00:34:02,640
+FSIO interface sort of
+became a time tested
+
+762
+00:34:02,640 --> 00:34:08,704
+intuitive interface for a
+general set of use cases.
+
+763
+00:34:08,704 --> 00:34:13,569
+Okay. Here's another set
+
+764
+00:34:13,569 --> 00:34:15,289
+of things that you
+can sort of extract
+
+765
+00:34:15,289 --> 00:34:17,369
+using the file system interface.
+
+766
+00:34:17,369 --> 00:34:19,369
+There's information
+about pumsomes,
+
+767
+00:34:19,369 --> 00:34:21,569
+information about PCI devices,
+
+768
+00:34:21,569 --> 00:34:24,009
+which can be useful, right?
+
+769
+00:34:24,009 --> 00:34:25,689
+You can actually
+control things like,
+
+770
+00:34:25,689 --> 00:34:28,809
+for example, huge page allocation
+in an operating system.
+
+771
+00:34:28,809 --> 00:34:32,010
+You can get information
+about open file descriptors.
+
+772
+00:34:32,010 --> 00:34:34,369
+For instance, LSOF is
+
+773
+00:34:34,369 --> 00:34:38,449
+a command line
+interface command line,
+
+774
+00:34:39,610 --> 00:34:44,729
+So, it's a command that
+you can run that will
+
+775
+00:34:44,729 --> 00:34:46,729
+give you access to
+the information about
+
+776
+00:34:46,729 --> 00:34:49,649
+open file descriptors
+for a specified process.
+
+777
+00:34:49,649 --> 00:34:51,849
+So the takeaway is
+that file system
+
+778
+00:34:51,849 --> 00:34:54,729
+is a lot more than just
+persistent storage.
+
+779
+00:34:54,729 --> 00:34:59,369
+Okay. And so let's take
+a look at this, right?
+
+780
+00:34:59,369 --> 00:35:01,530
+Let's take a look at
+the storage trends,
+
+781
+00:35:01,530 --> 00:35:02,689
+which are quite interesting.
+
+782
+00:35:02,689 --> 00:35:05,450
+So on this graph,
+horizontally, you have cost.
+
+783
+00:35:05,450 --> 00:35:06,729
+So going left to right,
+
+784
+00:35:06,729 --> 00:35:09,449
+you have increase in the
+dollars per gigabyte,
+
+785
+00:35:09,449 --> 00:35:11,329
+and going top to bottom, you
+
+786
+00:35:11,329 --> 00:35:14,269
+have increase in
+throughput, right?
+
+787
+00:35:14,269 --> 00:35:16,449
+You have increase in throughput.
+
+788
+00:35:16,449 --> 00:35:19,530
+And so tape is known
+to be extremely cheap,
+
+789
+00:35:19,530 --> 00:35:21,809
+in terms of dollars
+per gigabyte.
+
+790
+00:35:21,809 --> 00:35:23,450
+And this is why we
+still use tape,
+
+791
+00:35:23,450 --> 00:35:25,370
+even though we have
+much better technology.
+
+792
+00:35:25,370 --> 00:35:28,489
+There are reasons for every
+single one of these points.
+
+793
+00:35:28,489 --> 00:35:32,249
+And we already talked
+about why, for example,
+
+794
+00:35:32,249 --> 00:35:37,249
+some other point in this trade
+off space cannot be said
+
+795
+00:35:37,249 --> 00:35:39,130
+to be better or worse
+
+796
+00:35:39,130 --> 00:35:42,214
+than this point in this
+trade off space, right?
+
+797
+00:35:42,214 --> 00:35:43,899
+And we're going to get
+to that. We're going to
+
+798
+00:35:43,899 --> 00:35:46,099
+conceptualize this on
+the subsequent slide.
+
+799
+00:35:46,099 --> 00:35:48,619
+But what I want to draw
+your attention to on
+
+800
+00:35:48,619 --> 00:35:49,979
+this slide is that you have
+
+801
+00:35:49,979 --> 00:35:52,459
+tape and hard disk drives here,
+
+802
+00:35:52,459 --> 00:35:54,419
+right, which are
+relatively low cost,
+
+803
+00:35:54,419 --> 00:35:55,739
+but also low throughput.
+
+804
+00:35:55,739 --> 00:35:57,579
+And then there's a jump, right?
+
+805
+00:35:57,579 --> 00:35:59,339
+And you have DRAM,
+
+806
+00:35:59,339 --> 00:36:01,019
+which is very expensive,
+
+807
+00:36:01,019 --> 00:36:02,379
+but, of course, gives you
+
+808
+00:36:02,379 --> 00:36:04,979
+much higher throughput
+in megabytes per second.
+
+809
+00:36:04,979 --> 00:36:07,499
+And then you have
+CPU SRAM cache,
+
+810
+00:36:07,499 --> 00:36:09,139
+which is even more expensive,
+
+811
+00:36:09,139 --> 00:36:12,019
+and it does provide you with
+much higher throughput.
+
+812
+00:36:12,019 --> 00:36:15,019
+So where do you want to be
+in this trade off space?
+
+813
+00:36:21,420 --> 00:36:25,500
+Yes. If you draw a linear
+line across the points,
+
+814
+00:36:25,500 --> 00:36:27,339
+do you want to be on
+the upper side of
+
+815
+00:36:27,339 --> 00:36:29,459
+that line where the
+throughput is high,
+
+816
+00:36:29,459 --> 00:36:31,059
+but the cost is relatively low.
+
+817
+00:36:31,059 --> 00:36:33,499
+Right. E you get
+
+818
+00:36:33,499 --> 00:36:36,140
+into the habit of thinking
+about everything in systems
+
+819
+00:36:36,140 --> 00:36:38,859
+as a trade off
+because if I were to
+
+820
+00:36:38,859 --> 00:36:42,259
+ask you on the exam,
+which is better?
+
+821
+00:36:42,259 --> 00:36:43,939
+It's a trick question,
+
+822
+00:36:43,939 --> 00:36:45,819
+so I probably won't ask, right?
+
+823
+00:36:45,819 --> 00:36:48,780
+But which is better? DirMo tape?
+
+824
+00:36:51,460 --> 00:36:53,419
+Yes.
+
+825
+00:36:53,419 --> 00:36:55,819
+It depends, right?
+You cannot say
+
+826
+00:36:55,819 --> 00:36:58,419
+that one is strictly
+better than the other.
+
+827
+00:36:58,740 --> 00:37:03,939
+Yes. Like, where
+does SSD, fall this?
+
+828
+00:37:05,350 --> 00:37:10,950
+There. So because of
+this increasing gap,
+
+829
+00:37:11,110 --> 00:37:13,869
+that's a great question,
+and thank you for that.
+
+830
+00:37:13,869 --> 00:37:15,909
+Because of this is
+how you actually come
+
+831
+00:37:15,909 --> 00:37:18,109
+up with new stuff
+in the industry.
+
+832
+00:37:18,109 --> 00:37:21,549
+You start looking at trends
+and the way that they sort
+
+833
+00:37:21,549 --> 00:37:23,149
+of map in a particular trade off
+
+834
+00:37:23,149 --> 00:37:25,030
+space of interest
+to your customers.
+
+835
+00:37:25,030 --> 00:37:26,509
+What do customers care about?
+
+836
+00:37:26,509 --> 00:37:29,230
+They care about throughput
+as a success metric,
+
+837
+00:37:29,230 --> 00:37:31,989
+they care about, you know,
+out of pocket cost, right?
+
+838
+00:37:31,989 --> 00:37:34,469
+And so you start
+seeing these kind of
+
+839
+00:37:34,469 --> 00:37:36,229
+increasing separation
+between some
+
+840
+00:37:36,229 --> 00:37:38,229
+of the points that you provide,
+
+841
+00:37:38,229 --> 00:37:41,909
+let's say, as a
+manufacturer, right?
+
+842
+00:37:41,909 --> 00:37:45,189
+And if there's an increasing
+gap, this is an opportunity.
+
+843
+00:37:45,189 --> 00:37:46,829
+And rest assured that
+
+844
+00:37:46,829 --> 00:37:48,069
+your competitors will also
+
+845
+00:37:48,069 --> 00:37:49,309
+be thinking about
+that opportunity.
+
+846
+00:37:49,309 --> 00:37:52,269
+And so you start thinking
+about how do you develop
+
+847
+00:37:52,269 --> 00:37:55,430
+a product that will
+actually fit into that gap.
+
+848
+00:37:55,430 --> 00:37:57,189
+And so somebody did that, right?
+
+849
+00:37:57,189 --> 00:38:00,069
+And they came up
+with NVMs, right?
+
+850
+00:38:00,069 --> 00:38:03,149
+And we're going to
+get to that in a bit.
+
+851
+00:38:03,149 --> 00:38:07,950
+So here's a conceptualization
+of the trade off spaces,
+
+852
+00:38:07,950 --> 00:38:11,359
+and this is just a reminder
+that we did talk about
+
+853
+00:38:11,359 --> 00:38:13,160
+it in the past in the context
+
+854
+00:38:13,160 --> 00:38:15,079
+of security, for
+instance, right?
+
+855
+00:38:15,079 --> 00:38:18,280
+Because different kind of
+security design choices,
+
+856
+00:38:18,280 --> 00:38:21,119
+they also span this trade
+off space where one of
+
+857
+00:38:21,119 --> 00:38:24,759
+the axes is how usable or
+easy to use the thing is,
+
+858
+00:38:24,759 --> 00:38:26,480
+and the other, the Y axis
+
+859
+00:38:26,480 --> 00:38:28,240
+here is how much
+safety it provides.
+
+860
+00:38:28,240 --> 00:38:31,040
+And we want maximum usability
+and maximum safety,
+
+861
+00:38:31,040 --> 00:38:32,519
+so we actually want to be in
+
+862
+00:38:32,519 --> 00:38:34,239
+the top right hand
+corner, right?
+
+863
+00:38:34,239 --> 00:38:35,999
+In this particular case,
+
+864
+00:38:35,999 --> 00:38:37,519
+the trade off space
+is different.
+
+865
+00:38:37,519 --> 00:38:39,279
+On the x axis, you have cost,
+
+866
+00:38:39,279 --> 00:38:41,120
+on the Y axis you
+have throughput,
+
+867
+00:38:41,120 --> 00:38:42,839
+and I already asked you
+this question, right?
+
+868
+00:38:42,839 --> 00:38:44,919
+Where do you want to be?
+
+869
+00:38:45,220 --> 00:38:49,739
+So yeah, where do
+you want to be?
+
+870
+00:38:49,739 --> 00:38:51,379
+It's a very simple
+question. Yeah.
+
+871
+00:38:51,379 --> 00:38:54,059
+Like the feasible frontier line
+
+872
+00:38:54,059 --> 00:38:56,179
+that represents the
+best you can get.
+
+873
+00:38:56,179 --> 00:38:57,979
+Now, let's say I
+give you an option
+
+874
+00:38:57,979 --> 00:38:59,099
+of just drawing one point.
+
+875
+00:38:59,099 --> 00:39:00,779
+Where do you want
+to draw that point?
+
+876
+00:39:00,779 --> 00:39:04,809
+Yeah. Top left, right? This
+is where you want to be.
+
+877
+00:39:04,809 --> 00:39:06,519
+Everyone agrees with me?
+
+878
+00:39:06,519 --> 00:39:09,520
+Yeah, maximum throughput,
+minimum cost.
+
+879
+00:39:09,520 --> 00:39:11,759
+And I'll take that
+a step further,
+
+880
+00:39:11,759 --> 00:39:13,599
+at the expense of, you know,
+
+881
+00:39:13,599 --> 00:39:15,919
+spending some lecture
+time on this.
+
+882
+00:39:15,919 --> 00:39:17,479
+The best research in
+
+883
+00:39:17,479 --> 00:39:19,960
+systems collapses this
+trade off spaces.
+
+884
+00:39:19,960 --> 00:39:21,119
+Like, if you can come up with
+
+885
+00:39:21,119 --> 00:39:23,199
+a mechanism that basically gives
+
+886
+00:39:23,199 --> 00:39:26,680
+you maximum Y axis
+with zero x axis,
+
+887
+00:39:26,680 --> 00:39:28,679
+you have collapsed the
+entire trade off space.
+
+888
+00:39:28,679 --> 00:39:30,600
+You wipe out all of
+your competition.
+
+889
+00:39:30,600 --> 00:39:33,120
+You have solved the problem,
+you have closed the chapter.
+
+890
+00:39:33,120 --> 00:39:36,839
+You can publish this. Okay?
+So this is how it's done.
+
+891
+00:39:36,839 --> 00:39:38,679
+And this is a way to sort of
+
+892
+00:39:38,679 --> 00:39:40,639
+conceptualize how
+research is done in
+
+893
+00:39:40,639 --> 00:39:43,199
+systems from the perspective of
+
+894
+00:39:43,199 --> 00:39:46,119
+looking at various
+kind of options and
+
+895
+00:39:46,119 --> 00:39:49,719
+various state of the art
+solutions to a problem
+
+896
+00:39:49,719 --> 00:39:55,245
+from the perspective of
+rate of space they induce.
+
+897
+00:39:55,245 --> 00:39:58,369
+And this is, of course,
+bad design, right?
+
+898
+00:39:58,369 --> 00:40:01,330
+And the reality is usually
+somewhere in the middle.
+
+899
+00:40:01,330 --> 00:40:03,409
+And generally speaking,
+you will come up
+
+900
+00:40:03,409 --> 00:40:05,529
+with a whole bunch of points
+in this trade off space,
+
+901
+00:40:05,529 --> 00:40:08,689
+and what you care about is
+a parato frontier, right?
+
+902
+00:40:08,689 --> 00:40:12,489
+A pata frontier is such
+that you get maximum Y,
+
+903
+00:40:12,489 --> 00:40:14,889
+even an X constraint.
+
+904
+00:40:14,889 --> 00:40:18,010
+So maximum throughput
+given some cost budget.
+
+905
+00:40:18,010 --> 00:40:20,529
+And conversely, you can try
+
+906
+00:40:20,529 --> 00:40:23,129
+to minimize cost given some
+throughput constraints.
+
+907
+00:40:23,129 --> 00:40:24,890
+So if a customer comes
+to you and says,
+
+908
+00:40:24,890 --> 00:40:26,129
+I need my application to
+
+909
+00:40:26,129 --> 00:40:28,530
+be whatever at such
+and such throughput.
+
+910
+00:40:28,530 --> 00:40:29,649
+This is my threshold.
+
+911
+00:40:29,649 --> 00:40:31,489
+You want to figure
+out the point in
+
+912
+00:40:31,489 --> 00:40:32,969
+the straight off
+space that gives
+
+913
+00:40:32,969 --> 00:40:34,849
+you the minimum cost
+solution to that.
+
+914
+00:40:34,849 --> 00:40:37,849
+So the combination of
+those two constraints
+
+915
+00:40:37,849 --> 00:40:39,650
+will actually give
+you a pareto frontier
+
+916
+00:40:39,650 --> 00:40:41,329
+that spans the
+straight off space.
+
+917
+00:40:41,329 --> 00:40:44,329
+And this is what
+this looks like.
+
+918
+00:40:44,329 --> 00:40:48,199
+Okay? Um, okay.
+
+919
+00:40:48,199 --> 00:40:50,919
+So somebody asked about SSDs.
+
+920
+00:40:50,919 --> 00:40:52,919
+Do SSDs solve the
+problem, right?
+
+921
+00:40:52,919 --> 00:40:58,319
+So, here are some useful
+benchmarks that someone ran
+
+922
+00:40:58,319 --> 00:41:00,520
+at some point in time
+that was comparing
+
+923
+00:41:00,520 --> 00:41:04,079
+SSDs to basically
+RM disk, right?
+
+924
+00:41:04,079 --> 00:41:05,920
+And in some cases, it depends.
+
+925
+00:41:05,920 --> 00:41:08,200
+In some cases, the
+applications are such
+
+926
+00:41:08,200 --> 00:41:11,400
+that it can easily
+match the performance,
+
+927
+00:41:11,400 --> 00:41:13,400
+so it's very close in
+matching the performance.
+
+928
+00:41:13,400 --> 00:41:15,639
+But in most of the cases,
+like, for example,
+
+929
+00:41:15,639 --> 00:41:19,159
+for a sequential 256 kilobyte
+
+930
+00:41:19,159 --> 00:41:22,719
+write or even random
+256 kilobyte write,
+
+931
+00:41:22,719 --> 00:41:27,399
+it doesn't match the performance
+of a RM disk, right?
+
+932
+00:41:27,870 --> 00:41:30,989
+So but there are some
+specific scenarios,
+
+933
+00:41:30,989 --> 00:41:33,029
+like, for example, a
+random four K write.
+
+934
+00:41:33,029 --> 00:41:34,830
+So it's much better at writing
+
+935
+00:41:34,830 --> 00:41:40,629
+finer granularity data where
+
+936
+00:41:40,629 --> 00:41:43,149
+there's no benefit from
+
+937
+00:41:43,149 --> 00:41:46,350
+a sequential and
+temporal locality.
+
+938
+00:41:46,980 --> 00:41:52,780
+So high speed storage in
+NVM is approaching RAM,
+
+939
+00:41:52,780 --> 00:41:54,619
+but it is very expensive, right?
+
+940
+00:41:54,619 --> 00:41:56,539
+So high performance
+data recorders
+
+941
+00:41:56,539 --> 00:41:58,020
+can approach RAM speeds.
+
+942
+00:41:58,020 --> 00:41:59,899
+For example, you know,
+there are options out
+
+943
+00:41:59,899 --> 00:42:02,700
+there that will give you
+2.5 gigabytes/second.
+
+944
+00:42:02,700 --> 00:42:05,660
+They are, however, far
+more expensive than DRAM.
+
+945
+00:42:05,660 --> 00:42:07,139
+And so you end up
+with something that
+
+946
+00:42:07,139 --> 00:42:10,859
+approaches DRAM in throughput,
+
+947
+00:42:10,859 --> 00:42:13,019
+right, but it's far
+more expensive in DRAM.
+
+948
+00:42:13,019 --> 00:42:15,219
+And so, okay, you
+go back to here,
+
+949
+00:42:15,219 --> 00:42:16,579
+and you ask yourself, do I
+
+950
+00:42:16,579 --> 00:42:18,274
+really want that
+solution, right?
+
+951
+00:42:18,274 --> 00:42:20,369
+Because this is your DRAM,
+
+952
+00:42:20,369 --> 00:42:24,529
+which gives you high cost
+and high throughput,
+
+953
+00:42:24,529 --> 00:42:26,849
+and you get something that
+is equal throughput and
+
+954
+00:42:26,849 --> 00:42:29,969
+even higher cost from
+something right here,
+
+955
+00:42:29,969 --> 00:42:33,010
+same throughput and
+even higher cost.
+
+956
+00:42:37,560 --> 00:42:39,959
+So it's not strictly better,
+
+957
+00:42:39,959 --> 00:42:41,360
+it's not strictly worse.
+
+958
+00:42:41,360 --> 00:42:43,000
+It just depends on
+what the application
+
+959
+00:42:43,000 --> 00:42:45,599
+cares about, right?
+
+960
+00:42:45,599 --> 00:42:48,039
+So for example, in applications
+
+961
+00:42:48,039 --> 00:42:51,240
+where reliable persistent
+storage is required,
+
+962
+00:42:51,240 --> 00:42:53,839
+such as real time sensors or
+
+963
+00:42:53,839 --> 00:42:58,239
+radar technology or imagery,
+data recording, right?
+
+964
+00:42:58,239 --> 00:42:59,879
+This is where you would see
+
+965
+00:42:59,879 --> 00:43:03,960
+non volatile storage
+actually being useful.
+
+966
+00:43:04,260 --> 00:43:07,780
+So what makes file
+system interesting,
+
+967
+00:43:07,780 --> 00:43:09,619
+the challenges we're going to be
+
+968
+00:43:09,619 --> 00:43:12,180
+collectively thinking
+about is crash recovery,
+
+969
+00:43:12,180 --> 00:43:14,459
+which is a very, very
+interesting kind of from
+
+970
+00:43:14,459 --> 00:43:17,099
+the theoretical
+standpoint question that
+
+971
+00:43:17,099 --> 00:43:18,339
+we'll sort of uncover over
+
+972
+00:43:18,339 --> 00:43:20,699
+the next three
+lectures, performance.
+
+973
+00:43:20,699 --> 00:43:22,820
+And in order to
+achieve performance,
+
+974
+00:43:22,820 --> 00:43:24,859
+there are various tricks
+that we can easily do.
+
+975
+00:43:24,859 --> 00:43:26,419
+A lot of low hanging fruit like
+
+976
+00:43:26,419 --> 00:43:28,420
+separation of control
+and data plane.
+
+977
+00:43:28,420 --> 00:43:32,219
+API design for sharing,
+security, basically,
+
+978
+00:43:32,219 --> 00:43:34,499
+when you have multi process
+access to file system,
+
+979
+00:43:34,499 --> 00:43:36,859
+multi user access to
+file systems, right?
+
+980
+00:43:36,859 --> 00:43:38,179
+How do you enable that?
+
+981
+00:43:38,179 --> 00:43:39,819
+What are the
+mechanisms for this?
+
+982
+00:43:39,819 --> 00:43:41,419
+And I believe some of that
+
+983
+00:43:41,419 --> 00:43:43,339
+is actually going to be
+part of your lab four.
+
+984
+00:43:43,339 --> 00:43:47,019
+You know, to implement security
+of file system access.
+
+985
+00:43:47,019 --> 00:43:49,980
+And also the
+abstractions are useful,
+
+986
+00:43:49,980 --> 00:43:52,219
+like pipes. It's an abstraction.
+
+987
+00:43:52,219 --> 00:43:54,700
+We've come to take
+that for granted,
+
+988
+00:43:54,700 --> 00:43:56,059
+right? But somebody
+created that.
+
+989
+00:43:56,059 --> 00:44:00,099
+So invented that. Devices,
+PcofeS and Andro file system.
+
+990
+00:44:00,099 --> 00:44:01,739
+And I don't have time
+to talk about how
+
+991
+00:44:01,739 --> 00:44:03,779
+cool the Andro file system is,
+
+992
+00:44:03,779 --> 00:44:06,859
+but this is one example
+where someone sat down and
+
+993
+00:44:06,859 --> 00:44:10,240
+said that The state of
+the art file systems
+
+994
+00:44:10,240 --> 00:44:13,999
+are taking a very
+important assumption
+
+995
+00:44:13,999 --> 00:44:16,679
+that the disk or
+
+996
+00:44:16,679 --> 00:44:18,039
+the medium with which
+
+997
+00:44:18,039 --> 00:44:20,119
+we're interacting is
+always available.
+
+998
+00:44:20,119 --> 00:44:22,119
+What if this is not true, right?
+
+999
+00:44:22,119 --> 00:44:24,039
+How would we design
+a file system,
+
+1000
+00:44:24,039 --> 00:44:26,119
+assuming that this is
+actually not true?
+
+1001
+00:44:26,119 --> 00:44:28,670
+And that's how Andrew
+File system was born.
+
+1002
+00:44:28,670 --> 00:44:31,459
+And Andrew file system
+was actually a precursor
+
+1003
+00:44:31,459 --> 00:44:34,179
+for some very important kind of
+
+1004
+00:44:34,179 --> 00:44:37,420
+mobile file systems
+where you're dealing
+
+1005
+00:44:37,420 --> 00:44:38,979
+with mobile devices which
+
+1006
+00:44:38,979 --> 00:44:41,059
+are not guaranteed to
+be accessible and,
+
+1007
+00:44:41,059 --> 00:44:42,180
+in fact, are accessible,
+
+1008
+00:44:42,180 --> 00:44:44,739
+I don't know, 20,
+30% of the time.
+
+1009
+00:44:44,739 --> 00:44:47,659
+In other words, they're
+intermittently accessible,
+
+1010
+00:44:47,659 --> 00:44:49,259
+and Andrew file system
+
+1011
+00:44:49,259 --> 00:44:50,939
+was the first that
+constructed the set of
+
+1012
+00:44:50,939 --> 00:44:54,459
+abstractions and interfaces that
+
+1013
+00:44:54,459 --> 00:44:57,300
+could handle that transparently.
+
+1014
+00:44:57,300 --> 00:45:02,129
+Okay. So let me
+
+1015
+00:45:02,129 --> 00:45:03,770
+try to get to the stuff that's
+
+1016
+00:45:03,770 --> 00:45:06,369
+actually more important
+to your lab four.
+
+1017
+00:45:07,650 --> 00:45:10,809
+We could talk about
+the separation of what
+
+1018
+00:45:10,809 --> 00:45:13,369
+a file is versus what
+a file descriptor is.
+
+1019
+00:45:13,369 --> 00:45:16,529
+So very briefly, when
+you open a file,
+
+1020
+00:45:16,529 --> 00:45:18,169
+you get a file
+descriptor, right?
+
+1021
+00:45:18,169 --> 00:45:21,729
+But a file descriptor
+does not equal to a file.
+
+1022
+00:45:22,310 --> 00:45:24,669
+And the reason for
+this is because
+
+1023
+00:45:24,669 --> 00:45:26,230
+we can have multiple links,
+
+1024
+00:45:26,230 --> 00:45:27,830
+for example, to the same file.
+
+1025
+00:45:27,830 --> 00:45:30,509
+The file can be linked
+from multiple directories.
+
+1026
+00:45:30,509 --> 00:45:33,229
+So the information about
+a file cannot actually be
+
+1027
+00:45:33,229 --> 00:45:36,789
+stored in any given directory.
+
+1028
+00:45:36,789 --> 00:45:38,389
+It has to be stored
+somewhere that
+
+1029
+00:45:38,389 --> 00:45:42,749
+is outside of any directory,
+right, in some other place.
+
+1030
+00:45:42,749 --> 00:45:45,069
+So this sort of builds
+up motivation for
+
+1031
+00:45:45,069 --> 00:45:47,630
+needing things like things
+that are called i notes.
+
+1032
+00:45:47,630 --> 00:45:50,429
+That's why you need notes
+because i notes is where
+
+1033
+00:45:50,429 --> 00:45:52,229
+you're going to
+store the metadata
+
+1034
+00:45:52,229 --> 00:45:53,899
+associated with the file.
+
+1035
+00:45:53,899 --> 00:45:56,050
+And they're going to maintain
+
+1036
+00:45:56,050 --> 00:45:58,529
+the link count that
+basically tells us
+
+1037
+00:45:58,529 --> 00:45:59,849
+how many people or
+
+1038
+00:45:59,849 --> 00:46:03,049
+how many entities elsewhere
+or how many directories,
+
+1039
+00:46:03,049 --> 00:46:05,489
+for instance, are
+linking to this file.
+
+1040
+00:46:05,489 --> 00:46:07,889
+And this also tells us,
+
+1041
+00:46:07,889 --> 00:46:09,929
+basically, this is a
+rough count, right?
+
+1042
+00:46:09,929 --> 00:46:11,929
+This also tells when
+can we actually
+
+1043
+00:46:11,929 --> 00:46:16,410
+release and when is it safe
+to free a particular iNote?
+
+1044
+00:46:16,410 --> 00:46:20,330
+INte must have a count of
+open file descriptors,
+
+1045
+00:46:20,330 --> 00:46:22,770
+and i know the
+allocation is deferred
+
+1046
+00:46:22,770 --> 00:46:25,810
+until the last link or file
+descriptor is removed.
+
+1047
+00:46:25,810 --> 00:46:28,209
+Okay. So there's actually
+
+1048
+00:46:28,209 --> 00:46:31,170
+a bunch of software
+layers and file systems.
+
+1049
+00:46:31,170 --> 00:46:35,609
+The process, then you
+have an FS interface,
+
+1050
+00:46:35,609 --> 00:46:38,529
+then you have the
+file system interface
+
+1051
+00:46:38,529 --> 00:46:39,930
+that actually deals with blocks,
+
+1052
+00:46:39,930 --> 00:46:42,610
+iOS director and
+path resolution.
+
+1053
+00:46:42,610 --> 00:46:45,249
+There's a lower level
+that handles the log,
+
+1054
+00:46:45,249 --> 00:46:46,850
+and then you have buffer cache,
+
+1055
+00:46:46,850 --> 00:46:49,529
+and this driver at the
+at the lowest level,
+
+1056
+00:46:49,529 --> 00:46:51,529
+you have this firmware, right?
+
+1057
+00:46:51,529 --> 00:46:56,889
+And so basically, um
+The block interface
+
+1058
+00:46:56,889 --> 00:46:59,929
+and the Nde handling and
+directory and path resolution
+
+1059
+00:46:59,929 --> 00:47:03,130
+are basically handled
+by VFS and FS.
+
+1060
+00:47:03,770 --> 00:47:07,089
+And so you will see those in
+
+1061
+00:47:07,089 --> 00:47:08,889
+the code when you
+start looking at
+
+1062
+00:47:08,889 --> 00:47:11,409
+XV six and working
+on your lab four.
+
+1063
+00:47:11,409 --> 00:47:14,249
+And this is what the on
+disk layout looks like.
+
+1064
+00:47:14,249 --> 00:47:15,410
+So at the very beginning,
+
+1065
+00:47:15,410 --> 00:47:16,570
+you have a boot sector,
+
+1066
+00:47:16,570 --> 00:47:18,450
+and we already talked
+about the boot sector
+
+1067
+00:47:18,450 --> 00:47:20,169
+at the very beginning
+of the class, right?
+
+1068
+00:47:20,169 --> 00:47:23,809
+This is a 512 byte record
+
+1069
+00:47:23,809 --> 00:47:27,130
+that actually stores
+the bootloader.
+
+1070
+00:47:27,130 --> 00:47:28,529
+After that, you have
+
+1071
+00:47:28,529 --> 00:47:29,809
+another sector that actually
+
+1072
+00:47:29,809 --> 00:47:31,809
+keep track of the superblock.
+
+1073
+00:47:31,809 --> 00:47:34,239
+It and the superblock
+
+1074
+00:47:34,239 --> 00:47:36,200
+is the first block
+of its partition.
+
+1075
+00:47:36,200 --> 00:47:37,639
+So this is when we start
+
+1076
+00:47:37,639 --> 00:47:39,279
+getting into partitions
+of the disk.
+
+1077
+00:47:39,279 --> 00:47:42,720
+So superblock is always the
+first block of a partition.
+
+1078
+00:47:42,720 --> 00:47:46,279
+And it maintains the metadata
+for the entire file system,
+
+1079
+00:47:46,279 --> 00:47:48,239
+which means that this
+is where you find
+
+1080
+00:47:48,239 --> 00:47:51,079
+the information about the
+location for all the Ns.
+
+1081
+00:47:51,079 --> 00:47:52,639
+This is where you
+find the information
+
+1082
+00:47:52,639 --> 00:47:54,199
+about the location of the log.
+
+1083
+00:47:54,199 --> 00:47:55,559
+How big is the log,
+
+1084
+00:47:55,559 --> 00:47:56,839
+which is important for
+
+1085
+00:47:56,839 --> 00:47:58,639
+crash recovery and
+things like that.
+
+1086
+00:47:58,639 --> 00:48:01,159
+And more generally,
+the superblock is
+
+1087
+00:48:01,159 --> 00:48:02,599
+where you will find metadata
+
+1088
+00:48:02,599 --> 00:48:04,119
+information for the file system.
+
+1089
+00:48:04,119 --> 00:48:05,840
+And these are the files,
+
+1090
+00:48:05,840 --> 00:48:09,239
+the Fs dot H and Fs
+dot C and makefs
+
+1091
+00:48:09,239 --> 00:48:10,879
+dot C. This is where you would
+
+1092
+00:48:10,879 --> 00:48:13,360
+find the information
+about super block.
+
+1093
+00:48:13,360 --> 00:48:17,279
+The nodes follow, right?
+
+1094
+00:48:17,279 --> 00:48:19,599
+And the very first node
+that you will store is
+
+1095
+00:48:19,599 --> 00:48:23,319
+an node associated with
+the root directory.
+
+1096
+00:48:23,319 --> 00:48:27,159
+After that, you have the
+yellow block bitmap,
+
+1097
+00:48:27,159 --> 00:48:29,039
+and this is where you basically
+
+1098
+00:48:29,039 --> 00:48:31,360
+keep track of on the disk,
+
+1099
+00:48:31,360 --> 00:48:34,639
+you keep track of which
+blocks are used or free.
+
+1100
+00:48:34,639 --> 00:48:36,719
+And after that,
+you have a set of
+
+1101
+00:48:36,719 --> 00:48:39,520
+data blocks which contain
+
+1102
+00:48:39,520 --> 00:48:41,440
+the actual data that
+you want to store.
+
+1103
+00:48:41,440 --> 00:48:43,224
+And at the very end,
+you have the log.
+
+1104
+00:48:43,224 --> 00:48:44,769
+Now, what's interesting is that
+
+1105
+00:48:44,769 --> 00:48:46,129
+the XV six file system
+
+1106
+00:48:46,129 --> 00:48:47,890
+has these things
+slightly reversed.
+
+1107
+00:48:47,890 --> 00:48:50,650
+So notice that after
+the super block,
+
+1108
+00:48:50,650 --> 00:48:52,449
+you have the log, okay?
+
+1109
+00:48:52,449 --> 00:48:56,249
+So boot block is in block zero,
+
+1110
+00:48:56,249 --> 00:48:58,129
+and super block is in block one,
+
+1111
+00:48:58,129 --> 00:48:59,569
+and starting with block two,
+
+1112
+00:48:59,569 --> 00:49:01,769
+this is where you have
+the log for some reason.
+
+1113
+00:49:01,769 --> 00:49:03,409
+I'm not exactly sure why.
+
+1114
+00:49:03,409 --> 00:49:05,729
+So here, the log is
+at the very end,
+
+1115
+00:49:05,729 --> 00:49:07,449
+but in XV six,
+
+1116
+00:49:07,449 --> 00:49:09,530
+the log actually follows
+the super block.
+
+1117
+00:49:09,530 --> 00:49:11,370
+Then after that,
+you'll get the notes,
+
+1118
+00:49:11,370 --> 00:49:13,169
+then you'll get the bitmap and
+
+1119
+00:49:13,169 --> 00:49:16,089
+the data all the
+way until the end.
+
+1120
+00:49:17,290 --> 00:49:19,369
+Okay.
+
+1121
+00:49:20,090 --> 00:49:25,619
+So Yeah, there's some discussion
+that can be had here,
+
+1122
+00:49:25,619 --> 00:49:27,539
+but I'm just going
+to condense it by
+
+1123
+00:49:27,539 --> 00:49:29,860
+saying that in most
+operating systems,
+
+1124
+00:49:29,860 --> 00:49:34,660
+we use a block actually
+consists of multiple sectors.
+
+1125
+00:49:34,660 --> 00:49:36,019
+For example, typically,
+
+1126
+00:49:36,019 --> 00:49:39,740
+a block is actually four
+kilobyte sized in a typical,
+
+1127
+00:49:39,740 --> 00:49:41,299
+let's say, Linux
+operating system,
+
+1128
+00:49:41,299 --> 00:49:43,339
+which corresponds to
+eight sectors, right?
+
+1129
+00:49:43,339 --> 00:49:46,620
+Eight, 512 byte sized sectors.
+
+1130
+00:49:46,620 --> 00:49:49,859
+Now, why would you want
+to have this it's not
+
+1131
+00:49:49,859 --> 00:49:54,859
+a coincidence that data a
+block is foca sized, right?
+
+1132
+00:49:54,859 --> 00:49:56,939
+It actually matches
+the typical size
+
+1133
+00:49:56,939 --> 00:49:59,544
+of a page in a virtual
+memory system.
+
+1134
+00:49:59,544 --> 00:50:01,709
+And the reason for
+this is because can
+
+1135
+00:50:01,709 --> 00:50:04,909
+somebody tell me why we want
+to match those two things?
+
+1136
+00:50:04,990 --> 00:50:08,469
+Yeah, exactly,
+because of swapping.
+
+1137
+00:50:08,469 --> 00:50:10,070
+Because when you actually swap
+
+1138
+00:50:10,070 --> 00:50:11,789
+your physical frames using
+
+1139
+00:50:11,789 --> 00:50:13,989
+that clock algorithm
+that we talked about,
+
+1140
+00:50:13,989 --> 00:50:16,229
+to disk, you actually
+want that to
+
+1141
+00:50:16,229 --> 00:50:19,510
+be the same size as
+the block itself.
+
+1142
+00:50:19,510 --> 00:50:21,549
+Okay? And so basically,
+
+1143
+00:50:21,549 --> 00:50:23,749
+that means that the
+information about
+
+1144
+00:50:23,749 --> 00:50:26,509
+what was swapped
+to disk can be at
+
+1145
+00:50:26,509 --> 00:50:28,909
+the granularity of one
+to one mapping between
+
+1146
+00:50:28,909 --> 00:50:32,674
+a physical frame or a
+PFN and the block ID.
+
+1147
+00:50:32,674 --> 00:50:35,319
+Just one block holds
+the page, right,
+
+1148
+00:50:35,319 --> 00:50:36,879
+instead of having to worry about
+
+1149
+00:50:36,879 --> 00:50:39,479
+how many sectors and
+where those sectors are.
+
+1150
+00:50:39,479 --> 00:50:43,719
+So the next bullet
+actually summarizes this.
+
+1151
+00:50:43,719 --> 00:50:45,639
+It's to reduce the
+bookkeeping and
+
+1152
+00:50:45,639 --> 00:50:47,959
+seek overheads in
+order for you to
+
+1153
+00:50:47,959 --> 00:50:50,199
+actually recover the
+physical frames that you
+
+1154
+00:50:50,199 --> 00:50:52,919
+swapped out to the disk
+because it's going
+
+1155
+00:50:52,919 --> 00:50:56,599
+to be in a set of consecutive
+eight sectors instead of
+
+1156
+00:50:56,599 --> 00:50:59,400
+random eight sectors everywhere
+
+1157
+00:50:59,400 --> 00:51:02,079
+on the secondary
+storage device. Yes.
+
+1158
+00:51:02,079 --> 00:51:04,039
+What's a log?
+
+1159
+00:51:04,039 --> 00:51:06,319
+Oh, yeah. What's a log?
+
+1160
+00:51:06,319 --> 00:51:07,559
+Do you know what a log is?
+
+1161
+00:51:07,559 --> 00:51:09,879
+Does anybody know what a log is?
+
+1162
+00:51:11,800 --> 00:51:15,519
+So we actually have two
+lectures dedicated to this.
+
+1163
+00:51:15,519 --> 00:51:18,160
+So you will come to Lo log.
+
+1164
+00:51:18,160 --> 00:51:22,040
+It's super important for crash
+consistency and recovery.
+
+1165
+00:51:22,040 --> 00:51:24,159
+Yes. Doesn't it all
+
+1166
+00:51:24,159 --> 00:51:25,719
+the changes to the
+file system in case
+
+1167
+00:51:25,719 --> 00:51:27,399
+you do end up crashing
+and end up with
+
+1168
+00:51:27,399 --> 00:51:30,639
+corrupted stuff so that
+you can recover yourself?
+
+1169
+00:51:30,639 --> 00:51:34,919
+Yes. So it basically
+allows you to
+
+1170
+00:51:34,919 --> 00:51:38,560
+make to record the changes
+
+1171
+00:51:38,560 --> 00:51:40,079
+that you have made
+to the file system.
+
+1172
+00:51:40,079 --> 00:51:41,759
+That's correct. Yeah. But it
+
+1173
+00:51:41,759 --> 00:51:44,279
+doesn't keep them indefinitely.
+
+1174
+00:51:44,320 --> 00:51:46,319
+And so there are basically
+
+1175
+00:51:46,319 --> 00:51:47,959
+implications of
+this that have to
+
+1176
+00:51:47,959 --> 00:51:51,479
+do with crash consistency.
+
+1177
+00:51:51,479 --> 00:51:53,919
+And we're going to spend
+two lectures talking
+
+1178
+00:51:53,919 --> 00:51:56,479
+about ethnicity ordering
+and file systems,
+
+1179
+00:51:56,479 --> 00:51:59,319
+and the mechanism for this
+is the login file system.
+
+1180
+00:51:59,319 --> 00:52:01,440
+And we'll actually
+try to implement
+
+1181
+00:52:01,440 --> 00:52:04,400
+a login file system in
+two different ways.
+
+1182
+00:52:04,400 --> 00:52:06,240
+So it's going to be a very
+interesting discussion.
+
+1183
+00:52:06,240 --> 00:52:08,039
+Stay tuned a week from today.
+
+1184
+00:52:08,039 --> 00:52:10,159
+So next Thursday is
+when we're going to
+
+1185
+00:52:10,159 --> 00:52:12,399
+talk about log FS, okay?
+
+1186
+00:52:12,399 --> 00:52:16,830
+So XV six makes things
+easy, makes things simple.
+
+1187
+00:52:16,830 --> 00:52:19,070
+It just uses single
+sector blocks.
+
+1188
+00:52:19,070 --> 00:52:20,909
+So in the context of XV six,
+
+1189
+00:52:20,909 --> 00:52:24,190
+a sector is essentially
+equivalent to a block.
+
+1190
+00:52:24,190 --> 00:52:28,029
+It's the same 512
+byte size, okay?
+
+1191
+00:52:28,190 --> 00:52:30,469
+And what's a metadata
+
+1192
+00:52:30,469 --> 00:52:32,109
+and what metadata
+do we want to keep?
+
+1193
+00:52:32,109 --> 00:52:33,909
+Basically, it's
+everything on a disk
+
+1194
+00:52:33,909 --> 00:52:36,629
+other than the actual
+file content, right?
+
+1195
+00:52:36,629 --> 00:52:39,869
+And it includes the super
+blocks, as I mentioned,
+
+1196
+00:52:39,869 --> 00:52:41,669
+because they hold the metadata
+
+1197
+00:52:41,669 --> 00:52:42,709
+for the entire file system,
+
+1198
+00:52:42,709 --> 00:52:43,950
+the location of i nodes,
+
+1199
+00:52:43,950 --> 00:52:46,030
+the location for
+bitmap and the logs.
+
+1200
+00:52:46,030 --> 00:52:50,349
+Bitmap is also metadata
+because what's a bitmap again?
+
+1201
+00:52:50,630 --> 00:52:53,829
+It's essentially a
+data structure, right,
+
+1202
+00:52:53,829 --> 00:52:56,749
+where you set a bit
+for zero or one,
+
+1203
+00:52:56,749 --> 00:52:58,029
+depending on whether or
+
+1204
+00:52:58,029 --> 00:53:02,470
+not the corresponding data block
+
+1205
+00:53:02,470 --> 00:53:04,749
+is actually being
+used or not used.
+
+1206
+00:53:04,749 --> 00:53:07,909
+And by the way, have
+any of you attempted
+
+1207
+00:53:07,909 --> 00:53:12,190
+a defragmentation in your
+operating system, a defrag?
+
+1208
+00:53:12,190 --> 00:53:17,090
+So it used to be
+a big thing 2005,
+
+1209
+00:53:17,090 --> 00:53:19,129
+I would spend time actually
+
+1210
+00:53:19,129 --> 00:53:21,289
+defragging my disk pretty often.
+
+1211
+00:53:21,289 --> 00:53:23,089
+And the reason for
+this is because
+
+1212
+00:53:23,089 --> 00:53:24,489
+the disks at the time were
+
+1213
+00:53:24,489 --> 00:53:25,969
+much smaller than
+they are today.
+
+1214
+00:53:25,969 --> 00:53:27,689
+Right now, you get 1 terabyte
+
+1215
+00:53:27,689 --> 00:53:29,289
+and you think it's
+common case, you know,
+
+1216
+00:53:29,289 --> 00:53:31,809
+back in the day, you know, you
+get I don't even remember,
+
+1217
+00:53:31,809 --> 00:53:33,770
+much, much, much smaller disks.
+
+1218
+00:53:33,770 --> 00:53:36,649
+And so constantly,
+it would fill up.
+
+1219
+00:53:36,649 --> 00:53:38,649
+It would fill up
+quite easily, right?
+
+1220
+00:53:38,649 --> 00:53:42,810
+And as you reach the
+capacity of the disk,
+
+1221
+00:53:42,810 --> 00:53:45,570
+allocating and
+deallocating files creates
+
+1222
+00:53:45,570 --> 00:53:49,099
+holes in your data
+block structures
+
+1223
+00:53:49,099 --> 00:53:51,099
+like in Swiss cheese, right?
+
+1224
+00:53:51,099 --> 00:53:53,020
+And so in some cases,
+
+1225
+00:53:53,020 --> 00:53:56,259
+you may actually have space
+on the disk to store a file,
+
+1226
+00:53:56,259 --> 00:53:58,620
+but you cannot create a file.
+
+1227
+00:53:58,620 --> 00:54:00,379
+The creation of the
+file would fail.
+
+1228
+00:54:00,379 --> 00:54:02,339
+But if you diffract that because
+
+1229
+00:54:02,339 --> 00:54:04,659
+it expects consecutive sectors.
+
+1230
+00:54:04,659 --> 00:54:06,379
+But if you defract that,
+
+1231
+00:54:06,379 --> 00:54:07,979
+it would actually
+make it possible
+
+1232
+00:54:07,979 --> 00:54:09,940
+for the file to be created.
+
+1233
+00:54:09,940 --> 00:54:14,909
+So And the way we would do that
+
+1234
+00:54:14,909 --> 00:54:17,509
+is by referencing
+the bitmap of which
+
+1235
+00:54:17,509 --> 00:54:20,949
+blocks are actually allocated
+and which blocks are free.
+
+1236
+00:54:20,949 --> 00:54:23,230
+And Drac would basically update
+
+1237
+00:54:23,230 --> 00:54:25,989
+the location of the blocks
+on the secondary storage and
+
+1238
+00:54:25,989 --> 00:54:28,549
+correspondingly
+update the bitmap
+
+1239
+00:54:28,549 --> 00:54:31,910
+to reflect the relocation
+of the data blocks.
+
+1240
+00:54:31,910 --> 00:54:34,749
+Makes sense? Okay.
+
+1241
+00:54:34,749 --> 00:54:39,229
+So stay tuned for a
+Drac test question.
+
+1242
+00:54:39,250 --> 00:54:42,129
+This is recorded, so
+you can go back and
+
+1243
+00:54:42,129 --> 00:54:44,930
+listen to it again
+if I spoke too fast.
+
+1244
+00:54:44,930 --> 00:54:46,529
+All right. And directories
+
+1245
+00:54:46,529 --> 00:54:48,170
+are basically just
+special files,
+
+1246
+00:54:48,170 --> 00:54:52,449
+and I think we're going to
+cover directories on Tuesday.
+
+1247
+00:54:53,800 --> 00:54:56,119
+So what is an i node?
+
+1248
+00:54:56,119 --> 00:54:57,519
+I know this is very special, and
+
+1249
+00:54:57,519 --> 00:54:58,719
+you will become intimately
+
+1250
+00:54:58,719 --> 00:54:59,999
+familiar with an i node by
+
+1251
+00:54:59,999 --> 00:55:02,239
+the time you're
+finished with lab four.
+
+1252
+00:55:02,239 --> 00:55:06,039
+It has a very specific on
+disk data structure, right?
+
+1253
+00:55:06,039 --> 00:55:08,599
+It contains the type because
+you need to figure out
+
+1254
+00:55:08,599 --> 00:55:11,639
+if this is this an
+iNde that's just free?
+
+1255
+00:55:11,639 --> 00:55:13,519
+So unallocated i node,
+
+1256
+00:55:13,519 --> 00:55:15,759
+it's a thing. It exists, right?
+
+1257
+00:55:15,759 --> 00:55:17,560
+Or is it a file,
+
+1258
+00:55:17,560 --> 00:55:19,240
+or is it pointing
+to a directory,
+
+1259
+00:55:19,240 --> 00:55:20,760
+or is it pointing to a device?
+
+1260
+00:55:20,760 --> 00:55:23,160
+Because depending
+on these types,
+
+1261
+00:55:23,160 --> 00:55:28,159
+so it's basically like an
+overloaded class, right?
+
+1262
+00:55:28,159 --> 00:55:29,999
+Depending on the types of things
+
+1263
+00:55:29,999 --> 00:55:32,319
+you want to be able to
+support the metadata for,
+
+1264
+00:55:32,319 --> 00:55:34,389
+you have to type the Nde.
+
+1265
+00:55:34,389 --> 00:55:36,180
+Then you have the
+number of links
+
+1266
+00:55:36,180 --> 00:55:38,179
+to this specific i node,
+
+1267
+00:55:38,179 --> 00:55:40,500
+the size and this data structure
+
+1268
+00:55:40,500 --> 00:55:42,699
+that consists of 12
+elements plus one,
+
+1269
+00:55:42,699 --> 00:55:45,059
+which is the indirection
+
+1270
+00:55:45,059 --> 00:55:47,700
+or the pointers to the
+actual data blocks.
+
+1271
+00:55:47,700 --> 00:55:51,379
+And there's a reason
+why it's a 12 plus one.
+
+1272
+00:55:51,379 --> 00:55:55,939
+You have 12 direct pointers
+to data blocks and
+
+1273
+00:55:55,939 --> 00:56:01,469
+one indirect pointer that
+looks kind of like this.
+
+1274
+00:56:01,469 --> 00:56:04,120
+So the direct block pointers
+
+1275
+00:56:04,120 --> 00:56:05,600
+are basically pointing to block
+
+1276
+00:56:05,600 --> 00:56:09,640
+ID zero through nine or
+pointing to data blocks.
+
+1277
+00:56:09,640 --> 00:56:12,199
+And the indirect actually
+gives us the ability to
+
+1278
+00:56:12,199 --> 00:56:16,399
+expand the size of the file
+that we are able to support.
+
+1279
+00:56:16,399 --> 00:56:21,719
+Okay? So here's what the XB
+six ode content looks like.
+
+1280
+00:56:21,719 --> 00:56:24,480
+So again, type, major, minor,
+
+1281
+00:56:24,480 --> 00:56:25,839
+number of links, size,
+
+1282
+00:56:25,839 --> 00:56:28,959
+addresses one through
+12 and one indirect.
+
+1283
+00:56:28,959 --> 00:56:31,319
+Okay, so if each address
+
+1284
+00:56:31,319 --> 00:56:33,480
+is actually pointing
+to a data block,
+
+1285
+00:56:33,480 --> 00:56:36,360
+which is size 512 bytes,
+
+1286
+00:56:36,360 --> 00:56:38,399
+what is the largest
+file size you can
+
+1287
+00:56:38,399 --> 00:56:41,959
+support if you don't
+use the indirect?
+
+1288
+00:56:42,190 --> 00:56:55,470
+Yes. Which is 6,108.
+
+1289
+00:56:55,470 --> 00:56:57,429
+It's half a times 12, right?
+
+1290
+00:56:57,429 --> 00:56:59,589
+Half a times 12, so that's six.
+
+1291
+00:56:59,589 --> 00:57:01,349
+Yeah. Very good, very good.
+
+1292
+00:57:01,349 --> 00:57:04,030
+That's pretty small. What
+if you want larger files?
+
+1293
+00:57:04,030 --> 00:57:05,710
+This is kind of to motivate,
+
+1294
+00:57:05,710 --> 00:57:07,710
+you know, here's the
+thing. It exists.
+
+1295
+00:57:07,710 --> 00:57:09,349
+It's a statement of
+fact, but I'm trying
+
+1296
+00:57:09,349 --> 00:57:11,309
+to tell you that there's a
+reason behind it, right?
+
+1297
+00:57:11,309 --> 00:57:12,830
+Why do we need this indirect?
+
+1298
+00:57:12,830 --> 00:57:14,029
+Because without an indirect,
+
+1299
+00:57:14,029 --> 00:57:16,749
+you would only be able to
+support six size files. Yes.
+
+1300
+00:57:16,749 --> 00:57:18,269
+We guarantee anything about
+
+1301
+00:57:18,269 --> 00:57:20,790
+the contiguity of
+any of these logs?
+
+1302
+00:57:20,790 --> 00:57:22,629
+The contiguity of what?
+
+1303
+00:57:22,629 --> 00:57:25,549
+It go like direct,
+indirect. That's the thing.
+
+1304
+00:57:25,549 --> 00:57:26,830
+That's why you're using inode
+
+1305
+00:57:26,830 --> 00:57:28,389
+as a layer of
+indirection, right?
+
+1306
+00:57:28,389 --> 00:57:29,829
+Because if we did that,
+
+1307
+00:57:29,829 --> 00:57:32,469
+the internal fragmentation
+would kill you.
+
+1308
+00:57:32,469 --> 00:57:36,429
+Let's say you want to
+allocate a file and if I
+
+1309
+00:57:36,429 --> 00:57:38,189
+were to construct a
+question just like
+
+1310
+00:57:38,189 --> 00:57:40,230
+question one on
+the midterm exam,
+
+1311
+00:57:40,230 --> 00:57:42,989
+I could give you a
+microS question,
+
+1312
+00:57:42,989 --> 00:57:45,029
+where you only have
+a limited amount
+
+1313
+00:57:45,029 --> 00:57:46,669
+of space to put the blocks in,
+
+1314
+00:57:46,669 --> 00:57:48,229
+and I would give you, let's say
+
+1315
+00:57:48,229 --> 00:57:50,269
+this type of inode structure,
+
+1316
+00:57:50,269 --> 00:57:52,069
+and I would say that
+the requirement is
+
+1317
+00:57:52,069 --> 00:57:53,989
+that the data blocks
+have to be contiguous.
+
+1318
+00:57:53,989 --> 00:57:56,710
+You can easily construct
+scenarios where you cannot
+
+1319
+00:57:56,710 --> 00:57:58,229
+fit a new file just because
+
+1320
+00:57:58,229 --> 00:57:59,750
+of the contiguity requirements.
+
+1321
+00:57:59,750 --> 00:58:00,909
+So you don't want that just
+
+1322
+00:58:00,909 --> 00:58:02,490
+like you don't want
+that in memory.
+
+1323
+00:58:02,490 --> 00:58:04,989
+So the analogue of
+an ode in memory is
+
+1324
+00:58:04,989 --> 00:58:08,949
+the virtual memory of VM, right?
+
+1325
+00:58:08,949 --> 00:58:10,349
+The analog of that here is
+
+1326
+00:58:10,349 --> 00:58:12,589
+an node that gives you
+a layer of indirection
+
+1327
+00:58:12,589 --> 00:58:14,429
+so that you're not required to
+
+1328
+00:58:14,429 --> 00:58:16,869
+allocate contiguous data
+blocks to your file.
+
+1329
+00:58:16,869 --> 00:58:19,029
+Excellent question. Yes.
+
+1330
+00:58:22,310 --> 00:58:25,350
+12 indirect blocks.
+
+1331
+00:58:27,030 --> 00:58:31,349
+What's the point of having
+a static 12 blocks of data?
+
+1332
+00:58:31,510 --> 00:58:35,489
+Yeah, so the um Okay,
+
+1333
+00:58:35,489 --> 00:58:40,129
+so this is another very
+interesting question, right?
+
+1334
+00:58:40,129 --> 00:58:44,009
+Because just like in
+the virtual memory,
+
+1335
+00:58:44,009 --> 00:58:46,889
+the number of times
+you have to sort of
+
+1336
+00:58:46,889 --> 00:58:49,609
+indirect by the time
+you actually get to
+
+1337
+00:58:49,609 --> 00:58:52,049
+the data is going to cost
+you some overhead, right?
+
+1338
+00:58:52,049 --> 00:58:53,249
+So you want to be able to
+
+1339
+00:58:53,249 --> 00:58:54,689
+get to the data as
+fast as possible.
+
+1340
+00:58:54,689 --> 00:58:56,769
+So you want as few hops as
+
+1341
+00:58:56,769 --> 00:58:58,410
+possible to get to
+the actual content
+
+1342
+00:58:58,410 --> 00:58:59,809
+you're trying to access, right?
+
+1343
+00:58:59,809 --> 00:59:03,770
+And so that's why it sort of
+tries to find the balance
+
+1344
+00:59:03,770 --> 00:59:06,129
+of in the distribution of
+
+1345
+00:59:06,129 --> 00:59:07,489
+the file sizes that I have
+
+1346
+00:59:07,489 --> 00:59:09,409
+to deal with in this
+particular system,
+
+1347
+00:59:09,409 --> 00:59:12,099
+let's say, 80% of the files are
+
+1348
+00:59:12,099 --> 00:59:14,779
+actually less than or equal
+to six kiloabyte size, right?
+
+1349
+00:59:14,779 --> 00:59:16,619
+And then for this
+kind of system,
+
+1350
+00:59:16,619 --> 00:59:18,179
+it is sufficient for me to
+
+1351
+00:59:18,179 --> 00:59:20,074
+just use addresses
+one through 12.
+
+1352
+00:59:20,074 --> 00:59:22,250
+The remaining 20% of the files
+
+1353
+00:59:22,250 --> 00:59:24,410
+can be supported by
+actually taking advantage
+
+1354
+00:59:24,410 --> 00:59:26,490
+of the indirect and paying
+
+1355
+00:59:26,490 --> 00:59:28,770
+the overhead cost of performing
+
+1356
+00:59:28,770 --> 00:59:30,929
+a double pointer indirection
+in order to get to
+
+1357
+00:59:30,929 --> 00:59:33,329
+the content for those
+larger files, right?
+
+1358
+00:59:33,329 --> 00:59:35,849
+So that's the way to
+think about this.
+
+1359
+00:59:35,849 --> 00:59:38,209
+But if, let's say,
+on a test, right,
+
+1360
+00:59:38,209 --> 00:59:40,129
+if I told you that a system is
+
+1361
+00:59:40,129 --> 00:59:42,450
+such that it only
+has large files,
+
+1362
+00:59:42,450 --> 00:59:45,089
+then maybe you would actually
+change the structure of
+
+1363
+00:59:45,089 --> 00:59:48,929
+the ode to reflect the properties
+of that system, right?
+
+1364
+00:59:48,929 --> 00:59:51,329
+Because if I tell you
+that you will never have
+
+1365
+00:59:51,329 --> 00:59:53,810
+files that are less
+than 6 kilobytes,
+
+1366
+00:59:53,810 --> 00:59:56,089
+right, then maybe it doesn't
+even make sense to have
+
+1367
+00:59:56,089 --> 00:59:59,569
+those direct address
+pointers. Makes sense?
+
+1368
+00:59:59,569 --> 01:00:01,530
+Everything here is quite dynamic
+
+1369
+01:00:01,530 --> 01:00:04,730
+and depends on the properties
+of the application.
+
+1370
+01:00:04,730 --> 01:00:07,969
+The answer to the question
+that I posed earlier,
+
+1371
+01:00:07,969 --> 01:00:13,569
+the indirect number of entries
+multiplied by B size or
+
+1372
+01:00:13,569 --> 01:00:16,849
+block size is going to
+give you the 6 kilobytes
+
+1373
+01:00:16,849 --> 01:00:18,249
+of content that you're able to
+
+1374
+01:00:18,249 --> 01:00:20,489
+address directly from an i node.
+
+1375
+01:00:20,489 --> 01:00:23,249
+The last entry is a
+pointed to an indirect
+
+1376
+01:00:23,249 --> 01:00:27,770
+and here you basically
+have 128 elements.
+
+1377
+01:00:27,770 --> 01:00:31,489
+A one through 128 and this
+is specific to XB six.
+
+1378
+01:00:31,489 --> 01:00:32,924
+This is not a general thing.
+
+1379
+01:00:32,924 --> 01:00:34,519
+Specific to XV six,
+
+1380
+01:00:34,519 --> 01:00:36,719
+you have an indirect block
+that just consists of
+
+1381
+01:00:36,719 --> 01:00:39,760
+128 direct address pointers.
+
+1382
+01:00:39,760 --> 01:00:41,199
+And so the question is,
+
+1383
+01:00:41,199 --> 01:00:43,039
+what is the largest file size
+
+1384
+01:00:43,039 --> 01:00:45,679
+that you're able to
+support in XV six?
+
+1385
+01:00:45,679 --> 01:00:53,599
+Yes. Because six
+plus 64 indirect.
+
+1386
+01:00:53,680 --> 01:00:57,719
+That's correct. Kilobytes direct
+
+1387
+01:00:57,719 --> 01:00:59,760
+plus 64 kilobytes indirect.
+
+1388
+01:00:59,760 --> 01:01:01,839
+And the way you get
+64 kilos, right,
+
+1389
+01:01:01,839 --> 01:01:04,640
+is you multiply 128
+by half a kilo,
+
+1390
+01:01:04,640 --> 01:01:06,639
+which is the size
+of a block, right?
+
+1391
+01:01:06,639 --> 01:01:08,399
+Did everyone get that?
+
+1392
+01:01:08,399 --> 01:01:12,609
+Okay. Those are kind of
+warm up questions. Warm up.
+
+1393
+01:01:12,609 --> 01:01:16,499
+Okay. Another
+interesting thing is
+
+1394
+01:01:16,499 --> 01:01:18,099
+that everything is
+highly predictable
+
+1395
+01:01:18,099 --> 01:01:20,340
+and this is good for
+forensic analysis.
+
+1396
+01:01:20,340 --> 01:01:22,619
+Anyone that actually goes into
+
+1397
+01:01:22,619 --> 01:01:26,539
+cyber or School of
+cybersecurity and privacy,
+
+1398
+01:01:26,539 --> 01:01:30,780
+let's say you recover a
+device, a storage device,
+
+1399
+01:01:30,780 --> 01:01:32,419
+then there's actually
+quite a bit of
+
+1400
+01:01:32,419 --> 01:01:34,219
+forensic analysis
+and information you
+
+1401
+01:01:34,219 --> 01:01:36,540
+can extract from
+that storage device.
+
+1402
+01:01:36,540 --> 01:01:40,509
+So let's say, how do you
+find the file by 8,000?
+
+1403
+01:01:40,509 --> 01:01:43,519
+Well, given the structure
+that I've just given you,
+
+1404
+01:01:43,519 --> 01:01:45,959
+the way you would do it
+is you divide 8,000 by
+
+1405
+01:01:45,959 --> 01:01:49,560
+the block size to figure out
+which here's my pointer,
+
+1406
+01:01:49,560 --> 01:01:51,479
+8,000 by the block size
+
+1407
+01:01:51,479 --> 01:01:53,359
+to figure out which
+block number it is.
+
+1408
+01:01:53,359 --> 01:01:56,199
+In this case, it's 15 and take
+the floor of that, right?
+
+1409
+01:01:56,199 --> 01:01:58,599
+So we're dealing with
+a logical block 15.
+
+1410
+01:01:58,599 --> 01:02:01,359
+And this corresponds
+to a third entry in
+
+1411
+01:02:01,359 --> 01:02:04,519
+the indirect block because
+15 is greater than 12,
+
+1412
+01:02:04,519 --> 01:02:06,119
+so we know that it's
+not going to be one
+
+1413
+01:02:06,119 --> 01:02:07,919
+of the first two
+direct pointers.
+
+1414
+01:02:07,919 --> 01:02:10,479
+So we're overflowing
+into indirect,
+
+1415
+01:02:10,479 --> 01:02:12,279
+and it's going to
+be the third block
+
+1416
+01:02:12,279 --> 01:02:15,239
+of the indirect, okay?
+
+1417
+01:02:16,010 --> 01:02:20,849
+The node structure
+contains the number.
+
+1418
+01:02:20,849 --> 01:02:24,289
+It's easy to turn the
+number into an node.
+
+1419
+01:02:24,289 --> 01:02:27,049
+The eye nodes are 64 bytes long
+
+1420
+01:02:27,049 --> 01:02:31,530
+and the byte address on the
+disk is five times 512.
+
+1421
+01:02:31,530 --> 01:02:33,369
+Can somebody tell
+me why that is?
+
+1422
+01:02:33,369 --> 01:02:37,209
+Five times 512, we're
+skipping over what?
+
+1423
+01:02:37,540 --> 01:02:42,260
+Two of something,
+which is 512 sized.
+
+1424
+01:02:42,260 --> 01:02:43,939
+Yeah.
+
+1425
+01:02:45,460 --> 01:02:48,819
+No, no, no. We're skipping
+
+1426
+01:02:48,819 --> 01:02:51,659
+over the boot sector
+and super block, right?
+
+1427
+01:02:51,659 --> 01:02:53,099
+Yeah, we're skipping over
+
+1428
+01:02:53,099 --> 01:02:54,860
+the boot sector and super block.
+
+1429
+01:02:54,860 --> 01:02:57,259
+Okay. And after that,
+
+1430
+01:02:57,259 --> 01:03:03,470
+we are skipping over Sorry.
+
+1431
+01:03:03,470 --> 01:03:05,310
+After that, we're adding 64,
+
+1432
+01:03:05,310 --> 01:03:07,589
+which is the size of
+the node multiplied by
+
+1433
+01:03:07,589 --> 01:03:09,229
+the number of the node
+
+1434
+01:03:09,229 --> 01:03:11,110
+in order to get to
+the node itself.
+
+1435
+01:03:11,110 --> 01:03:13,590
+So, for example,
+accessing the root
+
+1436
+01:03:13,590 --> 01:03:17,549
+the node associated with
+the root directory, right?
+
+1437
+01:03:17,549 --> 01:03:19,109
+Since I mentioned it's
+
+1438
+01:03:19,109 --> 01:03:21,229
+the very first node
+that you're storing in
+
+1439
+01:03:21,229 --> 01:03:23,229
+a file system is going to be
+
+1440
+01:03:23,229 --> 01:03:27,429
+two times 512 plus 64
+times the number of zero,
+
+1441
+01:03:27,429 --> 01:03:29,150
+which corresponds to the root.
+
+1442
+01:03:29,150 --> 01:03:32,910
+And this is going to be
+at 1024 byte offset.
+
+1443
+01:03:32,910 --> 01:03:34,909
+So whenever you extract
+a device and you
+
+1444
+01:03:34,909 --> 01:03:36,989
+need to perform a
+forensic analysis on it,
+
+1445
+01:03:36,989 --> 01:03:38,910
+look at 1024 byte,
+
+1446
+01:03:38,910 --> 01:03:40,909
+and this is where you'll
+find information.
+
+1447
+01:03:40,909 --> 01:03:43,270
+For the root partition,
+
+1448
+01:03:43,270 --> 01:03:45,309
+for the root node, okay?
+
+1449
+01:03:45,309 --> 01:03:46,789
+And this is where we're going to
+
+1450
+01:03:46,789 --> 01:03:48,589
+stop. We're at three oh seven.
+
+1451
+01:03:48,589 --> 01:03:50,629
+Thank you very much.
+
+1452
+01:04:22,650 --> 01:04:24,729
+So

@@ -1,0 +1,6480 @@
+1
+00:00:00,000 --> 00:00:00,620
+It's a
+
+2
+00:00:00,620 --> 00:00:01,760
+r.
+
+3
+00:00:02,720 --> 00:00:04,760
+And
+
+4
+00:00:33,760 --> 00:00:35,799
+I
+
+5
+00:00:41,400 --> 00:00:43,439
+so
+
+6
+00:00:57,680 --> 00:00:59,799
+far.
+
+7
+00:01:27,920 --> 00:01:31,319
+All right. Good
+afternoon, everyone.
+
+8
+00:01:37,780 --> 00:01:39,680
+Seats.
+
+9
+00:01:39,680 --> 00:01:43,560
+So, you know, at the time
+I sort of prepare for
+
+10
+00:01:43,560 --> 00:01:47,459
+the lecture and come here and
+I get the lecture started,
+
+11
+00:01:47,459 --> 00:01:49,219
+I think to myself, Wow,
+
+12
+00:01:49,219 --> 00:01:51,679
+you know, you guys are
+in it for a treat.
+
+13
+00:01:51,679 --> 00:01:54,720
+And it literally happens
+almost every time.
+
+14
+00:01:54,720 --> 00:01:56,879
+You know, I said that
+for the VMM lectures,
+
+15
+00:01:56,879 --> 00:01:58,980
+right, you're in it
+for a treat, right?
+
+16
+00:01:58,980 --> 00:02:00,920
+Then I said that for
+the previous lecture,
+
+17
+00:02:00,920 --> 00:02:02,060
+you're in it for a treat.
+
+18
+00:02:02,060 --> 00:02:04,960
+And as I was preparing for the
+schedulers lecture, again,
+
+19
+00:02:04,960 --> 00:02:06,820
+I sort of come here
+really motivated
+
+20
+00:02:06,820 --> 00:02:09,060
+and really excited to
+talk about schedulers.
+
+21
+00:02:09,060 --> 00:02:12,420
+Um, even though a
+lot of you might
+
+22
+00:02:12,420 --> 00:02:16,479
+actually think that
+schedulers are boring,
+
+23
+00:02:16,479 --> 00:02:20,880
+just judging from where everyone
+is looking at right now.
+
+24
+00:02:20,880 --> 00:02:22,460
+Someone is looking
+at their phone,
+
+25
+00:02:22,460 --> 00:02:24,660
+someone is looking
+at their laptop,
+
+26
+00:02:24,660 --> 00:02:28,320
+and not a lot of people
+are paying attention.
+
+27
+00:02:28,320 --> 00:02:30,629
+But as a matter of fact,
+
+28
+00:02:30,629 --> 00:02:33,299
+schedulers are, in
+fact, everywhere.
+
+29
+00:02:33,299 --> 00:02:35,479
+You know, the more you
+think about scheduling,
+
+30
+00:02:35,479 --> 00:02:38,279
+the more you can think of it
+as a basic building block of
+
+31
+00:02:38,279 --> 00:02:43,720
+the Every fabric of
+our society itself.
+
+32
+00:02:43,720 --> 00:02:45,819
+It is ubiquitous, right?
+
+33
+00:02:45,819 --> 00:02:48,380
+And if we talk about
+systems in particular,
+
+34
+00:02:48,380 --> 00:02:49,620
+scheduling is actually
+
+35
+00:02:49,620 --> 00:02:53,420
+a very often overlooked
+underdog in systems research.
+
+36
+00:02:53,420 --> 00:02:54,639
+And there's a reason for that.
+
+37
+00:02:54,639 --> 00:02:56,219
+There's a very good
+reason for that.
+
+38
+00:02:56,219 --> 00:02:58,599
+The reason for that is because
+
+39
+00:02:58,599 --> 00:03:02,800
+people think that scheduling
+is a solve problem.
+
+40
+00:03:02,800 --> 00:03:06,940
+How many of you think that
+scheduling is a solve problem?
+
+41
+00:03:09,490 --> 00:03:12,010
+How many of you think
+that scheduling
+
+42
+00:03:12,010 --> 00:03:14,210
+is an unsolved problem?
+
+43
+00:03:14,570 --> 00:03:16,709
+Okay. Okay, good.
+
+44
+00:03:16,709 --> 00:03:18,749
+So there's a handful
+of people who think
+
+45
+00:03:18,749 --> 00:03:19,669
+that there's still some work
+
+46
+00:03:19,669 --> 00:03:21,809
+to be done in scheduling, right?
+
+47
+00:03:21,809 --> 00:03:27,349
+And so if we rewind the
+clock back 14 years ago,
+
+48
+00:03:27,349 --> 00:03:29,729
+when I was starting
+as a PhD student,
+
+49
+00:03:29,729 --> 00:03:34,009
+I wanted to work on distributed
+operating systems that
+
+50
+00:03:34,009 --> 00:03:35,889
+sort of changed the way we think
+
+51
+00:03:35,889 --> 00:03:38,310
+about operating systems in a
+cloud computing environment.
+
+52
+00:03:38,310 --> 00:03:42,089
+Cloud computing was what it is,
+
+53
+00:03:42,089 --> 00:03:43,969
+like what LLM is today,
+
+54
+00:03:43,969 --> 00:03:45,729
+back in the day right?
+
+55
+00:03:45,729 --> 00:03:47,490
+Really exciting, very popular.
+
+56
+00:03:47,490 --> 00:03:49,970
+Everybody was thinking about
+it in academia and industry.
+
+57
+00:03:49,970 --> 00:03:51,229
+People were implementing it.
+
+58
+00:03:51,229 --> 00:03:52,529
+Startups were popping up,
+
+59
+00:03:52,529 --> 00:03:55,249
+just offering various
+cloud based solutions.
+
+60
+00:03:55,249 --> 00:03:57,589
+And so one of the issues
+
+61
+00:03:57,589 --> 00:03:59,790
+that Cloud computing needed
+to solve was scheduling.
+
+62
+00:03:59,790 --> 00:04:01,790
+So I started working on
+resource management,
+
+63
+00:04:01,790 --> 00:04:03,970
+slash scheduling aspect
+of Cloud computing,
+
+64
+00:04:03,970 --> 00:04:06,309
+slash distributed operating
+system at the time.
+
+65
+00:04:06,309 --> 00:04:08,449
+And people were thinking that
+
+66
+00:04:08,449 --> 00:04:10,209
+I must have gone mad, right?
+
+67
+00:04:10,209 --> 00:04:12,909
+I read too many papers or I
+
+68
+00:04:12,909 --> 00:04:15,690
+have a bad advisor who
+sort of didn't advise
+
+69
+00:04:15,690 --> 00:04:21,549
+me to to give up on
+that area of research.
+
+70
+00:04:21,549 --> 00:04:23,049
+But I ended up writing
+
+71
+00:04:23,049 --> 00:04:24,869
+my entire dissertation
+on scheduling.
+
+72
+00:04:24,869 --> 00:04:26,930
+You would not believe, right,
+
+73
+00:04:26,930 --> 00:04:29,309
+how deep I went on that topic,
+
+74
+00:04:29,309 --> 00:04:32,290
+going all the way back
+to the early 1900s and
+
+75
+00:04:32,290 --> 00:04:36,009
+reading books on
+the theory of value
+
+76
+00:04:36,009 --> 00:04:40,570
+and finding various
+interesting connections
+
+77
+00:04:40,570 --> 00:04:43,470
+with communitorial optimizations
+
+78
+00:04:43,470 --> 00:04:45,630
+and communitorial actions.
+
+79
+00:04:45,630 --> 00:04:50,590
+And topological geography
+and things like that.
+
+80
+00:04:50,590 --> 00:04:51,929
+So you can actually go quite
+
+81
+00:04:51,929 --> 00:04:55,110
+deep into scheduling
+if you really want to.
+
+82
+00:04:55,110 --> 00:04:58,070
+And at the time,
+
+83
+00:04:58,070 --> 00:05:00,409
+I was also interning at Google,
+
+84
+00:05:00,409 --> 00:05:02,349
+and I had numerous
+conversations,
+
+85
+00:05:02,349 --> 00:05:04,770
+actually at Microsoft
+first, Google second.
+
+86
+00:05:04,770 --> 00:05:06,269
+I had numerous conversations,
+
+87
+00:05:06,269 --> 00:05:07,790
+especially with some
+of the Google people
+
+88
+00:05:07,790 --> 00:05:10,199
+who were literally
+working on Borg.
+
+89
+00:05:10,199 --> 00:05:12,150
+Okay. And we had
+
+90
+00:05:12,150 --> 00:05:13,590
+these furious arguments about
+
+91
+00:05:13,590 --> 00:05:15,050
+the approach you
+would have to take.
+
+92
+00:05:15,050 --> 00:05:18,630
+You have to take with respect
+to efficient scheduling on
+
+93
+00:05:18,630 --> 00:05:21,769
+distributed environment
+or distributed
+
+94
+00:05:21,769 --> 00:05:23,709
+set of resources that Google
+
+95
+00:05:23,709 --> 00:05:25,510
+had to schedule their jobs over.
+
+96
+00:05:25,510 --> 00:05:27,510
+And we're going to get
+to that when we start
+
+97
+00:05:27,510 --> 00:05:30,270
+discussing the success metrics
+later on in the lecture.
+
+98
+00:05:30,270 --> 00:05:33,450
+And so the reason
+I find that people
+
+99
+00:05:33,450 --> 00:05:37,289
+have arguments in
+general, actually,
+
+100
+00:05:37,289 --> 00:05:39,129
+specifically systems arguments,
+
+101
+00:05:39,129 --> 00:05:41,150
+but any kind of arguments,
+
+102
+00:05:41,150 --> 00:05:43,290
+even political
+arguments, is because
+
+103
+00:05:43,290 --> 00:05:46,724
+they have a fundamentally
+different set of assumptions.
+
+104
+00:05:46,724 --> 00:05:48,880
+So if you actually think about
+
+105
+00:05:48,880 --> 00:05:50,320
+it and you put all emotions
+
+106
+00:05:50,320 --> 00:05:53,920
+aside and you try to reason
+through any kind of argument,
+
+107
+00:05:53,920 --> 00:05:55,899
+you will ordinarily find
+
+108
+00:05:55,899 --> 00:05:57,220
+a difference in a set of
+
+109
+00:05:57,220 --> 00:05:59,299
+assumptions that the
+two parties are making.
+
+110
+00:05:59,299 --> 00:06:01,640
+And what are the set
+what is the set of
+
+111
+00:06:01,640 --> 00:06:02,620
+assumptions that people are
+
+112
+00:06:02,620 --> 00:06:04,140
+typically making
+with scheduling?
+
+113
+00:06:04,140 --> 00:06:07,179
+Well, one of them is that
+you have a lot of resources,
+
+114
+00:06:07,179 --> 00:06:10,000
+and so whatever you
+do is fine, right?
+
+115
+00:06:10,700 --> 00:06:13,780
+There are some examples
+of that, for instance,
+
+116
+00:06:13,780 --> 00:06:17,099
+populating the West Coast.
+
+117
+00:06:17,099 --> 00:06:20,459
+You could think of it as sort
+of first come first serve
+
+118
+00:06:20,459 --> 00:06:23,920
+land grab type of
+scheduling, right?
+
+119
+00:06:23,920 --> 00:06:25,760
+Would that work on
+the East Coast?
+
+120
+00:06:25,760 --> 00:06:27,039
+No. Why? Because there's
+
+121
+00:06:27,039 --> 00:06:29,060
+fewer resources,
+more people. Okay?
+
+122
+00:06:29,060 --> 00:06:30,940
+So that must have something to
+
+123
+00:06:30,940 --> 00:06:33,439
+do with the patterns
+of the workload itself
+
+124
+00:06:33,439 --> 00:06:34,900
+with the properties of
+
+125
+00:06:34,900 --> 00:06:37,279
+the resources and
+how much resource
+
+126
+00:06:37,279 --> 00:06:38,880
+there is to schedule relative to
+
+127
+00:06:38,880 --> 00:06:41,830
+how much demand there is
+for that resource, right?
+
+128
+00:06:41,830 --> 00:06:43,780
+Another set of assumptions
+
+129
+00:06:43,780 --> 00:06:45,060
+that people would
+typically make,
+
+130
+00:06:45,060 --> 00:06:46,560
+especially a decade ago is
+
+131
+00:06:46,560 --> 00:06:50,139
+the heterogeneity of the
+resources or hetero sorry,
+
+132
+00:06:50,139 --> 00:06:51,599
+homogeneity of the resources.
+
+133
+00:06:51,599 --> 00:06:52,660
+Basically, they're all the same.
+
+134
+00:06:52,660 --> 00:06:56,920
+They're malleable. And so if
+I gave you K resources from,
+
+135
+00:06:56,920 --> 00:06:59,940
+let's say this rack and K
+resources from that rack,
+
+136
+00:06:59,940 --> 00:07:02,000
+they're indistinguishable
+from each other.
+
+137
+00:07:02,000 --> 00:07:07,339
+And that if you make this
+axiomatic set of assumptions,
+
+138
+00:07:07,339 --> 00:07:10,180
+then that is different from
+your own, then of course,
+
+139
+00:07:10,180 --> 00:07:12,560
+you're going to think
+that you're dealing with
+
+140
+00:07:12,560 --> 00:07:14,060
+a very simple system for
+
+141
+00:07:14,060 --> 00:07:16,079
+which there have been
+decades of research,
+
+142
+00:07:16,079 --> 00:07:17,979
+especially in the HPC community,
+
+143
+00:07:17,979 --> 00:07:21,400
+including operating
+systems community as well.
+
+144
+00:07:21,590 --> 00:07:25,389
+Okay. So we're still on
+the very first slide,
+
+145
+00:07:25,389 --> 00:07:27,410
+and there's already so much
+said about scheduling.
+
+146
+00:07:27,410 --> 00:07:30,390
+So imagine what the rest of
+the lecture going to look.
+
+147
+00:07:30,710 --> 00:07:33,969
+So going back to the
+initial set of assumptions,
+
+148
+00:07:33,969 --> 00:07:35,770
+we need to basically it
+
+149
+00:07:35,770 --> 00:07:37,610
+forces us to go back
+to the initial set of
+
+150
+00:07:37,610 --> 00:07:38,989
+assumptions anytime there's
+
+151
+00:07:38,989 --> 00:07:41,430
+a fundamental tectonic
+shift happening,
+
+152
+00:07:41,430 --> 00:07:43,189
+and you need to as
+a systems research,
+
+153
+00:07:43,189 --> 00:07:45,329
+you need to identify
+those tectonic shifts.
+
+154
+00:07:45,329 --> 00:07:47,790
+And you need to go
+back to first of all,
+
+155
+00:07:47,790 --> 00:07:49,510
+figuring out what
+those assumptions
+
+156
+00:07:49,510 --> 00:07:51,470
+were because oftentimes
+they're very
+
+157
+00:07:51,470 --> 00:07:52,969
+implicit and people are making
+
+158
+00:07:52,969 --> 00:07:54,590
+those assumptions unaware of
+
+159
+00:07:54,590 --> 00:07:56,390
+the fact that they're
+making those assumptions.
+
+160
+00:07:56,390 --> 00:07:59,250
+So you need to externalize
+those assumptions first,
+
+161
+00:07:59,250 --> 00:08:01,329
+and then you need to figure
+
+162
+00:08:01,329 --> 00:08:03,749
+out whether this axiometc
+base has changed.
+
+163
+00:08:03,749 --> 00:08:07,250
+So the TLDR here is
+if you're working on
+
+164
+00:08:07,250 --> 00:08:10,060
+something fundamentally
+deviates from
+
+165
+00:08:10,060 --> 00:08:12,239
+what everybody else
+is doing, okay?
+
+166
+00:08:12,239 --> 00:08:13,859
+Do not let anyone tell
+
+167
+00:08:13,859 --> 00:08:16,580
+you that what you're
+doing is wrong because
+
+168
+00:08:16,580 --> 00:08:19,160
+oftentimes you might simply be
+
+169
+00:08:19,160 --> 00:08:24,319
+operating on a different
+axiomatic base.
+
+170
+00:08:26,620 --> 00:08:30,660
+So that's sort of a moment
+of inspiration for you.
+
+171
+00:08:30,660 --> 00:08:33,100
+Administratvia.
+
+172
+00:08:33,100 --> 00:08:36,339
+In sharp contrast a
+moment of respiration.
+
+173
+00:08:36,339 --> 00:08:38,760
+Your lab too is
+due in three days.
+
+174
+00:08:38,760 --> 00:08:41,220
+Now, back to the Earth.
+
+175
+00:08:41,620 --> 00:08:44,519
+Three days is not a
+lot of time, right?
+
+176
+00:08:44,519 --> 00:08:46,520
+If you haven't submitted,
+and I know that there are
+
+177
+00:08:46,520 --> 00:08:48,719
+a lot of groups that
+haven't submitted.
+
+178
+00:08:48,719 --> 00:08:50,399
+I looked at the
+submission history.
+
+179
+00:08:50,399 --> 00:08:52,180
+Please do so ASAP.
+
+180
+00:08:52,180 --> 00:08:54,120
+You may or may not
+realize that you only
+
+181
+00:08:54,120 --> 00:08:56,320
+have 15 submissions left
+before the deadline.
+
+182
+00:08:56,320 --> 00:08:59,040
+Maximum. That's what
+three days means.
+
+183
+00:08:59,040 --> 00:09:01,859
+Three times five,
+equals 15, okay?
+
+184
+00:09:01,859 --> 00:09:03,599
+And people do spend more than
+
+185
+00:09:03,599 --> 00:09:05,699
+15 submissions to get it right.
+
+186
+00:09:05,699 --> 00:09:11,100
+On average, it will likely
+take that many submissions,
+
+187
+00:09:11,100 --> 00:09:13,939
+if not more, to actually
+pass all the tests.
+
+188
+00:09:13,939 --> 00:09:15,959
+Your last supervised lab is
+
+189
+00:09:15,959 --> 00:09:17,860
+tomorrow on Wednesday
+before the deadline.
+
+190
+00:09:17,860 --> 00:09:20,320
+Make sure you come to the
+lab, prepared with questions,
+
+191
+00:09:20,320 --> 00:09:21,799
+figure out what it is is not
+
+192
+00:09:21,799 --> 00:09:24,719
+working or part two of the
+lab or whatever, right?
+
+193
+00:09:24,719 --> 00:09:26,739
+Talk to the TAs.
+They're there for you.
+
+194
+00:09:26,739 --> 00:09:30,739
+Um Okay, Lab one.
+
+195
+00:09:30,739 --> 00:09:34,219
+Despite the delay, the
+grades are now out.
+
+196
+00:09:34,219 --> 00:09:36,359
+The course staff, I should say,
+
+197
+00:09:36,359 --> 00:09:38,519
+worked really hard to get
+
+198
+00:09:38,519 --> 00:09:40,339
+this feedback back to you
+
+199
+00:09:40,339 --> 00:09:42,639
+in time for it to be
+useful for lab two.
+
+200
+00:09:42,639 --> 00:09:44,379
+So I know that you're
+
+201
+00:09:44,379 --> 00:09:46,299
+all locked in on your
+lab two right now,
+
+202
+00:09:46,299 --> 00:09:49,079
+and by the way, thank you
+for showing up to lecture.
+
+203
+00:09:49,079 --> 00:09:51,839
+You know, I heard that people
+
+204
+00:09:51,839 --> 00:09:55,260
+have a tendency to skip
+lectures when the lab is due.
+
+205
+00:09:55,260 --> 00:09:56,880
+So I'm glad to see you all here,
+
+206
+00:09:56,880 --> 00:09:59,659
+but we'll see what happens
+on Thursday, right?
+
+207
+00:09:59,800 --> 00:10:02,180
+So basically,
+
+208
+00:10:02,180 --> 00:10:04,819
+we try to make sure that
+we give you the feedback,
+
+209
+00:10:04,819 --> 00:10:07,479
+especially on the hand
+grading of lab one,
+
+210
+00:10:07,479 --> 00:10:09,420
+so that you have a chance
+to sort of look at
+
+211
+00:10:09,420 --> 00:10:12,799
+it and incorporate it as you're
+working on your lab two.
+
+212
+00:10:12,799 --> 00:10:14,699
+And one more thing.
+
+213
+00:10:14,699 --> 00:10:17,360
+I already posted this as
+an announcement on Piazza,
+
+214
+00:10:17,360 --> 00:10:21,860
+but just wanted to
+reemphasize that in lecture,
+
+215
+00:10:21,860 --> 00:10:25,280
+the exam one is scheduled
+for Tuesday March 11,
+
+216
+00:10:25,280 --> 00:10:28,554
+same time, same place as
+the section you're in.
+
+217
+00:10:28,554 --> 00:10:31,550
+I E this section, okay?
+
+218
+00:10:31,550 --> 00:10:34,570
+And again,
+
+219
+00:10:34,570 --> 00:10:36,470
+try to it involved
+
+220
+00:10:36,470 --> 00:10:38,269
+a lot of discussion
+with the core staff.
+
+221
+00:10:38,269 --> 00:10:40,709
+And the reason for this is
+because March 12 is actually
+
+222
+00:10:40,709 --> 00:10:43,309
+the withdrawal deadline,
+three or 4:00 P.M.
+
+223
+00:10:43,309 --> 00:10:45,109
+I can't remember the exact time.
+
+224
+00:10:45,109 --> 00:10:47,949
+And so we want to make
+sure that we try to give
+
+225
+00:10:47,949 --> 00:10:50,590
+you that feedback on
+your Exam one before
+
+226
+00:10:50,590 --> 00:10:52,009
+the withdrawal deadline so
+
+227
+00:10:52,009 --> 00:10:53,569
+that you actually
+have a chance to kind
+
+228
+00:10:53,569 --> 00:10:57,790
+of make informed
+decisions accordingly.
+
+229
+00:10:57,790 --> 00:11:01,589
+All right. Any questions
+about administratvia?
+
+230
+00:11:01,870 --> 00:11:05,030
+There's going to be,
+there's one more bullet.
+
+231
+00:11:05,030 --> 00:11:06,350
+There's going to be more detail
+
+232
+00:11:06,350 --> 00:11:08,769
+on what Exam one is
+going to look like,
+
+233
+00:11:08,769 --> 00:11:10,409
+et cetera, but it will be in
+
+234
+00:11:10,409 --> 00:11:14,410
+class and it will
+be on your laptop.
+
+235
+00:11:14,410 --> 00:11:16,450
+And so you have to make sure
+
+236
+00:11:16,450 --> 00:11:18,949
+that you bring your
+laptop charged.
+
+237
+00:11:18,949 --> 00:11:21,290
+I noticed that there
+are no chargers
+
+238
+00:11:21,290 --> 00:11:23,269
+integrated into the desktops,
+
+239
+00:11:23,269 --> 00:11:25,290
+which is a little
+bit concerning.
+
+240
+00:11:25,290 --> 00:11:26,930
+So maybe you should start
+
+241
+00:11:26,930 --> 00:11:28,610
+testing how long
+your laptop lasts.
+
+242
+00:11:28,610 --> 00:11:30,629
+For example, I see a
+lot of laptops open.
+
+243
+00:11:30,629 --> 00:11:32,129
+See if it actually lasts
+
+244
+00:11:32,129 --> 00:11:34,010
+through the 50 minutes
+that you're in class.
+
+245
+00:11:34,010 --> 00:11:35,350
+If it doesn't, you
+may want to bring
+
+246
+00:11:35,350 --> 00:11:38,089
+a charger and sit somewhere
+on the side, okay.
+
+247
+00:11:38,089 --> 00:11:39,909
+We'll see if we can try to
+
+248
+00:11:39,909 --> 00:11:43,109
+provision some power cords,
+but no guarantees there.
+
+249
+00:11:43,470 --> 00:11:47,829
+Again, boring logistical
+details, but important, right?
+
+250
+00:11:47,829 --> 00:11:50,549
+Stay tuned for more
+detail on Exam one.
+
+251
+00:11:50,549 --> 00:11:52,929
+So let's start with
+this question.
+
+252
+00:11:52,929 --> 00:11:55,049
+I sort of prefetched
+that a little bit with
+
+253
+00:11:55,049 --> 00:11:57,090
+my preamble on the first slide.
+
+254
+00:11:57,090 --> 00:11:58,969
+Why do we need
+schedulers, right?
+
+255
+00:11:58,969 --> 00:12:05,949
+Have you studied schedulers
+in 2,200? What did you learn?
+
+256
+00:12:06,910 --> 00:12:08,909
+Yes.
+
+257
+00:12:08,909 --> 00:12:11,050
+Loops that can be used.
+
+258
+00:12:11,050 --> 00:12:13,749
+Different scheduling
+algorithms like what?
+
+259
+00:12:13,749 --> 00:12:15,030
+Round Robin.
+
+260
+00:12:15,030 --> 00:12:16,749
+Okay. What else?
+
+261
+00:12:16,749 --> 00:12:18,749
+First come first search. Uh huh.
+
+262
+00:12:18,749 --> 00:12:21,989
+Okay. Okay. Okay. Did you talk
+
+263
+00:12:21,989 --> 00:12:23,890
+about sort of the trade offs
+
+264
+00:12:23,890 --> 00:12:25,650
+between those
+different policies?
+
+265
+00:12:25,650 --> 00:12:26,369
+Yeah.
+
+266
+00:12:26,369 --> 00:12:29,230
+You did. Okay. So what
+are some of the Actually,
+
+267
+00:12:29,230 --> 00:12:30,710
+before we get into
+the trade offs,
+
+268
+00:12:30,710 --> 00:12:32,889
+sort of why do we need
+schedulers in the first place?
+
+269
+00:12:32,889 --> 00:12:36,909
+Could you get away and get
+along without schedulers?
+
+270
+00:12:36,909 --> 00:12:38,770
+So in other words,
+
+271
+00:12:38,770 --> 00:12:40,409
+another way to ask
+this question is,
+
+272
+00:12:40,409 --> 00:12:42,329
+when do we need the schedulers?
+
+273
+00:12:42,329 --> 00:12:44,270
+Do we always need schedulers?
+
+274
+00:12:44,270 --> 00:12:45,729
+Are there some contexts or
+
+275
+00:12:45,729 --> 00:12:47,390
+some situations in
+which scheduler
+
+276
+00:12:47,390 --> 00:12:49,550
+is actually not necessary?
+
+277
+00:12:50,190 --> 00:12:52,429
+One of those assumptions
+that we make
+
+278
+00:12:52,429 --> 00:12:53,849
+is that schedule
+is always there.
+
+279
+00:12:53,849 --> 00:12:56,069
+Doesn't have to be always there.
+
+280
+00:12:59,550 --> 00:13:02,949
+Doesn't always have to be
+there, you're not dealing with
+
+281
+00:13:02,949 --> 00:13:06,569
+a system that has multiple
+threads or multiple process.
+
+282
+00:13:06,569 --> 00:13:08,750
+Sorry, could you say it again?
+
+283
+00:13:08,750 --> 00:13:11,569
+If you're not dealing
+with a system that has
+
+284
+00:13:11,569 --> 00:13:14,809
+multiple multiple threads
+happening at the same time.
+
+285
+00:13:14,809 --> 00:13:16,830
+I see. So you
+mentioned two things,
+
+286
+00:13:16,830 --> 00:13:18,549
+actually, which is quite
+interesting, right?
+
+287
+00:13:18,549 --> 00:13:21,229
+You mentioned
+multiple processors,
+
+288
+00:13:21,229 --> 00:13:23,350
+right, and multiple threads.
+
+289
+00:13:23,350 --> 00:13:25,170
+Or did you say processes?
+
+290
+00:13:25,170 --> 00:13:26,070
+Process.
+
+291
+00:13:26,070 --> 00:13:27,629
+Processes. Okay. I thought
+
+292
+00:13:27,629 --> 00:13:28,809
+it was a little bit
+more interesting.
+
+293
+00:13:28,809 --> 00:13:30,349
+But yeah, you're right.
+Basically, if you
+
+294
+00:13:30,349 --> 00:13:32,769
+have multiple this
+works too, right?
+
+295
+00:13:32,769 --> 00:13:34,570
+If you have multiple consumers
+
+296
+00:13:34,570 --> 00:13:36,629
+of resources that you
+need to deal with,
+
+297
+00:13:36,629 --> 00:13:38,629
+right, and they're
+all competing.
+
+298
+00:13:38,629 --> 00:13:40,229
+They all need resources,
+
+299
+00:13:40,229 --> 00:13:41,809
+then this is sort of one of
+
+300
+00:13:41,809 --> 00:13:43,989
+the necessary conditions
+where you need the schedule.
+
+301
+00:13:43,989 --> 00:13:45,829
+If you only have one process in
+
+302
+00:13:45,829 --> 00:13:47,949
+the system, to
+your point, right?
+
+303
+00:13:47,949 --> 00:13:50,209
+Do you need a schedule?
+Sounds pretty
+
+304
+00:13:50,209 --> 00:13:52,429
+obvious, but it is there.
+
+305
+00:13:52,429 --> 00:13:54,329
+I don't think you do, right?
+
+306
+00:13:54,329 --> 00:13:56,509
+I don't think you
+need a scheduler.
+
+307
+00:13:56,509 --> 00:13:59,590
+Okay, well, let's try to
+extrapolate that a little bit.
+
+308
+00:13:59,590 --> 00:14:01,829
+If you have two processes and
+
+309
+00:14:01,829 --> 00:14:05,310
+two CPUs or two cores,
+do you need a schedule?
+
+310
+00:14:07,850 --> 00:14:11,249
+Unlikely, right?
+And why is that?
+
+311
+00:14:12,050 --> 00:14:18,009
+Yes. Ah.
+
+312
+00:14:18,330 --> 00:14:20,929
+So basically, you can
+
+313
+00:14:20,929 --> 00:14:23,410
+allocate one CPU to
+each of the processes,
+
+314
+00:14:23,410 --> 00:14:26,050
+and then you don't need to
+multiplex between them.
+
+315
+00:14:26,050 --> 00:14:28,030
+Ah, I think I gave it away.
+
+316
+00:14:28,030 --> 00:14:30,290
+So what are we looking for here?
+
+317
+00:14:30,290 --> 00:14:32,209
+Here are the properties of
+
+318
+00:14:32,209 --> 00:14:35,070
+the situations where the
+schedulers actually make sense.
+
+319
+00:14:35,070 --> 00:14:36,890
+The properties are as follows.
+
+320
+00:14:36,890 --> 00:14:38,850
+You need to be in a situation
+
+321
+00:14:38,850 --> 00:14:41,190
+where you have multiple
+resource consumers.
+
+322
+00:14:41,190 --> 00:14:43,309
+And by the way,
+I'm going to make
+
+323
+00:14:43,309 --> 00:14:45,989
+an analogy here with an
+economic system because
+
+324
+00:14:45,989 --> 00:14:48,249
+an economic system
+is also all about
+
+325
+00:14:48,249 --> 00:14:50,189
+actually scheduling
+resources that
+
+326
+00:14:50,189 --> 00:14:51,969
+you have access to, right?
+
+327
+00:14:51,969 --> 00:14:53,250
+And who gets access,
+
+328
+00:14:53,250 --> 00:14:54,689
+how much access do you get?
+
+329
+00:14:54,689 --> 00:14:56,489
+And what are the priorities
+
+330
+00:14:56,489 --> 00:14:58,150
+associated with people
+getting access?
+
+331
+00:14:58,150 --> 00:14:59,909
+What are the mechanisms
+associated with
+
+332
+00:14:59,909 --> 00:15:02,150
+distributing access
+to shared resources?
+
+333
+00:15:02,150 --> 00:15:06,740
+So once you think about
+scheduling long enough,
+
+334
+00:15:06,740 --> 00:15:08,880
+everything sort of becomes
+a scheduling problem,
+
+335
+00:15:08,880 --> 00:15:10,700
+including economic theory.
+
+336
+00:15:10,700 --> 00:15:13,240
+So just like in the
+economic theory,
+
+337
+00:15:13,240 --> 00:15:14,959
+we have multiple
+resource consumers.
+
+338
+00:15:14,959 --> 00:15:16,959
+We have multiple
+consumers, right?
+
+339
+00:15:16,959 --> 00:15:18,859
+That sort of
+necessitates a set of
+
+340
+00:15:18,859 --> 00:15:21,200
+mechanisms to share
+those resources.
+
+341
+00:15:21,200 --> 00:15:22,939
+And in addition to this,
+
+342
+00:15:22,939 --> 00:15:25,479
+the second sort of
+necessary condition that
+
+343
+00:15:25,479 --> 00:15:28,820
+necessitates schedulers
+is a scare set
+
+344
+00:15:28,820 --> 00:15:31,034
+of resources that
+we're sharing between.
+
+345
+00:15:31,034 --> 00:15:33,349
+Right? So if you
+had an abundant set
+
+346
+00:15:33,349 --> 00:15:35,370
+of resources and only
+a few consumers.
+
+347
+00:15:35,370 --> 00:15:37,350
+So, relatively speaking, fewer
+
+348
+00:15:37,350 --> 00:15:39,670
+consumers than there
+are resources to share.
+
+349
+00:15:39,670 --> 00:15:41,969
+Then in some sense,
+you sort of, you know,
+
+350
+00:15:41,969 --> 00:15:44,249
+throw everything at
+the resources and
+
+351
+00:15:44,249 --> 00:15:47,249
+someone everybody will land with
+
+352
+00:15:47,249 --> 00:15:50,370
+a sufficient amount of
+resources without any schedule
+
+353
+00:15:50,370 --> 00:15:51,970
+interposing on the control flow
+
+354
+00:15:51,970 --> 00:15:54,749
+of your application, right?
+
+355
+00:15:55,570 --> 00:15:58,790
+So we're looking for
+those properties.
+
+356
+00:15:58,790 --> 00:16:00,609
+And so together, it sort of
+
+357
+00:16:00,609 --> 00:16:02,270
+should remind you of
+something that we've
+
+358
+00:16:02,270 --> 00:16:05,809
+already discussed in the
+context of at least one
+
+359
+00:16:05,809 --> 00:16:09,909
+other vertical or
+one other subsystem
+
+360
+00:16:09,909 --> 00:16:12,609
+in the operating system kernel,
+
+361
+00:16:12,609 --> 00:16:15,029
+I E virtual memory
+management, right?
+
+362
+00:16:15,029 --> 00:16:17,869
+There are multiple consumers
+of those physical frames.
+
+363
+00:16:17,869 --> 00:16:20,089
+There's a scare set
+of physical frames,
+
+364
+00:16:20,089 --> 00:16:22,090
+and we need to perform
+
+365
+00:16:22,090 --> 00:16:24,209
+what function of an
+operating system
+
+366
+00:16:24,209 --> 00:16:26,489
+in order to accommodate that.
+
+367
+00:16:29,120 --> 00:16:31,499
+Yeah, we need to ensure
+
+368
+00:16:31,499 --> 00:16:34,699
+isolation and we need to
+multiplex between them, right?
+
+369
+00:16:34,699 --> 00:16:38,479
+So schedulers are
+basically a mechanism
+
+370
+00:16:38,479 --> 00:16:42,660
+for us to actually provide
+support for multiplexing,
+
+371
+00:16:42,660 --> 00:16:44,399
+the scare set of resources
+
+372
+00:16:44,399 --> 00:16:47,439
+between multiple resource
+consumers in the system.
+
+373
+00:16:47,439 --> 00:16:51,260
+Okay? So do you see how we
+sort of reason through,
+
+374
+00:16:51,260 --> 00:16:53,499
+even though it may be
+obvious in retrospect,
+
+375
+00:16:53,499 --> 00:16:56,624
+a lot of things are in systems.
+
+376
+00:16:56,624 --> 00:16:59,689
+We reason through the
+need for schedulers in
+
+377
+00:16:59,689 --> 00:17:03,009
+a very systematic way by
+looking at the properties of
+
+378
+00:17:03,009 --> 00:17:05,049
+the situations where
+you actually need
+
+379
+00:17:05,049 --> 00:17:06,389
+such a thing because
+
+380
+00:17:06,389 --> 00:17:09,930
+such a thing called a
+scheduler is not free.
+
+381
+00:17:09,930 --> 00:17:12,410
+You're imposing some additional
+
+382
+00:17:12,410 --> 00:17:13,649
+complexity into the system.
+
+383
+00:17:13,649 --> 00:17:14,829
+You're kind of adding
+
+384
+00:17:14,829 --> 00:17:16,369
+an additional component that
+
+385
+00:17:16,369 --> 00:17:17,870
+you need to be able to write,
+
+386
+00:17:17,870 --> 00:17:19,369
+you need to be able to maintain,
+
+387
+00:17:19,369 --> 00:17:21,749
+and it has some overheads
+associated with
+
+388
+00:17:21,749 --> 00:17:23,029
+running and interposing on
+
+389
+00:17:23,029 --> 00:17:24,549
+the control flow of
+your applications.
+
+390
+00:17:24,549 --> 00:17:26,689
+So there must be a really
+good reason for that.
+
+391
+00:17:26,689 --> 00:17:28,289
+So that's why you need to
+
+392
+00:17:28,289 --> 00:17:30,290
+step back and sort of
+think to yourself,
+
+393
+00:17:30,290 --> 00:17:33,634
+do I even need a schedule
+in the first place, right?
+
+394
+00:17:33,634 --> 00:17:35,959
+Okay, so it's one of
+
+395
+00:17:35,959 --> 00:17:37,839
+the mechanisms in the
+operating system that
+
+396
+00:17:37,839 --> 00:17:42,460
+enables process isolation
+and resource multiplexing.
+
+397
+00:17:42,460 --> 00:17:47,559
+And basically, it also
+provides us with a way to
+
+398
+00:17:47,559 --> 00:17:52,199
+ensure fair access
+to the resources and
+
+399
+00:17:52,199 --> 00:17:54,319
+provides us a way to ensure
+
+400
+00:17:54,319 --> 00:17:57,979
+reasonable or high
+resource utilization.
+
+401
+00:17:57,979 --> 00:18:00,279
+Okay? Because you don't want to
+
+402
+00:18:00,279 --> 00:18:02,080
+end up in a situation
+where, for instance,
+
+403
+00:18:02,080 --> 00:18:05,819
+let's say you have two
+CPUs and two processes,
+
+404
+00:18:05,819 --> 00:18:08,760
+but for some reason,
+
+405
+00:18:08,760 --> 00:18:10,240
+because there is no scheduler,
+
+406
+00:18:10,240 --> 00:18:11,820
+the processes are
+actually getting
+
+407
+00:18:11,820 --> 00:18:14,159
+scheduled on your core
+zero every single time.
+
+408
+00:18:14,159 --> 00:18:17,359
+Right? And so this
+
+409
+00:18:17,359 --> 00:18:20,060
+leaves the second core
+completely underutilized.
+
+410
+00:18:20,060 --> 00:18:23,999
+So it's sort of a bad allocation
+decision in scheduling.
+
+411
+00:18:23,999 --> 00:18:25,779
+And that can happen, actually.
+
+412
+00:18:25,779 --> 00:18:27,359
+When you start writing programs,
+
+413
+00:18:27,359 --> 00:18:29,680
+you will see that often
+because the CPU zero,
+
+414
+00:18:29,680 --> 00:18:30,879
+the first core is
+
+415
+00:18:30,879 --> 00:18:32,139
+sort of a default core where
+
+416
+00:18:32,139 --> 00:18:33,959
+all the processes
+get instantiated,
+
+417
+00:18:33,959 --> 00:18:36,399
+you may actually with the
+poor scheduling policy
+
+418
+00:18:36,399 --> 00:18:37,600
+or in the absence of having
+
+419
+00:18:37,600 --> 00:18:39,100
+a scheduler in the first place,
+
+420
+00:18:39,100 --> 00:18:41,199
+you may actually end up in
+a situation where all of
+
+421
+00:18:41,199 --> 00:18:43,779
+your process is running
+on core zero, right?
+
+422
+00:18:43,779 --> 00:18:47,719
+So that sort of speaks
+to the second bullet
+
+423
+00:18:47,719 --> 00:18:49,159
+right here that we also need
+
+424
+00:18:49,159 --> 00:18:52,284
+schedulers to ensure good
+resource utilization.
+
+425
+00:18:52,284 --> 00:18:56,189
+So the schedule is
+this arbiter, right,
+
+426
+00:18:56,189 --> 00:18:58,829
+between the consumers and
+
+427
+00:18:58,829 --> 00:19:02,989
+the producers of resources or
+the providers of resources
+
+428
+00:19:02,989 --> 00:19:07,330
+that provides us with the
+ability to sort of go through
+
+429
+00:19:07,330 --> 00:19:10,929
+this matchmaking process that
+
+430
+00:19:10,929 --> 00:19:12,889
+enables some of
+the properties for
+
+431
+00:19:12,889 --> 00:19:14,009
+the consumers and some of
+
+432
+00:19:14,009 --> 00:19:15,830
+the properties for
+the providers.
+
+433
+00:19:15,830 --> 00:19:18,569
+And the consumer properties,
+they are, you know,
+
+434
+00:19:18,569 --> 00:19:20,530
+fairness, and there's a bunch
+
+435
+00:19:20,530 --> 00:19:22,350
+of others that we're going
+to talk to in a moment.
+
+436
+00:19:22,350 --> 00:19:24,929
+And from the resource
+perspective, it's, you know,
+
+437
+00:19:24,929 --> 00:19:28,769
+oftentimes resource utilization.
+That we care about.
+
+438
+00:19:28,769 --> 00:19:30,729
+Okay? So you can have
+
+439
+00:19:30,729 --> 00:19:34,209
+a mental picture of consumers
+and providers or I call
+
+440
+00:19:34,209 --> 00:19:37,689
+them producers
+because they produce
+
+441
+00:19:37,689 --> 00:19:40,469
+capacity and the properties
+
+442
+00:19:40,469 --> 00:19:43,749
+that we want to enable
+with the schedulers,
+
+443
+00:19:43,749 --> 00:19:46,789
+both on the left hand side
+and on the right hand side.
+
+444
+00:19:46,789 --> 00:19:48,890
+Okay, this is a little
+bit too abstract,
+
+445
+00:19:48,890 --> 00:19:51,889
+but bear with me for just
+a couple more slides.
+
+446
+00:19:51,889 --> 00:19:53,609
+So we've established that we
+
+447
+00:19:53,609 --> 00:19:56,050
+need schedulers in
+order to mount.
+
+448
+00:19:56,120 --> 00:19:59,680
+Now, what do they schedule?
+
+449
+00:19:59,680 --> 00:20:02,480
+What are some of the things
+you can imagine scheduling,
+
+450
+00:20:02,480 --> 00:20:04,439
+given everything that
+we've discussed so far?
+
+451
+00:20:04,439 --> 00:20:06,159
+Oh, man, time flies.
+
+452
+00:20:06,159 --> 00:20:09,720
+Let's go quickly through
+this. What are we scheduling?
+
+453
+00:20:10,360 --> 00:20:13,999
+Okay, processes, is that it?
+
+454
+00:20:13,999 --> 00:20:18,959
+Yeah. IO. Do I have that?
+
+455
+00:20:18,959 --> 00:20:20,939
+Okay, yes, I have that.
+
+456
+00:20:20,939 --> 00:20:22,679
+We can schedule discs.
+
+457
+00:20:22,679 --> 00:20:26,719
+Okay. And specifically, disc
+requests like IO, right?
+
+458
+00:20:26,719 --> 00:20:28,879
+What else can we schedule?
+
+459
+00:20:28,880 --> 00:20:31,159
+That's it?
+
+460
+00:20:37,510 --> 00:20:43,609
+Have a couple of more. We can
+schedule network requests.
+
+461
+00:20:43,609 --> 00:20:47,009
+We can schedule basically
+resources on a cloud system.
+
+462
+00:20:47,009 --> 00:20:49,829
+We can schedule things like
+machine learning, right?
+
+463
+00:20:49,829 --> 00:20:51,069
+And we'll get to some of
+
+464
+00:20:51,069 --> 00:20:53,369
+the examples of what
+I mean by that.
+
+465
+00:20:53,369 --> 00:20:56,389
+And so, given this, you know,
+
+466
+00:20:56,389 --> 00:20:57,470
+given the set of things
+
+467
+00:20:57,470 --> 00:20:58,909
+that we want to be
+able to schedule,
+
+468
+00:20:58,909 --> 00:21:01,029
+what is the goal of
+a scheduler then?
+
+469
+00:21:01,029 --> 00:21:03,349
+You know, can somebody
+sort of take a step back?
+
+470
+00:21:03,349 --> 00:21:05,290
+I know you've
+studied Round Robin.
+
+471
+00:21:05,290 --> 00:21:08,229
+I know you know your FIFO
+and first come first
+
+472
+00:21:08,229 --> 00:21:12,810
+serve and all of these
+other interesting policies.
+
+473
+00:21:12,810 --> 00:21:14,189
+But then the question is, what's
+
+474
+00:21:14,189 --> 00:21:15,829
+the goal that we're
+trying to achieve?
+
+475
+00:21:15,829 --> 00:21:17,349
+How do you know
+that the schedule
+
+476
+00:21:17,349 --> 00:21:19,690
+is actually doing a good job?
+
+477
+00:21:20,110 --> 00:21:23,650
+Versus a bad job? How do
+you take one scheduler
+
+478
+00:21:23,650 --> 00:21:25,049
+versus the other and actually
+
+479
+00:21:25,049 --> 00:21:27,229
+compare their performance? Yes.
+
+480
+00:21:27,229 --> 00:21:30,269
+Like, reducing wait time.
+Huh? Rducing wait time.
+
+481
+00:21:30,269 --> 00:21:31,989
+Okay, reducing wait time.
+
+482
+00:21:31,989 --> 00:21:33,569
+Is that the only thing that you
+
+483
+00:21:33,569 --> 00:21:35,859
+might be optimizing for? Yes.
+
+484
+00:21:35,859 --> 00:21:39,229
+Spotting the amount
+of work done.
+
+485
+00:21:39,229 --> 00:21:41,930
+Right. So more generally,
+
+486
+00:21:41,930 --> 00:21:43,889
+in cases when you
+
+487
+00:21:43,889 --> 00:21:45,969
+are having a conversation
+about a scheduler,
+
+488
+00:21:45,969 --> 00:21:47,529
+you want to maximize
+the amount of
+
+489
+00:21:47,529 --> 00:21:50,169
+work that you care about, right?
+
+490
+00:21:50,169 --> 00:21:54,050
+And the care about part can
+be extremely heterogeneous,
+
+491
+00:21:54,050 --> 00:21:55,949
+and we'll see lots
+of examples of that.
+
+492
+00:21:55,949 --> 00:21:58,410
+So it comes down to reasoning
+
+493
+00:21:58,410 --> 00:22:02,170
+about a measure of success
+for your scheduler.
+
+494
+00:22:02,170 --> 00:22:05,289
+And there's a whole,
+laundry list of
+
+495
+00:22:05,289 --> 00:22:06,769
+different kinds of measures of
+
+496
+00:22:06,769 --> 00:22:09,089
+success that you may
+actually care about.
+
+497
+00:22:09,089 --> 00:22:11,170
+And in each one of those cases,
+
+498
+00:22:11,170 --> 00:22:13,289
+we always want to
+
+499
+00:22:13,289 --> 00:22:16,089
+maximize the amount of
+work that we care about.
+
+500
+00:22:16,089 --> 00:22:19,890
+Okay? So that's kind of
+a very general statement
+
+501
+00:22:19,890 --> 00:22:22,090
+of the scheduling goal.
+
+502
+00:22:23,090 --> 00:22:26,029
+So specifically,
+here are a couple of
+
+503
+00:22:26,029 --> 00:22:28,890
+things that we might
+want to maximize.
+
+504
+00:22:28,890 --> 00:22:30,989
+We might want to maximize
+throughput, right?
+
+505
+00:22:30,989 --> 00:22:33,990
+So that's sort of referring
+to throughput scheduling.
+
+506
+00:22:33,990 --> 00:22:35,929
+A good example of that is
+
+507
+00:22:35,929 --> 00:22:39,129
+a disc or basically
+scheduling accesses,
+
+508
+00:22:39,129 --> 00:22:41,250
+reads and writes to disc.
+
+509
+00:22:41,440 --> 00:22:44,019
+And so depending on the policy
+
+510
+00:22:44,019 --> 00:22:46,819
+that you actually
+implement for disk access,
+
+511
+00:22:46,819 --> 00:22:49,020
+the performance can
+actually be orders
+
+512
+00:22:49,020 --> 00:22:51,579
+of magnitude different, okay?
+
+513
+00:22:51,579 --> 00:22:53,739
+So it's a huge function.
+
+514
+00:22:53,739 --> 00:22:55,559
+So it's a function of
+the policy itself,
+
+515
+00:22:55,559 --> 00:22:57,339
+but even fixing the policy,
+
+516
+00:22:57,339 --> 00:23:00,380
+it's a function of the
+access pattern to the disk.
+
+517
+00:23:00,380 --> 00:23:02,999
+And so let's see here.
+
+518
+00:23:02,999 --> 00:23:04,419
+Are you even familiar with
+
+519
+00:23:04,419 --> 00:23:06,500
+the discs that had
+rotating platters?
+
+520
+00:23:06,500 --> 00:23:08,319
+Because they don't
+use them anymore.
+
+521
+00:23:08,319 --> 00:23:11,179
+So I'm just wondering if you
+still have that notion of
+
+522
+00:23:11,179 --> 00:23:14,389
+rotating platters and
+in a disc, right?
+
+523
+00:23:14,389 --> 00:23:18,409
+They used to manufacture
+them as near perfect mirrors
+
+524
+00:23:18,409 --> 00:23:23,190
+in almost like fab
+lab equivalent type
+
+525
+00:23:23,190 --> 00:23:26,030
+of pre sterile environments,
+
+526
+00:23:26,030 --> 00:23:27,809
+and they would put them
+
+527
+00:23:27,809 --> 00:23:30,369
+together and they would
+allow them to rotate.
+
+528
+00:23:30,369 --> 00:23:34,409
+And so the actuation delay to
+
+529
+00:23:34,409 --> 00:23:35,749
+enable the rotation of one of
+
+530
+00:23:35,749 --> 00:23:39,249
+those platters was a
+significant overhead, right?
+
+531
+00:23:39,249 --> 00:23:45,409
+And so because of that, it
+actually made it necessary to
+
+532
+00:23:45,409 --> 00:23:48,649
+change the scheduling
+approach that
+
+533
+00:23:48,649 --> 00:23:50,250
+you use with disc scheduling
+
+534
+00:23:50,250 --> 00:23:52,309
+versus process scheduling, okay?
+
+535
+00:23:52,309 --> 00:23:54,350
+Because with process
+scheduling, for instance,
+
+536
+00:23:54,350 --> 00:23:56,109
+the actuation delay of
+
+537
+00:23:56,109 --> 00:23:59,029
+switching between request
+one or process one and
+
+538
+00:23:59,029 --> 00:24:01,669
+request two or process
+two was much lower
+
+539
+00:24:01,669 --> 00:24:05,050
+compared to switching
+between disk IO requests.
+
+540
+00:24:05,050 --> 00:24:07,890
+Okay? And so that's
+
+541
+00:24:07,890 --> 00:24:08,989
+how sort of the notion of
+
+542
+00:24:08,989 --> 00:24:10,730
+the elevator
+scheduling was born.
+
+543
+00:24:10,730 --> 00:24:14,130
+And why was it even called
+an elevated scheduler?
+
+544
+00:24:14,130 --> 00:24:16,049
+Why do you think an
+elevated scheduler
+
+545
+00:24:16,049 --> 00:24:18,270
+is a good fit for
+disc scheduling?
+
+546
+00:24:18,270 --> 00:24:22,330
+Yeah. I remember from 2,200,
+
+547
+00:24:22,330 --> 00:24:25,510
+if you grab it out the way
+that you traverse the disk,
+
+548
+00:24:25,510 --> 00:24:27,369
+it kind of goes all the way
+up and then all the way down
+
+549
+00:24:27,369 --> 00:24:29,930
+to how elevator works.
+
+550
+00:24:29,930 --> 00:24:32,469
+Okay. Yeah. Anybody else?
+
+551
+00:24:32,469 --> 00:24:33,829
+Is that you agree
+with that? There was
+
+552
+00:24:33,829 --> 00:24:37,409
+another hand that came
+up over there. Yes.
+
+553
+00:24:37,760 --> 00:24:41,399
+Takes longer to different I
+
+554
+00:24:41,399 --> 00:24:42,640
+guess
+
+555
+00:24:48,080 --> 00:24:51,819
+enter access everything
+
+556
+00:24:51,819 --> 00:24:57,380
+on the Yeah, yeah, yeah.
+
+557
+00:24:57,380 --> 00:25:00,500
+So you're basically getting
+the general idea here.
+
+558
+00:25:00,500 --> 00:25:02,080
+And the general idea,
+
+559
+00:25:02,080 --> 00:25:03,859
+the analogy between an elevator
+
+560
+00:25:03,859 --> 00:25:05,039
+and disk is the following.
+
+561
+00:25:05,039 --> 00:25:06,520
+That in an elevator,
+
+562
+00:25:06,520 --> 00:25:09,660
+typically what happens is
+that an elevator okay,
+
+563
+00:25:09,660 --> 00:25:11,899
+here's a hypothetical
+thought exercise.
+
+564
+00:25:11,899 --> 00:25:14,819
+Imagine an elevator using
+
+565
+00:25:14,819 --> 00:25:17,359
+a first come first
+served schedule.
+
+566
+00:25:17,500 --> 00:25:20,099
+Would you like an
+elevator like this in
+
+567
+00:25:20,099 --> 00:25:22,979
+your building? Why not?
+
+568
+00:25:22,979 --> 00:25:25,319
+First come first
+served. Seems like
+
+569
+00:25:25,319 --> 00:25:26,799
+a very fair thing to do, right?
+
+570
+00:25:26,799 --> 00:25:28,660
+Very commonly
+utilized scheduler.
+
+571
+00:25:28,660 --> 00:25:30,339
+What's the problem with that?
+
+572
+00:25:30,339 --> 00:25:31,479
+Yes.
+
+573
+00:25:31,479 --> 00:25:34,099
+Because the elevator
+is doing a lot of
+
+574
+00:25:34,099 --> 00:25:35,540
+movement which does not serve
+
+575
+00:25:35,540 --> 00:25:38,039
+as many people as
+it potentially can.
+
+576
+00:25:38,039 --> 00:25:41,400
+Like if the elevators moving
+in a certain direction.
+
+577
+00:25:41,400 --> 00:25:42,979
+There's people who press it on
+
+578
+00:25:42,979 --> 00:25:44,639
+the way, it wouldn't
+stop for them,
+
+579
+00:25:44,639 --> 00:25:45,960
+but rather go to the next
+
+580
+00:25:45,960 --> 00:25:48,274
+person be anywhere
+in the building.
+
+581
+00:25:48,274 --> 00:25:52,169
+Right, right. So
+that's exactly right.
+
+582
+00:25:52,169 --> 00:25:54,830
+And another way to say
+this is that basically,
+
+583
+00:25:54,830 --> 00:25:56,809
+there's a non trivial
+amount of time that it
+
+584
+00:25:56,809 --> 00:25:59,069
+actually takes to service
+a particular request,
+
+585
+00:25:59,069 --> 00:26:00,890
+and there's an actuation delay
+
+586
+00:26:00,890 --> 00:26:02,269
+to switch between requests.
+
+587
+00:26:02,269 --> 00:26:04,630
+After both of those
+two things combined,
+
+588
+00:26:04,630 --> 00:26:06,089
+make a set of
+
+589
+00:26:06,089 --> 00:26:08,469
+policies like first come
+first serve or round robin,
+
+590
+00:26:08,469 --> 00:26:11,089
+for that matter, a
+very poor policy.
+
+591
+00:26:11,089 --> 00:26:13,370
+So what you want to
+do is because there's
+
+592
+00:26:13,370 --> 00:26:15,970
+a significant
+overhead associated
+
+593
+00:26:15,970 --> 00:26:17,670
+with moving the elevator,
+
+594
+00:26:17,670 --> 00:26:20,869
+this cyberphysical system
+in the first place, right,
+
+595
+00:26:20,869 --> 00:26:24,240
+you might as pick up
+all of the requests
+
+596
+00:26:24,240 --> 00:26:27,899
+along the way as you're
+servicing the previous request.
+
+597
+00:26:27,899 --> 00:26:29,560
+So in other words, the elevator
+
+598
+00:26:29,560 --> 00:26:31,119
+will stop and pick up all of
+
+599
+00:26:31,119 --> 00:26:32,479
+the requests that are
+
+600
+00:26:32,479 --> 00:26:34,519
+heading in the same
+direction as the request.
+
+601
+00:26:34,519 --> 00:26:36,639
+It's already in progress
+of being served.
+
+602
+00:26:36,639 --> 00:26:39,520
+Okay? Same thing with the disk.
+
+603
+00:26:39,520 --> 00:26:43,160
+Basically, what the disc
+schedule is trying to do is it's
+
+604
+00:26:43,160 --> 00:26:45,060
+trying to batch reason writes
+
+605
+00:26:45,060 --> 00:26:47,100
+and reorder reason
+writes for that matter.
+
+606
+00:26:47,100 --> 00:26:48,359
+We're going to talk
+about that when
+
+607
+00:26:48,359 --> 00:26:50,060
+we get to file systems,
+
+608
+00:26:50,060 --> 00:26:53,455
+which is another super
+exciting module in this class.
+
+609
+00:26:53,455 --> 00:26:55,469
+Reorder reads and writes in
+
+610
+00:26:55,469 --> 00:26:59,290
+such a way that it actually
+maximizes the number of reads
+
+611
+00:26:59,290 --> 00:27:00,769
+and writes it performs as it
+
+612
+00:27:00,769 --> 00:27:02,950
+services as it performs
+
+613
+00:27:02,950 --> 00:27:05,530
+a single spin
+operation on the disk.
+
+614
+00:27:05,530 --> 00:27:10,689
+Okay? So there's an
+implicit assumption here.
+
+615
+00:27:10,689 --> 00:27:13,609
+I wanted to make a point that
+the implicit assumption was
+
+616
+00:27:13,609 --> 00:27:16,790
+the heavy overhead
+or actuation delay
+
+617
+00:27:16,790 --> 00:27:19,970
+associated with switching
+between the requests.
+
+618
+00:27:19,970 --> 00:27:23,090
+So people rarely talk
+about assumptions.
+
+619
+00:27:23,090 --> 00:27:24,589
+This is the class
+where we talk about
+
+620
+00:27:24,589 --> 00:27:25,850
+assumptions and trade offs
+
+621
+00:27:25,850 --> 00:27:27,289
+and overheads and
+things like that.
+
+622
+00:27:27,289 --> 00:27:30,529
+CODA elevator doesn't
+work like that.
+
+623
+00:27:30,940 --> 00:27:35,379
+It works differently.
+So what happened there?
+
+624
+00:27:35,379 --> 00:27:39,140
+Why is it not using an
+elevator scheduler?
+
+625
+00:27:42,100 --> 00:27:45,339
+Are you guys familiar
+with a elevators?
+
+626
+00:27:45,339 --> 00:27:47,120
+Okay. So basically, it's
+
+627
+00:27:47,120 --> 00:27:49,799
+a system that is much
+more rare where you
+
+628
+00:27:49,799 --> 00:27:53,239
+come to sort of a
+centralized control panel
+
+629
+00:27:53,239 --> 00:27:55,739
+and you press a floor
+that you want, right?
+
+630
+00:27:55,739 --> 00:27:57,519
+And then you wait, and it
+
+631
+00:27:57,519 --> 00:28:00,064
+tells you which elevator
+shaft to go to.
+
+632
+00:28:00,064 --> 00:28:03,969
+Okay? And so you don't just
+press an up or down button,
+
+633
+00:28:03,969 --> 00:28:05,830
+just like on the
+normal elevators.
+
+634
+00:28:05,830 --> 00:28:07,350
+You actually have
+a control panel
+
+635
+00:28:07,350 --> 00:28:09,269
+where you specify which
+floor you want to go to.
+
+636
+00:28:09,269 --> 00:28:11,549
+And then after some
+non trivial amount of
+
+637
+00:28:11,549 --> 00:28:13,769
+time, typically in seconds,
+
+638
+00:28:13,769 --> 00:28:15,590
+but nevertheless, it tells
+
+639
+00:28:15,590 --> 00:28:17,169
+you which elevator
+shaft to go to,
+
+640
+00:28:17,169 --> 00:28:19,330
+okay? So it's different.
+
+641
+00:28:19,330 --> 00:28:21,270
+It's much more sophisticated.
+
+642
+00:28:21,270 --> 00:28:24,490
+And this sort of gives
+
+643
+00:28:24,490 --> 00:28:26,829
+a very interesting
+intuition or insight
+
+644
+00:28:26,829 --> 00:28:29,709
+into the declarative requests
+where you're specifying
+
+645
+00:28:29,709 --> 00:28:31,629
+real requests to
+the serving system
+
+646
+00:28:31,629 --> 00:28:32,789
+in a declarative fashion.
+
+647
+00:28:32,789 --> 00:28:35,089
+You're saying that my request is
+
+648
+00:28:35,089 --> 00:28:38,109
+that I want to go
+to floor 15, okay?
+
+649
+00:28:38,109 --> 00:28:39,770
+With a regular elevator,
+
+650
+00:28:39,770 --> 00:28:41,689
+the elevator doesn't
+know where you're going.
+
+651
+00:28:41,689 --> 00:28:43,289
+Knows that you're going up or
+
+652
+00:28:43,289 --> 00:28:45,969
+down in the best case
+scenario, right?
+
+653
+00:28:45,969 --> 00:28:47,790
+With this one,
+you're declaratively
+
+654
+00:28:47,790 --> 00:28:49,209
+specifying your intent,
+
+655
+00:28:49,209 --> 00:28:50,870
+and it uses this information
+
+656
+00:28:50,870 --> 00:28:52,830
+to make better bashing decisions
+
+657
+00:28:52,830 --> 00:28:55,030
+and therefore
+maximize throughput
+
+658
+00:28:55,030 --> 00:28:58,074
+given this declaratively
+specified information.
+
+659
+00:28:58,074 --> 00:29:01,079
+So do you see how much
+depth there is just
+
+660
+00:29:01,079 --> 00:29:04,519
+by talking about trivial
+things like coda elevators?
+
+661
+00:29:05,080 --> 00:29:08,199
+I don't know. I
+think it's exciting.
+
+662
+00:29:08,199 --> 00:29:10,269
+Um, but let's move on.
+
+663
+00:29:10,269 --> 00:29:11,550
+So scheduling to minimize
+
+664
+00:29:11,550 --> 00:29:13,889
+response time.
+Social media feeds.
+
+665
+00:29:13,889 --> 00:29:15,290
+Actually, not just social
+
+666
+00:29:15,290 --> 00:29:16,729
+media is already
+pretty outdated.
+
+667
+00:29:16,729 --> 00:29:19,169
+Everybody knows it's
+bad. Don't use it.
+
+668
+00:29:19,169 --> 00:29:21,769
+But there are other
+things like ARVR
+
+669
+00:29:21,769 --> 00:29:23,109
+headsets, for instance, right?
+
+670
+00:29:23,109 --> 00:29:25,589
+Any sort of thing that
+
+671
+00:29:25,589 --> 00:29:30,029
+has a response time
+component to it.
+
+672
+00:29:30,870 --> 00:29:34,249
+If you're writing a
+scheduler for that system,
+
+673
+00:29:34,249 --> 00:29:35,929
+you need to make sure
+that your requests are
+
+674
+00:29:35,929 --> 00:29:38,809
+serviced in an interactive
+response time fashion.
+
+675
+00:29:38,809 --> 00:29:40,689
+Because if you don't
+do that, basically,
+
+676
+00:29:40,689 --> 00:29:42,430
+you start losing users.
+
+677
+00:29:42,430 --> 00:29:44,269
+There's going to be
+a disassociation.
+
+678
+00:29:44,269 --> 00:29:45,929
+There's going to be user
+
+679
+00:29:45,929 --> 00:29:47,929
+drop off and things
+of that nature.
+
+680
+00:29:47,929 --> 00:29:50,769
+Um, you also have schedulers
+
+681
+00:29:50,769 --> 00:29:52,509
+that maximize latency
+SLO attainment.
+
+682
+00:29:52,509 --> 00:29:53,669
+What the hell does that mean?
+
+683
+00:29:53,669 --> 00:29:56,470
+SLO stands for service
+level objective.
+
+684
+00:29:56,470 --> 00:29:58,209
+Latency SLO is typically
+
+685
+00:29:58,209 --> 00:30:00,589
+a deadline or latency
+slack or budget that you
+
+686
+00:30:00,589 --> 00:30:02,169
+are given within which
+
+687
+00:30:02,169 --> 00:30:04,989
+a particular request
+must be satisfied, okay?
+
+688
+00:30:04,989 --> 00:30:06,449
+So notice that it is
+
+689
+00:30:06,449 --> 00:30:08,130
+actually qualitatively
+
+690
+00:30:08,130 --> 00:30:09,890
+different from the
+second bullet point,
+
+691
+00:30:09,890 --> 00:30:11,529
+the minimizing response time,
+
+692
+00:30:11,529 --> 00:30:13,410
+because in the
+second bullet point,
+
+693
+00:30:13,410 --> 00:30:15,069
+we're treating response time as
+
+694
+00:30:15,069 --> 00:30:16,970
+an objective function
+to minimize.
+
+695
+00:30:16,970 --> 00:30:20,150
+In the third bullet point,
+what's the difference?
+
+696
+00:30:21,710 --> 00:30:25,210
+We have to satisfy the
+specified deadline.
+
+697
+00:30:25,210 --> 00:30:28,489
+So let's say the deadline
+is 36 milliseconds and we
+
+698
+00:30:28,489 --> 00:30:31,229
+did our request in 35
+or 15 milliseconds,
+
+699
+00:30:31,229 --> 00:30:32,990
+does it make a difference?
+
+700
+00:30:32,990 --> 00:30:36,065
+No, because in both
+cases, we've satisfied
+
+701
+00:30:36,065 --> 00:30:38,720
+Line, right? So we're
+trying to satisfy
+
+702
+00:30:38,720 --> 00:30:41,300
+a specific latency constraint.
+
+703
+00:30:41,300 --> 00:30:43,180
+So it's a constraint
+optimization
+
+704
+00:30:43,180 --> 00:30:45,380
+problem in the third case.
+
+705
+00:30:45,380 --> 00:30:48,100
+So examples here
+include ad serving.
+
+706
+00:30:48,100 --> 00:30:50,420
+For example, when
+you're loading a page,
+
+707
+00:30:50,420 --> 00:30:53,039
+the ad serving platform, right,
+
+708
+00:30:53,039 --> 00:30:56,300
+has a specific latency
+deadline within
+
+709
+00:30:56,300 --> 00:30:57,879
+which it needs to
+figure out what is
+
+710
+00:30:57,879 --> 00:30:59,899
+the most appropriate
+ad to serve, right?
+
+711
+00:30:59,899 --> 00:31:01,479
+And if it fails to do that,
+
+712
+00:31:01,479 --> 00:31:03,300
+then you're not getting
+a really good ad.
+
+713
+00:31:03,300 --> 00:31:04,979
+And so you're going to
+
+714
+00:31:04,979 --> 00:31:07,720
+severely impact your
+click through ratio.
+
+715
+00:31:07,720 --> 00:31:09,639
+You click through rate,
+
+716
+00:31:09,639 --> 00:31:12,479
+which is really important for
+revenue, obviously, right?
+
+717
+00:31:12,479 --> 00:31:15,320
+So when you start thinking
+about these things, okay,
+
+718
+00:31:15,320 --> 00:31:16,959
+let's use a more modern one,
+
+719
+00:31:16,959 --> 00:31:18,999
+the LLM intertken latency.
+
+720
+00:31:18,999 --> 00:31:20,799
+Large language models,
+
+721
+00:31:20,799 --> 00:31:23,839
+they have this process called
+oro regressive decode.
+
+722
+00:31:23,839 --> 00:31:26,260
+And as you are generating
+tokens, basically,
+
+723
+00:31:26,260 --> 00:31:29,039
+you have intertken
+latency or the amount of
+
+724
+00:31:29,039 --> 00:31:30,599
+time it takes for you to process
+
+725
+00:31:30,599 --> 00:31:32,259
+subsequent tokens, right?
+
+726
+00:31:32,259 --> 00:31:35,199
+So there's actually a latency
+SLO attached to that,
+
+727
+00:31:35,199 --> 00:31:36,779
+and it's called the TBT SLO,
+
+728
+00:31:36,779 --> 00:31:38,705
+time between tokens is slow.
+
+729
+00:31:38,705 --> 00:31:42,090
+And my lab is writing
+schedulers, in fact,
+
+730
+00:31:42,090 --> 00:31:44,729
+to actually maximize
+latency SLO attainment
+
+731
+00:31:44,729 --> 00:31:47,609
+in the context of
+large language models,
+
+732
+00:31:47,609 --> 00:31:50,829
+catering to that TBT SLO.
+
+733
+00:31:50,829 --> 00:31:55,070
+Okay, another example is
+scheduling to minimize cost.
+
+734
+00:31:55,070 --> 00:31:57,009
+I can talk about this for hours.
+
+735
+00:31:57,009 --> 00:32:00,410
+Okay. And so one of the
+let's skip this slide.
+
+736
+00:32:00,410 --> 00:32:03,610
+I just dit it today. I wanted
+to say that basically,
+
+737
+00:32:03,610 --> 00:32:05,549
+at the end of the day,
+you can't have all
+
+738
+00:32:05,549 --> 00:32:08,450
+three of the faultjecture.
+
+739
+00:32:08,450 --> 00:32:10,129
+You cannot have all three
+
+740
+00:32:10,129 --> 00:32:11,970
+of simplicity,
+performance, and cost.
+
+741
+00:32:11,970 --> 00:32:15,439
+Usually, you can get two out
+of three, but not all three.
+
+742
+00:32:15,439 --> 00:32:19,269
+And this really applies
+to schedulers as well,
+
+743
+00:32:19,269 --> 00:32:21,509
+because oftentimes you
+can solve the problem by
+
+744
+00:32:21,509 --> 00:32:25,190
+throwing resources at it
+or by increasing cost.
+
+745
+00:32:25,190 --> 00:32:28,109
+And you can also get good
+performance out of this,
+
+746
+00:32:28,109 --> 00:32:29,809
+but this is complex, right?
+
+747
+00:32:29,809 --> 00:32:32,569
+Or you can get performance
+and simplicity,
+
+748
+00:32:32,569 --> 00:32:34,330
+sorry, performance and cost.
+
+749
+00:32:34,330 --> 00:32:36,010
+So cheap and performant,
+
+750
+00:32:36,010 --> 00:32:38,229
+but this requires complexity.
+
+751
+00:32:38,229 --> 00:32:41,710
+And so there are basically
+different examples that show
+
+752
+00:32:41,710 --> 00:32:43,089
+up in scheduling where you get
+
+753
+00:32:43,089 --> 00:32:45,409
+two out of these three
+vertices, but not all three.
+
+754
+00:32:45,409 --> 00:32:47,069
+And there's this famous
+
+755
+00:32:47,069 --> 00:32:49,554
+systems conjecture that
+tries to capture that.
+
+756
+00:32:49,554 --> 00:32:52,460
+Okay, let's talk about latency
+distribution functions.
+
+757
+00:32:52,460 --> 00:32:53,899
+How many of you know what a
+
+758
+00:32:53,899 --> 00:32:56,539
+probability distribution
+function is?
+
+759
+00:32:56,539 --> 00:32:58,700
+What Oh, good, good, good.
+
+760
+00:32:58,700 --> 00:33:01,079
+What about cumulative
+distribution function?
+
+761
+00:33:01,079 --> 00:33:03,979
+Okay, do I need to go over that?
+
+762
+00:33:07,700 --> 00:33:10,799
+Okay, what is a cumulative
+distribution function?
+
+763
+00:33:10,799 --> 00:33:12,339
+How would you define it?
+
+764
+00:33:12,339 --> 00:33:15,699
+I think a PGF is a simpler one.
+
+765
+00:33:16,060 --> 00:33:23,589
+Yes. The variable takes
+on a value or less value.
+
+766
+00:33:23,589 --> 00:33:26,909
+Right. Generally,
+it's this, right?
+
+767
+00:33:26,909 --> 00:33:29,669
+And more concretely,
+thinking about this from
+
+768
+00:33:29,669 --> 00:33:32,729
+the perspective of the
+Y and X values, right?
+
+769
+00:33:32,729 --> 00:33:35,070
+You have Y here,
+you have X here,
+
+770
+00:33:35,070 --> 00:33:38,129
+and your Y equals to
+the probability that
+
+771
+00:33:38,129 --> 00:33:40,369
+your stochastic variable X
+
+772
+00:33:40,369 --> 00:33:44,529
+is less than or equal
+to a lower case X.
+
+773
+00:33:44,529 --> 00:33:45,729
+So that's the accumulative
+
+774
+00:33:45,729 --> 00:33:47,889
+distribution function
+definition, right?
+
+775
+00:33:47,889 --> 00:33:49,969
+In our case, why is it relevant?
+
+776
+00:33:49,969 --> 00:33:51,869
+Well, it's relevant
+because this is how
+
+777
+00:33:51,869 --> 00:33:54,449
+we're going to measure
+end to end response time.
+
+778
+00:33:54,449 --> 00:33:57,529
+In Lab three, Okay?
+
+779
+00:33:57,529 --> 00:33:59,950
+This is how we're going
+to measure latency.
+
+780
+00:33:59,950 --> 00:34:01,689
+And the reason for this is
+
+781
+00:34:01,689 --> 00:34:04,969
+often because you
+get different to and
+
+782
+00:34:04,969 --> 00:34:06,990
+response time as a
+function of the task
+
+783
+00:34:06,990 --> 00:34:08,950
+itself and also the policy
+
+784
+00:34:08,950 --> 00:34:10,649
+that you apply to
+service this task.
+
+785
+00:34:10,649 --> 00:34:13,570
+And we will see that with
+the example of Round Robin.
+
+786
+00:34:13,570 --> 00:34:17,010
+And basically, as you
+service your requests,
+
+787
+00:34:17,010 --> 00:34:19,189
+they are kind of on
+a timeline, right?
+
+788
+00:34:19,189 --> 00:34:22,989
+So you have a
+timeline, like this.
+
+789
+00:34:22,989 --> 00:34:25,330
+That's your T. And your requests
+
+790
+00:34:25,330 --> 00:34:29,690
+come and at some
+point they complete.
+
+791
+00:34:29,690 --> 00:34:31,350
+And for each of those requests,
+
+792
+00:34:31,350 --> 00:34:33,849
+you have this TSA B, right?
+
+793
+00:34:33,849 --> 00:34:37,070
+And so these TSA Bs are
+all going to be different.
+
+794
+00:34:37,070 --> 00:34:39,769
+That's your no and response
+time, not arrival time.
+
+795
+00:34:39,769 --> 00:34:42,229
+Enter and response time.
+So you have a list of
+
+796
+00:34:42,229 --> 00:34:43,769
+enter and response times for all
+
+797
+00:34:43,769 --> 00:34:45,450
+of the requests that
+entered the system.
+
+798
+00:34:45,450 --> 00:34:47,669
+So obviously, given this list,
+
+799
+00:34:47,669 --> 00:34:50,230
+you can construct the probability
+distribution function,
+
+800
+00:34:50,230 --> 00:34:51,650
+which means you
+can also construct
+
+801
+00:34:51,650 --> 00:34:53,530
+a cumulative
+distribution function.
+
+802
+00:34:53,530 --> 00:34:57,649
+That's going to look
+something like this.
+
+803
+00:34:57,649 --> 00:35:02,830
+Okay? It's monotonically
+increasing by definition.
+
+804
+00:35:06,620 --> 00:35:09,180
+Okay. Now what is tail latency?
+
+805
+00:35:09,180 --> 00:35:11,779
+Does anybody know
+what tail latency is?
+
+806
+00:35:13,860 --> 00:35:17,379
+Tail latency stems
+from, you know,
+
+807
+00:35:17,379 --> 00:35:20,860
+the definition of a probability
+distribution functor
+
+808
+00:35:20,860 --> 00:35:23,159
+Let's say it's a normal.
+
+809
+00:35:23,159 --> 00:35:24,839
+And so the tail corresponds to
+
+810
+00:35:24,839 --> 00:35:27,359
+kind of the tail of that
+distribution, right?
+
+811
+00:35:27,359 --> 00:35:29,539
+And where would
+this tail show up?
+
+812
+00:35:29,539 --> 00:35:31,919
+Because this is your PGF,
+
+813
+00:35:31,919 --> 00:35:34,499
+and this is your CGF.
+
+814
+00:35:34,499 --> 00:35:37,635
+Where does your tail
+show up in the CGF?
+
+815
+00:35:37,635 --> 00:35:40,989
+Yeah. Why equals one?
+
+816
+00:35:40,989 --> 00:35:44,849
+Yeah, close to, by
+the way, this is one.
+
+817
+00:35:44,849 --> 00:35:47,850
+This is one. And it
+does not intersect.
+
+818
+00:35:47,850 --> 00:35:51,430
+It just kind of approaches
+and it stops somewhere, okay?
+
+819
+00:35:51,430 --> 00:35:54,110
+Because this is your
+worst case performance.
+
+820
+00:35:54,110 --> 00:35:56,289
+That means that this
+corresponds to if I
+
+821
+00:35:56,289 --> 00:35:58,670
+were to ask you about
+questions about the CGF,
+
+822
+00:35:58,670 --> 00:36:00,930
+you should be able to
+know it inside out, okay?
+
+823
+00:36:00,930 --> 00:36:03,509
+Because if I ask you what does
+this point correspond to?
+
+824
+00:36:03,509 --> 00:36:06,429
+That's basically that's
+the max of the list of
+
+825
+00:36:06,429 --> 00:36:08,410
+the enter and response
+
+826
+00:36:08,410 --> 00:36:10,669
+times that we talked
+about over here.
+
+827
+00:36:10,669 --> 00:36:12,469
+That's your maximum latency that
+
+828
+00:36:12,469 --> 00:36:15,574
+was observed by
+the system, okay?
+
+829
+00:36:15,574 --> 00:36:18,260
+Now, the tail is
+basically the behavior
+
+830
+00:36:18,260 --> 00:36:20,899
+of your system around here.
+
+831
+00:36:20,899 --> 00:36:23,300
+So the tail has to be specified.
+
+832
+00:36:23,300 --> 00:36:25,020
+So for example, people normally
+
+833
+00:36:25,020 --> 00:36:27,119
+talk about 99th percentile.
+
+834
+00:36:27,119 --> 00:36:31,279
+So that's 0.99 on this
+graph right here.
+
+835
+00:36:31,279 --> 00:36:34,000
+And basically, you try
+to figure out, okay,
+
+836
+00:36:34,000 --> 00:36:35,659
+where does it intersect with
+
+837
+00:36:35,659 --> 00:36:37,660
+my cumulative
+distribution function,
+
+838
+00:36:37,660 --> 00:36:39,639
+and the X value corresponding to
+
+839
+00:36:39,639 --> 00:36:44,080
+that intersection is your
+99th percentile latency.
+
+840
+00:36:44,080 --> 00:36:47,690
+Okay? Now, why do we
+care about tail latency?
+
+841
+00:36:47,690 --> 00:36:50,799
+We care about tail
+latency because a lot of
+
+842
+00:36:50,799 --> 00:36:55,240
+the online platforms are heavily
+
+843
+00:36:55,240 --> 00:36:57,700
+dependent on the
+tail performance
+
+844
+00:36:57,700 --> 00:37:00,619
+of the system
+because for that 1%,
+
+845
+00:37:00,619 --> 00:37:03,540
+if you did not satisfy
+their latency SLO,
+
+846
+00:37:03,540 --> 00:37:05,040
+they will drop off
+your platform.
+
+847
+00:37:05,040 --> 00:37:07,720
+They'll go somewhere else.
+You know, instead of Amazon,
+
+848
+00:37:07,720 --> 00:37:11,539
+they're going to go shop to
+Ebay or something like that.
+
+849
+00:37:11,539 --> 00:37:14,360
+Not that familiar with
+online platforms,
+
+850
+00:37:14,360 --> 00:37:15,279
+so you have to forgive me.
+
+851
+00:37:15,279 --> 00:37:18,259
+Maybe Facebook Marketplace,
+something like that, right?
+
+852
+00:37:18,259 --> 00:37:21,559
+And so there's a very
+clear financial penalty
+
+853
+00:37:21,559 --> 00:37:24,659
+that you pay if the tail of
+your distribution actually
+
+854
+00:37:24,659 --> 00:37:27,999
+doesn't satisfy the
+latency SLO that is deemed
+
+855
+00:37:27,999 --> 00:37:32,024
+reasonable to keep the users
+engaged with your platform.
+
+856
+00:37:32,024 --> 00:37:34,489
+That's why we care about
+tail latency slow.
+
+857
+00:37:34,489 --> 00:37:36,450
+I'm going through
+this rather quickly,
+
+858
+00:37:36,450 --> 00:37:38,489
+but let me just show
+you one graph here.
+
+859
+00:37:38,489 --> 00:37:41,329
+This is a cumulative
+distribution function
+
+860
+00:37:41,329 --> 00:37:45,089
+for latency end to end response
+times in the system that
+
+861
+00:37:45,089 --> 00:37:47,170
+we actually built in
+my lab for serving
+
+862
+00:37:47,170 --> 00:37:51,949
+inference requests for
+machine learning tasks, okay?
+
+863
+00:37:51,949 --> 00:37:54,709
+And the behavior of
+
+864
+00:37:54,709 --> 00:37:59,129
+the actual forward path
+is highly predictable.
+
+865
+00:37:59,270 --> 00:38:01,069
+And so the question is,
+
+866
+00:38:01,069 --> 00:38:02,829
+where does the
+distribution come from?
+
+867
+00:38:02,829 --> 00:38:04,409
+Right? If you have
+
+868
+00:38:04,409 --> 00:38:06,690
+a particular task that
+always gets executed,
+
+869
+00:38:06,690 --> 00:38:08,489
+let's say in 20 milliseconds,
+
+870
+00:38:08,489 --> 00:38:12,229
+well, in a specific
+number of milliseconds,
+
+871
+00:38:12,229 --> 00:38:13,749
+a constant number
+of milliseconds,
+
+872
+00:38:13,749 --> 00:38:15,609
+how do you get a
+distribution, right?
+
+873
+00:38:15,609 --> 00:38:19,570
+That's not that actually
+
+874
+00:38:19,570 --> 00:38:22,249
+is wider than that
+particular constant value.
+
+875
+00:38:22,249 --> 00:38:23,789
+Well, you get that distribution
+
+876
+00:38:23,789 --> 00:38:25,829
+because there's
+actually some amount of
+
+877
+00:38:25,829 --> 00:38:27,549
+waiting that happens in
+
+878
+00:38:27,549 --> 00:38:30,689
+addition to this request
+being serviced as well.
+
+879
+00:38:30,689 --> 00:38:33,309
+Okay? That happens because
+
+880
+00:38:33,309 --> 00:38:34,689
+your enter and response time
+
+881
+00:38:34,689 --> 00:38:36,704
+is not just your service time.
+
+882
+00:38:36,704 --> 00:38:39,159
+It's also a combination
+
+883
+00:38:39,159 --> 00:38:42,139
+of your waiting time
+plus the service time.
+
+884
+00:38:45,620 --> 00:38:50,819
+Do you guys follow? Okay.
+
+885
+00:38:50,819 --> 00:38:56,739
+Using this as a
+this as an example,
+
+886
+00:38:56,739 --> 00:38:59,319
+let's say this is your
+99th percentile and
+
+887
+00:38:59,319 --> 00:39:03,259
+the 99th percentile latency
+happens to be 35.67.
+
+888
+00:39:03,259 --> 00:39:06,400
+And your latency SLO is 36.
+
+889
+00:39:06,400 --> 00:39:08,779
+Okay? So your 99th percentile is
+
+890
+00:39:08,779 --> 00:39:11,840
+less than or equal
+to your latency SLO.
+
+891
+00:39:11,840 --> 00:39:14,679
+So this is what we
+would refer to as
+
+892
+00:39:14,679 --> 00:39:17,660
+tail latency or very
+high percentile latency.
+
+893
+00:39:17,660 --> 00:39:22,340
+And over here, let's say
+if we have a deadline,
+
+894
+00:39:22,340 --> 00:39:25,059
+let's say 36 milliseconds
+in this particular case,
+
+895
+00:39:25,059 --> 00:39:27,899
+you draw that as a
+vertical line and
+
+896
+00:39:27,899 --> 00:39:31,300
+figure out where that intersects
+with your latency CGF.
+
+897
+00:39:31,300 --> 00:39:32,799
+So in this particular case,
+
+898
+00:39:32,799 --> 00:39:36,459
+let's say we had a latency
+SO of 36 milliseconds.
+
+899
+00:39:36,630 --> 00:39:38,669
+Okay.
+
+900
+00:39:40,550 --> 00:39:45,529
+So here stepping back
+
+901
+00:39:45,529 --> 00:39:48,069
+from the CDFs and
+PDFs a little bit,
+
+902
+00:39:48,069 --> 00:39:50,930
+let's go back to thinking
+about scheduling scenarios.
+
+903
+00:39:50,930 --> 00:39:52,229
+So let's say you have two
+
+904
+00:39:52,229 --> 00:39:54,349
+different CPU
+scheduling situations.
+
+905
+00:39:54,349 --> 00:39:56,369
+In one of them, you
+have long running jobs,
+
+906
+00:39:56,369 --> 00:39:58,809
+and in another one, which
+is completely separate,
+
+907
+00:39:58,809 --> 00:40:00,209
+you have very short
+running jobs.
+
+908
+00:40:00,209 --> 00:40:01,769
+So what kind of
+schedules would you
+
+909
+00:40:01,769 --> 00:40:05,709
+want to use for your
+long running jobs?
+
+910
+00:40:08,159 --> 00:40:10,939
+Yeah. Round.
+
+911
+00:40:10,939 --> 00:40:15,480
+Why? Because if you just
+do a sequential schedule,
+
+912
+00:40:15,480 --> 00:40:20,279
+I guess, it's gonna be a wait
+time range plastic huge.
+
+913
+00:40:20,279 --> 00:40:23,100
+Uh huh. But if you do a
+round robin scheduler.
+
+914
+00:40:23,100 --> 00:40:24,780
+And with Round
+Robin, Round Robin
+
+915
+00:40:24,780 --> 00:40:26,180
+has this specific property,
+
+916
+00:40:26,180 --> 00:40:28,299
+right, which is what?
+
+917
+00:40:28,299 --> 00:40:30,659
+Do you run them to completion
+
+918
+00:40:30,659 --> 00:40:33,999
+and then do a round robin or
+do you do something else?
+
+919
+00:40:33,999 --> 00:40:36,980
+You preempt them, right?
+And so, basically,
+
+920
+00:40:36,980 --> 00:40:38,620
+when you have long running jobs,
+
+921
+00:40:38,620 --> 00:40:39,739
+basically, think about this.
+
+922
+00:40:39,739 --> 00:40:41,119
+Would the first comfort serve
+
+923
+00:40:41,119 --> 00:40:43,499
+scheduler be a good fit here?
+
+924
+00:40:43,499 --> 00:40:45,399
+No, right?
+
+925
+00:40:45,399 --> 00:40:47,719
+Because like he said, sir,
+
+926
+00:40:47,719 --> 00:40:50,859
+what's your name?
+Ashwin. Ashwin. Yeah.
+
+927
+00:40:50,859 --> 00:40:52,759
+So Ashwin said that it
+
+928
+00:40:52,759 --> 00:40:54,980
+would not be a good idea
+because it would induce
+
+929
+00:40:54,980 --> 00:40:57,099
+a lot of wait time for
+the long running jobs
+
+930
+00:40:57,099 --> 00:40:58,199
+that have already arrived and
+
+931
+00:40:58,199 --> 00:40:59,599
+are simply waiting
+for their return.
+
+932
+00:40:59,599 --> 00:41:02,499
+They're making zero progress
+until you've completed and,
+
+933
+00:41:02,499 --> 00:41:05,300
+in fact, our experience
+in head of line blocking.
+
+934
+00:41:05,300 --> 00:41:08,099
+There's this, you know, very
+important and famous kind
+
+935
+00:41:08,099 --> 00:41:09,539
+of bad property of
+
+936
+00:41:09,539 --> 00:41:11,960
+schedulers called head
+of line blocking.
+
+937
+00:41:11,960 --> 00:41:14,260
+And so, unless you're
+using preemptive
+
+938
+00:41:14,260 --> 00:41:15,659
+schedule in this
+particular case,
+
+939
+00:41:15,659 --> 00:41:18,300
+you would be subjecting them
+to head of line blocking.
+
+940
+00:41:18,300 --> 00:41:20,360
+And what about the very
+short running jobs?
+
+941
+00:41:20,360 --> 00:41:23,680
+Do you want to preempt
+them frequently?
+
+942
+00:41:24,240 --> 00:41:26,619
+What kind of scheduling
+would you want
+
+943
+00:41:26,619 --> 00:41:28,859
+to use with very
+short running jobs?
+
+944
+00:41:28,859 --> 00:41:34,179
+Yes. Shortest job and shortest
+job remaining time. Right.
+
+945
+00:41:34,179 --> 00:41:35,679
+So basically the idea
+
+946
+00:41:35,679 --> 00:41:37,439
+here is shortest
+job remaining time.
+
+947
+00:41:37,439 --> 00:41:39,039
+Okay, and again, this
+
+948
+00:41:39,039 --> 00:41:41,059
+implies that the shortest
+job remaining time
+
+949
+00:41:41,059 --> 00:41:46,439
+or shortest job first has
+this property of what?
+
+950
+00:41:46,439 --> 00:41:49,680
+Is it going to be preemptive
+or non preemptive?
+
+951
+00:41:50,400 --> 00:41:53,559
+Would you want it
+to be preemptive?
+
+952
+00:41:53,559 --> 00:41:59,799
+Preemptive. Yeah. Say non
+
+953
+00:41:59,799 --> 00:42:01,240
+preemptive because the cost
+
+954
+00:42:01,240 --> 00:42:02,719
+of actually switching would be
+
+955
+00:42:02,719 --> 00:42:06,520
+more than just completing
+the job. Exactly.
+
+956
+00:42:06,520 --> 00:42:08,279
+So at that point in time,
+
+957
+00:42:08,279 --> 00:42:10,800
+you have to start thinking
+about the overhead
+
+958
+00:42:10,800 --> 00:42:12,999
+associated with the mechanisms
+
+959
+00:42:12,999 --> 00:42:14,539
+that your schedule is using.
+
+960
+00:42:14,539 --> 00:42:16,479
+And so you mentioned
+two things, right,
+
+961
+00:42:16,479 --> 00:42:18,019
+because you just
+happened to know
+
+962
+00:42:18,019 --> 00:42:19,899
+the algorithms for them, right?
+
+963
+00:42:19,899 --> 00:42:22,140
+But you didn't know that
+one of them actually
+
+964
+00:42:22,140 --> 00:42:23,419
+requires the schedule to be
+
+965
+00:42:23,419 --> 00:42:25,519
+preemptive and the
+other one does not.
+
+966
+00:42:25,519 --> 00:42:28,019
+Right? So you've learned
+something new today.
+
+967
+00:42:28,019 --> 00:42:30,039
+So the shortest job
+
+968
+00:42:30,039 --> 00:42:32,859
+first does not require
+the scheduler to be
+
+969
+00:42:32,859 --> 00:42:34,399
+preemptive because
+you basically take
+
+970
+00:42:34,399 --> 00:42:35,799
+the shortest job and you
+
+971
+00:42:35,799 --> 00:42:37,620
+just run it and you can
+run it to completion.
+
+972
+00:42:37,620 --> 00:42:39,739
+But shortest remaining
+time implies
+
+973
+00:42:39,739 --> 00:42:43,419
+that implies some sort of
+preemption happening, right?
+
+974
+00:42:43,419 --> 00:42:45,239
+Because it's talking
+about the remaining time
+
+975
+00:42:45,239 --> 00:42:47,620
+in a task, okay?
+
+976
+00:42:47,620 --> 00:42:49,980
+And so, you know,
+think more deeply
+
+977
+00:42:49,980 --> 00:42:53,120
+about these policies that
+you have learned in 2,200.
+
+978
+00:42:53,120 --> 00:42:55,260
+So, right.
+
+979
+00:42:55,260 --> 00:42:58,280
+So there are some other examples
+like delayed scheduling,
+
+980
+00:42:58,280 --> 00:43:01,240
+which actually made
+it into a conference,
+
+981
+00:43:01,240 --> 00:43:03,660
+and it's a very, very
+simple construct.
+
+982
+00:43:03,660 --> 00:43:05,820
+And the idea there
+was to basically,
+
+983
+00:43:05,820 --> 00:43:08,119
+instead of making the
+
+984
+00:43:08,119 --> 00:43:10,119
+placement choice for
+a task right away,
+
+985
+00:43:10,119 --> 00:43:12,159
+we basically allowed
+this task to
+
+986
+00:43:12,159 --> 00:43:15,600
+wait for some specified
+fixed number of seconds,
+
+987
+00:43:15,600 --> 00:43:17,279
+let's say, 5 seconds, right?
+
+988
+00:43:17,279 --> 00:43:19,499
+And it did wonders. It did
+
+989
+00:43:19,499 --> 00:43:22,559
+wonders because in those
+5 seconds, magically,
+
+990
+00:43:22,559 --> 00:43:24,580
+if that task had any
+sort of preference,
+
+991
+00:43:24,580 --> 00:43:26,260
+preferential treatment
+of resources,
+
+992
+00:43:26,260 --> 00:43:30,859
+let's say a 100 versus
+H 100 nodes, right?
+
+993
+00:43:30,859 --> 00:43:34,479
+Or H 100 versus H
+200 nodes, right?
+
+994
+00:43:34,479 --> 00:43:36,460
+Within those 5 seconds,
+
+995
+00:43:36,460 --> 00:43:39,559
+that task would actually have
+
+996
+00:43:39,559 --> 00:43:40,839
+a higher probability of
+
+997
+00:43:40,839 --> 00:43:43,939
+getting its preferred
+placement, obviously, right?
+
+998
+00:43:43,939 --> 00:43:47,239
+The more you wait, the higher
+the probability you have of
+
+999
+00:43:47,239 --> 00:43:49,440
+actually getting your
+preferred allocation.
+
+1000
+00:43:49,440 --> 00:43:51,159
+That's very clear, right?
+
+1001
+00:43:51,159 --> 00:43:53,179
+But this is the first
+example that you're
+
+1002
+00:43:53,179 --> 00:43:55,520
+seeing that makes a non
+work preserving decision,
+
+1003
+00:43:55,520 --> 00:43:57,899
+because instead of placing
+something right now,
+
+1004
+00:43:57,899 --> 00:43:59,320
+because you have the resources
+
+1005
+00:43:59,320 --> 00:44:00,779
+to run their task right now,
+
+1006
+00:44:00,779 --> 00:44:03,040
+you're making a non work
+preserving decision
+
+1007
+00:44:03,040 --> 00:44:04,840
+by delaying the
+scheduling decision,
+
+1008
+00:44:04,840 --> 00:44:08,039
+expecting something better
+to happen later on.
+
+1009
+00:44:08,039 --> 00:44:10,080
+And that's when it
+becomes interesting.
+
+1010
+00:44:10,080 --> 00:44:12,199
+Those are the kinds of
+conversations I was having with
+
+1011
+00:44:12,199 --> 00:44:13,779
+Google Borg team and
+
+1012
+00:44:13,779 --> 00:44:16,379
+telling them that sometimes
+you want to wait.
+
+1013
+00:44:16,379 --> 00:44:18,299
+And they were thinking
+that I'm crazy
+
+1014
+00:44:18,299 --> 00:44:20,559
+because why would
+you want us to wait
+
+1015
+00:44:20,559 --> 00:44:22,959
+if we have so many
+billions of dollars
+
+1016
+00:44:22,959 --> 00:44:25,040
+invested into these
+data centers?
+
+1017
+00:44:25,040 --> 00:44:28,200
+Don't we want to keep them busy?
+
+1018
+00:44:28,200 --> 00:44:32,319
+It's really hard to argue
+with that question, right?
+
+1019
+00:44:32,319 --> 00:44:34,740
+But the answer is, it depends
+
+1020
+00:44:34,740 --> 00:44:37,559
+on how you're keeping them busy.
+
+1021
+00:44:37,559 --> 00:44:38,879
+You can keep them busy in
+
+1022
+00:44:38,879 --> 00:44:41,540
+efficient or inefficient manner.
+
+1023
+00:44:41,540 --> 00:44:44,239
+You can give them
+preferred allocations with
+
+1024
+00:44:44,239 --> 00:44:46,839
+a slight non work
+preserving delay, right?
+
+1025
+00:44:46,839 --> 00:44:48,799
+Or you can try to be very eager,
+
+1026
+00:44:48,799 --> 00:44:50,579
+and this is a lazy
+allocation, by the way.
+
+1027
+00:44:50,579 --> 00:44:52,500
+This is an example of
+a lazy allocation.
+
+1028
+00:44:52,500 --> 00:44:54,039
+Or you can be very eager with
+
+1029
+00:44:54,039 --> 00:44:55,879
+your resource allocation,
+and of course,
+
+1030
+00:44:55,879 --> 00:44:59,059
+you reduce the probability
+that your task is going to get
+
+1031
+00:44:59,059 --> 00:45:02,999
+a preferred preferred
+placement choice.
+
+1032
+00:45:02,999 --> 00:45:05,539
+Power of two choices. How
+many of you have heard about
+
+1033
+00:45:05,539 --> 00:45:07,059
+Missen MacherPower of Power
+
+1034
+00:45:07,059 --> 00:45:09,700
+of two choices out of Stanford.
+
+1035
+00:45:11,150 --> 00:45:13,610
+Very simple policy.
+
+1036
+00:45:13,610 --> 00:45:15,310
+Almost trivial, okay?
+
+1037
+00:45:15,310 --> 00:45:17,190
+So basically, you have
+a bunch of notes,
+
+1038
+00:45:17,190 --> 00:45:19,950
+and you're simply instead
+of doing Round robin.
+
+1039
+00:45:19,950 --> 00:45:21,650
+So if you have a
+bunch of resources,
+
+1040
+00:45:21,650 --> 00:45:24,009
+the Round Robin policy
+would essentially give
+
+1041
+00:45:24,009 --> 00:45:28,000
+you a anyway, we'll
+get to Round Robin.
+
+1042
+00:45:28,000 --> 00:45:29,759
+I don't have time
+to get into that.
+
+1043
+00:45:29,759 --> 00:45:31,680
+The Power of To
+Choices basically
+
+1044
+00:45:31,680 --> 00:45:34,119
+tries to test two nodes and
+
+1045
+00:45:34,119 --> 00:45:36,019
+try to figure out which
+one of them is less
+
+1046
+00:45:36,019 --> 00:45:39,039
+loaded and we'll send the
+request to that node.
+
+1047
+00:45:39,039 --> 00:45:42,179
+Seems straightforward, it
+reduces the complexity from
+
+1048
+00:45:42,179 --> 00:45:43,960
+O N to 01 with respect
+
+1049
+00:45:43,960 --> 00:45:46,000
+to the number of
+resources to consider.
+
+1050
+00:45:46,000 --> 00:45:47,739
+Okay, which means that
+
+1051
+00:45:47,739 --> 00:45:50,539
+the scheduling performance
+is extremely good,
+
+1052
+00:45:50,539 --> 00:45:55,045
+is highly efficient, and it
+also has provable guarantees.
+
+1053
+00:45:55,045 --> 00:45:57,809
+You can actually prove
+
+1054
+00:45:57,809 --> 00:46:00,730
+some guarantees about the
+par of two choices policy.
+
+1055
+00:46:00,730 --> 00:46:03,029
+But there's an implicit
+assumption here.
+
+1056
+00:46:03,029 --> 00:46:05,669
+What implicit assumption
+is it operating on?
+
+1057
+00:46:05,669 --> 00:46:09,149
+That's not even discussed
+in the Mitzonmachers paper.
+
+1058
+00:46:18,200 --> 00:46:23,560
+That the jobs are going
+to be short, okay?
+
+1059
+00:46:23,560 --> 00:46:28,459
+In other words, and
+in other words,
+
+1060
+00:46:28,459 --> 00:46:29,740
+what I'm trying to build
+
+1061
+00:46:29,740 --> 00:46:31,820
+towards is this
+concept of fluidity.
+
+1062
+00:46:31,820 --> 00:46:34,239
+Basically, the shorter
+the tasks are,
+
+1063
+00:46:34,239 --> 00:46:36,820
+and the smaller
+are the fragments
+
+1064
+00:46:36,820 --> 00:46:38,539
+of resources that they ask for.
+
+1065
+00:46:38,539 --> 00:46:40,260
+So basically, the smaller
+
+1066
+00:46:40,260 --> 00:46:42,979
+is their spatiotemporal
+granularity.
+
+1067
+00:46:42,979 --> 00:46:45,740
+The more liquidity you
+have in the system,
+
+1068
+00:46:45,740 --> 00:46:47,960
+and the easier it is
+for you to actually
+
+1069
+00:46:47,960 --> 00:46:50,179
+come up with very simple
+policies because if
+
+1070
+00:46:50,179 --> 00:46:52,379
+let's say you have buckets of
+
+1071
+00:46:52,379 --> 00:46:55,079
+resources for buckets
+corresponding to
+
+1072
+00:46:55,079 --> 00:46:58,139
+resources and your tasks are
+basically sand and you're
+
+1073
+00:46:58,139 --> 00:47:01,599
+just kind of sifting sand and
+moving your hand like this.
+
+1074
+00:47:01,599 --> 00:47:04,280
+It's very, very easy
+for you to actually
+
+1075
+00:47:04,280 --> 00:47:07,599
+accomplish near perfect load
+balancing by doing this.
+
+1076
+00:47:07,599 --> 00:47:09,619
+And it doesn't even matter
+what you're doing with
+
+1077
+00:47:09,619 --> 00:47:12,599
+your hand because you have
+so much fluidity, you know,
+
+1078
+00:47:12,599 --> 00:47:13,859
+so much liquidity in
+
+1079
+00:47:13,859 --> 00:47:15,699
+the fine granularity of
+
+1080
+00:47:15,699 --> 00:47:17,019
+the sand that you're trying to
+
+1081
+00:47:17,019 --> 00:47:18,480
+distribute across the buckets.
+
+1082
+00:47:18,480 --> 00:47:22,780
+Now, if you're dropping
+bricks or boulders,
+
+1083
+00:47:22,780 --> 00:47:25,960
+this is going to be a completely
+different story, okay?
+
+1084
+00:47:25,960 --> 00:47:27,699
+Because you may have
+
+1085
+00:47:27,699 --> 00:47:30,379
+made a very bad decision
+a couple of times
+
+1086
+00:47:30,379 --> 00:47:31,939
+and all of a sudden
+your bucket is
+
+1087
+00:47:31,939 --> 00:47:35,299
+overflowing. Does
+that make sense?
+
+1088
+00:47:35,299 --> 00:47:38,039
+And so this concept
+was really what I
+
+1089
+00:47:38,039 --> 00:47:40,599
+was kind of exploring in
+
+1090
+00:47:40,599 --> 00:47:43,019
+my tetrasct work that
+was published at
+
+1091
+00:47:43,019 --> 00:47:46,580
+US is 2016 with spatio
+temporal Bin packing,
+
+1092
+00:47:46,580 --> 00:47:49,379
+and we're going to have a
+lecture on this later on,
+
+1093
+00:47:49,379 --> 00:47:51,759
+basically after you're
+done with your exam too.
+
+1094
+00:47:51,759 --> 00:47:54,099
+And so we'll have a whole
+lecture talking about this.
+
+1095
+00:47:54,099 --> 00:47:56,689
+I'm not going to spend
+time on this right now.
+
+1096
+00:47:56,689 --> 00:48:00,180
+So what should I consider
+when I build a scheduler?
+
+1097
+00:48:00,180 --> 00:48:03,019
+We need to think about the
+costs of scheduler, right?
+
+1098
+00:48:03,019 --> 00:48:05,059
+Because there are costs
+of interposing on
+
+1099
+00:48:05,059 --> 00:48:07,699
+control flow because you
+
+1100
+00:48:07,699 --> 00:48:09,819
+need some time for
+the scheduler to
+
+1101
+00:48:09,819 --> 00:48:12,779
+run that has its own
+complexity, right?
+
+1102
+00:48:12,779 --> 00:48:14,039
+And what are some of
+
+1103
+00:48:14,039 --> 00:48:16,340
+the other costs associated
+with scheduling?
+
+1104
+00:48:16,340 --> 00:48:18,160
+So this used to be a discussion,
+
+1105
+00:48:18,160 --> 00:48:20,020
+but we just don't have
+time for discussion.
+
+1106
+00:48:20,020 --> 00:48:21,339
+Very briefly, what are some of
+
+1107
+00:48:21,339 --> 00:48:24,009
+the costs interposing
+on control flow?
+
+1108
+00:48:24,009 --> 00:48:27,360
+Yeah. Huh?
+
+1109
+00:48:27,360 --> 00:48:29,339
+Yeah, yeah, context
+switching, right?
+
+1110
+00:48:29,339 --> 00:48:30,520
+When you're context switching
+
+1111
+00:48:30,520 --> 00:48:32,359
+between processes, you
+have to save stay.
+
+1112
+00:48:32,359 --> 00:48:33,760
+So if you're context switching
+
+1113
+00:48:33,760 --> 00:48:35,460
+between ten millisecond tasks,
+
+1114
+00:48:35,460 --> 00:48:38,260
+and let's say for the
+sake of the argument,
+
+1115
+00:48:38,260 --> 00:48:39,959
+the overhead associated with
+
+1116
+00:48:39,959 --> 00:48:41,779
+your context switching
+is ten milliseconds,
+
+1117
+00:48:41,779 --> 00:48:43,179
+is it worth it?
+
+1118
+00:48:43,179 --> 00:48:46,099
+You have just reduced
+the utilization
+
+1119
+00:48:46,099 --> 00:48:48,339
+of your system by a
+factor of two, right?
+
+1120
+00:48:48,339 --> 00:48:51,279
+Might as well let them run
+and maybe or maybe change
+
+1121
+00:48:51,279 --> 00:48:53,139
+the granularity with which
+you're interposing on
+
+1122
+00:48:53,139 --> 00:48:55,939
+control flow in this
+particular case, right?
+
+1123
+00:48:55,939 --> 00:48:58,240
+What are the costs
+of interposing
+
+1124
+00:48:58,240 --> 00:49:00,440
+on control flow and
+costs of scheduling?
+
+1125
+00:49:00,440 --> 00:49:02,700
+Why do you want to schedule?
+
+1126
+00:49:02,700 --> 00:49:05,059
+Why would you not want
+to schedule, rather?
+
+1127
+00:49:05,059 --> 00:49:06,579
+What are the disadvantages?
+
+1128
+00:49:06,579 --> 00:49:08,980
+What else is happening?
+
+1129
+00:49:15,330 --> 00:49:17,490
+I'll give you an example,
+
+1130
+00:49:17,490 --> 00:49:18,930
+right? You have two processes.
+
+1131
+00:49:18,930 --> 00:49:21,250
+Let's say that they have
+an identical runtime.
+
+1132
+00:49:21,250 --> 00:49:23,049
+You have one core, right?
+
+1133
+00:49:23,049 --> 00:49:26,190
+And let's say that each
+of them runs a second.
+
+1134
+00:49:26,190 --> 00:49:29,630
+And basically, you have
+a couple of options.
+
+1135
+00:49:29,630 --> 00:49:31,670
+In one of the options,
+
+1136
+00:49:31,670 --> 00:49:34,249
+your time quantity
+is ten milliseconds.
+
+1137
+00:49:34,249 --> 00:49:36,269
+So your contact switching
+every ten milliseconds
+
+1138
+00:49:36,269 --> 00:49:37,490
+between those two processes.
+
+1139
+00:49:37,490 --> 00:49:39,869
+Another 100 milliseconds, and
+
+1140
+00:49:39,869 --> 00:49:43,429
+yet another one is 1,000
+milliseconds or full second.
+
+1141
+00:49:43,429 --> 00:49:46,090
+Which one is going to
+be more efficient?
+
+1142
+00:49:46,440 --> 00:49:50,580
+Why? You only have one switch?
+
+1143
+00:49:50,580 --> 00:49:52,840
+Like the overhead
+from one switch.
+
+1144
+00:49:52,840 --> 00:49:55,019
+Yeah, so the overhead
+is one thing.
+
+1145
+00:49:55,019 --> 00:49:56,499
+But actually, it
+turns out that we
+
+1146
+00:49:56,499 --> 00:49:58,520
+got the overhead to
+be pretty efficient.
+
+1147
+00:49:58,520 --> 00:50:01,240
+So it is definitely
+
+1148
+00:50:01,240 --> 00:50:02,959
+a consideration that
+you want to put in
+
+1149
+00:50:02,959 --> 00:50:04,979
+the answer to that
+question, right?
+
+1150
+00:50:04,979 --> 00:50:06,419
+But this is actually not
+
+1151
+00:50:06,419 --> 00:50:09,520
+the most expensive part of
+switching between the tasks.
+
+1152
+00:50:09,520 --> 00:50:12,020
+What else is happening when
+you switch between the tasks?
+
+1153
+00:50:12,020 --> 00:50:15,559
+You guys are experiencing
+this in lab two. Yeah.
+
+1154
+00:50:15,800 --> 00:50:18,060
+That's our cache.
+
+1155
+00:50:18,060 --> 00:50:19,880
+Yeah, exactly. So basically,
+
+1156
+00:50:19,880 --> 00:50:22,959
+your data cache is going
+to be swapped out, right?
+
+1157
+00:50:23,880 --> 00:50:27,980
+Especially if one of the
+tasks is memory intensive,
+
+1158
+00:50:27,980 --> 00:50:29,700
+or if both of them
+are memory intensive,
+
+1159
+00:50:29,700 --> 00:50:31,719
+they're going to
+basically stomp all over
+
+1160
+00:50:31,719 --> 00:50:34,960
+their data cache when
+you context switch.
+
+1161
+00:50:34,960 --> 00:50:37,820
+It's not going to
+happen in its entirety,
+
+1162
+00:50:37,820 --> 00:50:39,779
+but it will happen to so extent,
+
+1163
+00:50:39,779 --> 00:50:41,920
+depending on the memory
+intensity of the process.
+
+1164
+00:50:41,920 --> 00:50:45,015
+Now, what is going to be
+swapped out in its entirety?
+
+1165
+00:50:45,015 --> 00:50:48,249
+Yes. TLB, right?
+
+1166
+00:50:48,249 --> 00:50:50,109
+You guys are doing
+this in your lab, too.
+
+1167
+00:50:50,109 --> 00:50:51,729
+TOB is going to be swapped out,
+
+1168
+00:50:51,729 --> 00:50:53,969
+and TLB why is that a bad thing?
+
+1169
+00:50:53,969 --> 00:50:56,349
+Why is that a problem?
+Every single time.
+
+1170
+00:50:56,349 --> 00:50:57,669
+So every ten milliseconds,
+
+1171
+00:50:57,669 --> 00:50:59,469
+if you decide to contact
+switch between them,
+
+1172
+00:50:59,469 --> 00:51:01,089
+your TLB is going to swap out.
+
+1173
+00:51:01,089 --> 00:51:02,829
+Why is that a problem? I mean,
+
+1174
+00:51:02,829 --> 00:51:04,289
+you already know the
+answer to that question.
+
+1175
+00:51:04,289 --> 00:51:08,029
+Yeah. This translation
+process takes over.
+
+1176
+00:51:08,029 --> 00:51:10,149
+Yeah, because then
+you're going to have
+
+1177
+00:51:10,149 --> 00:51:12,469
+to do the page table
+works and repopulate
+
+1178
+00:51:12,469 --> 00:51:15,229
+the TLB for the task
+
+1179
+00:51:15,229 --> 00:51:18,129
+for the process that you're
+swapping into, right?
+
+1180
+00:51:18,129 --> 00:51:21,859
+You just got it flushed. Okay.
+
+1181
+00:51:21,859 --> 00:51:25,879
+So context switching, we
+already discussed this.
+
+1182
+00:51:25,879 --> 00:51:29,840
+The caching costs, the
+schedule of time complexity,
+
+1183
+00:51:29,840 --> 00:51:33,880
+because depending on the policy,
+
+1184
+00:51:33,880 --> 00:51:36,259
+the scheduling complexity
+can be either order
+
+1185
+00:51:36,259 --> 00:51:39,399
+N or order N M or order one,
+
+1186
+00:51:39,399 --> 00:51:42,939
+or we can actually talk about
+different complexities of
+
+1187
+00:51:42,939 --> 00:51:45,099
+different scheduling
+algorithms in
+
+1188
+00:51:45,099 --> 00:51:46,999
+your copious spare time, right?
+
+1189
+00:51:46,999 --> 00:51:48,219
+For example, what was
+
+1190
+00:51:48,219 --> 00:51:49,559
+the scheduling complexity of
+
+1191
+00:51:49,559 --> 00:51:52,380
+the miss and MahersPower
+of two choices?
+
+1192
+00:51:53,500 --> 00:51:55,839
+You're scheduling one task.
+
+1193
+00:51:55,839 --> 00:51:58,040
+So you've already imposed
+the order on tasks.
+
+1194
+00:51:58,040 --> 00:51:59,679
+You're considering tasks one at
+
+1195
+00:51:59,679 --> 00:52:01,919
+a time in a FIFO fashion, right?
+
+1196
+00:52:01,919 --> 00:52:04,819
+So if N is
+
+1197
+00:52:04,819 --> 00:52:07,680
+the number of tasks and M
+is the number of resources,
+
+1198
+00:52:07,680 --> 00:52:09,479
+what's the scheduling complexity
+
+1199
+00:52:09,479 --> 00:52:11,580
+of the power of two choices?
+
+1200
+00:52:11,580 --> 00:52:15,299
+What? No.
+
+1201
+00:52:17,540 --> 00:52:19,979
+We're making two choices, guys.
+
+1202
+00:52:19,979 --> 00:52:21,819
+We're making always
+like a fixed number
+
+1203
+00:52:21,819 --> 00:52:23,979
+of choices from the set
+of resources, right?
+
+1204
+00:52:23,979 --> 00:52:25,879
+And we're looking at
+how loaded they are,
+
+1205
+00:52:25,879 --> 00:52:27,639
+and we're picking
+the less loaded one.
+
+1206
+00:52:27,639 --> 00:52:30,044
+So what's the
+complexity of that?
+
+1207
+00:52:30,044 --> 00:52:33,430
+Of one, right? And
+so it's beautiful.
+
+1208
+00:52:33,430 --> 00:52:34,649
+It's beautiful because you
+
+1209
+00:52:34,649 --> 00:52:36,969
+have regardless of how
+many tasks you have,
+
+1210
+00:52:36,969 --> 00:52:39,129
+regardless of how many
+resources you have,
+
+1211
+00:52:39,129 --> 00:52:41,129
+the complexity here is O of one.
+
+1212
+00:52:41,129 --> 00:52:44,830
+Tetris Cat had combinatorial
+complexity, for instance.
+
+1213
+00:52:44,830 --> 00:52:46,690
+And so that was a
+significant concern
+
+1214
+00:52:46,690 --> 00:52:48,129
+that I had to deal with, right?
+
+1215
+00:52:48,129 --> 00:52:52,290
+And this complexity may
+or may not make sense.
+
+1216
+00:52:52,290 --> 00:52:54,490
+For example, if
+you're scheduling
+
+1217
+00:52:54,490 --> 00:52:58,530
+402nd jobs cloud in a
+distributed cloud environment,
+
+1218
+00:52:58,530 --> 00:53:01,969
+thinking for 4 seconds
+corresponds to 1% of
+
+1219
+00:53:01,969 --> 00:53:05,769
+the end to end duration
+of a job, right?
+
+1220
+00:53:05,769 --> 00:53:08,389
+And so that 1% is going
+to be insignificant.
+
+1221
+00:53:08,389 --> 00:53:10,029
+It's going to be a
+drop in the bucket.
+
+1222
+00:53:10,029 --> 00:53:11,810
+Right? But if you're spending
+
+1223
+00:53:11,810 --> 00:53:13,509
+a second thinking in
+
+1224
+00:53:13,509 --> 00:53:16,110
+the scheduler to
+schedule 1 second tasks,
+
+1225
+00:53:16,110 --> 00:53:17,509
+then you're doing
+something wrong.
+
+1226
+00:53:17,509 --> 00:53:20,650
+It's 100% of the duration
+of the task, okay?
+
+1227
+00:53:20,650 --> 00:53:23,589
+And so the scheduling time
+complexity matters a lot.
+
+1228
+00:53:23,589 --> 00:53:25,749
+And so when you're
+implementing your lab three,
+
+1229
+00:53:25,749 --> 00:53:27,350
+you're thinking about
+your schedulers.
+
+1230
+00:53:27,350 --> 00:53:31,150
+Don't think about two
+processes. To processes.
+
+1231
+00:53:31,150 --> 00:53:35,210
+Think about 1,000 processes,
+2000, 10,000 processes.
+
+1232
+00:53:35,210 --> 00:53:36,949
+And what's going to happen to
+
+1233
+00:53:36,949 --> 00:53:38,149
+the time complexity of the
+
+1234
+00:53:38,149 --> 00:53:40,269
+scheduler design that
+you come up with.
+
+1235
+00:53:40,269 --> 00:53:42,249
+Another one is predictability.
+
+1236
+00:53:42,249 --> 00:53:44,669
+So that's the one we talk
+about the least, right?
+
+1237
+00:53:44,669 --> 00:53:46,810
+But it's one of my
+favorites, actually,
+
+1238
+00:53:46,810 --> 00:53:48,889
+because predictability is
+
+1239
+00:53:48,889 --> 00:53:52,830
+a very rare commodity
+to have in systems.
+
+1240
+00:53:52,830 --> 00:53:55,309
+And it's nearly
+impossible to build
+
+1241
+00:53:55,309 --> 00:53:58,569
+an operating system with high
+degree of predictability.
+
+1242
+00:53:58,569 --> 00:54:01,970
+So much so it is so
+hard that special
+
+1243
+00:54:01,970 --> 00:54:03,829
+there's a separate
+discipline for
+
+1244
+00:54:03,829 --> 00:54:06,470
+this called real time systems.
+
+1245
+00:54:06,470 --> 00:54:09,910
+And I don't do real
+time operating systems.
+
+1246
+00:54:09,980 --> 00:54:12,539
+We'll talk about the
+difference between
+
+1247
+00:54:12,539 --> 00:54:15,080
+hard real time and soft real
+time operating systems.
+
+1248
+00:54:15,080 --> 00:54:18,139
+I deal with soft real time
+operating systems in my lab.
+
+1249
+00:54:18,139 --> 00:54:20,139
+Now, given all of this
+
+1250
+00:54:20,139 --> 00:54:22,839
+and all of these overheads,
+there are benefits, right?
+
+1251
+00:54:22,839 --> 00:54:25,559
+We are able to get better
+resource utilization.
+
+1252
+00:54:25,559 --> 00:54:27,660
+We are able to basically achieve
+
+1253
+00:54:27,660 --> 00:54:29,780
+more work on the tasks
+that we consider
+
+1254
+00:54:29,780 --> 00:54:34,680
+important or give
+priority allocation value
+
+1255
+00:54:34,680 --> 00:54:37,599
+to the work that we
+consider of higher value.
+
+1256
+00:54:37,599 --> 00:54:40,539
+We're also able to provide
+stronger quality of
+
+1257
+00:54:40,539 --> 00:54:43,540
+service guarantees or
+stronger QS properties.
+
+1258
+00:54:43,540 --> 00:54:46,779
+Without scheduling, this
+would have been impossible.
+
+1259
+00:54:47,220 --> 00:54:53,219
+So the takeaway is that
+hopefully by now, you know,
+
+1260
+00:54:53,219 --> 00:54:55,000
+50 minutes into the lecture,
+
+1261
+00:54:55,000 --> 00:54:57,019
+you're convinced that
+we're dealing with
+
+1262
+00:54:57,019 --> 00:54:59,219
+a huge design space that's
+
+1263
+00:54:59,219 --> 00:55:02,860
+induced by all of these
+scheduling considerations, okay?
+
+1264
+00:55:02,860 --> 00:55:04,299
+You might want to think about
+
+1265
+00:55:04,299 --> 00:55:05,939
+throughput versus
+latency, right?
+
+1266
+00:55:05,939 --> 00:55:07,560
+Am I optimizing for throughput?
+
+1267
+00:55:07,560 --> 00:55:09,760
+Like megabytes per
+second, task per second,
+
+1268
+00:55:09,760 --> 00:55:11,379
+queries per second, in the case
+
+1269
+00:55:11,379 --> 00:55:13,399
+of Lo leminfen serving, right?
+
+1270
+00:55:13,399 --> 00:55:15,600
+Or am I optimizing for latency?
+
+1271
+00:55:15,600 --> 00:55:16,939
+Basically, am I trying to
+
+1272
+00:55:16,939 --> 00:55:19,964
+minimize the latent end
+to end response time?
+
+1273
+00:55:19,964 --> 00:55:22,789
+You have to think
+about fairness, right?
+
+1274
+00:55:22,789 --> 00:55:24,249
+Basically, are you in
+
+1275
+00:55:24,249 --> 00:55:26,989
+a situation if you're
+starving some of
+
+1276
+00:55:26,989 --> 00:55:29,510
+the tasks or some of the tasks
+
+1277
+00:55:29,510 --> 00:55:32,490
+with specific properties like
+long jobs or short jobs,
+
+1278
+00:55:32,490 --> 00:55:35,390
+for instance, and
+fairness typically
+
+1279
+00:55:35,390 --> 00:55:37,989
+comes up in a very
+interesting way
+
+1280
+00:55:37,989 --> 00:55:39,390
+in a heterogeneous context,
+
+1281
+00:55:39,390 --> 00:55:41,309
+if you have heterogeneous set of
+
+1282
+00:55:41,309 --> 00:55:45,190
+resources to schedule or
+heterogeneous set of tasks.
+
+1283
+00:55:45,190 --> 00:55:48,189
+You need to think about
+whether or not you want
+
+1284
+00:55:48,189 --> 00:55:51,289
+a schedule that's pre emptive
+versus cooperative, right?
+
+1285
+00:55:51,289 --> 00:55:54,349
+And whether or not you want
+
+1286
+00:55:54,349 --> 00:55:58,229
+to design a schedule to
+be global versus local.
+
+1287
+00:55:58,229 --> 00:55:59,869
+Now, what does that mean?
+
+1288
+00:55:59,869 --> 00:56:01,509
+The fundamental difference here
+
+1289
+00:56:01,509 --> 00:56:03,250
+is resource state visibility.
+
+1290
+00:56:03,250 --> 00:56:05,390
+For example, if you have
+a distributed system
+
+1291
+00:56:05,390 --> 00:56:07,130
+that consists of multiple nodes,
+
+1292
+00:56:07,130 --> 00:56:10,269
+you can actually have multiple
+local schedulers that
+
+1293
+00:56:10,269 --> 00:56:14,170
+only have local resource
+state visibility, okay?
+
+1294
+00:56:14,170 --> 00:56:15,669
+And then they periodically
+
+1295
+00:56:15,669 --> 00:56:18,450
+communicate with each
+other in various ways,
+
+1296
+00:56:18,450 --> 00:56:20,609
+if at all. Okay?
+
+1297
+00:56:20,609 --> 00:56:22,409
+They don't have to.
+Or you could have
+
+1298
+00:56:22,409 --> 00:56:25,470
+a central central global
+centralized scheduler
+
+1299
+00:56:25,470 --> 00:56:27,430
+that actually sees everything
+
+1300
+00:56:27,430 --> 00:56:29,269
+that's happening with
+your resource state.
+
+1301
+00:56:29,269 --> 00:56:32,130
+So it sees every single
+core is every single GPU,
+
+1302
+00:56:32,130 --> 00:56:33,849
+and it is able to interpose on
+
+1303
+00:56:33,849 --> 00:56:35,289
+the control flow of all of
+
+1304
+00:56:35,289 --> 00:56:37,210
+the tasks that you're
+trying to schedule.
+
+1305
+00:56:37,210 --> 00:56:39,690
+Presumably, with a
+global scheduler,
+
+1306
+00:56:39,690 --> 00:56:41,390
+if you didn't have to worry
+
+1307
+00:56:41,390 --> 00:56:44,370
+about the complexity of
+the scheduler, okay?
+
+1308
+00:56:44,370 --> 00:56:46,969
+Because it can grow as
+a function of M and M,
+
+1309
+00:56:46,969 --> 00:56:48,370
+as I mentioned previously.
+
+1310
+00:56:48,370 --> 00:56:49,909
+If you didn't have
+to worry about that,
+
+1311
+00:56:49,909 --> 00:56:52,250
+presumably, you can make
+better allocation decisions.
+
+1312
+00:56:52,250 --> 00:56:54,669
+And I've shown that
+in my dissertation.
+
+1313
+00:56:54,669 --> 00:56:57,139
+But there is a cost
+associated with that.
+
+1314
+00:56:57,139 --> 00:57:00,489
+Need to worry about scalability.
+What does that mean?
+
+1315
+00:57:00,489 --> 00:57:02,029
+You know, it's not just a word.
+
+1316
+00:57:02,029 --> 00:57:03,609
+It means, how many jobs or
+
+1317
+00:57:03,609 --> 00:57:07,449
+tasks you do you have
+the ability to process?
+
+1318
+00:57:07,449 --> 00:57:11,909
+So basically, how big is the
+N and how big is the M that
+
+1319
+00:57:11,909 --> 00:57:18,010
+your scheduler is
+capable of supporting?
+
+1320
+00:57:18,010 --> 00:57:19,889
+And you need to worry
+about the performance
+
+1321
+00:57:19,889 --> 00:57:22,189
+of the scheduler as
+I mentioned, right?
+
+1322
+00:57:22,189 --> 00:57:24,749
+Then granularity,
+
+1323
+00:57:24,749 --> 00:57:28,409
+both with respect to time
+and with respect to space,
+
+1324
+00:57:28,409 --> 00:57:30,169
+we've already discussed, right?
+
+1325
+00:57:30,169 --> 00:57:32,349
+Because the final
+the granularity,
+
+1326
+00:57:32,349 --> 00:57:33,989
+the mental model
+that you should have
+
+1327
+00:57:33,989 --> 00:57:35,769
+is that you're dealing
+with sifting sand.
+
+1328
+00:57:35,769 --> 00:57:37,705
+It's much easier to schedule.
+
+1329
+00:57:37,705 --> 00:57:43,020
+And using the time quantum or
+time slide, as an example,
+
+1330
+00:57:43,020 --> 00:57:44,899
+you might want to
+think about whether
+
+1331
+00:57:44,899 --> 00:57:46,899
+or not it's more
+beneficial for me to
+
+1332
+00:57:46,899 --> 00:57:50,740
+have much smaller time quanta
+or much larger time quanta,
+
+1333
+00:57:50,740 --> 00:57:52,400
+or maybe I want to
+set it dynamic.
+
+1334
+00:57:52,400 --> 00:57:55,200
+And if I want to set my
+time quantum to be dynamic,
+
+1335
+00:57:55,200 --> 00:57:59,479
+what sort of systems
+performance telemetry do I
+
+1336
+00:57:59,479 --> 00:58:01,379
+want to look at in order to make
+
+1337
+00:58:01,379 --> 00:58:03,840
+this control decision of
+setting a time quantum?
+
+1338
+00:58:03,840 --> 00:58:05,320
+Because clearly it is essential
+
+1339
+00:58:05,320 --> 00:58:07,700
+to the performance of my system.
+
+1340
+00:58:09,730 --> 00:58:12,349
+You want to think about
+constraints, you know,
+
+1341
+00:58:12,349 --> 00:58:14,530
+are you dealing with some
+real time constraints?
+
+1342
+00:58:14,530 --> 00:58:16,249
+The latency SLO that
+
+1343
+00:58:16,249 --> 00:58:18,489
+I mentioned previously,
+like deadlines, right?
+
+1344
+00:58:18,489 --> 00:58:20,149
+You know, are you running
+
+1345
+00:58:20,149 --> 00:58:23,189
+this system on an
+embedded device?
+
+1346
+00:58:23,189 --> 00:58:26,250
+Something that runs on an
+airplane, for instance.
+
+1347
+00:58:26,250 --> 00:58:29,489
+And basically things related to
+
+1348
+00:58:29,489 --> 00:58:32,669
+resource starvation and
+performance consolidation,
+
+1349
+00:58:32,669 --> 00:58:35,130
+like what you would
+see in the Cloud.
+
+1350
+00:58:36,620 --> 00:58:42,479
+So scheduling is hard.
+
+1351
+00:58:42,479 --> 00:58:46,259
+You have to deal with
+all sorts of complexity.
+
+1352
+00:58:46,259 --> 00:58:48,679
+You have to deal
+with heterogeneity.
+
+1353
+00:58:48,679 --> 00:58:52,120
+There's no perfect universal
+solution or policy.
+
+1354
+00:58:52,120 --> 00:58:54,699
+And the reason for this is
+that you have to deal with
+
+1355
+00:58:54,699 --> 00:58:57,619
+contradicting and
+heterogeneous goals, okay?
+
+1356
+00:58:57,619 --> 00:58:59,959
+And anyone who tells you
+that scheduling is simple,
+
+1357
+00:58:59,959 --> 00:59:02,739
+they simply don't know what
+they're talking about.
+
+1358
+00:59:02,820 --> 00:59:06,359
+If you go out there and
+you start writing and
+
+1359
+00:59:06,359 --> 00:59:07,719
+building real systems and
+
+1360
+00:59:07,719 --> 00:59:09,499
+you're responsible
+for scheduling,
+
+1361
+00:59:09,499 --> 00:59:11,479
+you will find contradicting
+
+1362
+00:59:11,479 --> 00:59:13,139
+and conflicting goals, in fact,
+
+1363
+00:59:13,139 --> 00:59:16,240
+that you have to be
+responsible for supporting,
+
+1364
+00:59:16,240 --> 00:59:18,019
+like maximizing throughput and
+
+1365
+00:59:18,019 --> 00:59:19,819
+minimizing latency
+at the same time.
+
+1366
+00:59:19,819 --> 00:59:21,619
+That's a fundamental systems
+
+1367
+00:59:21,619 --> 00:59:23,429
+trade off that you
+have to deal with.
+
+1368
+00:59:23,429 --> 00:59:25,319
+Or minimizing response time
+
+1369
+00:59:25,319 --> 00:59:27,379
+versus maximizing scalability.
+
+1370
+00:59:27,379 --> 00:59:31,259
+Or you want to assure fairness
+while at the same time,
+
+1371
+00:59:31,259 --> 00:59:34,299
+making sure that your
+schedule scales, right,
+
+1372
+00:59:34,299 --> 00:59:36,460
+or maximizing
+resource utilization,
+
+1373
+00:59:36,460 --> 00:59:39,639
+like in the case of the Google
+conversations that I had.
+
+1374
+00:59:39,639 --> 00:59:41,980
+They wanted to see
+their resources fully
+
+1375
+00:59:41,980 --> 00:59:44,499
+utilized because if they
+are not fully utilized,
+
+1376
+00:59:44,499 --> 00:59:46,539
+they believe that they're
+wasting money, right?
+
+1377
+00:59:46,539 --> 00:59:48,179
+And they're not wrong, right?
+
+1378
+00:59:48,179 --> 00:59:50,514
+But there's a nuance
+associated with that.
+
+1379
+00:59:50,514 --> 00:59:55,249
+Um, versus maybe you
+want to maximize well,
+
+1380
+00:59:55,249 --> 00:59:56,489
+I guess, in this case, you want
+
+1381
+00:59:56,489 --> 00:59:58,249
+to minimize energy consumption,
+
+1382
+00:59:58,249 --> 01:00:02,249
+or if you want to treat power
+as the power envelope sort
+
+1383
+01:00:02,249 --> 01:00:04,169
+of as a function of time as
+
+1384
+01:00:04,169 --> 01:00:06,714
+your constraint that you
+need to schedule within.
+
+1385
+01:00:06,714 --> 01:00:09,099
+So all of those
+considerations just kind
+
+1386
+01:00:09,099 --> 01:00:11,939
+of come together as
+a perfect storm and
+
+1387
+01:00:11,939 --> 01:00:16,739
+dropped onto a small handful
+of people usually who are
+
+1388
+01:00:16,739 --> 01:00:19,219
+dealing with scheduling as
+
+1389
+01:00:19,219 --> 01:00:21,740
+part of their life job and
+day to day operations.
+
+1390
+01:00:21,740 --> 01:00:23,520
+There are many
+potential solutions.
+
+1391
+01:00:23,520 --> 01:00:26,439
+You've heard a couple of
+policies that were discussed.
+
+1392
+01:00:26,439 --> 01:00:28,019
+We're going to go over one of
+
+1393
+01:00:28,019 --> 01:00:29,239
+the policies in a little bit
+
+1394
+01:00:29,239 --> 01:00:30,559
+more detail in the next class,
+
+1395
+01:00:30,559 --> 01:00:31,959
+the Round robin policy.
+
+1396
+01:00:31,959 --> 01:00:33,499
+And the reason for this is
+
+1397
+01:00:33,499 --> 01:00:36,899
+because I want to
+demonstrate just how bad
+
+1398
+01:00:36,899 --> 01:00:38,200
+the round robin policy
+
+1399
+01:00:38,200 --> 01:00:42,419
+is depending on what success
+metric you care about,
+
+1400
+01:00:42,419 --> 01:00:46,499
+and we start this
+discussion on Thursday.
+
+1401
+01:00:46,499 --> 01:00:49,880
+Thank you so much and I
+hope you enjoy scheduling.
+
+1402
+01:01:10,360 --> 01:01:12,399
+I

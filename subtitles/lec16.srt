@@ -1,0 +1,4662 @@
+1
+00:01:41,400 --> 00:01:43,440
+Okay.
+
+2
+00:02:27,100 --> 00:02:29,139
+It
+
+3
+00:03:14,220 --> 00:03:16,259
+No
+
+4
+00:03:59,120 --> 00:04:03,200
+that's
+
+5
+00:04:07,760 --> 00:04:12,519
+no and
+
+6
+00:04:35,980 --> 00:04:38,020
+No
+
+7
+00:04:48,440 --> 00:04:49,780
+We
+
+8
+00:04:49,780 --> 00:04:51,759
+one? I'm My Stator.
+
+9
+00:04:51,759 --> 00:04:54,260
+I to my best experience in fact.
+
+10
+00:04:54,260 --> 00:04:57,299
+I'm not, in fact, a TA
+or graduate student.
+
+11
+00:04:57,299 --> 00:05:01,240
+I get that every meeting,
+so let's clarify that.
+
+12
+00:05:01,240 --> 00:05:03,980
+Welcome to Lecture
+Dere on security.
+
+13
+00:05:03,980 --> 00:05:05,919
+I was asked. I'm actually in
+
+14
+00:05:05,919 --> 00:05:11,260
+a security and privacy
+department at SEP and SES.
+
+15
+00:05:11,260 --> 00:05:13,839
+I was asked to come
+and guest lecture.
+
+16
+00:05:13,839 --> 00:05:16,420
+I'm incredibly excited
+means I get ref
+
+17
+00:05:16,420 --> 00:05:20,770
+live scream so I
+
+18
+00:05:20,770 --> 00:05:22,890
+sort of began my most
+recent career as
+
+19
+00:05:22,890 --> 00:05:25,330
+a PhD student in ECS and MIT,
+
+20
+00:05:25,330 --> 00:05:27,710
+graduated a while ago.
+
+21
+00:05:27,710 --> 00:05:29,729
+I then went to Google,
+
+22
+00:05:29,729 --> 00:05:32,329
+where I worked on Android
+Security and Privacy team
+
+23
+00:05:32,329 --> 00:05:33,630
+as a senior research scientist.
+
+24
+00:05:33,630 --> 00:05:36,210
+I'm actually still
+affiliated with them,
+
+25
+00:05:36,210 --> 00:05:38,089
+part time, when I left.
+
+26
+00:05:38,089 --> 00:05:40,270
+They very emphatically said,
+
+27
+00:05:40,270 --> 00:05:42,630
+Hear God, please about
+the projects around up.
+
+28
+00:05:42,630 --> 00:05:45,269
+And now I'm here. I
+moved to Atlanta.
+
+29
+00:05:45,269 --> 00:05:49,410
+I'm a professor, incredibly
+excited to talk.
+
+30
+00:05:49,410 --> 00:05:53,930
+The things that I tend
+to hack on personally,
+
+31
+00:05:53,930 --> 00:05:55,689
+is that I build and break
+
+32
+00:05:55,689 --> 00:05:57,370
+systems that are
+relevant to society.
+
+33
+00:05:57,370 --> 00:06:00,029
+So I have this sort of
+intersectional belief
+
+34
+00:06:00,029 --> 00:06:03,050
+in looking at economics,
+
+35
+00:06:03,050 --> 00:06:04,650
+law, public policy, and
+
+36
+00:06:04,650 --> 00:06:07,490
+then building systems
+that are related to that.
+
+37
+00:06:07,490 --> 00:06:09,490
+As a result, I've
+
+38
+00:06:09,490 --> 00:06:11,409
+actually done some
+interesting research.
+
+39
+00:06:11,409 --> 00:06:14,310
+One study that we did actually
+found security flaws in
+
+40
+00:06:14,310 --> 00:06:16,230
+every Internet voting
+system used to
+
+41
+00:06:16,230 --> 00:06:18,010
+US federal election
+thing that I can
+
+42
+00:06:18,010 --> 00:06:20,890
+talk about the nice
+lecture a little bit.
+
+43
+00:06:20,890 --> 00:06:24,990
+I've written Amicus support by
+
+44
+00:06:24,990 --> 00:06:28,030
+electronic Meer Foundation
+Society organization
+
+45
+00:06:28,030 --> 00:06:30,165
+that deals with policy logy.
+
+46
+00:06:30,165 --> 00:06:32,039
+I've also done a bunch of crypto
+
+47
+00:06:32,039 --> 00:06:33,900
+research including stuff that
+
+48
+00:06:33,900 --> 00:06:38,420
+resulted in legislation not
+being passed in Congress.
+
+49
+00:06:38,420 --> 00:06:40,060
+We know that because they read
+
+50
+00:06:40,060 --> 00:06:44,439
+our report to pressional freer,
+
+51
+00:06:44,439 --> 00:06:47,240
+so it's part of history now.
+
+52
+00:06:47,280 --> 00:06:49,880
+The thing that I've been
+focusing on recently is
+
+53
+00:06:49,880 --> 00:06:53,320
+ten encryption and re
+decentralization of social media.
+
+54
+00:06:53,320 --> 00:06:56,020
+This is the thing that I'm
+incredibly talking about.
+
+55
+00:06:56,020 --> 00:06:57,860
+We're also looking into things
+
+56
+00:06:57,860 --> 00:06:59,220
+related to location privacy,
+
+57
+00:06:59,220 --> 00:07:01,580
+things like air tags,
+and things like that.
+
+58
+00:07:01,580 --> 00:07:05,880
+So, in general, this has
+led to a bunch of really,
+
+59
+00:07:05,880 --> 00:07:06,900
+really interesting and sort
+
+60
+00:07:06,900 --> 00:07:09,599
+of attractive security research.
+
+61
+00:07:09,599 --> 00:07:11,960
+So that's part of the
+reason why I'm here
+
+62
+00:07:11,960 --> 00:07:14,780
+today sort of evangelize
+folks getting
+
+63
+00:07:14,780 --> 00:07:16,999
+involved in security
+and security research
+
+64
+00:07:16,999 --> 00:07:20,285
+to tell you why
+I'm excited by it.
+
+65
+00:07:20,285 --> 00:07:22,590
+So I'm going to
+
+66
+00:07:22,590 --> 00:07:25,650
+start with probably a
+really basic question
+
+67
+00:07:25,770 --> 00:07:29,950
+because every lecture like
+this is to start with
+
+68
+00:07:29,950 --> 00:07:31,870
+a weird rhetorical question
+
+69
+00:07:31,870 --> 00:07:33,509
+that might actually
+have answers.
+
+70
+00:07:33,509 --> 00:07:36,449
+What actually is
+computer security?
+
+71
+00:07:37,290 --> 00:07:40,009
+The actual real
+question, not a real.
+
+72
+00:07:40,009 --> 00:07:44,649
+You want to raise
+your race holes.
+
+73
+00:07:44,649 --> 00:07:48,710
+Yes. I would say something
+like ensuring that
+
+74
+00:07:48,710 --> 00:07:51,709
+users actually
+using your computer
+
+75
+00:07:51,709 --> 00:07:55,170
+are not able to do things that.
+
+76
+00:07:57,810 --> 00:08:01,529
+Keeping running.
+
+77
+00:08:02,890 --> 00:08:11,380
+Ask any other Intra
+malicious actors
+
+78
+00:08:11,380 --> 00:08:16,320
+can hack Auto acc introduced
+a new term malicious actor.
+
+79
+00:08:16,320 --> 00:08:18,879
+So someone writing malware
+
+80
+00:08:18,879 --> 00:08:22,840
+someone who's trying
+to do something bad,
+
+81
+00:08:22,840 --> 00:08:32,660
+maybe a presence of
+an adversary one.
+
+82
+00:08:37,180 --> 00:08:40,139
+I start coclling.
+
+83
+00:08:47,960 --> 00:08:51,280
+Maybe there might be a
+policy you can put it,
+
+84
+00:08:51,280 --> 00:08:54,440
+stress, make a system adhere to.
+
+85
+00:08:54,440 --> 00:08:55,979
+One, someone who is not
+
+86
+00:08:55,979 --> 00:08:58,360
+authorized to get access
+to something access.
+
+87
+00:08:58,360 --> 00:09:01,419
+Yeah, computer security is
+
+88
+00:09:01,419 --> 00:09:04,240
+actually ill defined
+as a discipline.
+
+89
+00:09:04,240 --> 00:09:05,679
+The best that I could
+come up with was
+
+90
+00:09:05,679 --> 00:09:07,399
+sort of these two definitions,
+
+91
+00:09:07,399 --> 00:09:09,340
+one of which is
+useful free today.
+
+92
+00:09:09,340 --> 00:09:11,479
+One is security
+assistance design,
+
+93
+00:09:11,479 --> 00:09:13,260
+which you can sort of put
+
+94
+00:09:13,260 --> 00:09:15,525
+in as something
+akin to medicine.
+
+95
+00:09:15,525 --> 00:09:17,049
+Right? You have a system and
+
+96
+00:09:17,049 --> 00:09:19,029
+you're going to introduce
+some properties to it,
+
+97
+00:09:19,029 --> 00:09:21,689
+and you're going to understand
+what those properties do.
+
+98
+00:09:21,689 --> 00:09:23,249
+The second is security is
+
+99
+00:09:23,249 --> 00:09:25,269
+ecosystem analysis,
+akin to public health.
+
+100
+00:09:25,269 --> 00:09:29,130
+So how well the
+security properties
+
+101
+00:09:29,130 --> 00:09:30,930
+at work in real real well.
+
+102
+00:09:30,930 --> 00:09:32,410
+So when you study security,
+
+103
+00:09:32,410 --> 00:09:34,350
+you might be doing one
+of these two things.
+
+104
+00:09:34,350 --> 00:09:35,929
+And what's really relevant to
+
+105
+00:09:35,929 --> 00:09:37,349
+you for this class
+and I'm going to
+
+106
+00:09:37,349 --> 00:09:38,789
+focus on in this
+class is this idea
+
+107
+00:09:38,789 --> 00:09:40,759
+of security systems design.
+
+108
+00:09:40,759 --> 00:09:44,310
+Okay. I'm going to
+be a little bit more
+
+109
+00:09:44,310 --> 00:09:45,429
+specific about what
+I mean by that
+
+110
+00:09:45,429 --> 00:09:48,670
+here. What does
+that actually mean?
+
+111
+00:09:48,830 --> 00:09:53,229
+Security to abstract
+really far out,
+
+112
+00:09:53,229 --> 00:09:56,409
+it's just the design
+of systems to achieve
+
+113
+00:09:56,409 --> 00:09:58,029
+some property that
+you're going to
+
+114
+00:09:58,029 --> 00:10:01,329
+define against an
+act of adversary.
+
+115
+00:10:01,329 --> 00:10:04,989
+Somebody trying to
+push your system over.
+
+116
+00:10:05,430 --> 00:10:07,509
+The general process for
+
+117
+00:10:07,509 --> 00:10:09,969
+this is you first
+define your system,
+
+118
+00:10:09,969 --> 00:10:11,850
+you provide a set
+of security goals,
+
+119
+00:10:11,850 --> 00:10:13,129
+and then you provide
+some sort of
+
+120
+00:10:13,129 --> 00:10:17,470
+proof that your system
+actually follows these goals.
+
+121
+00:10:17,860 --> 00:10:20,140
+This is incredibly high level,
+
+122
+00:10:20,140 --> 00:10:21,440
+and we're going to delve
+
+123
+00:10:21,440 --> 00:10:23,260
+a little bit more
+into all of them.
+
+124
+00:10:23,260 --> 00:10:25,280
+But I first want to illustrate
+
+125
+00:10:25,280 --> 00:10:26,360
+the sort of difference between
+
+126
+00:10:26,360 --> 00:10:29,240
+what you might have been
+doing recently and security.
+
+127
+00:10:29,240 --> 00:10:32,419
+And I think it's summed
+up in these two gifts.
+
+128
+00:10:32,940 --> 00:10:36,820
+What is the difference
+between these two scenarios?
+
+129
+00:10:43,470 --> 00:10:46,169
+Sure. Actually, you have.
+
+130
+00:10:46,169 --> 00:10:48,250
+Maybe a point of failure.
+
+131
+00:10:48,250 --> 00:10:50,210
+Yes, there's a point of failure,
+
+132
+00:10:50,210 --> 00:10:51,930
+but both systems failed.
+
+133
+00:10:51,930 --> 00:10:54,129
+Perhaps one of the lowered
+dramatically or the other.
+
+134
+00:10:54,129 --> 00:10:57,069
+This bridge actually did
+fall down eventually.
+
+135
+00:10:58,670 --> 00:11:01,295
+So how it call.
+
+136
+00:11:01,295 --> 00:11:06,760
+Yeah, there's an adversary,
+
+137
+00:11:06,760 --> 00:11:12,420
+Bestrs being destroyed by
+Sensi agglomeration things.
+
+138
+00:11:12,420 --> 00:11:16,700
+This is just bad
+design. So for example,
+
+139
+00:11:16,700 --> 00:11:18,400
+a bridge might never fall down,
+
+140
+00:11:18,400 --> 00:11:22,160
+but someone bombing said bridges
+
+141
+00:11:22,160 --> 00:11:23,680
+a different set of
+design constraints.
+
+142
+00:11:23,680 --> 00:11:26,280
+It's a different set
+design interests.
+
+143
+00:11:26,280 --> 00:11:28,120
+There's an active
+adversary that might
+
+144
+00:11:28,120 --> 00:11:29,379
+know how the bridge
+
+145
+00:11:29,379 --> 00:11:31,720
+was actually constructed,
+for example.
+
+146
+00:11:32,360 --> 00:11:36,169
+Okay. I don't cool.
+
+147
+00:11:36,169 --> 00:11:39,889
+All right. So there
+
+148
+00:11:39,889 --> 00:11:41,189
+are two large components when
+
+149
+00:11:41,189 --> 00:11:43,309
+you're actually designing
+a system like this.
+
+150
+00:11:43,309 --> 00:11:46,669
+The first is a series
+of goals, right?
+
+151
+00:11:46,669 --> 00:11:49,989
+And you've already dealt
+with some of this, right?
+
+152
+00:11:49,989 --> 00:11:53,149
+A separate user on a same
+computer shouldn't be,
+
+153
+00:11:53,149 --> 00:11:55,429
+for example, DA goal.
+
+154
+00:11:55,429 --> 00:11:57,430
+No process or being able to read
+
+155
+00:11:57,430 --> 00:11:59,110
+another process is memory unless
+
+156
+00:11:59,110 --> 00:12:01,669
+explicitly set up a debugger GE
+
+157
+00:12:01,669 --> 00:12:03,829
+or something like this, right?
+
+158
+00:12:03,829 --> 00:12:06,330
+I can also be categories,
+
+159
+00:12:06,330 --> 00:12:09,869
+called the CA thread. Does
+anyone know what that is?
+
+160
+00:12:09,910 --> 00:12:20,429
+CAA. So that's the
+organization. A, go forward.
+
+161
+00:12:20,429 --> 00:12:27,550
+Confident it's
+confidentiality, integrity,
+
+162
+00:12:27,550 --> 00:12:30,369
+and veteran availability is DA.
+
+163
+00:12:30,369 --> 00:12:32,450
+These might be a series of
+
+164
+00:12:32,450 --> 00:12:34,209
+goals that you might
+have for a system,
+
+165
+00:12:34,209 --> 00:12:36,750
+very important, for example,
+
+166
+00:12:36,750 --> 00:12:42,089
+for a time server to
+always have integrity,
+
+167
+00:12:42,089 --> 00:12:43,329
+you don't want someone
+mucking at the
+
+168
+00:12:43,329 --> 00:12:45,630
+time and be very available,
+
+169
+00:12:45,630 --> 00:12:48,410
+but you don't really care
+if it's confidential.
+
+170
+00:12:48,410 --> 00:12:51,110
+So this is just a really
+high level framework
+
+171
+00:12:51,110 --> 00:12:53,749
+that people use
+categories of goals.
+
+172
+00:12:54,120 --> 00:12:56,920
+And then you have this thing
+called a threat bottle
+
+173
+00:12:56,920 --> 00:12:59,540
+the threat bottle is
+actually somewhat nuanced.
+
+174
+00:12:59,540 --> 00:13:01,299
+And really, at the
+end of the day,
+
+175
+00:13:01,299 --> 00:13:02,699
+it's set of assumptions
+
+176
+00:13:02,699 --> 00:13:05,079
+about what attacker
+can and cannot do.
+
+177
+00:13:05,079 --> 00:13:07,700
+Defining this is actually
+really important.
+
+178
+00:13:07,700 --> 00:13:10,279
+For example, are we assuming
+
+179
+00:13:10,279 --> 00:13:13,625
+that two processes are
+running on the same machine?
+
+180
+00:13:13,625 --> 00:13:16,729
+Are we assuming if I'm a
+user that someone that can
+
+181
+00:13:16,729 --> 00:13:20,549
+get physics aviceF example,
+
+182
+00:13:20,549 --> 00:13:23,049
+these assumptions
+actually really
+
+183
+00:13:23,049 --> 00:13:24,509
+determine the actual outcome
+
+184
+00:13:24,509 --> 00:13:25,710
+of the system that you're using.
+
+185
+00:13:25,710 --> 00:13:27,329
+We can disuss a
+little bit about a
+
+186
+00:13:27,329 --> 00:13:30,129
+bit of examples in the future.
+
+187
+00:13:30,129 --> 00:13:33,010
+Another example might be can
+someone guess passwords.
+
+188
+00:13:33,010 --> 00:13:36,609
+How often they can I
+guess they're dliftd.
+
+189
+00:13:37,210 --> 00:13:39,389
+In general, front model will
+
+190
+00:13:39,389 --> 00:13:40,789
+specify what's in
+and out of scope,
+
+191
+00:13:40,789 --> 00:13:41,830
+and the goal is to find
+
+192
+00:13:41,830 --> 00:13:44,090
+what you actually
+want to achieve.
+
+193
+00:13:46,420 --> 00:13:48,580
+I'm going to illustrate
+a little bit,
+
+194
+00:13:48,580 --> 00:13:52,420
+why this is actually
+hard in a little bit.
+
+195
+00:13:52,420 --> 00:13:54,919
+But the components of
+actually how you do this,
+
+196
+00:13:54,919 --> 00:13:57,500
+the implementation
+falls into two pockets,
+
+197
+00:13:57,500 --> 00:14:00,620
+this is generally how you
+actually achieve your goals.
+
+198
+00:14:00,620 --> 00:14:02,540
+The first is policy,
+
+199
+00:14:02,540 --> 00:14:04,479
+which is a set of rules.
+
+200
+00:14:04,479 --> 00:14:06,259
+Now, it's like technical policy,
+
+201
+00:14:06,259 --> 00:14:08,999
+I don't mean, what they do in
+
+202
+00:14:08,999 --> 00:14:12,660
+DC unless you're like
+Amazon voting in DC.
+
+203
+00:14:12,660 --> 00:14:15,219
+But I mean things that
+are file permissions,
+
+204
+00:14:15,219 --> 00:14:19,035
+requiring passwords of
+two backations policy.
+
+205
+00:14:19,035 --> 00:14:21,409
+There's a mechanism, right?
+
+206
+00:14:21,409 --> 00:14:23,230
+This is just hardware
+and software
+
+207
+00:14:23,230 --> 00:14:24,730
+that actually sort
+of force your goals.
+
+208
+00:14:24,730 --> 00:14:25,830
+So for example, a lot of
+
+209
+00:14:25,830 --> 00:14:27,790
+you don't know if gotten
+to this point yet.
+
+210
+00:14:27,790 --> 00:14:30,509
+You've written virtual
+memory, right?
+
+211
+00:14:30,509 --> 00:14:32,870
+Written You have this ability
+
+212
+00:14:32,870 --> 00:14:33,990
+to separate processes so they
+
+213
+00:14:33,990 --> 00:14:35,170
+can fit each other's memory.
+
+214
+00:14:35,170 --> 00:14:38,410
+Yeah. That same mechanism.
+
+215
+00:14:38,510 --> 00:14:41,910
+Another example might be
+user accounts, right?
+
+216
+00:14:41,910 --> 00:14:43,349
+I think set UID is another thing
+
+217
+00:14:43,349 --> 00:14:45,090
+that you guys
+implemented this Boss.
+
+218
+00:14:45,090 --> 00:14:47,150
+Have you gotten there
+yet? About four.
+
+219
+00:14:47,150 --> 00:14:50,730
+Okay. Sorry, I'm telegraphing
+things an issue.
+
+220
+00:14:50,730 --> 00:14:52,950
+But this will be important.
+Encryption might be
+
+221
+00:14:52,950 --> 00:14:55,930
+another thing,
+another mechanism.
+
+222
+00:14:55,930 --> 00:14:59,049
+All right, so let's
+talk about an example.
+
+223
+00:14:59,049 --> 00:15:01,289
+Your TA controls Canvas,
+
+224
+00:15:01,289 --> 00:15:05,809
+which ultimately controls your
+grade of this boss, right?
+
+225
+00:15:05,809 --> 00:15:08,350
+The policy here is
+that only your TA
+
+226
+00:15:08,350 --> 00:15:11,190
+should be able to change
+grades in Canvas.
+
+227
+00:15:11,890 --> 00:15:13,850
+Let's say you guys don't
+
+228
+00:15:13,850 --> 00:15:16,050
+like these labs
+that you're doing.
+
+229
+00:15:17,450 --> 00:15:21,769
+How do you choose GE?
+What might you do?
+
+230
+00:15:21,769 --> 00:15:26,010
+Please don't in into
+things. Pay off the TA.
+
+231
+00:15:26,010 --> 00:15:27,410
+Bride a TA.
+
+232
+00:15:27,410 --> 00:15:31,230
+Sure. Go to office hours,
+
+233
+00:15:31,230 --> 00:15:32,509
+wait for the TA to leave
+
+234
+00:15:32,509 --> 00:15:36,409
+their laptop and then
+do it from there.
+
+235
+00:15:36,730 --> 00:15:39,209
+I was just exactly what you.
+
+236
+00:15:39,209 --> 00:15:42,950
+If you're using the TA,
+that might be a. I'm sorry.
+
+237
+00:15:42,950 --> 00:15:45,090
+Any others?
+
+238
+00:15:45,090 --> 00:15:49,260
+I can yeah, you might
+break into Canvas servers.
+
+239
+00:15:49,260 --> 00:15:51,540
+You might do all
+sorts of things.
+
+240
+00:15:51,540 --> 00:15:53,440
+You might skill your
+computer, break
+
+241
+00:15:53,440 --> 00:15:57,179
+into UTAs tech account.
+
+242
+00:15:57,179 --> 00:16:01,119
+I might break into Canvas
+or bribe an ad in there.
+
+243
+00:16:01,119 --> 00:16:04,920
+I might also go after
+your professor's account.
+
+244
+00:16:04,960 --> 00:16:08,699
+Suggestion you might bribe,
+
+245
+00:16:08,699 --> 00:16:09,859
+which normally you don't get,
+
+246
+00:16:09,859 --> 00:16:10,919
+but it's interesting that this
+
+247
+00:16:10,919 --> 00:16:14,199
+is the first thing that was
+actually chosen out of this.
+
+248
+00:16:14,199 --> 00:16:16,159
+The point here is
+that there's actually
+
+249
+00:16:16,159 --> 00:16:18,519
+a ton of attacks and
+they're fun to think about.
+
+250
+00:16:18,519 --> 00:16:21,259
+Security is actually
+a negative goal.
+
+251
+00:16:21,259 --> 00:16:23,720
+You're proving the
+absence of something,
+
+252
+00:16:23,720 --> 00:16:26,040
+the absence of the ability
+to actually execute
+
+253
+00:16:26,040 --> 00:16:29,779
+the soil. That's
+actually kind of hard.
+
+254
+00:16:29,779 --> 00:16:32,820
+There's a bunch of ways in
+which failure to occur,
+
+255
+00:16:32,820 --> 00:16:34,920
+and only one of them is
+really necessary in order
+
+256
+00:16:34,920 --> 00:16:37,640
+for someone to
+change their grade.
+
+257
+00:16:37,640 --> 00:16:40,559
+Of course, in
+practice, our diligent
+
+258
+00:16:40,559 --> 00:16:43,740
+professor staring
+daggers at me right now.
+
+259
+00:16:43,740 --> 00:16:47,740
+We'll immediately notice an
+attempt and you will fail,
+
+260
+00:16:47,740 --> 00:16:51,020
+which itself is kind of
+a security guarantee
+
+261
+00:16:51,020 --> 00:16:52,299
+that's interesting, right?
+
+262
+00:16:52,299 --> 00:16:56,139
+Be the sort of expected value of
+
+263
+00:16:56,139 --> 00:16:57,940
+changing your grade
+might actually be quite
+
+264
+00:16:57,940 --> 00:17:01,399
+different if you actually
+attempt to do so.
+
+265
+00:17:01,399 --> 00:17:05,100
+So one of the things
+
+266
+00:17:05,100 --> 00:17:06,399
+that I really like
+about security is
+
+267
+00:17:06,399 --> 00:17:08,039
+that you get to ask
+this question a lot,
+
+268
+00:17:08,039 --> 00:17:11,180
+and some of those scenarios
+are very entertaining.
+
+269
+00:17:11,500 --> 00:17:15,080
+And generally, they sort of
+fit in these categories.
+
+270
+00:17:15,080 --> 00:17:16,639
+So, for example, you
+
+271
+00:17:16,639 --> 00:17:19,199
+might just have bad
+policies or goals.
+
+272
+00:17:19,199 --> 00:17:21,500
+You might have a bad threat.
+
+273
+00:17:21,500 --> 00:17:22,839
+Like your assumptis
+about what your
+
+274
+00:17:22,839 --> 00:17:24,960
+adversary can be wrong,
+
+275
+00:17:24,960 --> 00:17:27,779
+and you might have just
+bad mechanisms, right?
+
+276
+00:17:27,779 --> 00:17:30,889
+So like bugs in your mechanism.
+
+277
+00:17:30,889 --> 00:17:33,459
+We're going to talk about OPs.
+
+278
+00:17:33,459 --> 00:17:37,500
+Let's talk about incorrect
+goals and or policies.
+
+279
+00:17:37,500 --> 00:17:40,139
+I want to give you an
+illustrated example
+
+280
+00:17:40,139 --> 00:17:42,480
+and see if you can
+figure out how it works.
+
+281
+00:17:42,480 --> 00:17:44,559
+This is a real thing
+that happened.
+
+282
+00:17:44,559 --> 00:17:47,859
+Please don't go into this
+until I'm done, so I sit on.
+
+283
+00:17:47,859 --> 00:17:49,979
+In Fairfax County, Virginia,
+
+284
+00:17:49,979 --> 00:17:51,899
+a 9-year-old boy was caught
+
+285
+00:17:51,899 --> 00:17:54,359
+accessing a gray
+management account
+
+286
+00:17:54,359 --> 00:17:56,684
+owned by the superintendent.
+
+287
+00:17:56,684 --> 00:17:59,069
+So clearly something
+has gone wrong here,
+
+288
+00:17:59,069 --> 00:18:01,629
+but this is a thing.
+The question is, how?
+
+289
+00:18:01,629 --> 00:18:04,070
+I'm going to give you
+the system's policies,
+
+290
+00:18:04,070 --> 00:18:05,890
+and I want someone
+
+291
+00:18:05,890 --> 00:18:09,229
+to raise their hand and tell
+me exactly what happened.
+
+292
+00:18:09,229 --> 00:18:11,309
+And the policies are student can
+
+293
+00:18:11,309 --> 00:18:14,009
+access only their own files.
+
+294
+00:18:14,130 --> 00:18:17,190
+The superintendent has
+access to everyone's grades,
+
+295
+00:18:17,190 --> 00:18:20,089
+files, et cetera, because
+they're superintendent.
+
+296
+00:18:20,089 --> 00:18:23,450
+Teachers can add new
+students to their class.
+
+297
+00:18:23,450 --> 00:18:25,150
+Teachers can change the password
+
+298
+00:18:25,150 --> 00:18:27,250
+of any student in their class,
+
+299
+00:18:28,290 --> 00:18:30,649
+and the student got access to
+
+300
+00:18:30,649 --> 00:18:32,129
+everybody as the superintendent.
+
+301
+00:18:32,129 --> 00:18:34,129
+So what actually happened here?
+
+302
+00:18:42,620 --> 00:18:46,419
+One hand up. Did the teacher
+
+303
+00:18:46,419 --> 00:18:47,960
+add the superintendent as
+
+304
+00:18:47,960 --> 00:18:49,920
+a student and then
+change their password?
+
+305
+00:18:49,920 --> 00:18:54,460
+Yeah, what happened
+here is hilarious,
+
+306
+00:18:54,460 --> 00:18:56,659
+is the question you
+might want to ask,
+
+307
+00:18:56,659 --> 00:18:58,079
+what's the worst thing
+can have a student
+
+308
+00:18:58,079 --> 00:19:00,560
+gets access to the
+teacher's password.
+
+309
+00:19:00,560 --> 00:19:03,359
+Is the student adds
+a superintendent to
+
+310
+00:19:03,359 --> 00:19:07,740
+a compromise teacher's class
+and changes their password.
+
+311
+00:19:07,960 --> 00:19:10,739
+Right? Because they can
+just do that, right,
+
+312
+00:19:10,739 --> 00:19:14,359
+any user is someone who
+can connect to a class.
+
+313
+00:19:14,359 --> 00:19:18,059
+And then logs in as a
+superintendent docks solidles.
+
+314
+00:19:18,059 --> 00:19:20,140
+So this is kind of sad.
+
+315
+00:19:20,140 --> 00:19:22,339
+And the point here
+is that the policy
+
+316
+00:19:22,339 --> 00:19:23,699
+actually amounts to teachers do
+
+317
+00:19:23,699 --> 00:19:25,340
+anything clearly got
+
+318
+00:19:25,340 --> 00:19:29,019
+the intended goal of
+the system, right?
+
+319
+00:19:29,019 --> 00:19:33,159
+This is a policy that led to
+a particularly bad failure.
+
+320
+00:19:33,230 --> 00:19:37,349
+Then we get this kind
+of a hilarious example.
+
+321
+00:19:37,349 --> 00:19:39,509
+Policies typically go wrong in
+
+322
+00:19:39,509 --> 00:19:42,189
+the management or
+maintenance cases, right?
+
+323
+00:19:42,189 --> 00:19:44,030
+So for example, who can change
+
+324
+00:19:44,030 --> 00:19:46,049
+permissions or passwords
+on a computer?
+
+325
+00:19:46,049 --> 00:19:48,309
+Who can get access
+to audit logs,
+
+326
+00:19:48,309 --> 00:19:50,609
+and what might be storing
+those autologs including
+
+327
+00:19:50,609 --> 00:19:53,749
+errors that include said
+passwords and things like this.
+
+328
+00:19:53,749 --> 00:19:56,070
+Who can get access to backups.
+
+329
+00:19:56,070 --> 00:19:59,090
+Who can upgrade software
+change configuration
+
+330
+00:19:59,090 --> 00:20:00,929
+of the device, right?
+
+331
+00:20:00,929 --> 00:20:02,929
+Who can manage servers
+
+332
+00:20:02,929 --> 00:20:05,189
+and who revokes privileges
+of former ABIs.
+
+333
+00:20:05,189 --> 00:20:08,289
+These are all sort of
+relevant questions
+
+334
+00:20:08,289 --> 00:20:11,789
+you might want to ask
+yourself in your Pat system.
+
+335
+00:20:12,020 --> 00:20:15,339
+What policies might be involved.
+
+336
+00:20:17,340 --> 00:20:20,019
+So let's talk about
+threat models.
+
+337
+00:20:20,019 --> 00:20:23,179
+Getting a threat model right
+might be incredibly subtle.
+
+338
+00:20:23,179 --> 00:20:25,699
+I'm going to provide a
+few examples of this.
+
+339
+00:20:25,699 --> 00:20:30,059
+So talk about bad throw models.
+
+340
+00:20:30,780 --> 00:20:35,119
+I think my favorite
+example of this are folks
+
+341
+00:20:35,119 --> 00:20:36,619
+that just believe that because
+
+342
+00:20:36,619 --> 00:20:39,240
+their system is quite esoteric,
+
+343
+00:20:39,240 --> 00:20:41,840
+they might actually know
+how my system works,
+
+344
+00:20:41,840 --> 00:20:43,684
+and therefore I am secure.
+
+345
+00:20:43,684 --> 00:20:47,129
+I compile it myself. I
+run entu because I'm,
+
+346
+00:20:47,129 --> 00:20:50,230
+you know, masochist
+or something.
+
+347
+00:20:50,230 --> 00:20:53,169
+I take x26, I compile it
+and I run it on my own.
+
+348
+00:20:53,169 --> 00:20:56,930
+Therefore, no one's going to
+know how my system works.
+
+349
+00:20:56,930 --> 00:20:58,789
+There's this thing if you take
+
+350
+00:20:58,789 --> 00:21:00,069
+nothing else from this lectures,
+
+351
+00:21:00,069 --> 00:21:03,269
+please remember this principle
+called Karkovs principle,
+
+352
+00:21:03,269 --> 00:21:05,670
+which states that the
+system is always secure.
+
+353
+00:21:05,670 --> 00:21:07,349
+The adversary knows everything
+
+354
+00:21:07,349 --> 00:21:09,310
+about the system, and
+it is still secure.
+
+355
+00:21:09,310 --> 00:21:12,580
+In other words, the
+enemy knows the system.
+
+356
+00:21:12,580 --> 00:21:15,929
+So for a long time, for
+example, cryptography,
+
+357
+00:21:15,929 --> 00:21:17,310
+we just kept crypto
+
+358
+00:21:17,310 --> 00:21:20,050
+secret with the assumption
+
+359
+00:21:20,050 --> 00:21:23,050
+that if the enemy knew
+how ictography worked,
+
+360
+00:21:23,050 --> 00:21:25,129
+they would be able to break it.
+
+361
+00:21:25,129 --> 00:21:28,550
+And that's really not a
+good design principle.
+
+362
+00:21:28,550 --> 00:21:30,389
+And the inverse of this is
+
+363
+00:21:30,389 --> 00:21:32,109
+security through
+security, right?
+
+364
+00:21:32,109 --> 00:21:38,569
+Sort of hide. I think a
+fantastic example of this
+
+365
+00:21:39,430 --> 00:21:41,709
+typing
+
+366
+00:21:48,790 --> 00:21:50,849
+a fantastic example
+
+367
+00:21:50,849 --> 00:21:52,730
+of this is something
+called the Clipper Chip.
+
+368
+00:21:52,730 --> 00:21:55,870
+Anyone have heard of
+this? A couple of knots.
+
+369
+00:21:55,870 --> 00:21:58,150
+What was the Clipper
+hip? Clipper chip
+
+370
+00:21:58,150 --> 00:22:00,930
+was a government
+mandated back door
+
+371
+00:22:00,930 --> 00:22:04,350
+to certain encryption
+Levi's encryption chips
+
+372
+00:22:04,350 --> 00:22:06,790
+on the processing board
+of certain computers.
+
+373
+00:22:06,790 --> 00:22:12,610
+Yeah, this was an
+NSA designed chip
+
+374
+00:22:12,610 --> 00:22:19,870
+that way back in the day
+it was sort of a arguable,
+
+375
+00:22:19,870 --> 00:22:21,269
+people were arguing
+as to whether or
+
+376
+00:22:21,269 --> 00:22:22,309
+not crytography should be
+
+377
+00:22:22,309 --> 00:22:24,209
+available to the general masses.
+
+378
+00:22:24,209 --> 00:22:26,729
+The US government came
+
+379
+00:22:26,729 --> 00:22:28,129
+up with this middle
+ground where they said,
+
+380
+00:22:28,129 --> 00:22:31,150
+Okay, the NSA is going
+to create this chip.
+
+381
+00:22:31,150 --> 00:22:34,889
+Only US person should
+be able to get
+
+382
+00:22:34,889 --> 00:22:37,510
+access to the cryptography
+
+383
+00:22:37,510 --> 00:22:39,929
+that is done on
+this chip, right?
+
+384
+00:22:39,929 --> 00:22:42,469
+Only US law enforcement,
+
+385
+00:22:42,469 --> 00:22:43,690
+for example, can actually break
+
+386
+00:22:43,690 --> 00:22:45,245
+the cryptography on this chip.
+
+387
+00:22:45,245 --> 00:22:49,340
+Uh, and then be able to see
+your group communications.
+
+388
+00:22:49,340 --> 00:22:51,179
+It was actually done
+on phones back in
+
+389
+00:22:51,179 --> 00:22:54,359
+the day, flaneline wired phones.
+
+390
+00:22:54,359 --> 00:22:56,219
+What was interesting
+about this is
+
+391
+00:22:56,219 --> 00:22:58,799
+that design of it was
+completely secret.
+
+392
+00:22:58,799 --> 00:23:01,759
+And this very irascible
+now professor,
+
+393
+00:23:01,759 --> 00:23:04,199
+formerly a research
+scientist at Bell Labs,
+
+394
+00:23:04,199 --> 00:23:08,099
+A Blaze, got off and broke it.
+
+395
+00:23:08,099 --> 00:23:11,859
+And the design was known
+bad. It was clearly bad.
+
+396
+00:23:11,859 --> 00:23:13,240
+The only reason they believe
+
+397
+00:23:13,240 --> 00:23:14,559
+they were going to get
+away with this is because
+
+398
+00:23:14,559 --> 00:23:16,940
+no same person would sit
+
+399
+00:23:16,940 --> 00:23:18,040
+there for hours decapping
+
+400
+00:23:18,040 --> 00:23:19,600
+the ship and understanding
+how it works.
+
+401
+00:23:19,600 --> 00:23:21,239
+And it turns out that,
+
+402
+00:23:21,239 --> 00:23:23,600
+computer science
+professors are not safe.
+
+403
+00:23:23,600 --> 00:23:27,359
+In this. That's why we research.
+
+404
+00:23:27,359 --> 00:23:30,999
+So this is just like a
+fantastic example of this.
+
+405
+00:23:30,999 --> 00:23:34,319
+Have you ever seen, like,
+
+406
+00:23:34,319 --> 00:23:37,660
+what was the Alan
+Turing documentary
+
+407
+00:23:37,660 --> 00:23:39,379
+ntationGame, you go into this.
+
+408
+00:23:39,379 --> 00:23:41,920
+It's a really fantastic.
+
+409
+00:23:42,080 --> 00:23:45,160
+Other bad models examples.
+
+410
+00:23:45,160 --> 00:23:47,880
+How many people here
+from a Stuxnet?
+
+411
+00:23:48,230 --> 00:23:50,949
+What was sucks that?
+
+412
+00:23:50,950 --> 00:23:53,849
+Basically, the government
+snuck a bunch of
+
+413
+00:23:53,849 --> 00:23:56,429
+software to destroy or it was
+
+414
+00:23:56,429 --> 00:23:59,889
+targeting the PLCs for
+nuclear centrifuges, I think.
+
+415
+00:23:59,889 --> 00:24:02,110
+It's been just a
+little bit too fast,
+
+416
+00:24:02,110 --> 00:24:03,969
+they would break over time, and
+
+417
+00:24:03,969 --> 00:24:04,670
+I had to get through
+
+418
+00:24:04,670 --> 00:24:06,400
+the air gap because
+those weren't connected.
+
+419
+00:24:06,400 --> 00:24:08,629
+Yeah, these were air gaps.
+
+420
+00:24:08,629 --> 00:24:11,569
+This was an attack that
+happened on air gap systems,
+
+421
+00:24:11,569 --> 00:24:17,049
+particularly Iranian nuclear
+facilities center beaches.
+
+422
+00:24:17,650 --> 00:24:20,189
+The assumption, the
+security assumption here
+
+423
+00:24:20,189 --> 00:24:22,370
+is that one could not
+jump the Air GAP.
+
+424
+00:24:22,370 --> 00:24:24,689
+And what was used to
+get on these systems
+
+425
+00:24:24,689 --> 00:24:26,709
+was just a zero day and how
+
+426
+00:24:26,709 --> 00:24:31,650
+Windows processes USB
+media on the USB stay.
+
+427
+00:24:31,650 --> 00:24:36,824
+Jump their gaps assumption
+didn't work out, right?
+
+428
+00:24:36,824 --> 00:24:39,700
+Then there's
+computational assumpions.
+
+429
+00:24:39,700 --> 00:24:41,679
+This happens a lot
+in phytography.
+
+430
+00:24:41,679 --> 00:24:43,319
+You might make an
+assumption that
+
+431
+00:24:43,319 --> 00:24:47,779
+a cryptographic primitive
+is always going to be fine.
+
+432
+00:24:47,779 --> 00:24:51,400
+S is really great example
+of this dates back again
+
+433
+00:24:51,400 --> 00:24:54,780
+to the original
+proporsscpton, where, hey,
+
+434
+00:24:54,780 --> 00:24:57,899
+there was an algorithm
+that was known broken,
+
+435
+00:24:57,899 --> 00:24:59,599
+but computationally would be
+
+436
+00:24:59,599 --> 00:25:03,100
+feasible for anyone but the
+NSA to be able to break,
+
+437
+00:25:03,100 --> 00:25:05,019
+of course, computers
+got really fast and
+
+438
+00:25:05,019 --> 00:25:07,569
+you can break this
+now on your laptop.
+
+439
+00:25:07,569 --> 00:25:11,119
+So this is actually a
+real thing that was used,
+
+440
+00:25:11,119 --> 00:25:13,220
+encrypted communication
+between you and your bank,
+
+441
+00:25:13,220 --> 00:25:15,140
+for example, back in the day.
+
+442
+00:25:15,140 --> 00:25:16,679
+It's not using Bolin.
+
+443
+00:25:16,679 --> 00:25:19,159
+And of course, there's
+quantum computers now.
+
+444
+00:25:19,159 --> 00:25:22,259
+Well, ish Shor's algorithm
+
+445
+00:25:22,259 --> 00:25:26,699
+breaks a well known graphic RSA.
+
+446
+00:25:26,699 --> 00:25:28,779
+So prime factorization,
+which is what
+
+447
+00:25:28,779 --> 00:25:32,419
+RSA sort of depends on,
+no longer going to work.
+
+448
+00:25:33,400 --> 00:25:36,419
+Another example,
+trust your hardware.
+
+449
+00:25:36,419 --> 00:25:39,800
+I think this is seems
+like a bats fining movie,
+
+450
+00:25:39,800 --> 00:25:40,940
+but I'm telling you, it's true.
+
+451
+00:25:40,940 --> 00:25:43,220
+There's this thing called
+the Farewell Dossier.
+
+452
+00:25:43,220 --> 00:25:45,199
+And during the Cold War, Soviets
+
+453
+00:25:45,199 --> 00:25:46,619
+tried to steal US plans in
+
+454
+00:25:46,619 --> 00:25:52,119
+tact they often lack the
+ability to generate their own.
+
+455
+00:25:52,119 --> 00:25:56,000
+The problem is that US actually
+had defector in the sort
+
+456
+00:25:56,000 --> 00:25:58,719
+of intelligence group that
+
+457
+00:25:58,719 --> 00:26:01,775
+was doing this called
+the classified farewell.
+
+458
+00:26:01,775 --> 00:26:04,369
+And this guy named Gus Weiss,
+
+459
+00:26:04,369 --> 00:26:06,029
+who is the National
+Security Council
+
+460
+00:26:06,029 --> 00:26:08,009
+in group in the White House,
+
+461
+00:26:08,009 --> 00:26:10,950
+Director of
+International Economics,
+
+462
+00:26:10,950 --> 00:26:14,389
+later would describe
+what happened here.
+
+463
+00:26:14,389 --> 00:26:17,249
+They generated contrived
+computer chips which
+
+464
+00:26:17,249 --> 00:26:20,169
+found their way into
+Soviet military equipment.
+
+465
+00:26:20,169 --> 00:26:21,969
+Flawed turbines
+were installed on
+
+466
+00:26:21,969 --> 00:26:23,950
+a gas pipeline and
+defective plant,
+
+467
+00:26:23,950 --> 00:26:26,669
+output of chemical plants
+in a tractor facility.
+
+468
+00:26:26,669 --> 00:26:28,949
+Pentagon introduced
+misleading information
+
+469
+00:26:28,949 --> 00:26:30,270
+pertinent to sell aircraft,
+
+470
+00:26:30,270 --> 00:26:32,229
+space events, and
+tactical aircraft.
+
+471
+00:26:32,229 --> 00:26:35,919
+The Soviet space shuttle
+was a rejected NASA design.
+
+472
+00:26:35,919 --> 00:26:39,289
+So they used this,
+
+473
+00:26:39,330 --> 00:26:40,549
+you know,
+
+474
+00:26:40,549 --> 00:26:42,809
+just trusting the sort of
+pipeline that they had,
+
+475
+00:26:42,809 --> 00:26:44,949
+trusting the hardware,
+where they got it from.
+
+476
+00:26:44,949 --> 00:26:47,509
+Turns out not to
+necessarily be accurate,
+
+477
+00:26:47,509 --> 00:26:49,369
+especially when you get
+the deletion states.
+
+478
+00:26:49,369 --> 00:26:51,009
+This is, again, a very
+
+479
+00:26:51,009 --> 00:26:53,615
+entertaining example
+of this kind of break.
+
+480
+00:26:53,615 --> 00:26:57,080
+Another great example is
+just trusting your software.
+
+481
+00:26:57,080 --> 00:27:02,159
+So in 2015, Chinese
+IOS developers,
+
+482
+00:27:02,159 --> 00:27:05,739
+turned out that Apple
+didn't have Akamai did have
+
+483
+00:27:05,739 --> 00:27:09,579
+three place servers in other
+countries for a long time.
+
+484
+00:27:09,579 --> 00:27:11,619
+So if you try to
+download Xcode would
+
+485
+00:27:11,619 --> 00:27:14,599
+take hour or
+something like this.
+
+486
+00:27:14,599 --> 00:27:16,259
+So a bunch of people
+in China were
+
+487
+00:27:16,259 --> 00:27:19,039
+just hosting Xcode locally.
+
+488
+00:27:19,039 --> 00:27:22,399
+Uh, in some of
+
+489
+00:27:22,399 --> 00:27:25,280
+these years that we're
+
+490
+00:27:25,280 --> 00:27:28,659
+posting Eco actually just
+had Malware amended.
+
+491
+00:27:28,659 --> 00:27:30,919
+As a result, it actually
+
+492
+00:27:30,919 --> 00:27:33,439
+injected Malware
+into compiled apps.
+
+493
+00:27:33,439 --> 00:27:36,279
+This is a thing
+called Xcode host.
+
+494
+00:27:36,279 --> 00:27:38,019
+This was in hundreds if
+
+495
+00:27:38,019 --> 00:27:39,780
+not thousands of apps
+in the app store.
+
+496
+00:27:39,780 --> 00:27:41,199
+We're all just like, you know,
+
+497
+00:27:41,199 --> 00:27:46,140
+doing basically
+controlled as Bontthing.
+
+498
+00:27:46,140 --> 00:27:48,459
+There's a really
+famous essay on this
+
+499
+00:27:48,459 --> 00:27:51,999
+by Ken Thompson. You
+guys know who he is?
+
+500
+00:27:52,730 --> 00:27:58,650
+If you were not assigned
+K&R credit Well,
+
+501
+00:27:58,690 --> 00:28:01,610
+Yeah, so he's a to award winner.
+
+502
+00:28:01,610 --> 00:28:03,430
+He wrote this fantastic lecture.
+
+503
+00:28:03,430 --> 00:28:04,789
+It's two pages long,
+
+504
+00:28:04,789 --> 00:28:06,710
+called reflections
+and Trusting Trust,
+
+505
+00:28:06,710 --> 00:28:10,469
+which discusses this concept
+of backroom thing, right?
+
+506
+00:28:10,469 --> 00:28:13,749
+Bro this is a known bug.
+
+507
+00:28:13,749 --> 00:28:15,509
+There's really no good way of
+
+508
+00:28:15,509 --> 00:28:17,270
+solving this other than
+reading and compiling
+
+509
+00:28:17,270 --> 00:28:19,249
+code itself or trusting
+
+510
+00:28:19,249 --> 00:28:20,609
+the folks who are actually
+
+511
+00:28:20,609 --> 00:28:22,569
+developing for in
+kids like this.
+
+512
+00:28:22,569 --> 00:28:26,129
+So again, this is a very
+interesting example.
+
+513
+00:28:26,290 --> 00:28:32,089
+Another example might
+just cross media updates.
+
+514
+00:28:33,050 --> 00:28:36,669
+A good example, this
+is Apple, the FBI.
+
+515
+00:28:36,669 --> 00:28:40,329
+Everybody remember the
+Sandord video thing?
+
+516
+00:28:40,410 --> 00:28:43,289
+Basically, the law enforcement
+
+517
+00:28:43,289 --> 00:28:44,970
+tried to order Apple to create
+
+518
+00:28:44,970 --> 00:28:47,629
+a It update to
+
+519
+00:28:47,629 --> 00:28:49,589
+their device that had been
+
+520
+00:28:49,589 --> 00:28:52,930
+found to break a window
+that was used device.
+
+521
+00:28:52,930 --> 00:28:55,649
+It's interesting, maybe
+we shouldn't just
+
+522
+00:28:55,649 --> 00:28:58,330
+trust that an update comes
+from the right place.
+
+523
+00:28:58,330 --> 00:29:02,629
+Now we have UK who's trying
+to do something very similar.
+
+524
+00:29:02,629 --> 00:29:05,850
+Is anyone familiar
+with Left PAD?
+
+525
+00:29:06,980 --> 00:29:12,439
+So NPM NPM is the cop
+script framework that has
+
+526
+00:29:12,439 --> 00:29:15,119
+a centralized code repository
+that you include by
+
+527
+00:29:15,119 --> 00:29:16,279
+reference the same
+way that you do with
+
+528
+00:29:16,279 --> 00:29:18,759
+G. So you might have a URL,
+
+529
+00:29:18,759 --> 00:29:20,819
+and a bunch of
+people were depend
+
+530
+00:29:20,819 --> 00:29:22,800
+on this library called left pad,
+
+531
+00:29:22,800 --> 00:29:25,540
+which literally would
+left pad things
+
+532
+00:29:25,540 --> 00:29:28,849
+like zero pad left. Okay.
+
+533
+00:29:28,849 --> 00:29:32,890
+It's not that hard.
+Someone bought paid off
+
+534
+00:29:32,890 --> 00:29:35,770
+MBM package repository and got
+
+535
+00:29:35,770 --> 00:29:39,069
+that namespace replacing
+the old library,
+
+536
+00:29:39,069 --> 00:29:41,290
+and a bunch of people
+downloaded and compiled
+
+537
+00:29:41,290 --> 00:29:44,289
+their apps had this
+malicious left pad in it.
+
+538
+00:29:44,289 --> 00:29:45,870
+It was just supposed
+to pad things
+
+539
+00:29:45,870 --> 00:29:48,750
+left and arbitrary
+code execution.
+
+540
+00:29:48,790 --> 00:29:52,169
+Croma said she was actually
+bought by Mauer authors.
+
+541
+00:29:52,169 --> 00:29:54,069
+Here's a link to
+that. I don't need to
+
+542
+00:29:54,069 --> 00:29:56,110
+go into this, but basically,
+
+543
+00:29:56,110 --> 00:29:58,529
+people were thinking they
+were installing ad blockers
+
+544
+00:29:58,529 --> 00:30:00,909
+and said they were
+installing Mauer.
+
+545
+00:30:00,909 --> 00:30:03,130
+This seems to be a group.
+
+546
+00:30:03,130 --> 00:30:06,499
+But what else can you go?
+
+547
+00:30:06,499 --> 00:30:09,619
+You might have bad mechanisms.
+
+548
+00:30:12,180 --> 00:30:15,399
+So a rule thumb
+
+549
+00:30:15,399 --> 00:30:21,139
+here any bug that you find
+could be actually segregation.
+
+550
+00:30:22,220 --> 00:30:24,519
+Examples of this include buffer
+
+551
+00:30:24,519 --> 00:30:25,880
+overflows, use after free,
+
+552
+00:30:25,880 --> 00:30:27,120
+code injection failures,
+
+553
+00:30:27,120 --> 00:30:31,019
+just even straight crashes
+might be indicative of a.
+
+554
+00:30:34,330 --> 00:30:36,809
+There's a bunch of
+examples of things that
+
+555
+00:30:36,809 --> 00:30:38,509
+people did not think were
+
+556
+00:30:38,509 --> 00:30:42,270
+going to be issues that turned
+out to be really big ones.
+
+557
+00:30:42,270 --> 00:30:44,209
+Timing attacks is
+a great example.
+
+558
+00:30:44,209 --> 00:30:46,949
+It takes you longer to do one
+thing versus another thing,
+
+559
+00:30:46,949 --> 00:30:48,429
+and that leaks information to
+
+560
+00:30:48,429 --> 00:30:50,869
+me that might disclose
+useful information.
+
+561
+00:30:50,869 --> 00:30:53,470
+People have used that to
+a filtrate, for example,
+
+562
+00:30:53,470 --> 00:30:54,629
+for dots is why
+
+563
+00:30:54,629 --> 00:30:56,370
+people tell you not to
+throw your own for dot.
+
+564
+00:30:56,370 --> 00:30:58,650
+It's a really good example.
+
+565
+00:30:59,420 --> 00:31:03,439
+It's especially bad
+when attacker allows
+
+566
+00:31:03,439 --> 00:31:04,760
+an attacker to
+cross what's called
+
+567
+00:31:04,760 --> 00:31:07,240
+a trust boundary and
+elevate privileges.
+
+568
+00:31:07,240 --> 00:31:10,080
+And what we mean by
+this is, for example,
+
+569
+00:31:10,080 --> 00:31:13,539
+I might trust remote
+attacker supplying
+
+570
+00:31:13,539 --> 00:31:15,459
+a value to my function cannot
+
+571
+00:31:15,459 --> 00:31:18,019
+control the entirety
+of my program,
+
+572
+00:31:18,540 --> 00:31:20,899
+but gave the attacker access
+
+573
+00:31:20,899 --> 00:31:23,260
+to the entire
+program or control.
+
+574
+00:31:23,660 --> 00:31:27,400
+I was trusting a thing as a
+developer, as a designer,
+
+575
+00:31:27,400 --> 00:31:29,919
+and it turned out that
+assumption was false or
+
+576
+00:31:29,919 --> 00:31:33,419
+falsified using some
+mechanism failure.
+
+577
+00:31:33,810 --> 00:31:36,330
+Another example
+might be attacker
+
+578
+00:31:36,330 --> 00:31:37,969
+finds a flaw in a program,
+
+579
+00:31:37,969 --> 00:31:40,490
+more really just do something.
+
+580
+00:31:40,970 --> 00:31:43,829
+I think a really good example is
+
+581
+00:31:43,829 --> 00:31:46,910
+straight up memory safety.
+I have this function here.
+
+582
+00:31:46,910 --> 00:31:49,989
+You might be able to tell
+which one has the problem.
+
+583
+00:31:49,989 --> 00:31:52,930
+Made it quite easy. Can someone
+
+584
+00:31:52,930 --> 00:31:55,290
+tell me what's wrong
+with this Quit.
+
+585
+00:32:00,130 --> 00:32:02,529
+That's it.
+
+586
+00:32:07,710 --> 00:32:11,809
+So what
+
+587
+00:32:11,809 --> 00:32:16,709
+the flaw or just like what
+it does, you call it?
+
+588
+00:32:16,709 --> 00:32:19,469
+What's the flaw?
+What's the issue here?
+
+589
+00:32:19,469 --> 00:32:22,489
+So the input if
+
+590
+00:32:22,489 --> 00:32:24,610
+the input size is
+greater than the buffer,
+
+591
+00:32:24,610 --> 00:32:26,930
+then you have a buffer overflow,
+
+592
+00:32:26,930 --> 00:32:28,910
+so you can like malicious code.
+
+593
+00:32:28,910 --> 00:32:32,519
+Yeah. The as they have.
+
+594
+00:32:32,519 --> 00:32:35,179
+The formula might be
+that you're not checking
+
+595
+00:32:35,179 --> 00:32:38,839
+the bounds of what is input
+into Mulable function.
+
+596
+00:32:38,839 --> 00:32:40,560
+You have a buffer that's
+
+597
+00:32:40,560 --> 00:32:43,159
+definitionally size
+ten here and you're
+
+598
+00:32:43,159 --> 00:32:45,459
+copying arbitrary input
+into it that might be
+
+599
+00:32:45,459 --> 00:32:48,400
+longer than the amount
+that you've allocated.
+
+600
+00:32:48,400 --> 00:32:52,159
+I'm going to try to illustrate
+exactly what happens here.
+
+601
+00:32:52,159 --> 00:32:55,599
+Let's just say that
+the input is one
+
+602
+00:32:55,599 --> 00:32:59,640
+through through ten or one
+through zero in this case.
+
+603
+00:32:59,640 --> 00:33:02,960
+I want you to think
+through you guys
+
+604
+00:33:02,960 --> 00:33:06,400
+the sack and how
+that outing else.
+
+605
+00:33:06,400 --> 00:33:10,279
+You might save onto the
+stack base pointer,
+
+606
+00:33:10,279 --> 00:33:14,279
+you might save onto the
+stack return address.
+
+607
+00:33:14,400 --> 00:33:17,899
+Do you use 64 bit or 32 bits?
+
+608
+00:33:17,899 --> 00:33:19,019
+32.
+
+609
+00:33:19,019 --> 00:33:24,660
+So these makes us
+that at this point,
+
+610
+00:33:24,660 --> 00:33:26,240
+and you're going to allocate
+
+611
+00:33:26,240 --> 00:33:29,040
+this ten size buffer
+onto the stack,
+
+612
+00:33:29,040 --> 00:33:31,680
+which in this case is
+allocated to zero,
+
+613
+00:33:31,680 --> 00:33:32,759
+and that might actually not be
+
+614
+00:33:32,759 --> 00:33:34,299
+true in certain circumstances,
+
+615
+00:33:34,299 --> 00:33:36,560
+let's assume that that
+is actually true.
+
+616
+00:33:36,560 --> 00:33:39,479
+Then it's going to fill it with
+
+617
+00:33:39,479 --> 00:33:42,679
+one through a null terminator.
+
+618
+00:33:42,679 --> 00:33:46,140
+And then continue
+on. This is fine.
+
+619
+00:33:46,140 --> 00:33:48,839
+Nothing bad happened
+here in this example.
+
+620
+00:33:48,839 --> 00:33:52,979
+But let's say, we
+
+621
+00:33:52,979 --> 00:33:55,700
+actually instead of saying
+one through through zero,
+
+622
+00:33:55,700 --> 00:33:58,320
+I see characters
+one through zero.
+
+623
+00:33:58,440 --> 00:34:01,640
+We now say eight times 100.
+
+624
+00:34:01,640 --> 00:34:04,620
+We're definitionally going
+to do something on here.
+
+625
+00:34:04,620 --> 00:34:08,799
+What happens?
+Someone who did not.
+
+626
+00:34:09,160 --> 00:34:12,260
+Since you might
+start to overwrite
+
+627
+00:34:12,260 --> 00:34:14,759
+other stack frames that
+
+628
+00:34:14,759 --> 00:34:17,319
+are if you allocate
+something that's
+
+629
+00:34:17,319 --> 00:34:20,200
+only ten and then you put 100,
+
+630
+00:34:20,200 --> 00:34:21,399
+you're going to
+probably overrate the
+
+631
+00:34:21,399 --> 00:34:22,599
+previous stack
+frames that are on
+
+632
+00:34:22,599 --> 00:34:25,340
+top of the current stack
+that you calculus function.
+
+633
+00:34:25,340 --> 00:34:27,459
+You're going to
+overrate, something
+
+634
+00:34:27,459 --> 00:34:29,640
+called before you're going
+to overrate stack frames.
+
+635
+00:34:29,640 --> 00:34:31,780
+What else can you overrate?
+
+636
+00:34:31,780 --> 00:34:34,999
+In particular is
+the scary thing?
+
+637
+00:34:37,560 --> 00:34:42,020
+Varies. Like what's the side
+
+638
+00:34:42,020 --> 00:34:44,299
+of the sectrum you worried
+about the most? Yeah.
+
+639
+00:34:44,299 --> 00:34:47,880
+What would you be most
+concerned about already?
+
+640
+00:34:50,040 --> 00:34:52,419
+Probably the return of.
+
+641
+00:34:52,419 --> 00:34:55,079
+Yes. So you're worried
+about the returns?
+
+642
+00:34:55,079 --> 00:34:58,859
+Exactly. Uh, so what's
+going to go on here,
+
+643
+00:34:58,859 --> 00:35:00,959
+you're going to end your not it,
+
+644
+00:35:00,959 --> 00:35:02,500
+the same thing that happened
+
+645
+00:35:02,500 --> 00:35:03,659
+before except now
+you're going to
+
+646
+00:35:03,659 --> 00:35:09,480
+overwrite IP with
+ASA's 41 per 41.
+
+647
+00:35:09,480 --> 00:35:13,360
+And this is going to jump
+when you return into Narnia,
+
+648
+00:35:13,360 --> 00:35:15,179
+because that's not
+a address, right?
+
+649
+00:35:15,179 --> 00:35:17,160
+But you can then
+change that address.
+
+650
+00:35:17,160 --> 00:35:19,599
+In fact, you have control over
+the stack so you can jump
+
+651
+00:35:19,599 --> 00:35:22,620
+into the stack because the
+stack here is executable.
+
+652
+00:35:22,620 --> 00:35:25,160
+So you can set it to the getting
+
+653
+00:35:25,160 --> 00:35:28,760
+of this just time
+to start executing.
+
+654
+00:35:28,760 --> 00:35:30,259
+IP, once you control it, you
+
+655
+00:35:30,259 --> 00:35:32,700
+actually have control
+over the entire program.
+
+656
+00:35:32,700 --> 00:35:35,620
+Is makes sense to everybody.
+
+657
+00:35:37,260 --> 00:35:40,679
+So people decide if that's okay.
+
+658
+00:35:40,679 --> 00:35:44,149
+All right. Yeah, once
+
+659
+00:35:44,149 --> 00:35:48,209
+I control the IP,
+they're dead, right?
+
+660
+00:35:48,770 --> 00:35:51,569
+I can return to code
+that I wrote the stack.
+
+661
+00:35:51,569 --> 00:35:53,709
+I can also return to
+known functions, right?
+
+662
+00:35:53,709 --> 00:35:56,310
+For example, known things
+that exist in LBC.
+
+663
+00:35:56,310 --> 00:35:58,729
+I can set up a stack,
+and then I can call in
+
+664
+00:35:58,729 --> 00:36:02,709
+LC arbitrary input into it.
+
+665
+00:36:02,709 --> 00:36:07,309
+And yeah, the game here is
+generally the adversary ones.
+
+666
+00:36:07,309 --> 00:36:10,330
+There's a bunch of
+examples knows.
+
+667
+00:36:10,330 --> 00:36:12,250
+Buffer overflow is one example
+
+668
+00:36:12,250 --> 00:36:14,990
+of a larger thing
+called memory cction.
+
+669
+00:36:14,990 --> 00:36:17,850
+This includes over weeds.
+
+670
+00:36:17,850 --> 00:36:19,949
+Actually, I can do an
+information display here.
+
+671
+00:36:19,949 --> 00:36:22,910
+So how many people
+here are heartbleed?
+
+672
+00:36:22,910 --> 00:36:26,070
+So heartbleed was
+this vulnerability
+
+673
+00:36:26,070 --> 00:36:27,529
+of a program poops L,
+
+674
+00:36:27,529 --> 00:36:28,769
+which is everywhere on
+
+675
+00:36:28,769 --> 00:36:30,809
+the Internet, everybody
+runs this thing.
+
+676
+00:36:30,809 --> 00:36:33,049
+It turns out had a
+buffer over read,
+
+677
+00:36:33,049 --> 00:36:34,849
+so you could actually read
+
+678
+00:36:34,849 --> 00:36:36,810
+arbitrary values
+from the server.
+
+679
+00:36:36,810 --> 00:36:40,110
+This was sort of a world
+ending bug that required
+
+680
+00:36:40,110 --> 00:36:44,010
+a major coordinated effort
+to go off and sold.
+
+681
+00:36:44,010 --> 00:36:45,629
+Use after free is another
+
+682
+00:36:45,629 --> 00:36:46,789
+thing where if you
+free something,
+
+683
+00:36:46,789 --> 00:36:48,029
+then it's used again, that
+
+684
+00:36:48,029 --> 00:36:51,149
+might result in a vulnerability.
+
+685
+00:36:51,149 --> 00:36:53,109
+And these kind of
+
+686
+00:36:53,109 --> 00:36:54,904
+things happen on both
+the stack and the heap.
+
+687
+00:36:54,904 --> 00:36:57,379
+You've probably become
+inti bit familiar with.
+
+688
+00:36:57,379 --> 00:37:00,219
+For more and a really
+fantastic history on
+
+689
+00:37:00,219 --> 00:37:03,179
+this, read this paper,
+
+690
+00:37:03,179 --> 00:37:05,739
+external war met ray goes over
+
+691
+00:37:05,739 --> 00:37:07,339
+a large history of
+superbugs that are
+
+692
+00:37:07,339 --> 00:37:10,360
+found time and other examples.
+
+693
+00:37:16,570 --> 00:37:18,890
+Something that might be relevant
+
+694
+00:37:18,890 --> 00:37:20,690
+to you all carnal developers.
+
+695
+00:37:20,690 --> 00:37:24,410
+You've all written a
+big pile of C recently.
+
+696
+00:37:24,890 --> 00:37:28,970
+Are you sure that it's
+free of these issues?
+
+697
+00:37:31,770 --> 00:37:35,689
+There are 456 cis calls in.
+
+698
+00:37:36,690 --> 00:37:39,869
+There's a fantastic thing here
+
+699
+00:37:39,869 --> 00:37:42,369
+see if I can actually
+show you this.
+
+700
+00:37:42,369 --> 00:37:45,649
+It's fantastic website
+illustrates all.
+
+701
+00:37:47,250 --> 00:37:58,130
+There's all these cis
+calls. I have it's lovely.
+
+702
+00:37:58,490 --> 00:38:03,169
+Loux Kernel has roughly
+40 million lines of code.
+
+703
+00:38:03,169 --> 00:38:06,609
+Device drivers,
+particular painfuid are
+
+704
+00:38:06,609 --> 00:38:09,590
+written by OEMs people
+who manufacture
+
+705
+00:38:09,590 --> 00:38:12,690
+the devices and they tend
+
+706
+00:38:12,690 --> 00:38:14,089
+not to necessarily care about
+
+707
+00:38:14,089 --> 00:38:16,309
+the security price
+properties in the system.
+
+708
+00:38:16,309 --> 00:38:18,609
+So very often,
+there's whats there.
+
+709
+00:38:18,680 --> 00:38:21,239
+The result of
+something like this,
+
+710
+00:38:21,239 --> 00:38:23,620
+there's a system
+called Cis Color,
+
+711
+00:38:23,620 --> 00:38:26,279
+which is the thing that I
+worked on a Google for a bit
+
+712
+00:38:26,279 --> 00:38:29,559
+that will fuzzing send
+
+713
+00:38:29,559 --> 00:38:32,800
+arbitrary data from space
+in kernel space a VM,
+
+714
+00:38:32,800 --> 00:38:35,520
+much like you're
+using for this class.
+
+715
+00:38:35,520 --> 00:38:41,259
+We'll fuzz various calls the
+find bugs, find vbilties.
+
+716
+00:38:41,259 --> 00:38:45,099
+If you go to this website,
+it's colspo.com slash OStrem.
+
+717
+00:38:45,099 --> 00:38:47,199
+This will actually
+show you all of
+
+718
+00:38:47,199 --> 00:38:50,319
+the known these are things
+that this thing has found,
+
+719
+00:38:50,319 --> 00:38:52,179
+S music bugs that this thing has
+
+720
+00:38:52,179 --> 00:38:54,339
+found that are still
+not fixed in is Curl.
+
+721
+00:38:54,339 --> 00:38:56,760
+It's on the Internet.
+
+722
+00:38:57,820 --> 00:39:01,199
+Terrifying, right? I think
+
+723
+00:39:01,199 --> 00:39:02,500
+this is very entertaining stuff.
+
+724
+00:39:02,500 --> 00:39:05,859
+But yeah, like it turns out that
+
+725
+00:39:05,859 --> 00:39:09,999
+writing a large pile of Cs
+are really hard to is here.
+
+726
+00:39:09,999 --> 00:39:12,499
+The solutions that
+people have come up with
+
+727
+00:39:12,499 --> 00:39:14,699
+here straightforward things
+
+728
+00:39:14,699 --> 00:39:16,440
+like proving your code correct,
+
+729
+00:39:16,440 --> 00:39:18,699
+using bounce
+checking, making sure
+
+730
+00:39:18,699 --> 00:39:21,479
+that you actually check the
+inputs and things like this.
+
+731
+00:39:21,479 --> 00:39:23,699
+There's a series
+of things that are
+
+732
+00:39:23,699 --> 00:39:26,460
+compiler optimizations
+or compiler,
+
+733
+00:39:26,460 --> 00:39:29,099
+things that compiler can
+do like ASLR, depth,
+
+734
+00:39:29,099 --> 00:39:30,399
+and various other things like
+
+735
+00:39:30,399 --> 00:39:33,579
+those KasNs like this
+that will either cause
+
+736
+00:39:33,579 --> 00:39:36,899
+your computer default
+if the program will
+
+737
+00:39:36,899 --> 00:39:40,940
+crash and in the case of
+hurdle fault and crash,
+
+738
+00:39:40,940 --> 00:39:42,939
+the entire operations crash,
+
+739
+00:39:42,939 --> 00:39:45,614
+one of these issues and
+
+740
+00:39:45,614 --> 00:39:48,110
+there are some other primitives
+that might be helpful,
+
+741
+00:39:48,110 --> 00:39:50,649
+which we'll discuss
+the next sub here.
+
+742
+00:39:50,649 --> 00:39:52,329
+But the real solution
+here is very
+
+743
+00:39:52,329 --> 00:39:54,570
+often is to use a
+memory safe language.
+
+744
+00:39:54,570 --> 00:39:56,409
+Linux does have Rust and
+
+745
+00:39:56,409 --> 00:39:59,510
+the kernel moving forward,
+which is really exciting.
+
+746
+00:39:59,510 --> 00:40:02,129
+This is somewhat of an
+ideological thing that,
+
+747
+00:40:02,129 --> 00:40:05,309
+you know, you've gone for.
+
+748
+00:40:05,309 --> 00:40:07,729
+And by the way, I'm not the
+only one who's saying this.
+
+749
+00:40:07,729 --> 00:40:10,289
+In fact, the White House issued
+
+750
+00:40:10,289 --> 00:40:11,950
+a press release stating
+
+751
+00:40:11,950 --> 00:40:14,509
+that the future of coach
+should be memory safe.
+
+752
+00:40:14,509 --> 00:40:16,709
+So the White House has
+gotten on board with this.
+
+753
+00:40:16,709 --> 00:40:18,849
+This is the previous
+White House not hard.
+
+754
+00:40:18,849 --> 00:40:23,509
+I'm not entirely sure what
+one's policies are to this.
+
+755
+00:40:23,590 --> 00:40:26,615
+Yeah, so this is
+super interesting.
+
+756
+00:40:26,615 --> 00:40:30,599
+All right. Let me give you
+another example, passwords.
+
+757
+00:40:30,599 --> 00:40:33,700
+How would you use the
+word password honest?
+
+758
+00:40:33,700 --> 00:40:37,999
+So when you're logging in, how
+
+759
+00:40:37,999 --> 00:40:39,260
+does your operating
+system actually
+
+760
+00:40:39,260 --> 00:40:41,020
+handle the log in process?
+
+761
+00:40:41,020 --> 00:40:43,439
+I don't think it's a thing
+they've done yet, right?
+
+762
+00:40:43,439 --> 00:40:50,110
+Yes, b. The one who
+hasn't answered.
+
+763
+00:40:50,110 --> 00:40:52,370
+Yes. Well you like to
+hash the password?
+
+764
+00:40:52,370 --> 00:40:54,129
+Yes. You might hash it.
+
+765
+00:40:54,129 --> 00:40:57,829
+You definitely shouldn't leave
+it in plain text, right?
+
+766
+00:41:00,110 --> 00:41:03,190
+This is a naive solution.
+
+767
+00:41:03,190 --> 00:41:08,590
+Well if you go wrong. What
+assumptions am I making sides?
+
+768
+00:41:08,590 --> 00:41:11,149
+Why would I not do this?
+
+769
+00:41:12,520 --> 00:41:15,419
+To say. Yes. Because if someone
+
+770
+00:41:15,419 --> 00:41:16,959
+knows where you start
+a password memory,
+
+771
+00:41:16,959 --> 00:41:18,379
+they can access that.
+
+772
+00:41:18,379 --> 00:41:20,739
+If I take the hard drive out of
+
+773
+00:41:20,739 --> 00:41:22,179
+your machine and then
+
+774
+00:41:22,179 --> 00:41:25,139
+start forensically imaging
+it or looking at it,
+
+775
+00:41:25,139 --> 00:41:27,380
+I'm going to see your
+password in latex.
+
+776
+00:41:27,380 --> 00:41:30,760
+I would be sad. If I got route
+on your computer somehow,
+
+777
+00:41:30,760 --> 00:41:32,480
+I might through some others,
+
+778
+00:41:32,480 --> 00:41:33,779
+I might know the password is.
+
+779
+00:41:33,779 --> 00:41:36,159
+That seems unfortunate as well.
+
+780
+00:41:36,450 --> 00:41:39,349
+All right. Solution two,
+
+781
+00:41:39,349 --> 00:41:41,770
+let's talk about hashes.
+
+782
+00:41:42,010 --> 00:41:46,969
+Hash in a very broad sense,
+
+783
+00:41:46,969 --> 00:41:49,490
+this is the thing that takes
+
+784
+00:41:49,490 --> 00:41:52,309
+an arbitrary size straight
+and reduces it to
+
+785
+00:41:52,309 --> 00:41:58,409
+a string of size D. It
+has these other goals?
+
+786
+00:41:58,409 --> 00:42:00,669
+It's efficient, it's
+terministic, it's random,
+
+787
+00:42:00,669 --> 00:42:03,449
+it's public, the outrms
+being used here.
+
+788
+00:42:03,449 --> 00:42:05,970
+Everyone knows and
+is repeatable.
+
+789
+00:42:06,650 --> 00:42:10,089
+And importantly, you're
+not able to go back.
+
+790
+00:42:10,290 --> 00:42:13,689
+Examples, people probably
+heard of MD five.
+
+791
+00:42:13,689 --> 00:42:18,429
+They probably heard Sha 56, yes.
+
+792
+00:42:18,429 --> 00:42:20,809
+There are other
+versions as well.
+
+793
+00:42:20,809 --> 00:42:23,910
+Shah three, which is
+kind of interesting.
+
+794
+00:42:23,910 --> 00:42:27,529
+The whole Shah three family
+is a super cool thing.
+
+795
+00:42:27,529 --> 00:42:31,510
+In particular, has a
+variable length digest.
+
+796
+00:42:31,510 --> 00:42:33,449
+Variable length.
+It's kind of cool.
+
+797
+00:42:33,449 --> 00:42:36,329
+So you can specify how long
+you want your hash to be?
+
+798
+00:42:38,250 --> 00:42:41,950
+Others include things like
+collision resistance,
+
+799
+00:42:41,950 --> 00:42:45,029
+which states that
+given some value X,
+
+800
+00:42:45,029 --> 00:42:46,709
+you can't find X prime such
+
+801
+00:42:46,709 --> 00:42:49,429
+that the hash two
+of them are equal,
+
+802
+00:42:49,429 --> 00:42:54,629
+assuming, X and X prime
+are not the same thing.
+
+803
+00:42:54,629 --> 00:42:56,589
+You can't collide them, you
+
+804
+00:42:56,589 --> 00:42:58,749
+can't find two
+different values of
+
+805
+00:42:58,749 --> 00:43:01,029
+the same thing and
+
+806
+00:43:01,029 --> 00:43:03,669
+one wynus which just says that
+
+807
+00:43:03,669 --> 00:43:07,129
+basically given the result
+of a hash in this case,
+
+808
+00:43:07,129 --> 00:43:13,294
+I can't can't get
+the hashba out.
+
+809
+00:43:13,294 --> 00:43:15,380
+It's just interesting.
+
+810
+00:43:15,380 --> 00:43:17,360
+These are important properties.
+
+811
+00:43:17,360 --> 00:43:18,800
+This actually solves
+your password
+
+812
+00:43:18,800 --> 00:43:20,599
+issue, you're hashing something.
+
+813
+00:43:20,599 --> 00:43:22,739
+I can't get the
+original text back out.
+
+814
+00:43:22,739 --> 00:43:25,620
+I can't find another password.
+
+815
+00:43:25,620 --> 00:43:28,620
+Well let me get into the system.
+
+816
+00:43:30,660 --> 00:43:36,579
+Math at you and last general
+Does this all makes sense?
+
+817
+00:43:37,020 --> 00:43:39,479
+I'm not going to tell
+you how these are made
+
+818
+00:43:39,479 --> 00:43:41,800
+because that's beyond
+the scope of the class,
+
+819
+00:43:41,800 --> 00:43:44,639
+but assume lluciate with
+
+820
+00:43:44,639 --> 00:43:47,579
+me that these things
+actually exist.
+
+821
+00:43:48,140 --> 00:43:51,239
+How many people did I just lose?
+
+822
+00:43:51,239 --> 00:43:55,459
+All right. Cool. All right.
+
+823
+00:43:56,940 --> 00:44:01,059
+I just store the hash with
+the password on this.
+
+824
+00:44:01,059 --> 00:44:02,720
+That is our new strategy?
+
+825
+00:44:02,720 --> 00:44:04,619
+I'm going to ask
+a common question
+
+826
+00:44:04,619 --> 00:44:06,939
+here, what can go for it on.
+
+827
+00:44:07,260 --> 00:44:10,719
+Yes. They could figure out what
+
+828
+00:44:10,719 --> 00:44:14,699
+the hash is and then
+they could store.
+
+829
+00:44:14,699 --> 00:44:19,339
+Yeah, I just said I can't
+go backward though.
+
+830
+00:44:19,339 --> 00:44:22,339
+Right? So you can't take
+
+831
+00:44:22,339 --> 00:44:23,499
+the hash or something and they
+
+832
+00:44:23,499 --> 00:44:25,439
+get the actual thing back out.
+
+833
+00:44:25,439 --> 00:44:28,659
+Carl, you can rootworm
+and store it.
+
+834
+00:44:28,659 --> 00:44:30,299
+So if I say,
+
+835
+00:44:30,299 --> 00:44:32,939
+take the English dictionary
+and dump it through
+
+836
+00:44:32,939 --> 00:44:35,640
+a hash and they pair
+it with the passwords,
+
+837
+00:44:35,640 --> 00:44:37,459
+I might get some
+passwords back out.
+
+838
+00:44:37,459 --> 00:44:39,109
+Yeah.
+
+839
+00:44:39,109 --> 00:44:43,099
+Each. Fantastic, yes.
+
+840
+00:44:43,099 --> 00:44:45,560
+I just carry this database
+of likely passwords,
+
+841
+00:44:45,560 --> 00:44:47,759
+and then I calculate
+the hashes to them all.
+
+842
+00:44:47,759 --> 00:44:50,019
+Then now you can recover
+the ones that are most
+
+843
+00:44:50,019 --> 00:44:52,439
+likely to exist, Password
+one, two, three,
+
+844
+00:44:52,439 --> 00:44:54,559
+four happens an upsetting number
+
+845
+00:44:54,559 --> 00:44:55,839
+of times because
+humans are humans,
+
+846
+00:44:55,839 --> 00:44:57,999
+we don't memorize things.
+
+847
+00:44:58,400 --> 00:45:00,999
+I'm not going to go
+why this is true,
+
+848
+00:45:00,999 --> 00:45:03,099
+but it actually works even if
+
+849
+00:45:03,099 --> 00:45:05,379
+the password space
+that you're doing
+
+850
+00:45:05,379 --> 00:45:07,759
+is prohibitively super large.
+
+851
+00:45:07,759 --> 00:45:10,800
+This works through something
+called rainbow tables,
+
+852
+00:45:10,800 --> 00:45:13,960
+which is a beautiful
+hack that exploits
+
+853
+00:45:13,960 --> 00:45:15,999
+the time space trade off that
+
+854
+00:45:15,999 --> 00:45:19,319
+limits the size of
+your password list.
+
+855
+00:45:20,720 --> 00:45:24,399
+What's fun here is this has
+actually happened, right?
+
+856
+00:45:24,399 --> 00:45:32,279
+Adobe actually lost 2.9
+million customers passwords,
+
+857
+00:45:32,279 --> 00:45:35,160
+and somehow over 150 million
+
+858
+00:45:35,160 --> 00:45:38,180
+of those actually
+wound up online.
+
+859
+00:45:38,180 --> 00:45:42,599
+Those are actually sort
+of cash passwords, if is.
+
+860
+00:45:42,810 --> 00:45:48,669
+And as a result of this, this
+150 million user emails,
+
+861
+00:45:48,669 --> 00:45:50,569
+encrypted passwords,
+and password hints
+
+862
+00:45:50,569 --> 00:45:52,490
+being leaked was kind
+of entertaining.
+
+863
+00:45:52,490 --> 00:45:54,769
+But they used this sort of
+
+864
+00:45:54,769 --> 00:45:58,889
+incorrect encryption incorrect
+mode for doing this.
+
+865
+00:45:58,889 --> 00:46:03,644
+And the result was this
+kind of laeous idea.
+
+866
+00:46:03,644 --> 00:46:05,180
+Where you can create this giant
+
+867
+00:46:05,180 --> 00:46:06,600
+Crossword plus a lot of filming
+
+868
+00:46:06,600 --> 00:46:08,139
+because you have
+the hints and they
+
+869
+00:46:08,139 --> 00:46:09,980
+have a bunch of them
+are all identical.
+
+870
+00:46:09,980 --> 00:46:12,719
+So you can actually
+guess, you know, Oh,
+
+871
+00:46:12,719 --> 00:46:16,540
+you know, one person same
+says name plus Jersey,
+
+872
+00:46:16,540 --> 00:46:19,439
+another one says, you know,
+
+873
+00:46:19,439 --> 00:46:20,739
+John plus Jersey and,
+
+874
+00:46:20,739 --> 00:46:24,079
+you know who's what the
+actual password was.
+
+875
+00:46:24,079 --> 00:46:26,579
+And by the way, this is
+actually a real thing.
+
+876
+00:46:26,579 --> 00:46:28,279
+You can go to this
+website and play
+
+877
+00:46:28,279 --> 00:46:31,369
+this game as the
+passers from this game.
+
+878
+00:46:31,369 --> 00:46:36,860
+This is pretty entertaining.
+
+879
+00:46:37,260 --> 00:46:39,579
+You've seen how to not do this.
+
+880
+00:46:39,579 --> 00:46:41,959
+How should you actually do this?
+
+881
+00:46:41,959 --> 00:46:43,999
+The real solution
+here is that you
+
+882
+00:46:43,999 --> 00:46:45,620
+hash and you add
+something called assault.
+
+883
+00:46:45,620 --> 00:46:49,260
+You're going to add
+naught to the password.
+
+884
+00:46:49,260 --> 00:46:51,279
+You generate this random number
+
+885
+00:46:51,279 --> 00:46:54,359
+and you're going to store
+the hash instead of
+
+886
+00:46:54,359 --> 00:46:56,459
+just a hash the
+password or the hash
+
+887
+00:46:56,459 --> 00:46:59,959
+the password concatenated
+with this random value.
+
+888
+00:46:59,959 --> 00:47:02,300
+That way you can't
+precompute anything.
+
+889
+00:47:02,300 --> 00:47:06,139
+It's not breaking T thing
+is actually equivalent to
+
+890
+00:47:06,139 --> 00:47:07,839
+actually the hash of
+
+891
+00:47:07,839 --> 00:47:10,959
+yourself an inordinate
+amount of time.
+
+892
+00:47:10,959 --> 00:47:13,959
+This is the real
+method to do it.
+
+893
+00:47:13,959 --> 00:47:17,099
+Modern techniques actually use
+
+894
+00:47:17,099 --> 00:47:19,060
+intentionally slow
+hash functions,
+
+895
+00:47:19,060 --> 00:47:21,079
+things that would take
+
+896
+00:47:21,079 --> 00:47:24,399
+far longer for you
+to get here to here.
+
+897
+00:47:24,399 --> 00:47:26,719
+This is one of the reasons
+why they try to log
+
+898
+00:47:26,719 --> 00:47:28,279
+in your laptop and mess
+
+899
+00:47:28,279 --> 00:47:29,659
+up a couple of times,
+but it's slow.
+
+900
+00:47:29,659 --> 00:47:31,619
+It's like slow process down to.
+
+901
+00:47:31,619 --> 00:47:34,299
+It's intentional. That's
+a security goal, right?
+
+902
+00:47:34,299 --> 00:47:35,579
+They're trying to
+invade it, so it's not
+
+903
+00:47:35,579 --> 00:47:38,819
+possible to have
+this time of time.
+
+904
+00:47:40,190 --> 00:47:44,769
+All right. So I am
+43 minutes past,
+
+905
+00:47:44,769 --> 00:47:47,269
+which means 7 minutes
+early. I have a question.
+
+906
+00:47:47,269 --> 00:47:50,989
+So let's say if you
+go back to the app,
+
+907
+00:47:50,989 --> 00:47:54,650
+you compute R, then how do
+you get into the system?
+
+908
+00:47:54,650 --> 00:47:56,669
+So when you log in,
+
+909
+00:47:56,669 --> 00:47:59,329
+it takes a hash and knows R,
+
+910
+00:47:59,329 --> 00:48:00,929
+that's on this reads R,
+
+911
+00:48:00,929 --> 00:48:03,669
+it takes a hash of the
+password that you entered,
+
+912
+00:48:03,669 --> 00:48:05,169
+concatenated with R and just
+
+913
+00:48:05,169 --> 00:48:07,699
+compares that with
+what's actually on disk.
+
+914
+00:48:07,699 --> 00:48:09,749
+Well, what if someone knows
+
+915
+00:48:09,749 --> 00:48:11,470
+the R you have in your system?
+
+916
+00:48:11,470 --> 00:48:13,569
+Oh, it doesn't matter, right?
+
+917
+00:48:13,569 --> 00:48:15,529
+So it's a good question.
+
+918
+00:48:15,529 --> 00:48:20,329
+Because Mike, you're
+telling me that R is
+
+919
+00:48:20,329 --> 00:48:22,729
+on disk and people can know so
+
+920
+00:48:22,729 --> 00:48:24,689
+the important thing here
+is to keep in mind,
+
+921
+00:48:24,689 --> 00:48:27,030
+what attack you're trying
+to prevent against.
+
+922
+00:48:27,030 --> 00:48:29,430
+R does not prevent
+
+923
+00:48:29,430 --> 00:48:32,229
+somebody from trying to
+enforce your password, right?
+
+924
+00:48:32,229 --> 00:48:33,529
+So this is a really good point.
+
+925
+00:48:33,529 --> 00:48:34,930
+If you have a very
+likely password,
+
+926
+00:48:34,930 --> 00:48:38,149
+they can sit there
+and enforce it.
+
+927
+00:48:38,149 --> 00:48:41,369
+But they can't use the sort of
+
+928
+00:48:41,369 --> 00:48:44,289
+approach that were discussing
+before because you can
+
+929
+00:48:44,289 --> 00:48:45,929
+use R. That's the thing
+
+930
+00:48:45,929 --> 00:48:47,069
+that you're trying
+to provide against.
+
+931
+00:48:47,069 --> 00:48:50,429
+So you're making it so they
+have to do this large thing,
+
+932
+00:48:50,429 --> 00:48:53,175
+this provi large dataset.
+
+933
+00:48:53,175 --> 00:48:59,320
+Are Rabo tables just like a
+list of really popular words?
+
+934
+00:48:59,320 --> 00:49:01,119
+Rambo table was a list of
+
+935
+00:49:01,119 --> 00:49:03,099
+really popular passwords with
+
+936
+00:49:03,099 --> 00:49:04,479
+some magic that I'm
+not going to explain
+
+937
+00:49:04,479 --> 00:49:06,159
+here because it's beyond
+the scope of the class and
+
+938
+00:49:06,159 --> 00:49:08,480
+it far too long
+for me to explain
+
+939
+00:49:08,480 --> 00:49:10,719
+that actually allows
+you to do this for
+
+940
+00:49:10,719 --> 00:49:15,340
+billions of billions
+of ten passwords.
+
+941
+00:49:15,340 --> 00:49:19,980
+It turns out this not possible.
+
+942
+00:49:20,300 --> 00:49:22,239
+Are there any other questions?
+
+943
+00:49:22,239 --> 00:49:23,619
+I didn't mean to speed through.
+
+944
+00:49:23,619 --> 00:49:25,500
+I just get nervous
+
+945
+00:49:25,500 --> 00:49:27,539
+in a glass because we
+have 5 minutes left.
+
+946
+00:49:27,539 --> 00:49:33,929
+I wanted to make sure
+I got through. Cool.
+
+947
+00:49:33,929 --> 00:49:38,370
+This time, we talked
+about finding security.
+
+948
+00:49:38,370 --> 00:49:39,749
+We talked about the goals and
+
+949
+00:49:39,749 --> 00:49:41,629
+threat models that
+you might have.
+
+950
+00:49:41,629 --> 00:49:44,209
+We talked about how you
+might implement this,
+
+951
+00:49:44,209 --> 00:49:46,910
+in particular, we talked about
+policies and mechanisms.
+
+952
+00:49:46,910 --> 00:49:48,709
+We gave you a bunch of
+
+953
+00:49:48,709 --> 00:49:50,589
+examples of how things
+can go horribly wrong.
+
+954
+00:49:50,589 --> 00:49:52,409
+I gave you an
+intuition behind them.
+
+955
+00:49:52,409 --> 00:49:54,630
+And we talked a little bit
+about mechanism failures
+
+956
+00:49:54,630 --> 00:49:56,504
+and and how things go.
+
+957
+00:49:56,504 --> 00:50:00,199
+Next time, I think
+I've depressed you
+
+958
+00:50:00,199 --> 00:50:02,079
+all with all these
+horrible things
+
+959
+00:50:02,079 --> 00:50:03,619
+that can go horribly wrong.
+
+960
+00:50:03,619 --> 00:50:04,979
+And I promise you that there are
+
+961
+00:50:04,979 --> 00:50:06,939
+good things that
+we can do to make
+
+962
+00:50:06,939 --> 00:50:08,759
+at least systems more
+
+963
+00:50:08,759 --> 00:50:11,520
+resilient in the presence
+of these kind of failures.
+
+964
+00:50:11,520 --> 00:50:13,359
+We're going to talk a
+little bit more about
+
+965
+00:50:13,359 --> 00:50:15,280
+operating systems for security.
+
+966
+00:50:15,280 --> 00:50:16,979
+In particular, I'm going to
+
+967
+00:50:16,979 --> 00:50:18,720
+talk to you about
+isolation containers,
+
+968
+00:50:18,720 --> 00:50:21,460
+fuzzing and a few other
+things that are common
+
+969
+00:50:21,460 --> 00:50:23,819
+here that solve many
+of these problems or
+
+970
+00:50:23,819 --> 00:50:27,000
+at least make it more
+that I aggregate.
+
+971
+00:50:28,120 --> 00:50:30,799
+I'm incredibly excited
+and I'll see you,
+
+972
+00:50:30,799 --> 00:50:33,040
+I guess in a week two weeks?
+
+973
+00:50:33,040 --> 00:50:36,060
+How long is it? Next
+week, Thursday.
+
+974
+00:50:36,060 --> 00:50:40,519
+Next week, Thursday. Swear
+before spring break.
+
+975
+00:50:41,360 --> 00:50:42,699
+All right.
+
+976
+00:50:42,699 --> 00:50:45,619
+Are there any other questions?
+Yes, good question.
+
+977
+00:50:45,619 --> 00:50:49,720
+Way back when we were
+talking about string copy,
+
+978
+00:50:49,720 --> 00:50:51,899
+how is the other
+version of it that
+
+979
+00:50:51,899 --> 00:50:53,760
+takes into account the
+size of memory buffer?
+
+980
+00:50:53,760 --> 00:50:55,740
+Yeah. Why does the C standard
+
+981
+00:50:55,740 --> 00:50:58,179
+even still include the
+one that doesn't do that?
+
+982
+00:50:58,179 --> 00:51:00,599
+It is a fantastic question.
+
+983
+00:51:00,600 --> 00:51:03,799
+Why we even allow book guide?
+
+984
+00:51:03,799 --> 00:51:07,639
+The answer to that is that
+not all languages do, right?
+
+985
+00:51:07,639 --> 00:51:10,359
+If you have C is a
+very old language that
+
+986
+00:51:10,359 --> 00:51:14,039
+has tons and tons of Google
+develop software for it,
+
+987
+00:51:14,039 --> 00:51:17,839
+and if you get rid
+of an API for it.
+
+988
+00:51:17,839 --> 00:51:22,420
+You've just destroyed a
+ton of legacy software.
+
+989
+00:51:22,420 --> 00:51:25,159
+So this is a very good point,
+
+990
+00:51:25,159 --> 00:51:27,339
+why are we allowing users
+in language design,
+
+991
+00:51:27,339 --> 00:51:29,319
+maybe shouldn't allow computers.
+
+992
+00:51:29,319 --> 00:51:31,439
+That's basically what
+things like Ross are doing.
+
+993
+00:51:31,439 --> 00:51:32,599
+They're saying, you're
+going to fight with
+
+994
+00:51:32,599 --> 00:51:34,799
+ix and is best,
+
+995
+00:51:34,799 --> 00:51:37,359
+and we'll stop you
+from doing things like
+
+996
+00:51:37,359 --> 00:51:40,800
+unbounded checking
+like this, unbounded.
+
+997
+00:51:41,380 --> 00:51:43,959
+But even in those, it turns
+
+998
+00:51:43,959 --> 00:51:48,499
+out that you actually need
+sometimes do unsafe things.
+
+999
+00:51:48,499 --> 00:51:50,900
+For example, EMA,
+
+1000
+00:51:50,900 --> 00:51:55,860
+memory access require an
+initial life is somewhere,
+
+1001
+00:51:55,860 --> 00:51:59,279
+and Russ has no good
+answers to this right now.
+
+1002
+00:51:59,279 --> 00:52:02,659
+They just let you
+break out of it using.
+
+1003
+00:52:02,659 --> 00:52:04,919
+There's a fun examples
+of things like this.
+
+1004
+00:52:04,919 --> 00:52:07,159
+It's all very long
+wood way of saying,
+
+1005
+00:52:07,159 --> 00:52:09,019
+why doesn't the language
+actually help you here?
+
+1006
+00:52:09,019 --> 00:52:12,779
+In some cases, they do in.
+It's a very good question.
+
+1007
+00:52:13,580 --> 00:52:20,059
+Officers hurt anything
+else. Anything else?
+
+1008
+00:52:22,320 --> 00:52:25,460
+Okay. Well, it was
+fantastic at Electric.
+
+1009
+00:52:25,460 --> 00:52:27,399
+I was you all in
+
+1010
+00:53:05,680 --> 00:53:07,719
+I

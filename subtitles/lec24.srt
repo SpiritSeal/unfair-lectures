@@ -1,0 +1,6002 @@
+1
+00:00:19,640 --> 00:00:26,359
+Just a little this,
+
+2
+00:00:26,359 --> 00:00:29,239
+this, this, this, this, this.
+
+3
+00:00:39,400 --> 00:00:42,039
+I got you.
+
+4
+00:01:25,420 --> 00:01:27,019
+Okay, I
+
+5
+00:01:27,019 --> 00:01:28,619
+believe we are at time.
+
+6
+00:01:28,619 --> 00:01:31,659
+So let's go ahead
+and get started.
+
+7
+00:01:35,100 --> 00:01:38,339
+How many of you
+are excited about
+
+8
+00:01:38,339 --> 00:01:40,940
+finally finishing up
+talking about file systems,
+
+9
+00:01:40,940 --> 00:01:43,619
+automity ordering, and
+crash consistency?
+
+10
+00:01:43,619 --> 00:01:44,940
+Today?
+
+11
+00:01:44,940 --> 00:01:47,699
+Pretty much everyone, right?
+
+12
+00:01:47,699 --> 00:01:50,659
+Okay, how many of you are
+excited about actually
+
+13
+00:01:50,659 --> 00:01:52,419
+attempting to find some time to
+
+14
+00:01:52,419 --> 00:01:54,100
+talk about distributed systems?
+
+15
+00:01:54,100 --> 00:01:58,609
+Also, today, Okay,
+so this is one of
+
+16
+00:01:58,609 --> 00:02:01,009
+those brutal lectures
+that is going to be
+
+17
+00:02:01,009 --> 00:02:03,529
+a workout because I'm
+
+18
+00:02:03,529 --> 00:02:05,769
+going to try to squeeze
+both of them in in,
+
+19
+00:02:05,769 --> 00:02:07,329
+let's say, 60 minutes.
+
+20
+00:02:07,329 --> 00:02:08,890
+I'm not even going
+to bother trying to
+
+21
+00:02:08,890 --> 00:02:10,770
+do it in 50 minutes anymore.
+
+22
+00:02:10,770 --> 00:02:12,530
+This is a lot of material, and
+
+23
+00:02:12,530 --> 00:02:13,929
+it's also very, very useful,
+
+24
+00:02:13,929 --> 00:02:15,569
+and you will understand
+why all of it
+
+25
+00:02:15,569 --> 00:02:17,450
+matters and why all
+of it is actually
+
+26
+00:02:17,450 --> 00:02:18,890
+something that I wanted to bring
+
+27
+00:02:18,890 --> 00:02:20,250
+to your attention
+towards the end
+
+28
+00:02:20,250 --> 00:02:21,490
+of the class that everyone is
+
+29
+00:02:21,490 --> 00:02:23,250
+just trying to finish up, right?
+
+30
+00:02:23,250 --> 00:02:26,089
+And I'm going to assume
+that the sparsity of
+
+31
+00:02:26,089 --> 00:02:28,609
+this classroom has to do with
+
+32
+00:02:28,609 --> 00:02:31,850
+the lab four actually
+being due tomorrow, right?
+
+33
+00:02:31,850 --> 00:02:34,770
+This Friday on April 11th,
+
+34
+00:02:34,770 --> 00:02:37,050
+that's when the lab four
+is going to be due.
+
+35
+00:02:37,050 --> 00:02:39,490
+But it is important
+to still show up
+
+36
+00:02:39,490 --> 00:02:42,170
+and come back and review
+these video recordings,
+
+37
+00:02:42,170 --> 00:02:45,770
+video lectures that I'm
+putting out on Canvas because
+
+38
+00:02:45,770 --> 00:02:50,649
+your exam two is going
+to be on April 16th,
+
+39
+00:02:50,649 --> 00:02:52,770
+six days from today, okay?
+
+40
+00:02:52,770 --> 00:02:56,290
+So, pretty much, how many of
+you are down with lab four?
+
+41
+00:02:56,290 --> 00:02:58,890
+Is it the majority
+of the room here?
+
+42
+00:02:58,890 --> 00:03:01,710
+Can you raise your hands higher?
+
+43
+00:03:01,710 --> 00:03:04,210
+Again, not actually
+the majority.
+
+44
+00:03:04,210 --> 00:03:06,850
+And so I really want to
+thank everyone who showed up
+
+45
+00:03:06,850 --> 00:03:10,530
+today despite the fact that
+lab four is due tomorrow.
+
+46
+00:03:10,530 --> 00:03:13,729
+I understand that you
+have conflicting demands
+
+47
+00:03:13,729 --> 00:03:17,370
+on your time as juniors and
+seniors at Georgia Tech.
+
+48
+00:03:17,370 --> 00:03:19,209
+So a reminder about
+
+49
+00:03:19,209 --> 00:03:21,850
+exam two should be no
+surprise at this point,
+
+50
+00:03:21,850 --> 00:03:24,689
+but the location is your
+supervised lab location.
+
+51
+00:03:24,689 --> 00:03:27,969
+So wherever you guys go
+to your supervised lab,
+
+52
+00:03:27,969 --> 00:03:29,690
+that's where you're
+going to go for
+
+53
+00:03:29,690 --> 00:03:31,295
+your exam two, I should say.
+
+54
+00:03:31,295 --> 00:03:33,540
+And the time is
+exactly the same as
+
+55
+00:03:33,540 --> 00:03:35,980
+your usual supervised
+lap times, okay?
+
+56
+00:03:35,980 --> 00:03:38,060
+It's going to be joint across
+
+57
+00:03:38,060 --> 00:03:40,420
+both sections, unlike exam one.
+
+58
+00:03:40,420 --> 00:03:42,139
+So everyone is going to be
+
+59
+00:03:42,139 --> 00:03:43,980
+taking it at exactly
+the same time,
+
+60
+00:03:43,980 --> 00:03:47,140
+and all the rules are going
+to be exactly the same.
+
+61
+00:03:47,140 --> 00:03:49,460
+I don't really want to spend
+my class time on this,
+
+62
+00:03:49,460 --> 00:03:51,459
+but if you do have
+any questions,
+
+63
+00:03:51,459 --> 00:03:54,740
+make sure you reach out to me
+for any clarification about
+
+64
+00:03:54,740 --> 00:03:58,339
+how your exam two is
+going to be administered.
+
+65
+00:03:58,339 --> 00:04:02,100
+As a highest order bit reminder,
+
+66
+00:04:02,100 --> 00:04:04,469
+it's going to be closed Internet
+
+67
+00:04:04,469 --> 00:04:08,720
+completely disallowing
+GI in any shape or form,
+
+68
+00:04:08,720 --> 00:04:12,240
+which stands for generative
+artificial intelligence.
+
+69
+00:04:12,240 --> 00:04:15,439
+And I'm, of course,
+allowing open notes,
+
+70
+00:04:15,439 --> 00:04:17,639
+open book, open lecture slides,
+
+71
+00:04:17,639 --> 00:04:19,614
+et cetera, et cetera.
+
+72
+00:04:19,614 --> 00:04:22,709
+You will find the exams
+in this class being
+
+73
+00:04:22,709 --> 00:04:23,829
+primarily focused on
+
+74
+00:04:23,829 --> 00:04:26,029
+the conceptual understanding
+of the material.
+
+75
+00:04:26,029 --> 00:04:28,309
+And so the reason
+why it's open note
+
+76
+00:04:28,309 --> 00:04:30,829
+is because I really
+expect you to sort of get
+
+77
+00:04:30,829 --> 00:04:33,349
+your fundamentals
+down so that you have
+
+78
+00:04:33,349 --> 00:04:35,029
+the toolbox ready to
+
+79
+00:04:35,029 --> 00:04:37,149
+go so that when you
+come to the exam,
+
+80
+00:04:37,149 --> 00:04:38,789
+you don't search
+for which tool do
+
+81
+00:04:38,789 --> 00:04:40,470
+I apply in this
+particular scenario.
+
+82
+00:04:40,470 --> 00:04:42,670
+You just pull out those
+tools from your toolbox,
+
+83
+00:04:42,670 --> 00:04:46,219
+so you start thinking in
+a very a mentally fluid,
+
+84
+00:04:46,219 --> 00:04:48,380
+agile fashion and resolving
+
+85
+00:04:48,380 --> 00:04:52,619
+the scenarios that you are
+presented with at exam time.
+
+86
+00:04:52,619 --> 00:04:54,179
+So that's how you
+should be spending
+
+87
+00:04:54,179 --> 00:04:56,459
+your exam time when you
+take the exam, okay?
+
+88
+00:04:56,459 --> 00:04:59,499
+I'm going to give you a lot
+more time than exam one.
+
+89
+00:04:59,499 --> 00:05:01,859
+So the timing is not going to be
+
+90
+00:05:01,859 --> 00:05:05,900
+restricted to the 50 minutes
+that we have for this class.
+
+91
+00:05:05,900 --> 00:05:09,139
+So that's why we
+actually put it into
+
+92
+00:05:09,139 --> 00:05:10,740
+the supervised lab time slot
+
+93
+00:05:10,740 --> 00:05:12,899
+and synchronized
+across both sections.
+
+94
+00:05:12,899 --> 00:05:18,509
+Any questions so
+far? No questions.
+
+95
+00:05:18,509 --> 00:05:21,269
+Excellent. So we stopped
+
+96
+00:05:21,269 --> 00:05:24,949
+our last lecture by talking
+about logging, okay?
+
+97
+00:05:24,949 --> 00:05:28,149
+And logging was this really
+interesting discussion,
+
+98
+00:05:28,149 --> 00:05:30,509
+and we really ended
+the lecture by saying
+
+99
+00:05:30,509 --> 00:05:32,670
+that there are actually
+different kinds of logging,
+
+100
+00:05:32,670 --> 00:05:34,629
+different approaches to
+logging that you can
+
+101
+00:05:34,629 --> 00:05:37,390
+take with their own
+advantages and disadvantages.
+
+102
+00:05:37,390 --> 00:05:39,349
+And we tried to
+really categorize
+
+103
+00:05:39,349 --> 00:05:41,470
+what those advantages
+and disadvantages are.
+
+104
+00:05:41,470 --> 00:05:42,989
+As a reminder, we can
+
+105
+00:05:42,989 --> 00:05:47,069
+do obviously a complete
+absence of logging, right?
+
+106
+00:05:47,069 --> 00:05:50,175
+That's a thing. It's
+usually a pretty bad idea.
+
+107
+00:05:50,175 --> 00:05:52,159
+Because with some
+minimal overhead,
+
+108
+00:05:52,159 --> 00:05:54,799
+you can do at least
+metadata logging, okay?
+
+109
+00:05:54,799 --> 00:05:58,280
+So the second option
+is metadata logging.
+
+110
+00:05:58,280 --> 00:06:00,039
+And the idea here is that
+
+111
+00:06:00,039 --> 00:06:02,439
+your logging only
+changes to the Ns,
+
+112
+00:06:02,439 --> 00:06:06,680
+to the metadata to the control
+plane of your file system.
+
+113
+00:06:06,680 --> 00:06:08,679
+But you're not actually
+logging the data,
+
+114
+00:06:08,679 --> 00:06:11,239
+and we'll get to that
+in a few slides, okay?
+
+115
+00:06:11,239 --> 00:06:13,959
+There are really good
+reasons for that.
+
+116
+00:06:13,959 --> 00:06:19,079
+A separate type of journaling
+approach is called ordered.
+
+117
+00:06:19,080 --> 00:06:21,840
+And there's a nuanced
+difference between
+
+118
+00:06:21,840 --> 00:06:24,640
+metadata only logging
+and ordered logging.
+
+119
+00:06:24,640 --> 00:06:26,200
+So in ordered logging,
+
+120
+00:06:26,200 --> 00:06:27,400
+what you're doing is that
+
+121
+00:06:27,400 --> 00:06:29,319
+you still are not
+logging the data.
+
+122
+00:06:29,319 --> 00:06:31,319
+So your data plane in
+
+123
+00:06:31,319 --> 00:06:34,119
+the file system is still
+not being logged, okay?
+
+124
+00:06:34,119 --> 00:06:37,839
+But what we're ensuring
+is that the right for
+
+125
+00:06:37,839 --> 00:06:40,079
+that data is sequenced
+
+126
+00:06:40,079 --> 00:06:43,719
+before the logging of
+the metadata, okay?
+
+127
+00:06:43,719 --> 00:06:45,399
+And I'm being very careful
+
+128
+00:06:45,399 --> 00:06:47,039
+with the words that
+I'm choosing here.
+
+129
+00:06:47,039 --> 00:06:48,719
+So we are writing the data
+
+130
+00:06:48,719 --> 00:06:51,435
+before we are logging
+the metadata.
+
+131
+00:06:51,435 --> 00:06:53,550
+And we'll have examples
+
+132
+00:06:53,550 --> 00:06:55,230
+of this to clarify
+what this means.
+
+133
+00:06:55,230 --> 00:06:57,430
+And this is actually
+a Linux default
+
+134
+00:06:57,430 --> 00:06:59,189
+for most distros out there.
+
+135
+00:06:59,189 --> 00:07:00,990
+And one other option, of course,
+
+136
+00:07:00,990 --> 00:07:02,470
+is to do full logging,
+
+137
+00:07:02,470 --> 00:07:04,309
+which is actually when
+everything is logged.
+
+138
+00:07:04,309 --> 00:07:05,910
+So any change to
+the control plane,
+
+139
+00:07:05,910 --> 00:07:07,309
+any change to the data plane,
+
+140
+00:07:07,309 --> 00:07:09,589
+meaning data block changes,
+
+141
+00:07:09,589 --> 00:07:13,189
+Ode block changes, all of
+that is going to be blocked.
+
+142
+00:07:13,189 --> 00:07:15,110
+But all of that is
+going to be logged.
+
+143
+00:07:15,110 --> 00:07:18,429
+And this is, of course,
+fairly expensive, okay?
+
+144
+00:07:18,429 --> 00:07:20,150
+So today I want to talk about
+
+145
+00:07:20,150 --> 00:07:21,709
+atomicity and how to achieve
+
+146
+00:07:21,709 --> 00:07:26,070
+atomicity at the file system
+level with Pyx semantics.
+
+147
+00:07:26,070 --> 00:07:28,950
+So have you heard about Poss?
+
+148
+00:07:28,950 --> 00:07:31,749
+Yeah, so it's a
+unix standard that
+
+149
+00:07:31,749 --> 00:07:34,749
+basically codifies a
+set of system calls.
+
+150
+00:07:34,749 --> 00:07:37,589
+And it attempted to
+do that, you know,
+
+151
+00:07:37,589 --> 00:07:41,469
+decades ago in the previous
+millennium, previous century.
+
+152
+00:07:41,469 --> 00:07:43,630
+I think it's probably 1970s
+
+153
+00:07:43,630 --> 00:07:45,829
+when Unix was very, very
+popular at the time.
+
+154
+00:07:45,829 --> 00:07:47,310
+And what it was trying to do is
+
+155
+00:07:47,310 --> 00:07:49,310
+attempt some sort of
+a standard across
+
+156
+00:07:49,310 --> 00:07:53,109
+multiple increasingly
+heterogeneous systems.
+
+157
+00:07:53,109 --> 00:07:58,379
+I and workstations, as they
+were called at the time.
+
+158
+00:07:58,379 --> 00:08:00,259
+And so for that reason,
+
+159
+00:08:00,259 --> 00:08:02,699
+it necessarily had to cater to
+
+160
+00:08:02,699 --> 00:08:04,379
+the lowest common denominator
+
+161
+00:08:04,379 --> 00:08:06,740
+across those
+heterogeneous systems.
+
+162
+00:08:06,740 --> 00:08:09,180
+And that is why PSIs almost
+
+163
+00:08:09,180 --> 00:08:12,099
+by design provides very
+weak semantics, okay?
+
+164
+00:08:12,099 --> 00:08:15,379
+It doesn't really give you
+very strong guarantees.
+
+165
+00:08:15,379 --> 00:08:17,660
+The system calls,
+especially the system
+
+166
+00:08:17,660 --> 00:08:19,659
+calls that we will consider,
+
+167
+00:08:19,659 --> 00:08:21,180
+which are the ones
+that are related to
+
+168
+00:08:21,180 --> 00:08:22,660
+file system operations.
+
+169
+00:08:22,660 --> 00:08:25,139
+So again, what happens on crash,
+
+170
+00:08:25,139 --> 00:08:27,659
+we discussed many bad things
+can potentially happen.
+
+171
+00:08:27,659 --> 00:08:29,180
+You can get data corruption,
+
+172
+00:08:29,180 --> 00:08:31,440
+you can get metadata corruption,
+
+173
+00:08:31,440 --> 00:08:34,060
+you can get these out
+of order situations,
+
+174
+00:08:34,060 --> 00:08:36,340
+and so things have already been
+
+175
+00:08:36,340 --> 00:08:39,220
+motivated sufficiently to
+sort of worry about this.
+
+176
+00:08:39,220 --> 00:08:41,380
+And so the modern
+file systems took
+
+177
+00:08:41,380 --> 00:08:44,220
+this approach to
+say the following.
+
+178
+00:08:44,220 --> 00:08:46,100
+We need to at least
+make sure that
+
+179
+00:08:46,100 --> 00:08:48,900
+our control plane is sane, okay?
+
+180
+00:08:48,900 --> 00:08:50,540
+What that means is
+that we're going
+
+181
+00:08:50,540 --> 00:08:52,545
+to at least protect
+our metadata.
+
+182
+00:08:52,545 --> 00:08:53,830
+And so in systems,
+
+183
+00:08:53,830 --> 00:08:56,870
+if you haven't encountered
+these terms before,
+
+184
+00:08:56,870 --> 00:08:59,349
+there's usually
+something that has to do
+
+185
+00:08:59,349 --> 00:09:01,669
+with a control plane and
+something has to do with
+
+186
+00:09:01,669 --> 00:09:02,790
+data plane or moving
+
+187
+00:09:02,790 --> 00:09:05,550
+the bytes on the wire
+or moving the bytes to
+
+188
+00:09:05,550 --> 00:09:07,230
+storage to and from
+
+189
+00:09:07,230 --> 00:09:08,630
+the different layers in the
+
+190
+00:09:08,630 --> 00:09:10,950
+memory hierarchy,
+et cetera, right?
+
+191
+00:09:10,950 --> 00:09:12,950
+So that's the data plane.
+
+192
+00:09:12,950 --> 00:09:15,990
+And so what modern file
+systems are trying
+
+193
+00:09:15,990 --> 00:09:18,270
+to ensure is that
+we will at least
+
+194
+00:09:18,270 --> 00:09:20,190
+try to protect the metadata so
+
+195
+00:09:20,190 --> 00:09:23,440
+that our file system
+doesn't completely crash.
+
+196
+00:09:23,440 --> 00:09:27,010
+Okay, so what does the XT
+four provide by default?
+
+197
+00:09:27,010 --> 00:09:29,289
+Well, X four, for instance,
+
+198
+00:09:29,289 --> 00:09:33,890
+as an example of a somewhat
+modern file system out there,
+
+199
+00:09:33,890 --> 00:09:37,849
+it always journals metadata
+to ensure, as I mentioned,
+
+200
+00:09:37,849 --> 00:09:40,529
+that we are not running
+
+201
+00:09:40,529 --> 00:09:43,410
+the risk of corrupting
+the file system, right?
+
+202
+00:09:43,410 --> 00:09:45,450
+But it does that
+in a way that it
+
+203
+00:09:45,450 --> 00:09:47,689
+orders the data plane writes.
+
+204
+00:09:47,689 --> 00:09:49,969
+So the data writes are ordered
+
+205
+00:09:49,969 --> 00:09:53,090
+before the metadata
+writes, okay?
+
+206
+00:09:53,090 --> 00:09:56,690
+But you can still get
+poor behavior with this.
+
+207
+00:09:58,260 --> 00:10:00,980
+So, yes, the ordered file
+
+208
+00:10:00,980 --> 00:10:04,300
+systems that are employed
+in modern file systems,
+
+209
+00:10:04,300 --> 00:10:06,380
+in modern operating systems,
+
+210
+00:10:06,380 --> 00:10:07,540
+they try to ensure this
+
+211
+00:10:07,540 --> 00:10:08,939
+happens before
+relationship between
+
+212
+00:10:08,939 --> 00:10:10,700
+data rights and metadata rights
+
+213
+00:10:10,700 --> 00:10:12,725
+without actually logging data.
+
+214
+00:10:12,725 --> 00:10:15,910
+Okay. And so sort of
+to illustrate this,
+
+215
+00:10:15,910 --> 00:10:17,070
+let's say you have three data
+
+216
+00:10:17,070 --> 00:10:18,590
+blocks that you want to write,
+
+217
+00:10:18,590 --> 00:10:20,390
+so you want to write them,
+
+218
+00:10:20,390 --> 00:10:22,190
+and as you're writing them,
+
+219
+00:10:22,190 --> 00:10:24,190
+you need to update your
+free blocklist data
+
+220
+00:10:24,190 --> 00:10:26,350
+structure auto on disk,
+
+221
+00:10:26,350 --> 00:10:28,630
+and then you want to
+persist your iNde changes.
+
+222
+00:10:28,630 --> 00:10:31,310
+And you want to do that
+in that order, okay?
+
+223
+00:10:31,310 --> 00:10:33,310
+So you write the disk blocks,
+
+224
+00:10:33,310 --> 00:10:35,589
+then you update the
+free blocklist,
+
+225
+00:10:35,589 --> 00:10:37,910
+and then you write the iNde to
+
+226
+00:10:37,910 --> 00:10:41,955
+the log part of
+your disk as well.
+
+227
+00:10:41,955 --> 00:10:43,920
+Okay.
+
+228
+00:10:43,920 --> 00:10:47,520
+And we want to ensure that
+there's this happens before
+
+229
+00:10:47,520 --> 00:10:49,640
+relationship between
+the data rights
+
+230
+00:10:49,640 --> 00:10:51,560
+and the metadata rights.
+
+231
+00:10:51,560 --> 00:10:53,040
+And this goes back to the
+
+232
+00:10:53,040 --> 00:10:54,640
+scenarios that we discussed that
+
+233
+00:10:54,640 --> 00:10:57,800
+motivated this whole thing
+about ethnicity and ordering.
+
+234
+00:10:57,800 --> 00:11:00,320
+Remember, when I was writing
+on the whiteboard here,
+
+235
+00:11:00,320 --> 00:11:04,599
+I showed you that even if we
+write the data correctly,
+
+236
+00:11:04,599 --> 00:11:06,160
+but you can, for example,
+
+237
+00:11:06,160 --> 00:11:09,879
+persist the note updates out
+of order with data updates,
+
+238
+00:11:09,879 --> 00:11:11,960
+and you get a crash
+in the middle, right?
+
+239
+00:11:11,960 --> 00:11:14,120
+Those two, if
+they're not atomic,
+
+240
+00:11:14,120 --> 00:11:16,000
+what you can possibly get is
+
+241
+00:11:16,000 --> 00:11:21,195
+a metadata update without
+the data persisted to disk.
+
+242
+00:11:21,195 --> 00:11:25,830
+So what you can get is your
+direct pointers pointing to
+
+243
+00:11:25,830 --> 00:11:29,789
+somebody else's data
+blocks that haven't
+
+244
+00:11:29,789 --> 00:11:31,430
+actually been
+overwritten as part of
+
+245
+00:11:31,430 --> 00:11:33,990
+this write operation, okay?
+
+246
+00:11:33,990 --> 00:11:35,470
+And so if you do it in
+
+247
+00:11:35,470 --> 00:11:36,989
+this order, if you
+write the data first,
+
+248
+00:11:36,989 --> 00:11:38,189
+and then essentially you
+
+249
+00:11:38,189 --> 00:11:40,190
+flip the pointers to
+point to that data,
+
+250
+00:11:40,190 --> 00:11:42,110
+in some sense, we're
+
+251
+00:11:42,110 --> 00:11:43,670
+trying to prevent
+this from happening.
+
+252
+00:11:43,670 --> 00:11:46,430
+We're trying to fix
+that motivating example
+
+253
+00:11:46,430 --> 00:11:50,310
+that we started the
+sequence of lectures with.
+
+254
+00:11:52,340 --> 00:11:55,420
+Okay. So as I mentioned,
+
+255
+00:11:55,420 --> 00:11:57,780
+food journaling is one
+of the options, right?
+
+256
+00:11:57,780 --> 00:12:01,379
+So you can have data
+entries with a commit.
+
+257
+00:12:01,379 --> 00:12:03,660
+You can have metadata
+entries with a commit,
+
+258
+00:12:03,660 --> 00:12:06,460
+all of them intermixed
+in the same log, okay?
+
+259
+00:12:06,460 --> 00:12:08,900
+It looks kind of like this.
+
+260
+00:12:08,980 --> 00:12:12,660
+What's really nice is
+that you can enact
+
+261
+00:12:12,660 --> 00:12:14,500
+transactional semantics that we
+
+262
+00:12:14,500 --> 00:12:16,939
+also discussed you sometimes
+want in the file system.
+
+263
+00:12:16,939 --> 00:12:20,490
+So you can actually coalesce
+the data entries and
+
+264
+00:12:20,490 --> 00:12:22,850
+metadata entries
+into one big group
+
+265
+00:12:22,850 --> 00:12:26,250
+commit and commit all
+of that at once, okay?
+
+266
+00:12:26,250 --> 00:12:29,289
+And so remember that
+atomicity here is going to be
+
+267
+00:12:29,289 --> 00:12:32,530
+guaranteed at the granularity
+of the commits, okay?
+
+268
+00:12:32,530 --> 00:12:35,450
+So that means that this
+whole thing will be
+
+269
+00:12:35,450 --> 00:12:36,770
+guaranteed to be crash
+
+270
+00:12:36,770 --> 00:12:39,225
+consistent in an all
+or nothing fashion.
+
+271
+00:12:39,225 --> 00:12:42,000
+In other words, if the
+whole thing is going to
+
+272
+00:12:42,000 --> 00:12:44,719
+be a valid commit,
+
+273
+00:12:44,719 --> 00:12:47,160
+then we get the entire state,
+
+274
+00:12:47,160 --> 00:12:49,239
+the union of all of
+
+275
+00:12:49,239 --> 00:12:51,640
+these entries exposed
+to the universe.
+
+276
+00:12:51,640 --> 00:12:55,120
+And if we find that the
+commit is actually invalid,
+
+277
+00:12:55,120 --> 00:12:57,399
+we want to make sure
+that our universe
+
+278
+00:12:57,399 --> 00:13:00,480
+doesn't see any of these
+entries at all, okay?
+
+279
+00:13:00,480 --> 00:13:03,239
+So this is the definition of
+
+280
+00:13:03,239 --> 00:13:07,239
+atomicity is ensuring all
+or nothing semantics.
+
+281
+00:13:07,239 --> 00:13:10,160
+Okay, so what problems do we
+
+282
+00:13:10,160 --> 00:13:14,320
+immediately see here with food
+journaling in particular?
+
+283
+00:13:18,970 --> 00:13:21,850
+Everything looks good.
+
+284
+00:13:29,520 --> 00:13:31,279
+What's the problem
+
+285
+00:13:31,279 --> 00:13:33,000
+with writing data to the log?
+
+286
+00:13:33,000 --> 00:13:35,760
+Let me ask a more
+specific question.
+
+287
+00:13:37,040 --> 00:13:40,200
+Even more specifically,
+if even that
+
+288
+00:13:40,200 --> 00:13:43,399
+doesn't trigger some
+thought process,
+
+289
+00:13:43,399 --> 00:13:46,080
+the way to approach this
+is think of an example.
+
+290
+00:13:46,080 --> 00:13:49,880
+One example could be,
+you imagine something.
+
+291
+00:13:49,880 --> 00:13:51,399
+Use your creativity.
+
+292
+00:13:51,399 --> 00:13:52,640
+Let's say you have a two
+
+293
+00:13:52,640 --> 00:13:55,000
+gigabyte file that
+is being written,
+
+294
+00:13:55,000 --> 00:13:58,719
+and then you only have
+a 64 byte node update.
+
+295
+00:13:58,719 --> 00:14:01,040
+How many orders of
+magnitude difference is
+
+296
+00:14:01,040 --> 00:14:05,839
+the two gigabyte file write
+and a 64 byte node update?
+
+297
+00:14:07,760 --> 00:14:10,280
+You don't have to
+count the orders of
+
+298
+00:14:10,280 --> 00:14:12,600
+magnitude in this
+particular case, okay?
+
+299
+00:14:12,600 --> 00:14:14,919
+I'm not really testing
+your arithmetic here,
+
+300
+00:14:14,919 --> 00:14:17,720
+but it's a lot of orders
+of magnitude, right?
+
+301
+00:14:17,720 --> 00:14:19,400
+And so what is that
+going to do to
+
+302
+00:14:19,400 --> 00:14:23,234
+the fraction of our
+fixed log capacity?
+
+303
+00:14:23,234 --> 00:14:25,549
+As it's allocated to
+
+304
+00:14:25,549 --> 00:14:28,710
+the data rights versus
+the metadata rights.
+
+305
+00:14:28,710 --> 00:14:31,550
+How much of that is going
+to be essentially used
+
+306
+00:14:31,550 --> 00:14:34,870
+up on a regular basis
+by the data entries?
+
+307
+00:14:34,870 --> 00:14:37,110
+Yes. Much more than.
+
+308
+00:14:37,110 --> 00:14:39,670
+Yeah, much more than
+the metadata, right?
+
+309
+00:14:39,670 --> 00:14:42,550
+And then you also end up
+in a situation where,
+
+310
+00:14:42,550 --> 00:14:44,069
+let's say you are writing
+
+311
+00:14:44,069 --> 00:14:46,030
+a very small metadata update for
+
+312
+00:14:46,030 --> 00:14:50,149
+a file, which is insignificant.
+
+313
+00:14:50,149 --> 00:14:53,510
+But then because of the
+ordering of the log,
+
+314
+00:14:53,510 --> 00:14:56,230
+it can experience
+head of line blocking
+
+315
+00:14:56,230 --> 00:14:59,200
+from some of the larger
+data updates, okay?
+
+316
+00:14:59,200 --> 00:15:01,010
+And we'll see an
+example of that.
+
+317
+00:15:01,010 --> 00:15:02,530
+We'll whiteboard it just
+
+318
+00:15:02,530 --> 00:15:03,930
+to make sure that
+it's very clear.
+
+319
+00:15:03,930 --> 00:15:05,650
+So it's also doubling
+
+320
+00:15:05,650 --> 00:15:07,649
+the cost of every single
+write because remember,
+
+321
+00:15:07,649 --> 00:15:11,330
+you're writing to
+the log on disk,
+
+322
+00:15:11,330 --> 00:15:15,370
+and then you are going to
+when you perform a log merge,
+
+323
+00:15:15,370 --> 00:15:18,650
+you're going to write that
+thing again from the log on
+
+324
+00:15:18,650 --> 00:15:23,289
+disk to the data block on disk.
+
+325
+00:15:23,289 --> 00:15:26,490
+That's two writes for
+every single data block.
+
+326
+00:15:26,490 --> 00:15:28,690
+So if you're logging data,
+
+327
+00:15:28,690 --> 00:15:31,570
+you are paying the
+cost of two writes for
+
+328
+00:15:31,570 --> 00:15:35,405
+every single byte of
+data written to disk.
+
+329
+00:15:35,405 --> 00:15:38,640
+Okay? And the log capacity,
+
+330
+00:15:38,640 --> 00:15:40,400
+as I previously
+mentioned, is diminished.
+
+331
+00:15:40,400 --> 00:15:43,000
+So if you remember the
+logs, what's a log?
+
+332
+00:15:43,000 --> 00:15:45,039
+It's not some sort of a concept.
+
+333
+00:15:45,039 --> 00:15:47,640
+It's a physical
+location on disk,
+
+334
+00:15:47,640 --> 00:15:50,080
+which consists of a
+bunch of log blocks,
+
+335
+00:15:50,080 --> 00:15:52,039
+and you have fixed capacity.
+
+336
+00:15:52,039 --> 00:15:54,160
+You have some finite number
+
+337
+00:15:54,160 --> 00:15:58,200
+N of the log blocks that
+you have available,
+
+338
+00:15:58,200 --> 00:16:00,160
+okay, finite number of space,
+
+339
+00:16:00,160 --> 00:16:02,919
+even if you don't want to
+talk about log blocks.
+
+340
+00:16:02,919 --> 00:16:06,560
+But it's isomorphic.
+
+341
+00:16:06,560 --> 00:16:11,760
+Anyway, so if you are writing
+lots of data to your log,
+
+342
+00:16:11,760 --> 00:16:13,040
+you're going to encounter
+
+343
+00:16:13,040 --> 00:16:15,519
+a lot more frequent
+log merge operations,
+
+344
+00:16:15,519 --> 00:16:17,000
+and the recovery is also
+
+345
+00:16:17,000 --> 00:16:18,959
+going to be a lot
+more expensive.
+
+346
+00:16:18,959 --> 00:16:21,839
+And every time you
+read, remember,
+
+347
+00:16:21,839 --> 00:16:24,640
+what's the first location
+you're checking on
+
+348
+00:16:24,640 --> 00:16:27,600
+every single read in the
+journaled file system?
+
+349
+00:16:27,600 --> 00:16:31,080
+Do you go directly to the
+data block to read it?
+
+350
+00:16:31,530 --> 00:16:33,530
+Yes or no?
+
+351
+00:16:33,530 --> 00:16:35,530
+No. Where do you go?
+
+352
+00:16:35,530 --> 00:16:38,489
+Log, right? And what do
+you do with the log?
+
+353
+00:16:38,489 --> 00:16:40,370
+What's the worst case
+performance here
+
+354
+00:16:40,370 --> 00:16:43,090
+for you to actually
+perform a read?
+
+355
+00:16:43,090 --> 00:16:46,689
+Yes. Log.
+
+356
+00:16:46,689 --> 00:16:49,449
+Yeah, basically the
+worst case performance
+
+357
+00:16:49,449 --> 00:16:50,610
+here is that you
+
+358
+00:16:50,610 --> 00:16:52,650
+actually have to go
+through the entire log
+
+359
+00:16:52,650 --> 00:16:54,610
+on every single read, right?
+
+360
+00:16:54,610 --> 00:16:58,170
+And the log is going to
+be on average, right?
+
+361
+00:16:58,170 --> 00:17:01,249
+Probabilistically
+speaking, the log is going
+
+362
+00:17:01,249 --> 00:17:03,810
+to be pretty large if you're
+logging data updates.
+
+363
+00:17:03,810 --> 00:17:05,129
+You guys see that?
+
+364
+00:17:05,129 --> 00:17:08,130
+And so you can immediately see,
+
+365
+00:17:08,130 --> 00:17:11,829
+and I think it's pretty It's
+pretty beautiful, right?
+
+366
+00:17:11,829 --> 00:17:12,989
+You can immediately see
+
+367
+00:17:12,989 --> 00:17:15,949
+the implications of these
+design decisions as they
+
+368
+00:17:15,949 --> 00:17:17,869
+percolate through
+these different kind
+
+369
+00:17:17,869 --> 00:17:21,270
+of operations that you want
+to perform in your system.
+
+370
+00:17:21,270 --> 00:17:23,469
+You're making your
+reads worse, right?
+
+371
+00:17:23,469 --> 00:17:25,910
+Because every read is
+going to now traverse
+
+372
+00:17:25,910 --> 00:17:29,829
+a probabilistically
+larger log file, right?
+
+373
+00:17:29,829 --> 00:17:33,469
+You're increasing the
+probability of log merges,
+
+374
+00:17:33,469 --> 00:17:37,029
+and that The implication
+
+375
+00:17:37,029 --> 00:17:38,629
+of that is something
+that I mentioned at
+
+376
+00:17:38,629 --> 00:17:40,630
+the end of the previous
+lecture that increases
+
+377
+00:17:40,630 --> 00:17:42,469
+the unpredictability
+of your system
+
+378
+00:17:42,469 --> 00:17:44,909
+because whenever you're
+performing a write,
+
+379
+00:17:44,909 --> 00:17:48,509
+if there's no space in your
+log to log that write,
+
+380
+00:17:48,509 --> 00:17:50,870
+you have to perform a
+log merge operation.
+
+381
+00:17:50,870 --> 00:17:53,749
+So you're also making your
+writes worse on average.
+
+382
+00:17:53,749 --> 00:17:55,590
+How do you quantify that?
+
+383
+00:17:55,590 --> 00:17:58,669
+You take the latency of your
+write operations, okay?
+
+384
+00:17:58,669 --> 00:18:02,069
+And you construct that
+cumulative distribution function
+
+385
+00:18:02,069 --> 00:18:03,429
+that we talked about, right?
+
+386
+00:18:03,429 --> 00:18:05,789
+If you look at the mean, median,
+
+387
+00:18:05,789 --> 00:18:09,190
+and tail latency performance
+of that distribution,
+
+388
+00:18:09,190 --> 00:18:11,470
+and you will find
+that in full logging,
+
+389
+00:18:11,470 --> 00:18:15,429
+the tail latency is going
+to be significantly better.
+
+390
+00:18:18,930 --> 00:18:22,369
+Nobody's contesting
+what I just said.
+
+391
+00:18:22,369 --> 00:18:25,449
+Is it going to be
+significantly better?
+
+392
+00:18:25,449 --> 00:18:27,249
+No, what's going to happen to
+
+393
+00:18:27,249 --> 00:18:30,049
+the tail latency in this
+particular case? Yes.
+
+394
+00:18:30,049 --> 00:18:33,050
+It's going to take a lot longer.
+
+395
+00:18:33,050 --> 00:18:35,569
+It's going to increase
+the latency, right?
+
+396
+00:18:35,569 --> 00:18:37,250
+And so the tail behavior
+
+397
+00:18:37,250 --> 00:18:39,369
+of this kind of file
+system is going to
+
+398
+00:18:39,369 --> 00:18:43,629
+be a lot worse, okay?
+
+399
+00:18:43,629 --> 00:18:46,430
+So you're paying with your
+tail latency on reads,
+
+400
+00:18:46,430 --> 00:18:49,469
+you're paying with your
+tail latency on rice, okay?
+
+401
+00:18:49,469 --> 00:18:51,390
+You're paying with
+the unpredictability.
+
+402
+00:18:51,390 --> 00:18:53,269
+And so I can't use a system like
+
+403
+00:18:53,269 --> 00:18:55,589
+this for something that I
+want to do in real time.
+
+404
+00:18:55,589 --> 00:18:57,070
+You know, that tough,
+
+405
+00:18:57,070 --> 00:18:58,549
+definitely not
+something I want to do
+
+406
+00:18:58,549 --> 00:19:00,030
+in an embedded system or
+
+407
+00:19:00,030 --> 00:19:03,589
+a cyber physical system
+or a UAV draw, okay?
+
+408
+00:19:03,589 --> 00:19:06,069
+That's why this
+stuff matters, guys.
+
+409
+00:19:06,069 --> 00:19:11,439
+This is not like it
+really matters. Okay.
+
+410
+00:19:12,880 --> 00:19:15,759
+So as I mentioned,
+you also experience
+
+411
+00:19:15,759 --> 00:19:18,160
+this head of line blocking
+for metadata updates.
+
+412
+00:19:18,160 --> 00:19:19,800
+So if you have a
+very small metadata
+
+413
+00:19:19,800 --> 00:19:20,920
+update that's sort of
+
+414
+00:19:20,920 --> 00:19:24,080
+blocked by a very large
+data entry in your log.
+
+415
+00:19:24,080 --> 00:19:26,839
+Because of the sequential
+semantics that we
+
+416
+00:19:26,839 --> 00:19:29,880
+expect by design from
+the logged file system,
+
+417
+00:19:29,880 --> 00:19:31,279
+we are going to block the
+
+418
+00:19:31,279 --> 00:19:33,159
+metadata updates
+downstream, okay?
+
+419
+00:19:33,159 --> 00:19:34,720
+That's called head
+of line blocking.
+
+420
+00:19:34,720 --> 00:19:37,240
+It's a very famous
+phenomenon in systems.
+
+421
+00:19:37,240 --> 00:19:38,999
+It shows up in multiple places.
+
+422
+00:19:38,999 --> 00:19:40,879
+I encourage you
+to remember that.
+
+423
+00:19:40,879 --> 00:19:44,029
+Um, So as a result of this,
+
+424
+00:19:44,029 --> 00:19:46,749
+we actually have the problem
+
+425
+00:19:46,749 --> 00:19:48,469
+of experiencing lack of
+
+426
+00:19:48,469 --> 00:19:50,550
+responsiveness of
+metadata updates.
+
+427
+00:19:50,550 --> 00:19:52,554
+Now, what the hell
+does that mean?
+
+428
+00:19:52,554 --> 00:19:55,720
+Okay? So think
+about compilation.
+
+429
+00:19:55,720 --> 00:19:59,559
+There are some file system
+operations that actually
+
+430
+00:19:59,559 --> 00:20:02,599
+perform the nature of
+
+431
+00:20:02,599 --> 00:20:03,960
+those file system operations
+
+432
+00:20:03,960 --> 00:20:05,800
+is primarily metadata updates.
+
+433
+00:20:05,800 --> 00:20:08,319
+A good example of that
+is GCC compilation.
+
+434
+00:20:08,319 --> 00:20:10,479
+As a matter of fact,
+GCC compilation,
+
+435
+00:20:10,479 --> 00:20:12,959
+let's say, on a
+Linux kernel, okay,
+
+436
+00:20:12,959 --> 00:20:16,439
+on the Linux kernel
+code base was quite
+
+437
+00:20:16,439 --> 00:20:18,080
+often used as a benchmark
+
+438
+00:20:18,080 --> 00:20:20,600
+for the performance
+of file systems.
+
+439
+00:20:20,600 --> 00:20:22,719
+So anytime some new
+
+440
+00:20:22,719 --> 00:20:26,519
+upgraded sort of file system
+feature was rolled out,
+
+441
+00:20:26,519 --> 00:20:29,039
+the first thing you
+want to do is try to
+
+442
+00:20:29,039 --> 00:20:31,960
+run GCC compilation
+on that file system.
+
+443
+00:20:31,960 --> 00:20:34,559
+The reason for that is
+because it actually creates
+
+444
+00:20:34,559 --> 00:20:37,519
+a lot of very small files in
+the process of compilation,
+
+445
+00:20:37,519 --> 00:20:42,480
+those that are so files in
+the process of compilation.
+
+446
+00:20:42,480 --> 00:20:45,999
+There's going to be a lot
+of what kind of updates?
+
+447
+00:20:45,999 --> 00:20:50,279
+What kind of updates would
+you expect from compilation?
+
+448
+00:20:51,500 --> 00:20:54,380
+So you're creating files,
+
+449
+00:20:54,380 --> 00:20:57,859
+very small files, yes. Huh?
+
+450
+00:20:57,859 --> 00:20:58,820
+Metadata?
+
+451
+00:20:58,820 --> 00:21:00,219
+Yeah, yeah, yeah, metadata,
+
+452
+00:21:00,219 --> 00:21:01,900
+but what kind of
+metadata updates?
+
+453
+00:21:01,900 --> 00:21:03,660
+Allocating your notes.
+
+454
+00:21:03,660 --> 00:21:05,379
+Allocating new notes.
+
+455
+00:21:05,379 --> 00:21:07,340
+Good. Any other
+metadata updates?
+
+456
+00:21:07,340 --> 00:21:10,299
+So, see, this is like an exam
+type of question, right?
+
+457
+00:21:10,299 --> 00:21:12,819
+I'm not telling you, these are
+
+458
+00:21:12,819 --> 00:21:14,420
+the metadata updates that
+
+459
+00:21:14,420 --> 00:21:15,820
+are going to happen
+during compilation.
+
+460
+00:21:15,820 --> 00:21:17,379
+I'm not going to tell
+you this. I'm going
+
+461
+00:21:17,379 --> 00:21:18,939
+to make you think
+about it, okay?
+
+462
+00:21:18,939 --> 00:21:20,579
+So you're creating lots of
+
+463
+00:21:20,579 --> 00:21:22,939
+small files across a whole
+bunch of directories.
+
+464
+00:21:22,939 --> 00:21:25,464
+What metadata updates
+would you expect?
+
+465
+00:21:25,464 --> 00:21:27,589
+And you have to be able to give
+
+466
+00:21:27,589 --> 00:21:29,669
+me an answer to this, okay?
+
+467
+00:21:29,669 --> 00:21:32,989
+So one of them is creating
+a whole bunch of Ns.
+
+468
+00:21:32,989 --> 00:21:36,429
+There's more, but we'll
+move on from now.
+
+469
+00:21:36,429 --> 00:21:39,269
+I'll leave this as a
+thought exercise for you.
+
+470
+00:21:39,269 --> 00:21:42,230
+So let's look at this ordered,
+
+471
+00:21:42,230 --> 00:21:44,350
+so because of all of
+
+472
+00:21:44,350 --> 00:21:46,789
+these problems that I talked
+about with full logging,
+
+473
+00:21:46,789 --> 00:21:49,349
+people came up with
+ordered logging, okay?
+
+474
+00:21:49,349 --> 00:21:52,469
+And so with ordered
+logging, as I mentioned,
+
+475
+00:21:53,750 --> 00:21:57,270
+you're ordering the rights
+for the data itself
+
+476
+00:21:57,270 --> 00:22:01,230
+before the rights to log
+of the metadata entry.
+
+477
+00:22:01,230 --> 00:22:04,589
+Let's say that here, I
+
+478
+00:22:04,589 --> 00:22:06,350
+don't know if I should
+be whiteboarding
+
+479
+00:22:06,350 --> 00:22:07,749
+or if this is sufficient.
+
+480
+00:22:07,749 --> 00:22:09,469
+Maybe this is
+sufficient for now,
+
+481
+00:22:09,469 --> 00:22:11,469
+just so that we can go faster.
+
+482
+00:22:11,469 --> 00:22:14,030
+Let's say we have a file,
+
+483
+00:22:14,030 --> 00:22:16,909
+here the file is
+denoted as data one,
+
+484
+00:22:16,909 --> 00:22:18,270
+and this is essentially
+
+485
+00:22:18,270 --> 00:22:20,110
+the data corresponding
+to the file.
+
+486
+00:22:20,110 --> 00:22:22,365
+I should be pointing
+here probably.
+
+487
+00:22:22,365 --> 00:22:24,859
+Okay, so this is the
+file right here.
+
+488
+00:22:24,859 --> 00:22:26,659
+And these are the
+data blocks that are
+
+489
+00:22:26,659 --> 00:22:31,259
+essentially on disk, okay?
+
+490
+00:22:31,259 --> 00:22:34,459
+And then what we want
+to do is that we want
+
+491
+00:22:34,459 --> 00:22:37,500
+to perform a write on this file.
+
+492
+00:22:37,500 --> 00:22:39,219
+So here's what happens.
+
+493
+00:22:39,219 --> 00:22:40,820
+That's going to introduce
+
+494
+00:22:40,820 --> 00:22:43,299
+some metadata updates
+inside the i node one.
+
+495
+00:22:43,299 --> 00:22:45,059
+So let's say previously it
+
+496
+00:22:45,059 --> 00:22:48,020
+pointed to these first
+two data blocks,
+
+497
+00:22:48,020 --> 00:22:51,019
+and then you what's
+going to happen after
+
+498
+00:22:51,019 --> 00:22:52,900
+the mutation to the i node is
+
+499
+00:22:52,900 --> 00:22:55,209
+going to point to these
+two data blocks, okay?
+
+500
+00:22:55,209 --> 00:22:57,159
+So as I mentioned, you know,
+
+501
+00:22:57,159 --> 00:22:59,799
+we are trying to do
+the data write first,
+
+502
+00:22:59,799 --> 00:23:01,280
+and then we're going to persist
+
+503
+00:23:01,280 --> 00:23:03,559
+the metadata update
+to the log second.
+
+504
+00:23:03,559 --> 00:23:05,759
+So here's the first thing
+that we want to do.
+
+505
+00:23:05,759 --> 00:23:07,879
+We want to perform a data write
+
+506
+00:23:07,879 --> 00:23:11,600
+directly to data blocks on disk,
+
+507
+00:23:11,600 --> 00:23:17,679
+not to the log to data
+blocks on disk, okay?
+
+508
+00:23:18,420 --> 00:23:20,939
+It can be corrupt.
+
+509
+00:23:20,939 --> 00:23:23,419
+That's a problem,
+but we're attempting
+
+510
+00:23:23,419 --> 00:23:25,820
+not to solve this problem
+because it's too expensive,
+
+511
+00:23:25,820 --> 00:23:27,580
+as we've just talked about in
+
+512
+00:23:27,580 --> 00:23:29,460
+the fully journal file system.
+
+513
+00:23:29,460 --> 00:23:32,259
+And then we're also going to
+
+514
+00:23:32,259 --> 00:23:36,899
+persist or log the metadata
+update to the journal.
+
+515
+00:23:36,980 --> 00:23:39,419
+And notice that I use
+
+516
+00:23:39,419 --> 00:23:41,739
+the number one in
+both of these cases,
+
+517
+00:23:41,739 --> 00:23:43,740
+and we're going to talk
+about that in a minute.
+
+518
+00:23:43,740 --> 00:23:47,460
+But in terms of issuing
+the right operations,
+
+519
+00:23:47,460 --> 00:23:51,579
+the first write that will be
+issued is the data right.
+
+520
+00:23:51,579 --> 00:23:53,699
+The second right that
+will be issued is
+
+521
+00:23:53,699 --> 00:23:56,859
+the metadata log entry right.
+
+522
+00:23:56,859 --> 00:23:59,139
+Now, as you well know,
+
+523
+00:23:59,139 --> 00:24:00,980
+if they're not explicitly
+
+524
+00:24:00,980 --> 00:24:02,739
+sequenced, they can
+be out of order.
+
+525
+00:24:02,739 --> 00:24:04,499
+But we're going to
+get to that, okay?
+
+526
+00:24:04,499 --> 00:24:07,139
+We're going to get to that
+to see if it's a problem.
+
+527
+00:24:07,139 --> 00:24:11,899
+And only after that as
+operation number two as
+
+528
+00:24:11,899 --> 00:24:14,380
+operation number two
+is actually issuing
+
+529
+00:24:14,380 --> 00:24:18,139
+a commit also to the log. Okay.
+
+530
+00:24:18,139 --> 00:24:21,340
+And then after that, let's
+say you had a second file,
+
+531
+00:24:21,340 --> 00:24:23,099
+you can and it required
+
+532
+00:24:23,099 --> 00:24:25,939
+an node update for the
+data file number two,
+
+533
+00:24:25,939 --> 00:24:30,740
+you could start issuing more
+metadata updates to the log.
+
+534
+00:24:35,780 --> 00:24:39,219
+So does this solve the problem?
+
+535
+00:24:41,430 --> 00:24:44,629
+Oh, actually, let me so
+
+536
+00:24:44,629 --> 00:24:46,029
+please make sure that you
+
+537
+00:24:46,029 --> 00:24:47,669
+remember what we did here, okay?
+
+538
+00:24:47,669 --> 00:24:49,390
+What we did here is we tried
+
+539
+00:24:49,390 --> 00:24:51,709
+to perform a write
+on a data file,
+
+540
+00:24:51,709 --> 00:24:54,949
+and the write of the
+data was issued first.
+
+541
+00:24:54,949 --> 00:24:57,110
+This updated the data entries,
+
+542
+00:24:57,110 --> 00:24:59,830
+and then we logged a
+metadata update to the log.
+
+543
+00:24:59,830 --> 00:25:01,829
+Then we pushed a commit, okay?
+
+544
+00:25:01,829 --> 00:25:03,589
+So let me advance to
+
+545
+00:25:03,589 --> 00:25:05,029
+the next slide so that we can
+
+546
+00:25:05,029 --> 00:25:06,669
+try to analyze what's
+happening here.
+
+547
+00:25:06,669 --> 00:25:09,230
+Here's an ordered
+mode breakdown.
+
+548
+00:25:09,230 --> 00:25:15,910
+And it's a little bit
+conceptually non straightforward.
+
+549
+00:25:15,910 --> 00:25:19,069
+So let me please bear with
+me on this slide, okay?
+
+550
+00:25:19,069 --> 00:25:20,669
+So this slide is important.
+
+551
+00:25:20,669 --> 00:25:22,589
+What's the intuition here?
+
+552
+00:25:22,589 --> 00:25:24,629
+The intuition here is to think
+
+553
+00:25:24,629 --> 00:25:27,349
+from the perspective of
+externally visible state.
+
+554
+00:25:27,349 --> 00:25:30,470
+In other words, what
+is externally visible?
+
+555
+00:25:30,470 --> 00:25:34,269
+And the goal is that at
+any given moment in time,
+
+556
+00:25:34,269 --> 00:25:38,469
+when an i node update
+that metadata one, okay,
+
+557
+00:25:38,469 --> 00:25:41,790
+when a metadata one
+update is visible,
+
+558
+00:25:41,790 --> 00:25:43,669
+it must be true
+
+559
+00:25:43,669 --> 00:25:47,509
+that the corresponding data
+has also been written.
+
+560
+00:25:47,509 --> 00:25:49,070
+And this is by the definition
+
+561
+00:25:49,070 --> 00:25:51,344
+of an ordered mode journaling.
+
+562
+00:25:51,344 --> 00:25:53,619
+And we need this to comply with
+
+563
+00:25:53,619 --> 00:25:57,219
+the consistency of the
+externally visible state.
+
+564
+00:25:57,219 --> 00:25:59,820
+Now, how are we
+accomplishing this goal?
+
+565
+00:25:59,820 --> 00:26:01,379
+What is the mechanism that we
+
+566
+00:26:01,379 --> 00:26:03,180
+use in order to
+achieve this goal?
+
+567
+00:26:03,180 --> 00:26:06,379
+Conceptually, we want to
+enforce a happens before
+
+568
+00:26:06,379 --> 00:26:10,419
+relationship between data
+and metadata updates.
+
+569
+00:26:10,419 --> 00:26:12,259
+And practically, the way we
+
+570
+00:26:12,259 --> 00:26:14,940
+accomplish this
+is by essentially
+
+571
+00:26:14,940 --> 00:26:16,659
+enforcing a flush between
+
+572
+00:26:16,659 --> 00:26:20,299
+a metadata update
+and a commit, okay?
+
+573
+00:26:20,299 --> 00:26:21,780
+So in other words,
+
+574
+00:26:21,780 --> 00:26:27,019
+what you get so this was
+a data file number one.
+
+575
+00:26:27,019 --> 00:26:29,419
+So this was data one.
+
+576
+00:26:29,590 --> 00:26:33,149
+And it was pointing to
+some blocks right here,
+
+577
+00:26:33,149 --> 00:26:35,189
+one, two, three, four, okay?
+
+578
+00:26:35,189 --> 00:26:37,029
+So it's pointing to some well,
+
+579
+00:26:37,029 --> 00:26:39,709
+sorry, not the eye
+node was pointing.
+
+580
+00:26:39,709 --> 00:26:42,390
+This is the file node,
+
+581
+00:26:42,390 --> 00:26:47,990
+node one, and it was pointing
+to some data blocks.
+
+582
+00:26:47,990 --> 00:26:53,310
+This is the data block section
+of your disk data blocks.
+
+583
+00:26:53,310 --> 00:26:55,509
+And this is your disk, okay?
+
+584
+00:26:55,509 --> 00:27:00,609
+This is your disk. Okay. And so
+
+585
+00:27:00,609 --> 00:27:04,770
+this is your log right
+here. This is your log.
+
+586
+00:27:04,770 --> 00:27:07,490
+And what we did is we issued
+
+587
+00:27:07,490 --> 00:27:12,290
+a data right directly to
+the data block section.
+
+588
+00:27:12,870 --> 00:27:17,069
+And that was our
+operation number one.
+
+589
+00:27:17,069 --> 00:27:21,750
+And after that, we issued a
+write for the metadata entry.
+
+590
+00:27:21,750 --> 00:27:29,030
+So this is the meta
+data one entry.
+
+591
+00:27:29,030 --> 00:27:30,670
+And I'm just going to denote
+
+592
+00:27:30,670 --> 00:27:32,429
+it since this is
+such a long word,
+
+593
+00:27:32,429 --> 00:27:35,389
+I'm just going to
+denote it as one, okay?
+
+594
+00:27:35,389 --> 00:27:38,510
+So we have d one directly
+written to disk.
+
+595
+00:27:38,510 --> 00:27:40,469
+So that's your D one right here.
+
+596
+00:27:40,469 --> 00:27:43,510
+And one is the metadata update
+
+597
+00:27:43,510 --> 00:27:46,270
+that corresponds to
+the node mutation,
+
+598
+00:27:46,270 --> 00:27:49,029
+followed by a commit one.
+
+599
+00:27:50,090 --> 00:27:54,129
+And we will enforce the
+ordering between as we
+
+600
+00:27:54,129 --> 00:27:55,569
+have always done with
+
+601
+00:27:55,569 --> 00:27:57,890
+the journal during
+the previous lecture,
+
+602
+00:27:57,890 --> 00:28:01,689
+we will enforce this ordering
+with the flush, okay?
+
+603
+00:28:01,689 --> 00:28:03,489
+And so what you will end up with
+
+604
+00:28:03,489 --> 00:28:05,449
+is essentially this
+partial order.
+
+605
+00:28:05,449 --> 00:28:07,729
+You'll have a Data one and
+
+606
+00:28:07,729 --> 00:28:10,690
+metadata one essentially
+in the same group
+
+607
+00:28:10,690 --> 00:28:12,289
+because there's nothing that
+
+608
+00:28:12,289 --> 00:28:16,489
+explicitly orders them
+relative to each other.
+
+609
+00:28:16,489 --> 00:28:18,049
+And then a separate group,
+
+610
+00:28:18,049 --> 00:28:19,809
+there's going to
+be a commit one,
+
+611
+00:28:19,809 --> 00:28:24,089
+and this will be enforced
+with the flush, okay?
+
+612
+00:28:24,150 --> 00:28:28,710
+So that's the result of this
+order journal file system.
+
+613
+00:28:28,710 --> 00:28:32,229
+And that's the partial
+order that you will get.
+
+614
+00:28:33,890 --> 00:28:35,969
+Now to the last line of
+
+615
+00:28:35,969 --> 00:28:37,610
+the slide, and then
+I'll take questions.
+
+616
+00:28:37,610 --> 00:28:39,729
+The last line of the slide says,
+
+617
+00:28:39,729 --> 00:28:43,889
+When the commit is visible
+to the external world,
+
+618
+00:28:43,889 --> 00:28:49,649
+it must be true that the
+metadata is also visible, okay?
+
+619
+00:28:49,649 --> 00:28:52,370
+And it is true
+because of the flush.
+
+620
+00:28:52,370 --> 00:28:55,529
+And it must also be true that
+the data has been written.
+
+621
+00:28:55,529 --> 00:28:57,489
+And it is true because of
+
+622
+00:28:57,489 --> 00:29:01,010
+this partial order that
+is ordered by a flush.
+
+623
+00:29:01,010 --> 00:29:03,049
+So everything that
+happened before a flash,
+
+624
+00:29:03,049 --> 00:29:04,569
+including the data right,
+
+625
+00:29:04,569 --> 00:29:07,289
+is going to happen before
+
+626
+00:29:07,289 --> 00:29:10,169
+we perform a write
+on commit, okay?
+
+627
+00:29:10,169 --> 00:29:15,305
+And so that means that
+if C one is visible,
+
+628
+00:29:15,305 --> 00:29:22,799
+This implies that one is
+also visible and this also
+
+629
+00:29:22,799 --> 00:29:25,920
+implies that D one
+is also visible
+
+630
+00:29:25,920 --> 00:29:28,360
+and thus we have achieved
+
+631
+00:29:28,360 --> 00:29:31,039
+this ordered semantics
+that we were looking for.
+
+632
+00:29:31,039 --> 00:29:34,239
+Questions. There was a question.
+
+633
+00:29:34,239 --> 00:29:41,059
+Yes. Write the data
+to disk and then,
+
+634
+00:29:41,059 --> 00:29:42,979
+does that have to happen before
+
+635
+00:29:42,979 --> 00:29:45,699
+the metadata or it can
+happen at the same time?
+
+636
+00:29:45,699 --> 00:29:51,459
+Yeah, so we issue a write to
+disk on data first, okay?
+
+637
+00:29:51,459 --> 00:29:53,339
+But it turns out
+
+638
+00:29:53,339 --> 00:29:57,059
+that because the disk can
+reorder write operations,
+
+639
+00:29:57,059 --> 00:29:58,659
+when we also issue
+
+640
+00:29:58,659 --> 00:30:02,020
+a write of the entry from
+metadata to the log,
+
+641
+00:30:02,020 --> 00:30:03,820
+they can be reordered.
+
+642
+00:30:03,820 --> 00:30:07,019
+And that's perfectly fine
+because we're enforcing
+
+643
+00:30:07,019 --> 00:30:08,739
+the ordering with the commit bit
+
+644
+00:30:08,739 --> 00:30:11,019
+and a flash before that, okay?
+
+645
+00:30:11,019 --> 00:30:13,274
+And so by the time we're done,
+
+646
+00:30:13,274 --> 00:30:14,969
+By the time we're done,
+
+647
+00:30:14,969 --> 00:30:18,929
+we have this invariant where
+if we see a valid commit,
+
+648
+00:30:18,929 --> 00:30:21,690
+by implication,
+both the metadata
+
+649
+00:30:21,690 --> 00:30:23,489
+and the data have been written,
+
+650
+00:30:23,489 --> 00:30:25,329
+and we were able to achieve this
+
+651
+00:30:25,329 --> 00:30:27,890
+without logging the data itself.
+
+652
+00:30:27,890 --> 00:30:30,009
+Makes sense?
+
+653
+00:30:30,170 --> 00:30:33,579
+That's powerful construct here.
+
+654
+00:30:33,579 --> 00:30:38,459
+So we were able to
+achieve ordering,
+
+655
+00:30:38,459 --> 00:30:41,860
+and we were able to achieve
+the ordering of performing
+
+656
+00:30:41,860 --> 00:30:43,419
+a write on D one without
+
+657
+00:30:43,419 --> 00:30:46,299
+actually logging
+it to the journal.
+
+658
+00:30:51,100 --> 00:30:53,179
+Okay.
+
+659
+00:30:55,940 --> 00:30:58,659
+So we have these
+three options, right?
+
+660
+00:30:58,659 --> 00:31:00,219
+We can write back, which doesn't
+
+661
+00:31:00,219 --> 00:31:01,939
+have any ordering guarantees.
+
+662
+00:31:01,939 --> 00:31:04,900
+We just briefly talked
+about ordering,
+
+663
+00:31:04,900 --> 00:31:07,339
+where the data is
+written to disk
+
+664
+00:31:07,339 --> 00:31:10,099
+before the metadata is
+written to the log, okay?
+
+665
+00:31:10,099 --> 00:31:12,499
+And I'm being very
+precise with my words.
+
+666
+00:31:12,499 --> 00:31:14,219
+The data is written to disk
+
+667
+00:31:14,219 --> 00:31:16,740
+before the metadata is
+written to the log.
+
+668
+00:31:16,740 --> 00:31:20,059
+And you have journal file
+system which refers to
+
+669
+00:31:20,059 --> 00:31:22,180
+the fully journal
+file system where you
+
+670
+00:31:22,180 --> 00:31:23,940
+commit to the journal
+
+671
+00:31:23,940 --> 00:31:25,940
+both the data and the
+metadata updates,
+
+672
+00:31:25,940 --> 00:31:28,100
+and you ensure
+atomicity that way.
+
+673
+00:31:28,100 --> 00:31:29,980
+And we discussed the advantages
+
+674
+00:31:29,980 --> 00:31:31,459
+and disadvantages of these.
+
+675
+00:31:31,459 --> 00:31:35,730
+So We had this at the end
+of the previous lecture,
+
+676
+00:31:35,730 --> 00:31:37,329
+so I'm just going
+to skip through
+
+677
+00:31:37,329 --> 00:31:39,770
+this very, very quickly.
+
+678
+00:31:39,770 --> 00:31:41,570
+So let's start putting
+
+679
+00:31:41,570 --> 00:31:44,169
+our design points on
+this Preta frontier.
+
+680
+00:31:44,169 --> 00:31:46,649
+Where's the fully
+journaled solution
+
+681
+00:31:46,649 --> 00:31:48,849
+in this trade off space?
+
+682
+00:31:51,800 --> 00:31:54,159
+Upper left, right?
+
+683
+00:31:54,159 --> 00:31:56,479
+Because it gives us
+maximum safety, right?
+
+684
+00:31:56,479 --> 00:31:58,479
+But it sacrifices a
+lot of performance,
+
+685
+00:31:58,479 --> 00:32:00,559
+and we discussed
+precisely the ways
+
+686
+00:32:00,559 --> 00:32:02,400
+in which it sacrifices
+performance.
+
+687
+00:32:02,400 --> 00:32:04,119
+Right back is going
+to be bottom right,
+
+688
+00:32:04,119 --> 00:32:05,799
+sort of the opposite
+of that, right?
+
+689
+00:32:05,799 --> 00:32:07,360
+It's going to be
+very performance,
+
+690
+00:32:07,360 --> 00:32:08,399
+and if that's what we want,
+
+691
+00:32:08,399 --> 00:32:10,000
+if that's your
+application wants,
+
+692
+00:32:10,000 --> 00:32:12,039
+you know, we have
+that option for you.
+
+693
+00:32:12,039 --> 00:32:14,079
+That's why Linux can be
+
+694
+00:32:14,079 --> 00:32:15,359
+configured for you to actually
+
+695
+00:32:15,359 --> 00:32:16,960
+have no journaling whatsoever.
+
+696
+00:32:16,960 --> 00:32:18,649
+Sometimes it is necessary.
+
+697
+00:32:18,649 --> 00:32:21,460
+And order essentially
+strikes this balance
+
+698
+00:32:21,460 --> 00:32:25,339
+between safety and performance
+in this trade off space.
+
+699
+00:32:25,339 --> 00:32:28,219
+It gives up a little bit
+of performance because you
+
+700
+00:32:28,219 --> 00:32:31,260
+are performing double rights
+for your metadata updates,
+
+701
+00:32:31,260 --> 00:32:33,940
+but we do ensure
+metadata sanity,
+
+702
+00:32:33,940 --> 00:32:35,939
+the control plane sanity in
+
+703
+00:32:35,939 --> 00:32:39,179
+your file system by logging
+your metadata updates. Okay?
+
+704
+00:32:39,179 --> 00:32:40,459
+It's a very, very,
+
+705
+00:32:40,459 --> 00:32:42,179
+very quick overview of what we
+
+706
+00:32:42,179 --> 00:32:44,460
+already discussed at the end
+of the previous lecture.
+
+707
+00:32:44,460 --> 00:32:45,700
+In the interest of time,
+
+708
+00:32:45,700 --> 00:32:48,499
+let's move on to the 0.6
+file system interface.
+
+709
+00:32:48,499 --> 00:32:50,059
+So the question is,
+
+710
+00:32:50,059 --> 00:32:52,119
+if I'm a user, right?
+
+711
+00:32:52,119 --> 00:32:54,060
+I'm a user application.
+
+712
+00:32:54,060 --> 00:32:55,460
+I live above the kernel.
+
+713
+00:32:55,460 --> 00:32:57,060
+I'm no longer inside the kernel.
+
+714
+00:32:57,060 --> 00:32:58,180
+I'm no longer designing
+
+715
+00:32:58,180 --> 00:33:01,380
+a file system vertical
+of the kernel itself.
+
+716
+00:33:01,380 --> 00:33:03,139
+What can I do, right?
+
+717
+00:33:03,139 --> 00:33:05,379
+Because it seems like there
+
+718
+00:33:05,379 --> 00:33:06,899
+are so many moving
+parts to this,
+
+719
+00:33:06,899 --> 00:33:09,500
+and let's say that from an
+application perspective,
+
+720
+00:33:09,500 --> 00:33:12,139
+I want to be able to
+persist my file with
+
+721
+00:33:12,139 --> 00:33:15,359
+a I want to be able to persist
+my file. How do I do this?
+
+722
+00:33:15,359 --> 00:33:17,720
+This is the P six file
+system interface.
+
+723
+00:33:17,720 --> 00:33:20,199
+You have read write, make
+door, create, and link.
+
+724
+00:33:20,199 --> 00:33:24,240
+Okay. You have mode and
+you own, you have Stat.
+
+725
+00:33:24,240 --> 00:33:26,439
+You have some file
+control system calls,
+
+726
+00:33:26,439 --> 00:33:28,040
+and of course, you have FSync,
+
+727
+00:33:28,040 --> 00:33:30,040
+which is the only persistency
+
+728
+00:33:30,040 --> 00:33:34,079
+Cisco that you have because
+it syncs a file to disk.
+
+729
+00:33:34,079 --> 00:33:35,759
+It makes the changes to
+
+730
+00:33:35,759 --> 00:33:39,199
+a specified file descriptor
+persistent, okay?
+
+731
+00:33:39,199 --> 00:33:41,439
+That's what you
+have to work with.
+
+732
+00:33:41,439 --> 00:33:46,460
+Um, And as we know, basically,
+
+733
+00:33:46,460 --> 00:33:49,459
+when we perform an open and
+when we perform a write,
+
+734
+00:33:49,459 --> 00:33:51,579
+at this point in
+time, right here,
+
+735
+00:33:51,579 --> 00:33:52,940
+the write can be cached.
+
+736
+00:33:52,940 --> 00:33:54,299
+We have no guarantees that
+
+737
+00:33:54,299 --> 00:33:56,419
+it's actually persisting
+to disk, right?
+
+738
+00:33:56,419 --> 00:33:58,180
+And it will not be guaranteed
+
+739
+00:33:58,180 --> 00:33:59,779
+to persist to disk until after
+
+740
+00:33:59,779 --> 00:34:04,140
+we've actually called an F
+Sync on the file descriptor.
+
+741
+00:34:04,140 --> 00:34:06,179
+So the way to think
+about this is
+
+742
+00:34:06,179 --> 00:34:07,300
+your F Sync is
+
+743
+00:34:07,300 --> 00:34:10,099
+essentially a memory barrier
+for the file system.
+
+744
+00:34:10,099 --> 00:34:12,779
+And only after that,
+it's a blocking call,
+
+745
+00:34:12,779 --> 00:34:14,979
+obviously, and only after
+
+746
+00:34:14,979 --> 00:34:18,049
+that the write is now
+on disk and persisted.
+
+747
+00:34:18,049 --> 00:34:20,279
+So the question that you
+
+748
+00:34:20,279 --> 00:34:22,520
+might have is if
+you call an F Sync,
+
+749
+00:34:22,520 --> 00:34:23,840
+how does this interact
+
+750
+00:34:23,840 --> 00:34:25,879
+with what we have just
+discussed, right?
+
+751
+00:34:25,879 --> 00:34:28,400
+How does this interact
+with the journal?
+
+752
+00:34:28,400 --> 00:34:30,079
+How does this interact with
+
+753
+00:34:30,079 --> 00:34:33,399
+the log and with the
+kernel in general?
+
+754
+00:34:33,399 --> 00:34:36,919
+And how do our ordering
+and atomicity mechanisms
+
+755
+00:34:36,919 --> 00:34:39,599
+actually interact with an FInc?
+
+756
+00:34:39,599 --> 00:34:42,239
+So we're going to go
+through an example of this.
+
+757
+00:34:42,239 --> 00:34:44,159
+And the problem here is that
+
+758
+00:34:44,159 --> 00:34:46,280
+the F Inc essentially suffers
+
+759
+00:34:46,280 --> 00:34:47,919
+from this property of
+
+760
+00:34:47,919 --> 00:34:50,360
+the logging that we wanted
+in the very beginning,
+
+761
+00:34:50,360 --> 00:34:52,719
+which is sequential logging.
+
+762
+00:34:52,719 --> 00:34:55,079
+And so to motivate this,
+
+763
+00:34:55,079 --> 00:34:57,799
+let me draw something
+else on the whiteboard.
+
+764
+00:34:57,799 --> 00:35:00,239
+How do I get the
+second whiteboard?
+
+765
+00:35:00,239 --> 00:35:10,039
+Okay, here we go. All right.
+
+766
+00:35:10,039 --> 00:35:12,520
+So here's what's happening.
+
+767
+00:35:12,520 --> 00:35:16,040
+We have two files.
+
+768
+00:35:16,200 --> 00:35:18,759
+Of course, there's
+going to be a log.
+
+769
+00:35:18,759 --> 00:35:20,079
+So this is our log.
+
+770
+00:35:20,079 --> 00:35:22,239
+We're going to be doing
+stuff with the log.
+
+771
+00:35:22,239 --> 00:35:25,720
+Huge surprise. Two files,
+
+772
+00:35:25,720 --> 00:35:29,119
+File one and file two.
+
+773
+00:35:29,119 --> 00:35:33,399
+This is file one, and
+this is file two.
+
+774
+00:35:33,399 --> 00:35:36,599
+Okay. And let's say
+
+775
+00:35:36,599 --> 00:35:38,439
+there's some blocks of data that
+
+776
+00:35:38,439 --> 00:35:41,160
+these files actually
+want to mutate.
+
+777
+00:35:41,160 --> 00:35:43,199
+We're going to color them.
+
+778
+00:35:43,199 --> 00:35:45,919
+Let's say the mutation
+actually happens to
+
+779
+00:35:45,919 --> 00:35:48,839
+these particular
+blocks of data for
+
+780
+00:35:48,839 --> 00:35:55,399
+file one and these particular
+blocks of data to file two.
+
+781
+00:35:55,399 --> 00:36:00,199
+And this is our disk right here.
+
+782
+00:36:00,360 --> 00:36:04,520
+And these are the
+data blocks on disk.
+
+783
+00:36:05,270 --> 00:36:11,429
+These are data
+blocks, data blocks.
+
+784
+00:36:11,430 --> 00:36:14,269
+So this could be
+
+785
+00:36:14,269 --> 00:36:17,309
+pointing somewhere over
+here and over here,
+
+786
+00:36:17,309 --> 00:36:19,909
+and these two block
+mutations could
+
+787
+00:36:19,909 --> 00:36:23,349
+be pointing somewhere
+over here and over here.
+
+788
+00:36:24,950 --> 00:36:28,069
+So here's a sequence
+of operations
+
+789
+00:36:28,069 --> 00:36:30,830
+that is being done
+on these two files.
+
+790
+00:36:30,830 --> 00:36:33,790
+A sequence of operations
+is the following.
+
+791
+00:36:33,790 --> 00:36:35,630
+So these are the ops.
+
+792
+00:36:35,630 --> 00:36:43,349
+You perform a write and
+another write on file one.
+
+793
+00:36:44,080 --> 00:36:46,519
+You then perform another write.
+
+794
+00:36:46,519 --> 00:36:48,439
+Oh, I'm running out of space
+
+795
+00:36:48,439 --> 00:36:50,959
+here and another
+write on file two.
+
+796
+00:36:50,959 --> 00:36:54,039
+And then finally, you perform
+an F sync because you
+
+797
+00:36:54,039 --> 00:36:58,359
+want to actually F
+sync your file two.
+
+798
+00:36:58,359 --> 00:37:01,719
+This is a sequence of
+operations that you perform.
+
+799
+00:37:01,719 --> 00:37:04,639
+And so all you want is to
+
+800
+00:37:04,639 --> 00:37:06,279
+persist the changes to
+
+801
+00:37:06,279 --> 00:37:08,959
+the file two that
+you have just done.
+
+802
+00:37:11,110 --> 00:37:14,069
+And we are operating
+with something that
+
+803
+00:37:14,069 --> 00:37:17,230
+we are going to take
+for as a default,
+
+804
+00:37:17,230 --> 00:37:20,789
+we're operating in an
+ordered logging modality.
+
+805
+00:37:20,789 --> 00:37:23,630
+So in an ordered
+logging modality,
+
+806
+00:37:23,630 --> 00:37:25,349
+remember that what's
+going to happen
+
+807
+00:37:25,349 --> 00:37:27,349
+is that in the log is that
+
+808
+00:37:27,349 --> 00:37:31,509
+you're going to have your
+metadata one update,
+
+809
+00:37:31,509 --> 00:37:34,029
+then you're going to
+have your checksum
+
+810
+00:37:34,029 --> 00:37:36,670
+and then metadata two update,
+
+811
+00:37:36,670 --> 00:37:38,989
+and two update, and
+then you're going
+
+812
+00:37:38,989 --> 00:37:41,274
+to have your checksum
+for metadata two.
+
+813
+00:37:41,274 --> 00:37:44,999
+Check some commit for
+metadata two, okay?
+
+814
+00:37:44,999 --> 00:37:48,199
+And so I'm going to carry over
+
+815
+00:37:48,199 --> 00:37:51,760
+those ops to be at the bottom
+right here for convenience.
+
+816
+00:37:51,760 --> 00:37:53,440
+These are exactly the same ops.
+
+817
+00:37:53,440 --> 00:37:55,999
+A write a write for F one,
+
+818
+00:37:55,999 --> 00:37:59,679
+another write and
+write for F two,
+
+819
+00:37:59,679 --> 00:38:05,639
+and an F sync for file two.
+
+820
+00:38:05,639 --> 00:38:08,559
+Let's not worry about the
+file descriptor, okay?
+
+821
+00:38:08,559 --> 00:38:12,319
+So what's going to
+
+822
+00:38:12,319 --> 00:38:16,919
+happen in order for us to
+actually return out of Fsync,
+
+823
+00:38:16,919 --> 00:38:18,359
+what's going to
+happen with the log?
+
+824
+00:38:18,359 --> 00:38:21,840
+How's it going to interact
+with the log? Any ideas?
+
+825
+00:38:33,520 --> 00:38:36,559
+So FCN guarantees is that
+
+826
+00:38:36,559 --> 00:38:40,640
+your file two should
+be persistent to disk.
+
+827
+00:38:40,640 --> 00:38:42,440
+So when it returns,
+
+828
+00:38:42,440 --> 00:38:46,160
+it tells you that file two
+was persistent to disk.
+
+829
+00:38:48,320 --> 00:38:58,119
+Yeah. Um, so it
+
+830
+00:38:58,119 --> 00:39:00,679
+doesn't explicitly call
+a log merge, right?
+
+831
+00:39:00,679 --> 00:39:03,359
+But you're absolutely correct
+
+832
+00:39:03,359 --> 00:39:05,039
+that the end result of calling
+
+833
+00:39:05,039 --> 00:39:07,399
+an F sync on file
+two is actually
+
+834
+00:39:07,399 --> 00:39:10,199
+going to result in
+this particular case,
+
+835
+00:39:10,199 --> 00:39:13,279
+what is essentially
+a log merge, okay?
+
+836
+00:39:13,279 --> 00:39:14,799
+And there's a reason for this.
+
+837
+00:39:14,799 --> 00:39:16,199
+The reason for this, now I'm
+
+838
+00:39:16,199 --> 00:39:17,519
+going to use dashed lines and
+
+839
+00:39:17,519 --> 00:39:19,879
+maybe a different colored
+marker so that you
+
+840
+00:39:19,879 --> 00:39:22,679
+can see why this is
+happening, okay?
+
+841
+00:39:22,679 --> 00:39:25,279
+The Fync a file descriptor
+
+842
+00:39:25,279 --> 00:39:27,279
+two wants to make
+sure it sort of takes
+
+843
+00:39:27,279 --> 00:39:32,959
+a dependency on this commit
+to. Do you agree with me?
+
+844
+00:39:32,959 --> 00:39:37,119
+So it takes a dependency
+on this commit two, right?
+
+845
+00:39:37,119 --> 00:39:41,039
+And then this commit
+to takes actually
+
+846
+00:39:41,039 --> 00:39:42,559
+a flash dependency on
+
+847
+00:39:42,559 --> 00:39:46,479
+metadata two being
+written to disk, right?
+
+848
+00:39:47,200 --> 00:39:49,704
+In addition to this,
+
+849
+00:39:49,704 --> 00:39:53,249
+the metadata two, and sorry.
+
+850
+00:39:53,249 --> 00:39:56,089
+And this commit is also
+taking a dependency on
+
+851
+00:39:56,089 --> 00:39:57,569
+the commit one because
+
+852
+00:39:57,569 --> 00:39:59,329
+there's actually a
+flush in between,
+
+853
+00:39:59,329 --> 00:40:01,009
+and this commit one is taking
+
+854
+00:40:01,009 --> 00:40:03,490
+a dependency on
+metadata one update.
+
+855
+00:40:03,490 --> 00:40:05,929
+So if we were to write down
+
+856
+00:40:05,929 --> 00:40:09,249
+a partial autograph
+for this situation,
+
+857
+00:40:09,249 --> 00:40:10,929
+we should be able to do that
+
+858
+00:40:10,929 --> 00:40:12,529
+using this example right here.
+
+859
+00:40:12,529 --> 00:40:15,529
+This was a small example,
+but using this example,
+
+860
+00:40:15,529 --> 00:40:18,370
+we can actually write a
+partial autograph update
+
+861
+00:40:18,370 --> 00:40:20,849
+a partial autograph
+representation
+
+862
+00:40:20,849 --> 00:40:22,609
+of the situation, okay?
+
+863
+00:40:22,609 --> 00:40:24,409
+And what is it going to be?
+
+864
+00:40:24,409 --> 00:40:26,009
+At the very beginning,
+
+865
+00:40:26,009 --> 00:40:27,770
+you're going to have your Data
+
+866
+00:40:27,770 --> 00:40:31,569
+one and your metadata one right?
+
+867
+00:40:31,650 --> 00:40:34,690
+And then it's going
+to be sequenced.
+
+868
+00:40:34,690 --> 00:40:37,729
+I think I'm going to
+run out of space here.
+
+869
+00:40:38,450 --> 00:40:42,049
+Let me try to go a little
+bit further to the back.
+
+870
+00:40:42,049 --> 00:40:45,209
+So you have a Data one and
+
+871
+00:40:45,209 --> 00:40:48,850
+a metadata one in the same set,
+
+872
+00:40:48,850 --> 00:40:50,769
+so they can be
+written in any order,
+
+873
+00:40:50,769 --> 00:40:52,449
+and that doesn't
+matter because it's
+
+874
+00:40:52,449 --> 00:40:55,809
+sequenced with commit one.
+
+875
+00:40:58,210 --> 00:41:00,929
+So this sequencing is
+
+876
+00:41:00,929 --> 00:41:02,329
+essentially carried out with
+
+877
+00:41:02,329 --> 00:41:04,629
+the flash operation in between.
+
+878
+00:41:04,629 --> 00:41:07,489
+Now, in addition to
+this commit one,
+
+879
+00:41:07,489 --> 00:41:09,369
+remember we were
+discussing that you don't
+
+880
+00:41:09,369 --> 00:41:11,809
+necessarily care about the order
+
+881
+00:41:11,809 --> 00:41:14,649
+in which your M sub by plus one
+
+882
+00:41:14,649 --> 00:41:18,289
+is sync to disk relative
+to C sub by, okay?
+
+883
+00:41:18,289 --> 00:41:20,369
+It doesn't really
+matter. So you can
+
+884
+00:41:20,369 --> 00:41:23,730
+put this two in the same set,
+
+885
+00:41:23,730 --> 00:41:26,449
+and you can also
+put G two here in
+
+886
+00:41:26,449 --> 00:41:28,849
+the same set because
+as we discussed,
+
+887
+00:41:28,849 --> 00:41:32,849
+the metadata sub and data subi
+can be sync to disk out of
+
+888
+00:41:32,849 --> 00:41:34,569
+order because they
+are going to be
+
+889
+00:41:34,569 --> 00:41:38,129
+sequenced by the
+corresponding C two,
+
+890
+00:41:38,129 --> 00:41:41,449
+by the corresponding
+commit checksum.
+
+891
+00:41:47,280 --> 00:41:51,120
+Okay, I see some heads nodding.
+
+892
+00:41:51,200 --> 00:41:53,679
+It's a bit too
+much. It's probably
+
+893
+00:41:53,679 --> 00:41:56,359
+the most complicated example
+you'll see in this class.
+
+894
+00:41:56,359 --> 00:41:59,399
+And this completes
+our partial order.
+
+895
+00:41:59,399 --> 00:42:03,359
+So this example
+right here you can
+
+896
+00:42:03,359 --> 00:42:08,000
+capture a partial graph a
+partial autograph as follows.
+
+897
+00:42:08,000 --> 00:42:10,639
+And this makes it clear
+
+898
+00:42:10,639 --> 00:42:15,039
+that if your F sync takes
+a dependency on C two,
+
+899
+00:42:15,039 --> 00:42:16,759
+it must be true that everything
+
+900
+00:42:16,759 --> 00:42:19,909
+else will have been
+persistent to disk.
+
+901
+00:42:19,909 --> 00:42:24,259
+Yes. There are other
+pending commits
+
+902
+00:42:24,259 --> 00:42:27,180
+in the log which maybe
+belong to other files.
+
+903
+00:42:27,180 --> 00:42:29,739
+Wouldn't those also have to
+go through when you call F?
+
+904
+00:42:29,739 --> 00:42:31,499
+I would say Fnc because,
+
+905
+00:42:31,499 --> 00:42:35,179
+like, all the commits have
+to be in order? Yeah.
+
+906
+00:42:35,179 --> 00:42:39,339
+Yeah, exactly. That's
+essentially the problem is that
+
+907
+00:42:39,339 --> 00:42:43,940
+FSync is going to trigger an
+entire log merge operation,
+
+908
+00:42:43,940 --> 00:42:45,459
+as he pointed out, right?
+
+909
+00:42:45,459 --> 00:42:48,339
+Because of this ordering
+that we have imposed.
+
+910
+00:42:48,339 --> 00:42:51,340
+And this is sort of
+fundamentally connected
+
+911
+00:42:51,340 --> 00:42:55,899
+with um with the structure of
+the log in the first place.
+
+912
+00:42:55,899 --> 00:42:57,859
+We wanted the log
+to be sequential.
+
+913
+00:42:57,859 --> 00:43:00,540
+We wanted the log to actually
+give us this ordering.
+
+914
+00:43:00,540 --> 00:43:02,939
+But there's a disadvantage
+associated with that.
+
+915
+00:43:02,939 --> 00:43:05,099
+And the disadvantage
+is that it gives
+
+916
+00:43:05,099 --> 00:43:07,620
+this essentially false ordering
+
+917
+00:43:07,620 --> 00:43:10,700
+across even independent files.
+
+918
+00:43:10,700 --> 00:43:12,859
+It imposes total order on
+
+919
+00:43:12,859 --> 00:43:15,500
+the operations that are going
+to be persistent to disk.
+
+920
+00:43:15,500 --> 00:43:17,739
+And it does that for
+crash consistency,
+
+921
+00:43:17,739 --> 00:43:19,939
+but it comes with
+a disadvantage,
+
+922
+00:43:19,939 --> 00:43:21,619
+and disadvantage is
+that if you want to
+
+923
+00:43:21,619 --> 00:43:24,700
+guarantee persistence
+of some file to disk,
+
+924
+00:43:24,700 --> 00:43:28,619
+the entire prefix of
+the log in front of
+
+925
+00:43:28,619 --> 00:43:30,219
+that specific file in
+
+926
+00:43:30,219 --> 00:43:34,014
+the log is going to be
+persistent to disk.
+
+927
+00:43:34,014 --> 00:43:38,050
+So it's not exactly a
+log merge operation,
+
+928
+00:43:38,050 --> 00:43:41,169
+but it's a prefix
+merge operation, okay?
+
+929
+00:43:41,169 --> 00:43:47,209
+So that's a problem. Yeah. And I
+
+930
+00:43:47,209 --> 00:43:48,449
+already have this in the slides,
+
+931
+00:43:48,449 --> 00:43:50,049
+so you don't have to
+take pictures of this.
+
+932
+00:43:50,049 --> 00:43:52,294
+It'll be included in the slides.
+
+933
+00:43:52,294 --> 00:43:54,739
+So this is the downside
+of logging, right?
+
+934
+00:43:54,739 --> 00:43:57,499
+You combine all file
+system data into one log.
+
+935
+00:43:57,499 --> 00:44:00,419
+It imposes a total
+ordering on data,
+
+936
+00:44:00,419 --> 00:44:02,939
+and it doesn't even
+matter if this data is
+
+937
+00:44:02,939 --> 00:44:05,979
+coming from file one or
+file two or file three.
+
+938
+00:44:05,979 --> 00:44:07,739
+All of this operation is
+
+939
+00:44:07,739 --> 00:44:10,619
+essentially conducted within
+the file system itself,
+
+940
+00:44:10,619 --> 00:44:13,099
+and the file system
+cares about itself.
+
+941
+00:44:13,099 --> 00:44:15,500
+It cares about crash consistency
+
+942
+00:44:15,500 --> 00:44:18,899
+and control plane
+sanity of itself,
+
+943
+00:44:18,899 --> 00:44:21,659
+okay, which is not
+
+944
+00:44:21,659 --> 00:44:23,059
+necessarily what the user
+
+945
+00:44:23,059 --> 00:44:24,659
+application may
+want to care about.
+
+946
+00:44:24,659 --> 00:44:28,259
+So it makes these Fsync
+operations extremely,
+
+947
+00:44:28,259 --> 00:44:30,459
+extremely expensive.
+
+948
+00:44:30,459 --> 00:44:33,140
+They're very expensive.
+
+949
+00:44:33,140 --> 00:44:35,699
+So the whole point
+of what I've just
+
+950
+00:44:35,699 --> 00:44:37,579
+described is
+essentially to tell you
+
+951
+00:44:37,579 --> 00:44:40,819
+how calling Enc from
+a PS six interface
+
+952
+00:44:40,819 --> 00:44:44,339
+at the user slash application
+level actually has
+
+953
+00:44:44,339 --> 00:44:45,499
+significant kind of
+
+954
+00:44:45,499 --> 00:44:47,659
+performance implications
+if you're using
+
+955
+00:44:47,659 --> 00:44:53,419
+even an ordered journaled
+file system as your default.
+
+956
+00:44:53,820 --> 00:44:57,099
+Ooh. Okay.
+
+957
+00:44:57,440 --> 00:45:00,159
+So let's assume we wanted to
+
+958
+00:45:00,159 --> 00:45:02,639
+modify a file in
+a crash safe way.
+
+959
+00:45:02,639 --> 00:45:05,679
+How would we do this
+via a P six interface?
+
+960
+00:45:05,679 --> 00:45:07,279
+So we're going to be now
+
+961
+00:45:07,279 --> 00:45:10,359
+switching from file
+system view of things,
+
+962
+00:45:10,359 --> 00:45:12,439
+which is inside
+the kernel, okay,
+
+963
+00:45:12,439 --> 00:45:16,959
+to a user level to the
+user level perspective.
+
+964
+00:45:16,959 --> 00:45:19,679
+So if I'm a user
+application and I
+
+965
+00:45:19,679 --> 00:45:22,599
+actually care about
+persisting my file to disk,
+
+966
+00:45:22,599 --> 00:45:24,239
+how do I actually do that in
+
+967
+00:45:24,239 --> 00:45:26,999
+a crash consistent
+fashion, okay?
+
+968
+00:45:26,999 --> 00:45:29,079
+So this is the highest level
+
+969
+00:45:29,079 --> 00:45:30,639
+in the stack, and
+the question is,
+
+970
+00:45:30,639 --> 00:45:32,759
+how do we ensure atomicity at
+
+971
+00:45:32,759 --> 00:45:37,640
+the highest user level user
+space level of the stack?
+
+972
+00:45:37,640 --> 00:45:40,559
+So what promises
+does PoS guarantee?
+
+973
+00:45:40,559 --> 00:45:41,759
+Very weak semantics.
+
+974
+00:45:41,759 --> 00:45:44,440
+After an Fn, my data will
+be persistent to disk.
+
+975
+00:45:44,440 --> 00:45:46,720
+That's all we know.
+Before an F Sync,
+
+976
+00:45:46,720 --> 00:45:48,839
+there's no guarantees
+about what's in the file.
+
+977
+00:45:48,839 --> 00:45:50,959
+It could potentially
+be corrupt, okay?
+
+978
+00:45:50,959 --> 00:45:52,399
+So here's an example.
+
+979
+00:45:52,399 --> 00:45:55,639
+Let's assume we have
+file F in directory bar.
+
+980
+00:45:55,639 --> 00:45:58,919
+The way we modify how do
+we modify let's construct
+
+981
+00:45:58,919 --> 00:46:01,679
+essentially some pseudo
+code that will modify it
+
+982
+00:46:01,679 --> 00:46:04,920
+atomically by only
+using P six standards.
+
+983
+00:46:04,920 --> 00:46:07,000
+In other words, without relying
+
+984
+00:46:07,000 --> 00:46:09,195
+on a file system whatsoever.
+
+985
+00:46:09,195 --> 00:46:11,229
+Because let's say we don't
+
+986
+00:46:11,229 --> 00:46:13,109
+know what to expect
+from a file system.
+
+987
+00:46:13,109 --> 00:46:14,869
+So in the interest of time,
+
+988
+00:46:14,869 --> 00:46:16,069
+normally I would ask for
+
+989
+00:46:16,069 --> 00:46:18,349
+some suggestions on how
+do we accomplish this?
+
+990
+00:46:18,349 --> 00:46:21,549
+But it may come as a
+surprise to many of you that
+
+991
+00:46:21,549 --> 00:46:25,745
+you can actually create
+a log file in userspace.
+
+992
+00:46:25,745 --> 00:46:29,979
+Remember just how it
+was somewhat surprising
+
+993
+00:46:29,979 --> 00:46:34,299
+that you can manage different
+stacks in userspace.
+
+994
+00:46:34,299 --> 00:46:36,139
+So you can actually
+have a userspace
+
+995
+00:46:36,139 --> 00:46:37,939
+threading library that actually
+
+996
+00:46:37,939 --> 00:46:40,379
+switches and controls which
+
+997
+00:46:40,379 --> 00:46:42,579
+the thread stack
+gets to run, right?
+
+998
+00:46:42,579 --> 00:46:44,820
+And there's nothing
+fundamentally preventing
+
+999
+00:46:44,820 --> 00:46:47,299
+us from doing that in userspace.
+Same thing goes here.
+
+1000
+00:46:47,299 --> 00:46:50,180
+You can actually create
+a log file in userspace.
+
+1001
+00:46:50,180 --> 00:46:52,659
+So let's create a
+log filee, right?
+
+1002
+00:46:52,659 --> 00:46:55,089
+And now We store
+
+1003
+00:46:55,089 --> 00:46:56,449
+the updates in the log just
+
+1004
+00:46:56,449 --> 00:46:58,369
+like we would inside
+a file system.
+
+1005
+00:46:58,369 --> 00:47:01,209
+Then we perform an update
+on the actual file.
+
+1006
+00:47:01,209 --> 00:47:03,329
+We're trying to
+persist atomically to
+
+1007
+00:47:03,329 --> 00:47:06,169
+disk using Post semantics only,
+
+1008
+00:47:06,169 --> 00:47:08,049
+and then we're going
+to delete the log.
+
+1009
+00:47:08,049 --> 00:47:10,129
+So by the end of these
+four operations,
+
+1010
+00:47:10,129 --> 00:47:11,770
+we will have accomplished
+
+1011
+00:47:11,770 --> 00:47:15,489
+atomic persistence of the
+file of interest to disk,
+
+1012
+00:47:15,489 --> 00:47:19,059
+using Post level only semantics.
+
+1013
+00:47:19,059 --> 00:47:21,989
+Okay, let's build it up.
+
+1014
+00:47:21,989 --> 00:47:25,389
+Let's create a log. Okay.
+
+1015
+00:47:25,389 --> 00:47:27,669
+Now we're going to
+write to the log,
+
+1016
+00:47:27,669 --> 00:47:30,150
+add some offset size,
+
+1017
+00:47:30,150 --> 00:47:31,669
+and we're going to
+write the data that
+
+1018
+00:47:31,669 --> 00:47:33,309
+we want to write
+and the check sum.
+
+1019
+00:47:33,309 --> 00:47:34,629
+So this will correspond to
+
+1020
+00:47:34,629 --> 00:47:36,429
+essentially, well,
+this is not here.
+
+1021
+00:47:36,429 --> 00:47:39,509
+This will correspond
+to a data entry, okay?
+
+1022
+00:47:39,509 --> 00:47:43,749
+And this will correspond
+to a check sum commit.
+
+1023
+00:47:44,050 --> 00:47:46,529
+Now, of course, at some point,
+
+1024
+00:47:46,529 --> 00:47:48,729
+we want to write the actual data
+
+1025
+00:47:48,729 --> 00:47:50,809
+to the actual file, okay?
+
+1026
+00:47:50,809 --> 00:47:52,889
+So there's a difference
+between those two
+
+1027
+00:47:52,889 --> 00:47:55,609
+because the first one is
+writing to the log that we
+
+1028
+00:47:55,609 --> 00:47:58,849
+have just created as
+a mechanism for us to
+
+1029
+00:47:58,849 --> 00:48:03,889
+ensure atomic update to the
+file at 0.6 level, okay?
+
+1030
+00:48:03,889 --> 00:48:06,489
+And this is the actual write
+that we want to perform,
+
+1031
+00:48:06,489 --> 00:48:09,369
+the actual write that we
+want to persist, okay?
+
+1032
+00:48:09,369 --> 00:48:12,609
+So remember that. Any
+questions so far?
+
+1033
+00:48:12,609 --> 00:48:14,929
+We we've created the log,
+
+1034
+00:48:14,929 --> 00:48:16,369
+we've written to the log, and
+
+1035
+00:48:16,369 --> 00:48:18,745
+now we're writing to the file.
+
+1036
+00:48:18,745 --> 00:48:21,799
+No guarantees yet.
+
+1037
+00:48:21,799 --> 00:48:26,079
+Nothing at this point in time
+will have gone to disk yet,
+
+1038
+00:48:26,079 --> 00:48:28,319
+which is really cool.
+
+1039
+00:48:28,319 --> 00:48:30,119
+And then we want to get rid of
+
+1040
+00:48:30,119 --> 00:48:31,719
+the log because who
+cares about the log?
+
+1041
+00:48:31,719 --> 00:48:33,439
+We are done with
+writing the file.
+
+1042
+00:48:33,439 --> 00:48:36,519
+So obviously, we want
+to get rid of the log.
+
+1043
+00:48:36,519 --> 00:48:40,399
+Is this sufficient for us
+to ensure persistence?
+
+1044
+00:48:43,360 --> 00:48:46,079
+That is not a trick question.
+
+1045
+00:48:46,079 --> 00:48:50,159
+If I give you the pseudo code
+on exam two and I ask you,
+
+1046
+00:48:50,159 --> 00:48:51,920
+have you persisted the file?
+
+1047
+00:48:51,920 --> 00:48:55,039
+What is the true,
+false answer here?
+
+1048
+00:48:57,980 --> 00:49:00,299
+You should be very, very
+
+1049
+00:49:00,299 --> 00:49:03,819
+confident in the fact that
+the answer here is no.
+
+1050
+00:49:03,819 --> 00:49:07,820
+We talked about this
+for three lectures.
+
+1051
+00:49:10,059 --> 00:49:12,499
+How do we do this? We're going
+
+1052
+00:49:12,499 --> 00:49:14,939
+to use an F sync on the file.
+
+1053
+00:49:14,939 --> 00:49:18,139
+Now, is this sufficient?
+
+1054
+00:49:19,100 --> 00:49:25,179
+Interestingly enough, it is
+actually not sufficient.
+
+1055
+00:49:26,300 --> 00:49:33,099
+What are we missing? Yes.
+
+1056
+00:49:33,099 --> 00:49:35,059
+I'm just curious if someone has
+
+1057
+00:49:35,059 --> 00:49:37,099
+any ideas because this
+is non trivial now.
+
+1058
+00:49:37,099 --> 00:49:38,740
+Now it gets to be non trivial.
+
+1059
+00:49:38,740 --> 00:49:44,219
+Yes. Yes. That the data
+
+1060
+00:49:44,219 --> 00:49:47,979
+you wrote matches the
+check sum for corruption.
+
+1061
+00:49:47,979 --> 00:49:50,939
+Okay. So basically, you want to
+
+1062
+00:49:50,939 --> 00:49:54,779
+check if the check sum is
+actually correct, right?
+
+1063
+00:49:54,779 --> 00:49:57,699
+So the validity of
+the entry, right?
+
+1064
+00:49:57,699 --> 00:50:01,300
+Okay. So not quite
+that advanced,
+
+1065
+00:50:01,300 --> 00:50:03,259
+although I do like
+this idea, right?
+
+1066
+00:50:03,259 --> 00:50:05,659
+But at minimum,
+
+1067
+00:50:05,659 --> 00:50:08,339
+we want to do something even
+simpler than that, right?
+
+1068
+00:50:08,339 --> 00:50:10,139
+We actually want to
+make sure that we
+
+1069
+00:50:10,139 --> 00:50:12,899
+persist the log to disk also.
+
+1070
+00:50:13,140 --> 00:50:14,379
+Okay?
+
+1071
+00:50:14,379 --> 00:50:15,979
+We want to persist the log.
+
+1072
+00:50:15,979 --> 00:50:19,379
+And it turns out that that
+in itself is not sufficient?
+
+1073
+00:50:19,379 --> 00:50:21,899
+And then the hint here
+
+1074
+00:50:21,899 --> 00:50:25,419
+is that we've created
+something inside a directory.
+
+1075
+00:50:25,419 --> 00:50:28,899
+And when you create something
+inside a directory,
+
+1076
+00:50:28,899 --> 00:50:31,979
+something happens as far
+
+1077
+00:50:31,979 --> 00:50:34,300
+as the metadata
+mutation is concerned.
+
+1078
+00:50:34,300 --> 00:50:39,380
+What happens? The file
+system two lecture.
+
+1079
+00:50:39,780 --> 00:50:42,539
+There's something else
+that changes when
+
+1080
+00:50:42,539 --> 00:50:44,859
+you create a file
+inside a directory.
+
+1081
+00:50:44,859 --> 00:50:49,139
+Yeah. You add a Durant, right?
+
+1082
+00:50:49,139 --> 00:50:51,539
+Where do you add a Durent?
+
+1083
+00:50:51,900 --> 00:50:58,340
+Where does that go? Which
+node does it mutate?
+
+1084
+00:50:58,340 --> 00:51:02,819
+Yeah. The directory eye node.
+
+1085
+00:51:02,819 --> 00:51:05,379
+Wow. You see how
+
+1086
+00:51:05,379 --> 00:51:08,059
+careful you have to be when
+you step through this code.
+
+1087
+00:51:08,059 --> 00:51:11,100
+You need to also F sync your
+current working directory.
+
+1088
+00:51:11,100 --> 00:51:12,299
+And the reason for
+this is because
+
+1089
+00:51:12,299 --> 00:51:14,139
+you've created a log there,
+
+1090
+00:51:14,139 --> 00:51:18,219
+which has inserted a Durant
+into the directory node.
+
+1091
+00:51:18,219 --> 00:51:20,929
+So you need to F
+sync that as well.
+
+1092
+00:51:20,929 --> 00:51:22,920
+Phew.
+
+1093
+00:51:22,920 --> 00:51:25,719
+And finally, when
+you unlink the log,
+
+1094
+00:51:25,719 --> 00:51:28,599
+what have you done when
+you unlink the log?
+
+1095
+00:51:28,599 --> 00:51:31,280
+Yeah. Modify the directory.
+
+1096
+00:51:31,280 --> 00:51:32,959
+You modified the
+Durant again, right?
+
+1097
+00:51:32,959 --> 00:51:34,520
+You're getting rid
+of the Durant.
+
+1098
+00:51:34,520 --> 00:51:36,440
+And so you're mutating
+the directory,
+
+1099
+00:51:36,440 --> 00:51:38,439
+the current working
+directory, I know again.
+
+1100
+00:51:38,439 --> 00:51:40,879
+So you need to F sync it again.
+
+1101
+00:51:40,879 --> 00:51:44,679
+So how many F syncs
+have we just done?
+
+1102
+00:51:45,370 --> 00:51:47,889
+Four F syncs, right?
+
+1103
+00:51:47,889 --> 00:51:50,129
+And this is just
+scratching the surface.
+
+1104
+00:51:50,129 --> 00:51:51,969
+Four F s four.
+
+1105
+00:51:51,969 --> 00:51:55,729
+You probably thought that
+only one is sufficient, okay?
+
+1106
+00:51:55,729 --> 00:51:59,449
+But you need to have four
+F syncs to actually make
+
+1107
+00:51:59,449 --> 00:52:03,969
+sure that your file
+atomically persisted to disk.
+
+1108
+00:52:03,969 --> 00:52:07,209
+That is a lot, okay?
+
+1109
+00:52:07,209 --> 00:52:10,889
+That is a lot. So why do
+we need so many F Sycs?
+
+1110
+00:52:10,889 --> 00:52:12,249
+What is the problem here?
+
+1111
+00:52:12,249 --> 00:52:16,730
+And this has to do with the
+semantics of the 0.6 calls.
+
+1112
+00:52:16,970 --> 00:52:21,129
+Is it because I actually
+want data to be
+
+1113
+00:52:21,129 --> 00:52:25,450
+persistent every single
+time I call F Sync?
+
+1114
+00:52:27,130 --> 00:52:34,369
+Or is it because I actually
+care about imposing order?
+
+1115
+00:52:34,369 --> 00:52:38,489
+And F Sync is just the
+only hammer that I have.
+
+1116
+00:52:39,290 --> 00:52:42,529
+Yes? It's the what?
+
+1117
+00:52:42,529 --> 00:52:46,130
+It's the first is the later.
+
+1118
+00:52:46,130 --> 00:52:48,489
+The only hammer that we have,
+
+1119
+00:52:48,489 --> 00:52:50,769
+the only mechanism
+that we have to impose
+
+1120
+00:52:50,769 --> 00:52:54,049
+order with Post
+semantics is FSync.
+
+1121
+00:52:54,049 --> 00:52:57,289
+And so we're just slapping
+the FSync here and there,
+
+1122
+00:52:57,289 --> 00:53:00,489
+not necessarily because
+we want data persistence,
+
+1123
+00:53:00,489 --> 00:53:03,049
+but because we actually
+want to impose order.
+
+1124
+00:53:03,049 --> 00:53:05,929
+And so let's see. In
+this particular case,
+
+1125
+00:53:05,929 --> 00:53:08,449
+what order do we
+specifically talk about?
+
+1126
+00:53:08,449 --> 00:53:10,049
+In this case, we want to
+
+1127
+00:53:10,049 --> 00:53:11,569
+make sure that we
+order a right to
+
+1128
+00:53:11,569 --> 00:53:15,369
+a log before a right to a
+file. That makes sense, right?
+
+1129
+00:53:15,369 --> 00:53:17,769
+We do want to
+impose the order of
+
+1130
+00:53:17,769 --> 00:53:20,409
+a right to a log before
+a right to a file.
+
+1131
+00:53:20,409 --> 00:53:21,929
+There's one more order that we
+
+1132
+00:53:21,929 --> 00:53:23,694
+want to impose,
+and it's this one.
+
+1133
+00:53:23,694 --> 00:53:25,579
+We want to make sure
+that we write to
+
+1134
+00:53:25,579 --> 00:53:28,779
+a file before we
+actually unlink the log.
+
+1135
+00:53:30,380 --> 00:53:34,299
+You don't want to get
+rid of the log too soon.
+
+1136
+00:53:34,299 --> 00:53:36,659
+You want to make sure
+that the right to
+
+1137
+00:53:36,659 --> 00:53:38,420
+a file actually happens,
+
+1138
+00:53:38,420 --> 00:53:40,699
+I don't want to use
+the word persists,
+
+1139
+00:53:40,699 --> 00:53:45,580
+happens before your
+log unlink happens.
+
+1140
+00:53:45,580 --> 00:53:48,619
+I'm being very careful
+with my words right now.
+
+1141
+00:53:48,619 --> 00:53:51,460
+That's the second order
+that we want to impose.
+
+1142
+00:53:51,460 --> 00:53:54,179
+We're using F syncs
+for that, yes.
+
+1143
+00:53:54,179 --> 00:53:58,499
+Why is it different users
+than in kernel space?
+
+1144
+00:53:58,499 --> 00:54:02,049
+Why did the F sync
+every single Well,
+
+1145
+00:54:02,049 --> 00:54:03,809
+so because in userspace,
+
+1146
+00:54:03,809 --> 00:54:05,130
+we have to deal with whatever
+
+1147
+00:54:05,130 --> 00:54:07,009
+is available in
+userspace, right?
+
+1148
+00:54:07,009 --> 00:54:08,569
+And what's available in
+
+1149
+00:54:08,569 --> 00:54:10,930
+userspace if you want to
+be Post six compliant,
+
+1150
+00:54:10,930 --> 00:54:12,649
+I'm not talking
+about, let's say,
+
+1151
+00:54:12,649 --> 00:54:16,210
+Windows or maybe some
+non Post compliant
+
+1152
+00:54:16,210 --> 00:54:19,649
+libraries out there
+or Cisco interfaces.
+
+1153
+00:54:19,649 --> 00:54:20,889
+Like, if you were to do this in
+
+1154
+00:54:20,889 --> 00:54:22,570
+a Post six compliant fashion,
+
+1155
+00:54:22,570 --> 00:54:24,409
+FSnc is the only
+thing that you have
+
+1156
+00:54:24,409 --> 00:54:26,929
+available in userspace, okay?
+
+1157
+00:54:26,929 --> 00:54:33,799
+But in Cryospace have FSIC
+and you In kernel space,
+
+1158
+00:54:33,799 --> 00:54:36,039
+you have whatever we
+talked about, you have.
+
+1159
+00:54:36,039 --> 00:54:38,720
+You basically can issue
+direct rights to disk,
+
+1160
+00:54:38,720 --> 00:54:40,359
+and you can issue flashes.
+
+1161
+00:54:40,359 --> 00:54:43,279
+So the atomicity and
+ordering primitive
+
+1162
+00:54:43,279 --> 00:54:44,919
+that you're using inside
+
+1163
+00:54:44,919 --> 00:54:47,840
+the file system inside
+the kernel is a flash.
+
+1164
+00:54:47,840 --> 00:54:49,560
+Yeah. It's not an F sync.
+
+1165
+00:54:49,560 --> 00:54:51,799
+F Sync is a higher
+level construct
+
+1166
+00:54:51,799 --> 00:54:54,994
+that we're using at the
+users at the user space.
+
+1167
+00:54:54,994 --> 00:54:56,709
+Okay, yeah, great question,
+
+1168
+00:54:56,709 --> 00:54:58,709
+though, because, you know,
+
+1169
+00:54:58,709 --> 00:55:00,349
+to put it all together, and
+
+1170
+00:55:00,349 --> 00:55:02,590
+this is how I wanted to
+finish this lecture.
+
+1171
+00:55:02,590 --> 00:55:05,029
+So let me get to that
+point a little bit later.
+
+1172
+00:55:05,029 --> 00:55:07,229
+So the question is, do I
+need all of these things?
+
+1173
+00:55:07,229 --> 00:55:10,429
+The answer is no because
+I actually want ordering.
+
+1174
+00:55:10,429 --> 00:55:13,509
+And the only way to
+accomplish ordering with
+
+1175
+00:55:13,509 --> 00:55:16,909
+POSIX with this particular
+interface is F sync, right?
+
+1176
+00:55:16,909 --> 00:55:18,709
+So that's a problem.
+There's actually
+
+1177
+00:55:18,709 --> 00:55:20,789
+a research paper
+that's fairly recent,
+
+1178
+00:55:20,789 --> 00:55:23,149
+you know, as far as operating
+systems are concerned,
+
+1179
+00:55:23,149 --> 00:55:24,889
+a decade is fairly recent.
+
+1180
+00:55:24,889 --> 00:55:27,189
+Okay? And the issue is quite
+
+1181
+00:55:27,189 --> 00:55:29,229
+explicitly stated that we
+
+1182
+00:55:29,229 --> 00:55:31,269
+conflate ordering
+and persistence.
+
+1183
+00:55:31,269 --> 00:55:33,750
+We often need ordering
+for correctness.
+
+1184
+00:55:33,750 --> 00:55:36,309
+Remember that ordering is
+a correctness construct,
+
+1185
+00:55:36,309 --> 00:55:39,190
+a correctness
+mechanism, but we don't
+
+1186
+00:55:39,190 --> 00:55:40,950
+actually need it for persistency
+
+1187
+00:55:40,950 --> 00:55:42,709
+at this point in time, okay?
+
+1188
+00:55:42,709 --> 00:55:47,349
+So FInc just slaps them both
+together and gives it to us,
+
+1189
+00:55:47,349 --> 00:55:49,429
+but we can disentangle it.
+
+1190
+00:55:49,429 --> 00:55:50,949
+We can actually create two
+
+1191
+00:55:50,949 --> 00:55:52,909
+different primitives
+and OSINc and
+
+1192
+00:55:52,909 --> 00:55:55,150
+desync where OSINc ensures
+
+1193
+00:55:55,150 --> 00:55:58,029
+ordering and D sync
+ensures durability.
+
+1194
+00:55:58,029 --> 00:56:00,670
+That was the premise
+of the paper.
+
+1195
+00:56:00,670 --> 00:56:05,530
+So It splits F Sync
+into two operations.
+
+1196
+00:56:05,530 --> 00:56:07,650
+OSINc is an ordering primitive,
+
+1197
+00:56:07,650 --> 00:56:09,530
+sync is a durability primitive.
+
+1198
+00:56:09,530 --> 00:56:12,799
+So now, What we can
+do is we can make
+
+1199
+00:56:12,799 --> 00:56:14,879
+a much lighter version
+of what I've just
+
+1200
+00:56:14,879 --> 00:56:17,919
+described by calling
+an Syn on the log.
+
+1201
+00:56:17,919 --> 00:56:20,719
+So that ensures this
+happens before relationship
+
+1202
+00:56:20,719 --> 00:56:24,639
+between this right and this
+right that we want it, okay?
+
+1203
+00:56:24,639 --> 00:56:27,159
+And remember that we
+also wanted to ensure
+
+1204
+00:56:27,159 --> 00:56:28,639
+ordering between the right to
+
+1205
+00:56:28,639 --> 00:56:30,359
+a file and unlinking of the log.
+
+1206
+00:56:30,359 --> 00:56:32,479
+So we're slapping an Sync there.
+
+1207
+00:56:32,479 --> 00:56:34,639
+So that ensured the order.
+
+1208
+00:56:34,639 --> 00:56:36,919
+And we also want
+to make sure that
+
+1209
+00:56:36,919 --> 00:56:40,759
+the metadata changes to
+the directory itself are,
+
+1210
+00:56:40,759 --> 00:56:45,759
+of course, ordered before we
+perform a write to a file.
+
+1211
+00:56:47,380 --> 00:56:52,020
+And finally, we can F sync
+the whole thing exactly once,
+
+1212
+00:56:52,020 --> 00:56:54,739
+and that will persist
+stuff to disk.
+
+1213
+00:56:54,739 --> 00:56:58,259
+We have reduced the number
+of very expensive F syncs,
+
+1214
+00:56:58,259 --> 00:57:00,460
+and we talked about why
+it's very expensive
+
+1215
+00:57:00,460 --> 00:57:03,900
+using this example right
+here, connecting the dots.
+
+1216
+00:57:03,900 --> 00:57:06,059
+We use this example
+right here to
+
+1217
+00:57:06,059 --> 00:57:08,499
+motivate how expensive
+F syncs are,
+
+1218
+00:57:08,499 --> 00:57:10,539
+and now we reduce the number of
+
+1219
+00:57:10,539 --> 00:57:13,339
+F syncs by a factor of four.
+
+1220
+00:57:13,339 --> 00:57:16,420
+And this is huge.
+
+1221
+00:57:16,490 --> 00:57:19,889
+Next lecture, we're
+going to talk about
+
+1222
+00:57:19,889 --> 00:57:22,449
+distributed systems and how I
+
+1223
+00:57:22,449 --> 00:57:25,689
+eventually became a
+systems researcher.
+
+1224
+00:57:25,689 --> 00:57:29,289
+Thank you very much. Let's
+take the questions offline.
+
+1225
+00:57:29,289 --> 00:57:38,359
+Why do we lag? The user?
+
+1226
+00:57:38,679 --> 00:57:41,999
+Why doesn't sorry. So basically,
+
+1227
+00:57:41,999 --> 00:57:43,640
+flush is a different operation.
+
+1228
+00:57:43,640 --> 00:57:46,119
+A flush the semantics of
+
+1229
+00:57:46,119 --> 00:57:48,880
+flush is different from
+the semantics of F Sync.
+
+1230
+00:57:48,880 --> 00:57:51,639
+And it depends on what
+semantics you want.
+
+1231
+00:57:51,639 --> 00:57:53,319
+The flush the semantics
+
+1232
+00:57:53,319 --> 00:57:55,119
+of flush, since you
+asked the question,
+
+1233
+00:57:55,119 --> 00:57:57,800
+is to make sure that
+all the pending rights
+
+1234
+00:57:57,800 --> 00:58:00,640
+that are currently pending
+to the disk driver
+
+1235
+00:58:00,640 --> 00:58:04,689
+are executed a before
+
+1236
+00:58:04,689 --> 00:58:07,250
+you perform any additional
+disk operation.
+
+1237
+00:58:07,250 --> 00:58:09,169
+So if there's a bunch of
+
+1238
+00:58:09,169 --> 00:58:12,169
+writes that are sort of up
+somewhere in the system,
+
+1239
+00:58:12,169 --> 00:58:13,849
+you know, they could
+have been in cash,
+
+1240
+00:58:13,849 --> 00:58:15,169
+they could have been in the log,
+
+1241
+00:58:15,169 --> 00:58:16,410
+they could have been wherever.
+
+1242
+00:58:16,410 --> 00:58:17,729
+If you issue a flash,
+
+1243
+00:58:17,729 --> 00:58:19,729
+they're going to be
+persistent to disk,
+
+1244
+00:58:19,729 --> 00:58:23,089
+okay before anything else
+is persistent to disk.
+
+1245
+00:58:23,089 --> 00:58:25,019
+So this is an
+ordering primitive.
+
+1246
+00:58:25,019 --> 00:58:27,229
+And it is really important to
+
+1247
+00:58:27,229 --> 00:58:29,789
+understand that this is
+an ordering primitive at
+
+1248
+00:58:29,789 --> 00:58:31,589
+the finer granularity at
+
+1249
+00:58:31,589 --> 00:58:35,029
+the granularity of this
+block writes, okay?
+
+1250
+00:58:35,029 --> 00:58:37,069
+So you can impose
+
+1251
+00:58:37,069 --> 00:58:40,109
+this ordering without concerning
+
+1252
+00:58:40,109 --> 00:58:42,669
+yourself with file granularity.
+
+1253
+00:58:42,669 --> 00:58:45,309
+Now, F Sync is a
+primitive that gives you
+
+1254
+00:58:45,309 --> 00:58:49,189
+durability and ordering
+at the file granularity.
+
+1255
+00:58:49,189 --> 00:58:50,909
+So it says that for this file,
+
+1256
+00:58:50,909 --> 00:58:53,179
+I want to persist
+this entire file.
+
+1257
+00:58:53,179 --> 00:58:55,689
+And so it's a higher
+level persistence
+
+1258
+00:58:55,689 --> 00:58:57,329
+and durability primitive.
+
+1259
+00:58:57,329 --> 00:58:59,529
+And so depending on what
+you want, you know,
+
+1260
+00:58:59,529 --> 00:59:01,329
+sometimes you just
+want your rights
+
+1261
+00:59:01,329 --> 00:59:02,929
+to be persistent, right?
+
+1262
+00:59:02,929 --> 00:59:04,689
+And those rights
+can be scattered
+
+1263
+00:59:04,689 --> 00:59:07,129
+throughout a whole bunch
+of different files, right?
+
+1264
+00:59:07,129 --> 00:59:09,369
+And sometimes you want
+just a single file
+
+1265
+00:59:09,369 --> 00:59:10,689
+to be synced to disk,
+
+1266
+00:59:10,689 --> 00:59:12,889
+and you would use
+enough sync for that.
+
+1267
+00:59:12,889 --> 00:59:13,969
+Okay?
+
+1268
+00:59:13,969 --> 00:59:18,569
+All right. Okay, you want to
+keep asking questions? Sure.
+
+1269
+00:59:19,169 --> 00:59:21,569
+For the final.
+
+1270
+00:59:22,530 --> 00:59:25,289
+Practice exam for the final.
+
+1271
+00:59:25,289 --> 00:59:27,169
+I will think of some practice.
+
+1272
+00:59:27,169 --> 00:59:29,729
+I mean, if you actually I
+
+1273
+00:59:29,729 --> 00:59:31,009
+encourage you and I
+
+1274
+00:59:31,009 --> 00:59:32,769
+want to make sure I
+make it very clear,
+
+1275
+00:59:32,769 --> 00:59:34,649
+starting from Lecture seven,
+
+1276
+00:59:34,649 --> 00:59:36,689
+all of the lectures
+have been recorded.
+
+1277
+00:59:36,689 --> 00:59:42,369
+So have a binge watch party
+to binge watch my lectures,
+
+1278
+00:59:42,369 --> 00:59:45,819
+and they're scattered with
+practice exam questions.
+
+1279
+00:59:45,819 --> 00:59:49,030
+Right? So what I could
+do is I could literally
+
+1280
+00:59:49,030 --> 00:59:52,189
+refresh my memory and write
+down all the questions.
+
+1281
+00:59:52,189 --> 00:59:53,509
+I sort of stated, Oh,
+
+1282
+00:59:53,509 --> 00:59:55,629
+this would be a good
+exam question, right?
+
+1283
+00:59:55,629 --> 00:59:57,949
+Just go through all of
+them throughout all of
+
+1284
+00:59:57,949 --> 00:59:59,709
+my lectures and think
+
+1285
+00:59:59,709 --> 01:00:01,189
+through what the
+solutions might be.
+
+1286
+01:00:01,189 --> 01:00:03,149
+There was one today, right,
+
+1287
+01:00:03,149 --> 01:00:04,749
+that we didn't fully answer.
+
+1288
+01:00:04,749 --> 01:00:07,549
+For example, what happens
+with GCC compilation?
+
+1289
+01:00:07,549 --> 01:00:09,229
+So that could very easily
+
+1290
+01:00:09,229 --> 01:00:11,309
+be a practice exam
+question, right?
+
+1291
+01:00:11,309 --> 01:00:13,149
+So I already gave you a lot of
+
+1292
+01:00:13,149 --> 01:00:15,269
+practice exam questions
+if you just, like,
+
+1293
+01:00:15,269 --> 01:00:17,109
+carefully listen to
+what I said during
+
+1294
+01:00:17,109 --> 01:00:20,109
+the lecture because I'm
+very careful with my words.
+
+1295
+01:00:20,109 --> 01:00:25,069
+Any other questions?
+Yes. Distributed system
+
+1296
+01:00:25,069 --> 01:00:27,789
+instead of I cannot hear you.
+
+1297
+01:00:27,789 --> 01:00:31,389
+Are we doing distributed
+system instead of exam?
+
+1298
+01:00:31,389 --> 01:00:33,709
+We will try to do both. Yeah.
+
+1299
+01:00:33,709 --> 01:00:36,509
+So I'll try to split it
+into two and we'll do
+
+1300
+01:00:36,509 --> 01:00:39,909
+some prep and some
+distributed systems as well.
+
+1301
+01:00:39,909 --> 01:00:41,509
+Thank you.
+
+1302
+01:00:51,709 --> 01:00:58,669
+Yeah. 1 second. I
+stop the recording?

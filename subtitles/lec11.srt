@@ -1,0 +1,6083 @@
+1
+00:01:12,590 --> 00:01:16,029
+All right, everyone.
+Good afternoon.
+
+2
+00:01:23,700 --> 00:01:25,719
+As.
+
+3
+00:01:25,719 --> 00:01:28,459
+So during the last lecture,
+
+4
+00:01:28,459 --> 00:01:32,200
+I can't even remember what
+today is, Thursday, right?
+
+5
+00:01:32,200 --> 00:01:34,440
+Okay. During the last
+lecture, in any case,
+
+6
+00:01:34,440 --> 00:01:37,540
+we finished off by making
+this key statement that
+
+7
+00:01:37,540 --> 00:01:39,380
+interrupts are a mechanism that
+
+8
+00:01:39,380 --> 00:01:41,780
+we have for concurrency.
+Do you guys remember that?
+
+9
+00:01:41,780 --> 00:01:43,800
+So we talked about interrupts.
+
+10
+00:01:43,800 --> 00:01:46,780
+It all seemed somewhat boring
+and mechanismic, right?
+
+11
+00:01:46,780 --> 00:01:50,440
+But then we actually
+discussed how interrupts are
+
+12
+00:01:50,440 --> 00:01:52,840
+actually fundamental for us to
+
+13
+00:01:52,840 --> 00:01:55,880
+be able to do so many things
+in our system, right?
+
+14
+00:01:55,880 --> 00:01:59,480
+And so this is where
+actually as a sidestep here,
+
+15
+00:01:59,480 --> 00:02:01,320
+if I may, you know, a lot of
+
+16
+00:02:01,320 --> 00:02:03,220
+the system design is
+actually like this.
+
+17
+00:02:03,220 --> 00:02:07,059
+There are people
+who received turing
+
+18
+00:02:07,059 --> 00:02:11,499
+awards for things that are
+in retrospect, so obvious.
+
+19
+00:02:11,499 --> 00:02:13,139
+But the reason
+they're so obvious
+
+20
+00:02:13,139 --> 00:02:15,319
+is because it wasn't
+always obvious, right?
+
+21
+00:02:15,319 --> 00:02:17,499
+Someone came up with
+something that sort of became
+
+22
+00:02:17,499 --> 00:02:20,479
+so commonplace, like
+polymorphism, right?
+
+23
+00:02:20,479 --> 00:02:22,819
+Everybody Yeah, of course,
+polymorphism makes sense.
+
+24
+00:02:22,819 --> 00:02:24,759
+But somebody came up
+with that, right?
+
+25
+00:02:24,759 --> 00:02:27,559
+And in retrospect, it's
+obvious because it sort of
+
+26
+00:02:27,559 --> 00:02:30,519
+became a natural component
+of your curriculum.
+
+27
+00:02:30,519 --> 00:02:32,620
+But that's exactly what
+
+28
+00:02:32,620 --> 00:02:34,200
+we're looking for
+in system design.
+
+29
+00:02:34,200 --> 00:02:35,559
+We're looking for
+these things that
+
+30
+00:02:35,559 --> 00:02:38,004
+seem almost trivial interrupt.
+
+31
+00:02:38,004 --> 00:02:40,549
+Trivial. But then, you know,
+
+32
+00:02:40,549 --> 00:02:43,189
+what you should be looking
+at is, what does it enable?
+
+33
+00:02:43,189 --> 00:02:44,369
+You know, what are
+the things that we
+
+34
+00:02:44,369 --> 00:02:45,669
+can do with this mechanism?
+
+35
+00:02:45,669 --> 00:02:47,090
+What is the policy space
+
+36
+00:02:47,090 --> 00:02:48,849
+that's actually
+enabled by these very,
+
+37
+00:02:48,849 --> 00:02:51,890
+very simple and therefore
+elegant things.
+
+38
+00:02:51,890 --> 00:02:54,350
+So today, we're going to
+talk about concurrency.
+
+39
+00:02:54,350 --> 00:02:57,489
+Uh let's see.
+
+40
+00:02:57,489 --> 00:03:00,675
+How many of you are
+excited about this course?
+
+41
+00:03:00,675 --> 00:03:02,939
+Okay. So for those of you
+
+42
+00:03:02,939 --> 00:03:05,619
+who I saw not everybody
+raised their hands.
+
+43
+00:03:05,619 --> 00:03:07,439
+And for those of you who are
+
+44
+00:03:07,439 --> 00:03:10,420
+not yet excited by this course,
+
+45
+00:03:10,420 --> 00:03:12,159
+you know, this
+lecture is going to
+
+46
+00:03:12,159 --> 00:03:14,460
+get you really excited, okay?
+
+47
+00:03:14,460 --> 00:03:16,160
+We are in the
+business of blowing
+
+48
+00:03:16,160 --> 00:03:17,700
+your mind in this class,
+
+49
+00:03:17,700 --> 00:03:19,220
+and this is going to be one of
+
+50
+00:03:19,220 --> 00:03:22,029
+those lectures where
+you'll be mind blown.
+
+51
+00:03:22,029 --> 00:03:25,560
+At least 98% of you
+will be mind blown,
+
+52
+00:03:25,560 --> 00:03:28,299
+maybe a couple, maybe three
+students will not be,
+
+53
+00:03:28,299 --> 00:03:30,780
+but I think the
+98% will be, okay?
+
+54
+00:03:30,780 --> 00:03:32,479
+We're going to talk
+about concurrency from
+
+55
+00:03:32,479 --> 00:03:35,279
+the perspective of how we
+build concurrent primitives,
+
+56
+00:03:35,279 --> 00:03:37,680
+how do we properly
+handle concurrency,
+
+57
+00:03:37,680 --> 00:03:40,119
+why it's challenging,
+why it's hard.
+
+58
+00:03:40,119 --> 00:03:41,879
+What is the
+conceptual model that
+
+59
+00:03:41,879 --> 00:03:43,839
+you need to have in
+your mind in order to
+
+60
+00:03:43,839 --> 00:03:47,840
+actually reason about the
+properties of concurrent code?
+
+61
+00:03:47,840 --> 00:03:50,239
+Okay, because instead
+of just trying to think
+
+62
+00:03:50,239 --> 00:03:51,459
+about the interleavings of
+
+63
+00:03:51,459 --> 00:03:53,739
+your multiple threads
+at the same time,
+
+64
+00:03:53,739 --> 00:03:57,539
+I will actually attempt
+to give you a kind of
+
+65
+00:03:57,539 --> 00:04:00,840
+a more conceptual way of
+approaching these problems
+
+66
+00:04:00,840 --> 00:04:03,440
+so that this skill
+is transferable
+
+67
+00:04:03,440 --> 00:04:05,620
+beyond this
+particular course and
+
+68
+00:04:05,620 --> 00:04:07,839
+so that you can take that
+with you to your senior year.
+
+69
+00:04:07,839 --> 00:04:12,999
+Okay? So let's see.
+Oh, yeah, sure.
+
+70
+00:04:12,999 --> 00:04:14,699
+So basically, just a few
+
+71
+00:04:14,699 --> 00:04:17,320
+bits while people
+are still coming in,
+
+72
+00:04:17,320 --> 00:04:20,864
+please take a seat.
+There's plenty.
+
+73
+00:04:20,864 --> 00:04:22,829
+I strongly recommend submitting
+
+74
+00:04:22,829 --> 00:04:25,370
+tomorrow for lab two, right?
+
+75
+00:04:25,370 --> 00:04:27,650
+Not going to dwell
+too much on this.
+
+76
+00:04:27,650 --> 00:04:30,490
+I think you all know what
+happens if you don't.
+
+77
+00:04:30,490 --> 00:04:32,370
+I mentioned that on Tuesday,
+
+78
+00:04:32,370 --> 00:04:34,969
+and please do try to submit
+both parts of the lab.
+
+79
+00:04:34,969 --> 00:04:37,950
+And the reason for this is
+because even if you do feel
+
+80
+00:04:37,950 --> 00:04:39,770
+confident that your approach
+
+81
+00:04:39,770 --> 00:04:41,569
+to solving Lab two is correct,
+
+82
+00:04:41,569 --> 00:04:44,290
+there will be use cases that
+you may not have thought of.
+
+83
+00:04:44,290 --> 00:04:45,770
+Part of that actually does have
+
+84
+00:04:45,770 --> 00:04:47,549
+to do with concurrency, okay?
+
+85
+00:04:47,549 --> 00:04:49,409
+And we're going to talk
+about concurrency today,
+
+86
+00:04:49,409 --> 00:04:50,729
+so hopefully that'll be helpful
+
+87
+00:04:50,729 --> 00:04:52,110
+for your lab two, as well.
+
+88
+00:04:52,110 --> 00:04:54,249
+It will take multiple attempts.
+
+89
+00:04:54,249 --> 00:04:56,929
+If you are actually implementing
+your lab from scratch,
+
+90
+00:04:56,929 --> 00:04:58,835
+which you should be, right?
+
+91
+00:04:58,835 --> 00:05:01,440
+And it will take some
+strong unit testing,
+
+92
+00:05:01,440 --> 00:05:04,020
+which hopefully you guys
+have actually attempted
+
+93
+00:05:04,020 --> 00:05:07,459
+to do in your supervised labs
+yesterday, is that correct?
+
+94
+00:05:07,459 --> 00:05:09,200
+So yesterday,
+
+95
+00:05:09,200 --> 00:05:11,379
+the supervised labs were
+supposed to be focusing
+
+96
+00:05:11,379 --> 00:05:12,760
+on helping you out
+
+97
+00:05:12,760 --> 00:05:15,560
+with thinking about
+how to test your labs.
+
+98
+00:05:15,560 --> 00:05:20,359
+Was that helpful or is that
+not what happened yesterday?
+
+99
+00:05:20,359 --> 00:05:27,760
+Anyone? I will ask my TAs.
+
+100
+00:05:31,940 --> 00:05:34,320
+How many of you found the
+
+101
+00:05:34,320 --> 00:05:37,220
+yesterday supervised lab
+helpful for lab two?
+
+102
+00:05:37,300 --> 00:05:41,620
+How many of you found it
+not helpful for lab two?
+
+103
+00:05:42,740 --> 00:05:45,920
+Okay. All right.
+
+104
+00:05:45,920 --> 00:05:49,339
+So remember that we
+have office hours,
+
+105
+00:05:49,339 --> 00:05:50,660
+piazza support, and if
+
+106
+00:05:50,660 --> 00:05:52,060
+you're feeling stuck,
+please reach out.
+
+107
+00:05:52,060 --> 00:05:53,460
+And the reason I
+mentioned this is
+
+108
+00:05:53,460 --> 00:05:55,439
+because I personally
+have witnessed
+
+109
+00:05:55,439 --> 00:05:58,380
+the common case failure
+scenario kind of
+
+110
+00:05:58,380 --> 00:06:01,400
+being rooted in procrastination
+and not just that, right?
+
+111
+00:06:01,400 --> 00:06:04,299
+We all susceptible to
+procrastination to some extent.
+
+112
+00:06:04,299 --> 00:06:06,739
+But procrastination
+specifically driven
+
+113
+00:06:06,739 --> 00:06:08,680
+by hesitation to ask
+questions, right?
+
+114
+00:06:08,680 --> 00:06:10,920
+You might think, Oh, somebody's
+going to think that I'm
+
+115
+00:06:10,920 --> 00:06:13,340
+stupid and you have
+this you know,
+
+116
+00:06:13,340 --> 00:06:14,800
+you think you're a smart person.
+
+117
+00:06:14,800 --> 00:06:16,519
+I think all of us think
+that we're smart,
+
+118
+00:06:16,519 --> 00:06:19,079
+but we're trying to figure
+something out and we're stuck.
+
+119
+00:06:19,079 --> 00:06:20,660
+And so it makes us feel bad.
+
+120
+00:06:20,660 --> 00:06:23,240
+You know, get over that,
+okay? Just get over that.
+
+121
+00:06:23,240 --> 00:06:26,960
+This is the class where
+you'll have to get over it,
+
+122
+00:06:26,960 --> 00:06:28,320
+no matter how smart you are.
+
+123
+00:06:28,320 --> 00:06:30,160
+And, you know,
+this also includes
+
+124
+00:06:30,160 --> 00:06:32,279
+the instructors and the
+course staff as well.
+
+125
+00:06:32,279 --> 00:06:34,180
+You know, there are things in
+
+126
+00:06:34,180 --> 00:06:35,519
+this class that we all needed
+
+127
+00:06:35,519 --> 00:06:36,779
+to figure out at some point.
+
+128
+00:06:36,779 --> 00:06:38,560
+There are things in this
+class that we had that
+
+129
+00:06:38,560 --> 00:06:41,300
+we were stuck on at
+some point, okay?
+
+130
+00:06:41,780 --> 00:06:44,260
+Lab through is
+around the corner.
+
+131
+00:06:44,260 --> 00:06:47,599
+It's going to be released
+next Friday. Alright.
+
+132
+00:06:47,599 --> 00:06:50,560
+And so, one thing that I
+am concerned about and
+
+133
+00:06:50,560 --> 00:06:52,100
+I don't know how to
+reason about this
+
+134
+00:06:52,100 --> 00:06:54,159
+is that there are
+only 23 submissions,
+
+135
+00:06:54,159 --> 00:06:56,820
+and this includes whatever
+TA submissions there are,
+
+136
+00:06:56,820 --> 00:06:59,320
+which is very low.
+
+137
+00:06:59,320 --> 00:07:01,920
+I hope to see, you know,
+
+138
+00:07:01,920 --> 00:07:06,900
+something closer to 75
+submissions by Friday midnight.
+
+139
+00:07:06,900 --> 00:07:08,979
+Let's make sure
+that this happens.
+
+140
+00:07:08,979 --> 00:07:11,059
+You know, if you're really
+listening to my lectures,
+
+141
+00:07:11,059 --> 00:07:13,660
+really listening to
+these warning signs,
+
+142
+00:07:13,660 --> 00:07:17,460
+tomorrow midnight, there
+should be 75 right here.
+
+143
+00:07:17,460 --> 00:07:20,940
+Okay? You guys promise me that?
+
+144
+00:07:20,940 --> 00:07:24,719
+Can I go tomorrow midnight
+and check for 75?
+
+145
+00:07:24,719 --> 00:07:28,060
+Okay, I will do that.
+
+146
+00:07:28,060 --> 00:07:30,560
+Okay, so we stopped
+that thinking about
+
+147
+00:07:30,560 --> 00:07:33,580
+interrupts as a mechanism
+for pseudo concurrency.
+
+148
+00:07:33,580 --> 00:07:37,360
+And just because we
+have a mechanism that
+
+149
+00:07:37,360 --> 00:07:39,339
+enables concurrency
+doesn't necessarily
+
+150
+00:07:39,339 --> 00:07:41,580
+mean that we can do
+whatever we want, right?
+
+151
+00:07:41,580 --> 00:07:43,319
+We're in the
+business of actually
+
+152
+00:07:43,319 --> 00:07:45,200
+remember always
+throughout this class,
+
+153
+00:07:45,200 --> 00:07:46,880
+there are these two
+things that we're
+
+154
+00:07:46,880 --> 00:07:49,379
+forced to provide as
+operating system developers.
+
+155
+00:07:49,379 --> 00:07:50,839
+We're forced to provide
+
+156
+00:07:50,839 --> 00:07:52,880
+protection and
+isolation mechanisms,
+
+157
+00:07:52,880 --> 00:07:54,839
+and we're in the business
+of providing them in a way
+
+158
+00:07:54,839 --> 00:07:57,220
+that is protected
+and safe, right?
+
+159
+00:07:57,220 --> 00:07:59,320
+So the code that you
+write inside the kernel,
+
+160
+00:07:59,320 --> 00:08:00,560
+it should be giving you these
+
+161
+00:08:00,560 --> 00:08:02,000
+protection and safety features
+
+162
+00:08:02,000 --> 00:08:04,100
+that we want. We
+always want that.
+
+163
+00:08:04,100 --> 00:08:05,879
+So in order to appreciate
+
+164
+00:08:05,879 --> 00:08:07,340
+what kind of issues
+we're dealing with,
+
+165
+00:08:07,340 --> 00:08:09,699
+let's walk through an example.
+
+166
+00:08:09,699 --> 00:08:12,159
+So here's an example.
+
+167
+00:08:12,159 --> 00:08:14,560
+You have kernel code
+on the left hand side,
+
+168
+00:08:14,560 --> 00:08:16,340
+and the kernel code is
+
+169
+00:08:16,340 --> 00:08:18,039
+sort of accessing
+some shared variable,
+
+170
+00:08:18,039 --> 00:08:21,579
+and in fact, it is writing
+to a shared variable, okay?
+
+171
+00:08:21,579 --> 00:08:25,369
+Um, okay.
+
+172
+00:08:25,369 --> 00:08:27,370
+And on the right hand side,
+
+173
+00:08:27,370 --> 00:08:29,389
+we have the interrupt
+handler code,
+
+174
+00:08:29,389 --> 00:08:31,530
+and the interrupt
+handler code is going to
+
+175
+00:08:31,530 --> 00:08:35,830
+attempt to read from
+the shared variable.
+
+176
+00:08:35,830 --> 00:08:37,409
+So on the left hand
+side, you have
+
+177
+00:08:37,409 --> 00:08:39,290
+kernel code right into
+a shared variable.
+
+178
+00:08:39,290 --> 00:08:41,049
+On the right hand side, you have
+
+179
+00:08:41,049 --> 00:08:43,009
+the interrupt handler that
+
+180
+00:08:43,009 --> 00:08:45,329
+is reading from the
+shared variable, right?
+
+181
+00:08:45,329 --> 00:08:47,990
+And most likely you probably put
+
+182
+00:08:47,990 --> 00:08:49,110
+some locks around your shared
+
+183
+00:08:49,110 --> 00:08:50,490
+variable in the kernel code.
+
+184
+00:08:50,490 --> 00:08:53,209
+Now, what do we need
+in order to make
+
+185
+00:08:53,209 --> 00:08:56,490
+this code safe and correct?
+
+186
+00:08:56,490 --> 00:08:58,389
+What is missing right now?
+
+187
+00:08:58,389 --> 00:09:00,469
+Just as a warm up exercise.
+
+188
+00:09:00,469 --> 00:09:04,350
+Let's start trivial. What
+is missing right now?
+
+189
+00:09:04,350 --> 00:09:06,830
+Is this code correct?
+
+190
+00:09:15,580 --> 00:09:21,419
+Yes. Sorry, could you speak up?
+
+191
+00:09:21,419 --> 00:09:24,420
+Text checks on the as well.
+
+192
+00:09:24,420 --> 00:09:26,799
+Yeah, so on the right hand side,
+
+193
+00:09:26,799 --> 00:09:28,939
+you're saying that we need
+to make this access to
+
+194
+00:09:28,939 --> 00:09:31,540
+the shared variable be a
+critical section as well,
+
+195
+00:09:31,540 --> 00:09:34,219
+right? Everyone
+agrees with that?
+
+196
+00:09:34,219 --> 00:09:38,019
+Are we cool with that? So
+because without it, right,
+
+197
+00:09:38,019 --> 00:09:39,759
+access the read access to
+
+198
+00:09:39,759 --> 00:09:42,780
+the shared variable is
+completely unprotected, okay?
+
+199
+00:09:42,780 --> 00:09:44,720
+And just jumping
+ahead a little bit,
+
+200
+00:09:44,720 --> 00:09:45,959
+if you have access to
+
+201
+00:09:45,959 --> 00:09:48,980
+a shared variable that is
+unprotected, in other words,
+
+202
+00:09:48,980 --> 00:09:50,879
+that means that the
+kernel code and
+
+203
+00:09:50,879 --> 00:09:52,499
+the interrupt handler have
+
+204
+00:09:52,499 --> 00:09:55,460
+the ability to access
+a shared variable,
+
+205
+00:09:55,460 --> 00:09:58,640
+in a read and write fashion,
+and that creates a problem.
+
+206
+00:09:58,640 --> 00:10:00,060
+We'll make a proper definition
+
+207
+00:10:00,060 --> 00:10:01,579
+for this later on
+in this lecture.
+
+208
+00:10:01,579 --> 00:10:02,880
+So at the very least,
+
+209
+00:10:02,880 --> 00:10:05,119
+you need to make
+sure that access
+
+210
+00:10:05,119 --> 00:10:07,719
+to a shared variable
+is mutually exclusive.
+
+211
+00:10:07,719 --> 00:10:09,659
+And how do we
+accomplish this from
+
+212
+00:10:09,659 --> 00:10:11,919
+all the previous courses
+that you guys have taken?
+
+213
+00:10:11,919 --> 00:10:13,819
+Chances are, you
+probably want to
+
+214
+00:10:13,819 --> 00:10:16,079
+slap some locks around
+this, as well, right?
+
+215
+00:10:16,079 --> 00:10:18,100
+So now we have two
+critical sections,
+
+216
+00:10:18,100 --> 00:10:20,759
+one on the left hand side,
+one on the right hand side.
+
+217
+00:10:20,759 --> 00:10:26,819
+Is this safe? Is this
+correct? How we done?
+
+218
+00:10:28,960 --> 00:10:31,179
+I see some nodding. I think
+
+219
+00:10:31,179 --> 00:10:33,480
+people are feeling
+good about this code.
+
+220
+00:10:33,480 --> 00:10:35,360
+Okay, any more nodding?
+
+221
+00:10:35,360 --> 00:10:39,200
+Okay, how many people think
+that this is safe code?
+
+222
+00:10:39,360 --> 00:10:41,699
+Remember that we're
+going to get over
+
+223
+00:10:41,699 --> 00:10:43,299
+our superiority complex in
+
+224
+00:10:43,299 --> 00:10:45,779
+this class, including
+myself, okay?
+
+225
+00:10:45,779 --> 00:10:48,459
+And just just go out there
+and raise your hands.
+
+226
+00:10:48,459 --> 00:10:50,500
+How many people
+think that there's
+
+227
+00:10:50,500 --> 00:10:53,380
+a problem there's no
+problem with this code?
+
+228
+00:10:53,380 --> 00:10:55,400
+Okay, good, good, good.
+
+229
+00:10:55,400 --> 00:10:56,940
+How many people think
+that there's still
+
+230
+00:10:56,940 --> 00:11:00,160
+a problem? Okay,
+what's the problem?
+
+231
+00:11:06,390 --> 00:11:09,809
+I think you can
+interrupt while you're
+
+232
+00:11:09,809 --> 00:11:14,429
+in, no, no, no, no.
+
+233
+00:11:14,429 --> 00:11:16,669
+Okay, it's good that
+you're thinking in
+
+234
+00:11:16,669 --> 00:11:19,210
+the right direction and at
+the same time being confused.
+
+235
+00:11:19,210 --> 00:11:20,610
+That means that this
+is now going to be
+
+236
+00:11:20,610 --> 00:11:22,889
+a complete waste
+of your time. Yes.
+
+237
+00:11:22,889 --> 00:11:25,769
+If you interrupt kernel code,
+
+238
+00:11:25,769 --> 00:11:28,065
+then you can get deadline.
+
+239
+00:11:28,065 --> 00:11:30,960
+If you get interrupted
+in the kernel code,
+
+240
+00:11:30,960 --> 00:11:32,300
+then you can get dead locked.
+
+241
+00:11:32,300 --> 00:11:34,079
+Right. Now, let's break that
+
+242
+00:11:34,079 --> 00:11:36,120
+down and that's see
+exactly how this happens.
+
+243
+00:11:36,120 --> 00:11:39,060
+Remember, interrupts
+are especially
+
+244
+00:11:39,060 --> 00:11:42,399
+interrupts that we're
+not masking, right?
+
+245
+00:11:42,399 --> 00:11:46,419
+If they happen, they can
+happen at any point in time.
+
+246
+00:11:46,419 --> 00:11:47,899
+So on the left
+hand side, we have
+
+247
+00:11:47,899 --> 00:11:51,859
+this sequence of instructions
+happily executing, right?
+
+248
+00:11:51,859 --> 00:11:53,979
+Our kernel code is
+doing some stuff.
+
+249
+00:11:53,979 --> 00:11:55,340
+It's acquired a lock.
+
+250
+00:11:55,340 --> 00:11:57,300
+It is successfully
+acquiring the lock.
+
+251
+00:11:57,300 --> 00:11:59,280
+Now it's doing some stuff
+
+252
+00:11:59,280 --> 00:12:01,539
+over here between the lock
+and the shared variable,
+
+253
+00:12:01,539 --> 00:12:03,020
+and then maybe it's already
+
+254
+00:12:03,020 --> 00:12:04,939
+updating the shared
+variable right here.
+
+255
+00:12:04,939 --> 00:12:08,359
+And remember that interrupt
+can happen at any time.
+
+256
+00:12:08,359 --> 00:12:10,980
+What happens if the
+interrupt happens
+
+257
+00:12:10,980 --> 00:12:12,360
+in the middle of the critical
+
+258
+00:12:12,360 --> 00:12:14,580
+section on the left hand side?
+
+259
+00:12:14,580 --> 00:12:17,820
+So the interrupt has happened.
+
+260
+00:12:18,260 --> 00:12:20,760
+We've switched to
+stacks just like we
+
+261
+00:12:20,760 --> 00:12:23,140
+discussed last time to
+the interrupt handler,
+
+262
+00:12:23,140 --> 00:12:25,700
+and the interrupt
+handler starts to run.
+
+263
+00:12:25,700 --> 00:12:28,179
+What's the problem? Yes.
+
+264
+00:12:28,179 --> 00:12:30,319
+Interrup handler
+will try to lock,
+
+265
+00:12:30,319 --> 00:12:32,419
+but it came because
+
+266
+00:12:32,419 --> 00:12:35,740
+kernel code hasn't
+unlockedn't share it yet.
+
+267
+00:12:35,740 --> 00:12:39,959
+Right. Exactly. And so
+that's what leads us to
+
+268
+00:12:39,959 --> 00:12:44,740
+a thing called huh?
+
+269
+00:12:44,740 --> 00:12:47,140
+No, there is a race condition,
+
+270
+00:12:47,140 --> 00:12:49,880
+but it's even worse than a
+race condition right now.
+
+271
+00:12:49,880 --> 00:12:52,319
+Yeah, a deadlock, right?
+
+272
+00:12:52,319 --> 00:12:55,819
+Where the liveness condition
+of this code is violated.
+
+273
+00:12:55,819 --> 00:12:58,659
+Like, basically, we
+cannot guarantee
+
+274
+00:12:58,659 --> 00:12:59,979
+liveness because it is
+
+275
+00:12:59,979 --> 00:13:02,279
+possible for the interrupt
+handler to be deadlocked.
+
+276
+00:13:02,279 --> 00:13:04,900
+Now, how does it get deadlocked?
+
+277
+00:13:04,900 --> 00:13:07,519
+So that means we
+
+278
+00:13:07,519 --> 00:13:10,019
+can't really make interrupt
+handler ignore the locks.
+
+279
+00:13:10,019 --> 00:13:11,819
+We have to be actively
+
+280
+00:13:11,819 --> 00:13:14,120
+thinking about what
+happens about the locks.
+
+281
+00:13:14,120 --> 00:13:17,580
+Um, where do I have
+this animation?
+
+282
+00:13:17,580 --> 00:13:19,080
+So let me just step through
+
+283
+00:13:19,080 --> 00:13:21,260
+the bullets because I want
+to get to my animation.
+
+284
+00:13:21,260 --> 00:13:24,159
+Yeah. So how do we
+get the deadlock?
+
+285
+00:13:24,159 --> 00:13:27,159
+The reason the deadlock
+happens is because when
+
+286
+00:13:27,159 --> 00:13:28,859
+the interrupt handler is getting
+
+287
+00:13:28,859 --> 00:13:31,119
+to this lock
+statement right here,
+
+288
+00:13:31,119 --> 00:13:34,020
+it takes a dependency on
+this unlock right here.
+
+289
+00:13:34,020 --> 00:13:36,339
+So there's this
+dependence relationship
+
+290
+00:13:36,339 --> 00:13:37,480
+between these two statements.
+
+291
+00:13:37,480 --> 00:13:40,199
+In other words,
+this instruction A
+
+292
+00:13:40,199 --> 00:13:43,739
+cannot proceed until this
+instruction B completes, right?
+
+293
+00:13:43,739 --> 00:13:45,779
+Everybody agrees with that.
+
+294
+00:13:45,779 --> 00:13:49,380
+Okay. And so what's
+
+295
+00:13:49,380 --> 00:13:52,220
+wrong with this
+instruction completing?
+
+296
+00:13:52,220 --> 00:13:55,859
+Well, this instruction
+is oh, okay.
+
+297
+00:13:55,859 --> 00:13:57,479
+This instruction unlock on
+
+298
+00:13:57,479 --> 00:13:59,599
+the left hand side
+is depending on
+
+299
+00:13:59,599 --> 00:14:01,999
+the progress to be
+made right here
+
+300
+00:14:01,999 --> 00:14:05,540
+where the kernel code has
+actually stopped executing.
+
+301
+00:14:05,660 --> 00:14:09,179
+And that sort of depends on
+
+302
+00:14:09,179 --> 00:14:12,639
+the interrupt handler
+lock acquire, right?
+
+303
+00:14:12,639 --> 00:14:15,820
+So that really gives us
+the cycle of dependencies.
+
+304
+00:14:15,820 --> 00:14:19,059
+Anytime you have a
+cycle of dependencies,
+
+305
+00:14:19,500 --> 00:14:21,980
+that leads to a
+deadlock situation.
+
+306
+00:14:21,980 --> 00:14:25,159
+So deadlock in one
+way or another,
+
+307
+00:14:25,159 --> 00:14:27,699
+kind of gives us
+symptomatically,
+
+308
+00:14:27,699 --> 00:14:33,140
+gives us the symptomatically
+
+309
+00:14:33,140 --> 00:14:34,679
+is manifested by there
+
+310
+00:14:34,679 --> 00:14:38,540
+being a cycle of dependencies
+somewhere in our code.
+
+311
+00:14:38,540 --> 00:14:40,979
+And this is one concrete
+example of this.
+
+312
+00:14:40,979 --> 00:14:43,999
+So the next question then is,
+
+313
+00:14:43,999 --> 00:14:45,780
+how do we resolve
+this situation?
+
+314
+00:14:45,780 --> 00:14:48,999
+How do we break the cycle
+of dependencies, right?
+
+315
+00:14:50,940 --> 00:14:54,019
+So does anyone have
+
+316
+00:14:54,019 --> 00:14:55,519
+any ideas in terms of how to
+
+317
+00:14:55,519 --> 00:14:57,799
+resolve the cycle of
+dependencies in principle.
+
+318
+00:14:57,799 --> 00:14:58,739
+Yes.
+
+319
+00:14:58,739 --> 00:15:01,459
+Like statement or something,
+
+320
+00:15:01,459 --> 00:15:05,119
+check if the web has already
+acquired and if it has,
+
+321
+00:15:05,119 --> 00:15:07,239
+then you're technically still in
+
+322
+00:15:07,239 --> 00:15:08,820
+the walk section
+so you don't need
+
+323
+00:15:08,820 --> 00:15:11,220
+to try and impart the w again.
+
+324
+00:15:11,220 --> 00:15:15,119
+Oh, yeah. So that gets
+complicated because now you
+
+325
+00:15:15,119 --> 00:15:16,859
+have multiple if
+conditions that are sort
+
+326
+00:15:16,859 --> 00:15:18,860
+of unprotected by the
+critical section.
+
+327
+00:15:18,860 --> 00:15:21,959
+And so we're going to get
+to the Peterson's algorithm
+
+328
+00:15:21,959 --> 00:15:25,579
+later on where it doesn't
+really solve the problem. Yes.
+
+329
+00:15:25,579 --> 00:15:29,339
+Same, yeah, you're
+jumping ahead.
+
+330
+00:15:29,339 --> 00:15:31,980
+Okay. But in principle,
+
+331
+00:15:31,980 --> 00:15:33,920
+what we want to
+do in some sense,
+
+332
+00:15:33,920 --> 00:15:36,499
+is because that's a mechanism
+for what we want to do.
+
+333
+00:15:36,499 --> 00:15:38,559
+What we want to do
+is we don't want to
+
+334
+00:15:38,559 --> 00:15:41,259
+take interrupts in the
+critical section, okay?
+
+335
+00:15:41,259 --> 00:15:43,020
+We don't want to be interrupted
+
+336
+00:15:43,020 --> 00:15:44,760
+while we're running
+a critical section.
+
+337
+00:15:44,760 --> 00:15:46,539
+And, of course, the
+mechanism for that
+
+338
+00:15:46,539 --> 00:15:49,359
+is to delay the
+interrupts, right?
+
+339
+00:15:49,359 --> 00:15:51,380
+You have it right
+here on the slide.
+
+340
+00:15:51,380 --> 00:15:52,839
+You know, I there some way
+
+341
+00:15:52,839 --> 00:15:54,820
+for us to delay the interrupts?
+
+342
+00:15:54,820 --> 00:15:57,980
+So whenever I'm holding a
+lock in the kernel code,
+
+343
+00:15:57,980 --> 00:16:00,120
+I want to have the
+ability to delay
+
+344
+00:16:00,120 --> 00:16:01,560
+the interrupts because it leads
+
+345
+00:16:01,560 --> 00:16:03,585
+us to the possibility
+of a deadlock.
+
+346
+00:16:03,585 --> 00:16:07,209
+Okay? So in order
+to accomplish this,
+
+347
+00:16:07,209 --> 00:16:11,269
+we do this by disabling
+
+348
+00:16:11,269 --> 00:16:13,449
+the interrupts when
+we're trying to
+
+349
+00:16:13,449 --> 00:16:16,010
+acquire the lock and re enabling
+
+350
+00:16:16,010 --> 00:16:17,469
+those interrupts
+as soon as we are
+
+351
+00:16:17,469 --> 00:16:20,390
+done with this critical section.
+
+352
+00:16:23,070 --> 00:16:25,170
+And this is something.
+
+353
+00:16:25,170 --> 00:16:26,449
+How many of you have seen this
+
+354
+00:16:26,449 --> 00:16:28,789
+in the XV six code already?
+
+355
+00:16:29,950 --> 00:16:32,189
+I have a few hands.
+
+356
+00:16:32,189 --> 00:16:34,449
+Okay, good, good.
+One, two, three.
+
+357
+00:16:34,449 --> 00:16:36,750
+Anyone else? Four. Okay, good.
+
+358
+00:16:36,750 --> 00:16:39,149
+People have actually
+seen this in XV six.
+
+359
+00:16:39,149 --> 00:16:42,510
+You do need to look at
+this in X six code.
+
+360
+00:16:42,510 --> 00:16:44,030
+There are some slides
+at the very end,
+
+361
+00:16:44,030 --> 00:16:45,969
+which I already posted
+on Canvas, right,
+
+362
+00:16:45,969 --> 00:16:47,169
+that actually point you
+
+363
+00:16:47,169 --> 00:16:49,109
+specifically to the
+code that does this.
+
+364
+00:16:49,109 --> 00:16:51,349
+So make sure that you
+reference it because it's
+
+365
+00:16:51,349 --> 00:16:53,844
+unlikely that we'll get to
+those slides in this lecture.
+
+366
+00:16:53,844 --> 00:16:55,440
+Given the progress we're making.
+
+367
+00:16:55,440 --> 00:16:57,159
+I'll try to go faster.
+
+368
+00:16:57,159 --> 00:16:59,740
+So in other words,
+the interrupt enable
+
+369
+00:16:59,740 --> 00:17:02,279
+disable here
+actually establishes
+
+370
+00:17:02,279 --> 00:17:05,220
+atomicity for the
+critical section
+
+371
+00:17:05,220 --> 00:17:07,439
+around which you're
+doing this, okay?
+
+372
+00:17:07,439 --> 00:17:08,959
+And atomicity is going to
+
+373
+00:17:08,959 --> 00:17:10,899
+be this very
+interesting and very,
+
+374
+00:17:10,899 --> 00:17:13,039
+very nuanced concept in
+
+375
+00:17:13,039 --> 00:17:15,679
+this class that's going to
+come up in a couple of places,
+
+376
+00:17:15,679 --> 00:17:17,219
+including this
+lecture, but also in
+
+377
+00:17:17,219 --> 00:17:20,259
+the file systems and
+concurrency lecture at the end.
+
+378
+00:17:20,259 --> 00:17:23,100
+And atomicity is a
+relative construct,
+
+379
+00:17:23,100 --> 00:17:25,379
+because is it atomic
+from the perspective of
+
+380
+00:17:25,379 --> 00:17:28,179
+the CPU executing
+those instructions?
+
+381
+00:17:28,179 --> 00:17:31,379
+Yes or no. It's not, right?
+
+382
+00:17:31,379 --> 00:17:32,879
+The CPU will still see
+
+383
+00:17:32,879 --> 00:17:35,019
+those instructions as
+separate instructions.
+
+384
+00:17:35,019 --> 00:17:38,360
+It's not atomic relative
+to the CPU's viewpoint,
+
+385
+00:17:38,360 --> 00:17:40,579
+but it will be atomic relative
+
+386
+00:17:40,579 --> 00:17:42,879
+to another thread of execution,
+
+387
+00:17:42,879 --> 00:17:44,859
+such as an interrupt handler.
+
+388
+00:17:44,859 --> 00:17:46,620
+Okay? So we've established
+
+389
+00:17:46,620 --> 00:17:48,440
+this relative atomicity between
+
+390
+00:17:48,440 --> 00:17:53,279
+these two blocks of code by
+disabling the interrupts.
+
+391
+00:17:53,279 --> 00:17:57,219
+So atomicity, again, is
+not an absolute concept.
+
+392
+00:17:57,219 --> 00:17:58,519
+It is a relative concept.
+
+393
+00:17:58,519 --> 00:17:59,840
+And in this particular case,
+
+394
+00:17:59,840 --> 00:18:01,739
+we've established
+atomicity relative
+
+395
+00:18:01,739 --> 00:18:04,920
+to an interrupt handler
+by disabling interrupts.
+
+396
+00:18:05,610 --> 00:18:10,170
+And by the way, since I'm
+talking about relativity here,
+
+397
+00:18:10,170 --> 00:18:13,149
+the slapping locks the access
+
+398
+00:18:13,149 --> 00:18:15,669
+to the shared variable
+actually also established
+
+399
+00:18:15,669 --> 00:18:18,449
+atomicity relative to the
+other user space threads
+
+400
+00:18:18,449 --> 00:18:20,070
+attempting to access that same
+
+401
+00:18:20,070 --> 00:18:21,589
+shared variable
+at the same time.
+
+402
+00:18:21,589 --> 00:18:25,829
+Okay? So in both cases,
+atomicity was achieved,
+
+403
+00:18:25,829 --> 00:18:28,149
+and clearly that atomicity
+
+404
+00:18:28,149 --> 00:18:30,110
+that we achieved with just
+slapping locks around
+
+405
+00:18:30,110 --> 00:18:32,209
+the critical section
+was insufficient for us
+
+406
+00:18:32,209 --> 00:18:36,009
+to ensure atomicity relative
+to the interrupt handler.
+
+407
+00:18:36,330 --> 00:18:40,489
+Guys, this is cool stuff, right?
+
+408
+00:18:40,489 --> 00:18:42,329
+I'm breaking your
+brain right now
+
+409
+00:18:42,329 --> 00:18:45,569
+because you thought that
+atomicity means just one thing.
+
+410
+00:18:47,370 --> 00:18:52,159
+Yes. Can you repeat
+what she said? No.
+
+411
+00:18:52,159 --> 00:18:56,209
+Don't think I can.
+It's recorded.
+
+412
+00:18:56,209 --> 00:18:58,409
+You can go back to that
+and watch the recording,
+
+413
+00:18:58,409 --> 00:19:01,770
+and we are already 18
+minutes past the hour.
+
+414
+00:19:01,770 --> 00:19:03,349
+I want to keep going with this,
+
+415
+00:19:03,349 --> 00:19:05,230
+and I think you'll
+actually appreciate
+
+416
+00:19:05,230 --> 00:19:07,310
+that in subsequent
+examples on this slide.
+
+417
+00:19:07,310 --> 00:19:09,190
+Okay? So we've established
+
+418
+00:19:09,190 --> 00:19:10,849
+order as a result of
+
+419
+00:19:10,849 --> 00:19:12,890
+establishing this
+relative atomicity.
+
+420
+00:19:12,890 --> 00:19:15,609
+In other words, the block
+A on the left hand side
+
+421
+00:19:15,609 --> 00:19:19,569
+will be ordered in its totality,
+
+422
+00:19:19,569 --> 00:19:22,710
+relative to the block B on
+the right hand side, okay?
+
+423
+00:19:22,710 --> 00:19:24,989
+So the mechanism of
+
+424
+00:19:24,989 --> 00:19:26,189
+delaying the interrupts has
+
+425
+00:19:26,189 --> 00:19:27,730
+actually established some kind
+
+426
+00:19:27,730 --> 00:19:33,124
+of ordering between A and
+B in an atomic fashion.
+
+427
+00:19:33,124 --> 00:19:35,919
+And so this is exactly
+what XV six does.
+
+428
+00:19:35,919 --> 00:19:38,339
+If you look at the
+implementation of XV
+
+429
+00:19:38,339 --> 00:19:40,759
+six of a spin lock,
+for instance, right?
+
+430
+00:19:40,759 --> 00:19:44,359
+It looks like this. You disable
+the interrupt on a quire,
+
+431
+00:19:44,359 --> 00:19:46,300
+and you re enable
+in the interrupts
+
+432
+00:19:46,300 --> 00:19:48,780
+after the unlock
+on release, okay?
+
+433
+00:19:48,780 --> 00:19:51,420
+So this is actually not a
+conceptual thought exercise.
+
+434
+00:19:51,420 --> 00:19:53,940
+This is something you'll
+actually see in X six code.
+
+435
+00:19:53,940 --> 00:19:59,459
+So when we program in an
+interruptive environment,
+
+436
+00:19:59,459 --> 00:20:02,059
+we really need to think
+about safety in concurrency.
+
+437
+00:20:02,059 --> 00:20:03,719
+And in EV six, we avoid
+
+438
+00:20:03,719 --> 00:20:05,420
+interrupt deadlock by disabling
+
+439
+00:20:05,420 --> 00:20:07,240
+interrupts when a
+spin lock is held.
+
+440
+00:20:07,240 --> 00:20:08,619
+A mutual exclusion with
+
+441
+00:20:08,619 --> 00:20:09,679
+an interrupt handler is
+
+442
+00:20:09,679 --> 00:20:11,239
+achieved with an
+interrupt disable.
+
+443
+00:20:11,239 --> 00:20:12,460
+That's when we established
+
+444
+00:20:12,460 --> 00:20:14,999
+this relative atomicity
+that was necessary in
+
+445
+00:20:14,999 --> 00:20:16,680
+order for us to impose
+
+446
+00:20:16,680 --> 00:20:19,580
+ordering between the
+two critical sections,
+
+447
+00:20:19,580 --> 00:20:21,179
+including the ones with respect
+
+448
+00:20:21,179 --> 00:20:23,420
+to the interrupt handler itself.
+
+449
+00:20:26,870 --> 00:20:30,669
+So building locks with
+only an atomic load and
+
+450
+00:20:30,669 --> 00:20:35,430
+store is very hard.
+Very, very hard.
+
+451
+00:20:35,430 --> 00:20:36,890
+There have been
+people that receive
+
+452
+00:20:36,890 --> 00:20:38,009
+touring awards trying to
+
+453
+00:20:38,009 --> 00:20:39,729
+come up with
+algorithms for this,
+
+454
+00:20:39,729 --> 00:20:43,409
+including Dykstra himself, okay?
+
+455
+00:20:43,409 --> 00:20:47,229
+How many of you are familiar
+with Too Much Milk example?
+
+456
+00:20:47,800 --> 00:20:50,339
+Another one of those
+things that seems,
+
+457
+00:20:50,339 --> 00:20:54,059
+why am I in this class
+thinking about milk, right?
+
+458
+00:20:54,059 --> 00:20:55,659
+But it turns out that this is
+
+459
+00:20:55,659 --> 00:20:57,319
+actually a canonical example in
+
+460
+00:20:57,319 --> 00:20:59,279
+distributed systems and in
+
+461
+00:20:59,279 --> 00:21:02,380
+any including operating systems,
+
+462
+00:21:02,380 --> 00:21:04,979
+where concurrency can happen.
+
+463
+00:21:04,979 --> 00:21:10,219
+So no one has heard about
+the too much milk example.
+
+464
+00:21:10,219 --> 00:21:12,659
+It's actually a
+graduate level thing
+
+465
+00:21:12,659 --> 00:21:14,499
+that people talk about
+in graduate classes.
+
+466
+00:21:14,499 --> 00:21:15,779
+I'm going to introduce it kind
+
+467
+00:21:15,779 --> 00:21:18,379
+of very briefly in this class.
+
+468
+00:21:18,379 --> 00:21:21,980
+So you have not covered the
+basics of this. Okay, good.
+
+469
+00:21:21,980 --> 00:21:24,299
+So this is a classic
+motivating example,
+
+470
+00:21:24,299 --> 00:21:26,940
+and it sort of showcases how
+difficult it is to provide
+
+471
+00:21:26,940 --> 00:21:30,240
+mutual exclusion with concurrent
+memory reason rights.
+
+472
+00:21:30,240 --> 00:21:31,999
+And jumping ahead a little bit,
+
+473
+00:21:31,999 --> 00:21:34,059
+where I'm trying to
+get to with all of
+
+474
+00:21:34,059 --> 00:21:37,199
+this is to motivate the need
+for hardware support for
+
+475
+00:21:37,199 --> 00:21:38,639
+transactions or for sort of
+
+476
+00:21:38,639 --> 00:21:40,239
+atomic operations that achieve
+
+477
+00:21:40,239 --> 00:21:43,940
+multiple reason rights in a
+single atomic fashion, okay?
+
+478
+00:21:43,940 --> 00:21:46,974
+Like a compare and
+exchange, for instance.
+
+479
+00:21:46,974 --> 00:21:49,769
+Or just an exchange itself.
+
+480
+00:21:49,769 --> 00:21:51,629
+So that's sort of
+jumping ahead where
+
+481
+00:21:51,629 --> 00:21:54,069
+we're heading with all
+of this stuff, right?
+
+482
+00:21:54,069 --> 00:21:56,410
+As we're writing
+concurrent programs,
+
+483
+00:21:56,410 --> 00:21:58,750
+we need to ensure
+universal correctness.
+
+484
+00:21:58,750 --> 00:22:01,729
+So that means, what
+does that mean?
+
+485
+00:22:01,729 --> 00:22:04,269
+You know, sometimes you look
+at your code and you think,
+
+486
+00:22:04,269 --> 00:22:05,450
+Well, in my mind,
+
+487
+00:22:05,450 --> 00:22:06,689
+it seems correct, right,
+
+488
+00:22:06,689 --> 00:22:09,129
+because if I go through
+this sequentially,
+
+489
+00:22:09,129 --> 00:22:10,809
+it has to do this
+and this and this,
+
+490
+00:22:10,809 --> 00:22:12,190
+and it seems to work fine.
+
+491
+00:22:12,190 --> 00:22:13,629
+But what this implies is
+
+492
+00:22:13,629 --> 00:22:15,309
+that the code must
+work all the time,
+
+493
+00:22:15,309 --> 00:22:17,029
+not just most of the times,
+
+494
+00:22:17,029 --> 00:22:18,970
+or the majority of the times.
+
+495
+00:22:18,970 --> 00:22:22,509
+The concurrency bugs are
+very hard because they occur
+
+496
+00:22:22,509 --> 00:22:26,810
+only for some of the execution
+interleavings, okay?
+
+497
+00:22:26,810 --> 00:22:29,249
+And it even gets worse than
+
+498
+00:22:29,249 --> 00:22:32,339
+that and hopefully
+we'll get to it by 250.
+
+499
+00:22:32,339 --> 00:22:35,609
+So when you're thinking about
+mutual exclusion design,
+
+500
+00:22:35,609 --> 00:22:39,389
+the mental model for concurrent
+updates needs to be this.
+
+501
+00:22:39,389 --> 00:22:41,469
+You need to be the
+way you need to
+
+502
+00:22:41,469 --> 00:22:43,629
+think about it, what do
+you want me to do, right?
+
+503
+00:22:43,629 --> 00:22:45,189
+What's the action item for me?
+
+504
+00:22:45,189 --> 00:22:47,710
+From your perspective,
+you should be mindful
+
+505
+00:22:47,710 --> 00:22:50,650
+of what is being checked
+and what is being updated.
+
+506
+00:22:50,650 --> 00:22:52,969
+You should be mindful of
+the shared data struck
+
+507
+00:22:52,969 --> 00:22:55,169
+access between the check
+and update because
+
+508
+00:22:55,169 --> 00:22:58,330
+something can slip in and
+actually modify state while
+
+509
+00:22:58,330 --> 00:23:00,930
+we're performing action that's
+
+510
+00:23:00,930 --> 00:23:03,925
+sort of dependent on the state
+that we have just checked.
+
+511
+00:23:03,925 --> 00:23:05,860
+And we'll see a very, very clear
+
+512
+00:23:05,860 --> 00:23:07,919
+example of this ultra simple,
+
+513
+00:23:07,919 --> 00:23:11,019
+the too much milk example.
+What is it, right?
+
+514
+00:23:11,019 --> 00:23:14,559
+So you have a fridge,
+and there are two,
+
+515
+00:23:14,559 --> 00:23:19,559
+let's say, partners
+sharing a flat, right?
+
+516
+00:23:19,559 --> 00:23:24,719
+Let's say I forgot how I called
+them Allie and Bob, okay?
+
+517
+00:23:24,719 --> 00:23:27,489
+And Bob checks the fridge,
+
+518
+00:23:27,489 --> 00:23:29,489
+and if there's no
+milk in the fridge,
+
+519
+00:23:29,489 --> 00:23:32,770
+Bob goes to the store
+and gets some milk.
+
+520
+00:23:32,770 --> 00:23:35,490
+Okay? And then Bob comes
+
+521
+00:23:35,490 --> 00:23:39,129
+back and puts that milk
+in the fridge, okay?
+
+522
+00:23:39,129 --> 00:23:42,569
+But he is not the only one
+who shares access to fridge.
+
+523
+00:23:42,569 --> 00:23:44,849
+You know, apparently,
+there's also Alice.
+
+524
+00:23:44,849 --> 00:23:48,289
+And Alice also
+checks the fridge,
+
+525
+00:23:48,289 --> 00:23:51,589
+and it just so happens
+that the fridge is empty,
+
+526
+00:23:51,589 --> 00:23:53,249
+and if the fridge is empty,
+
+527
+00:23:53,249 --> 00:23:56,670
+Alice is also going to go
+back to the store and she's
+
+528
+00:23:56,670 --> 00:23:58,189
+going to get some
+milk and come back to
+
+529
+00:23:58,189 --> 00:24:00,669
+the fridge and put that
+milk in the fridge.
+
+530
+00:24:00,669 --> 00:24:03,889
+What's the problem? Seems like
+
+531
+00:24:03,889 --> 00:24:07,130
+a reasonable thing to
+do with your flat mat.
+
+532
+00:24:07,330 --> 00:24:11,769
+You just want some milk
+in the fridge. Yes.
+
+533
+00:24:17,910 --> 00:24:23,029
+Now they what? Yeah.
+
+534
+00:24:23,190 --> 00:24:26,610
+Yeah. So basically,
+they essentially ended
+
+535
+00:24:26,610 --> 00:24:29,349
+up having there's a
+possibility, right?
+
+536
+00:24:29,349 --> 00:24:31,749
+There's a possibility
+that they ended up with
+
+537
+00:24:31,749 --> 00:24:32,849
+having more milk than they
+
+538
+00:24:32,849 --> 00:24:34,770
+wanted with two cartons of milk.
+
+539
+00:24:34,770 --> 00:24:38,910
+Okay? So what can you do
+in this particular case?
+
+540
+00:24:38,910 --> 00:24:40,630
+How can we fix this problem?
+
+541
+00:24:40,630 --> 00:24:48,749
+Yes. He can what?
+Log the French.
+
+542
+00:24:54,580 --> 00:24:56,799
+So there's a problem with that.
+
+543
+00:24:56,799 --> 00:24:57,920
+Like, I like where you're
+
+544
+00:24:57,920 --> 00:24:59,080
+heading with this
+line of thinking,
+
+545
+00:24:59,080 --> 00:25:00,939
+but the problem is that he
+
+546
+00:25:00,939 --> 00:25:02,859
+checks for the
+fridge being empty,
+
+547
+00:25:02,859 --> 00:25:04,679
+and then there's
+a period of time
+
+548
+00:25:04,679 --> 00:25:06,759
+until he actually puts
+a lock on the fridge
+
+549
+00:25:06,759 --> 00:25:08,680
+where she can also
+check the fridge before
+
+550
+00:25:08,680 --> 00:25:11,499
+he's able to get the lock
+on the fridge, right?
+
+551
+00:25:11,499 --> 00:25:14,300
+Dang it. We haven't really
+solved the problem.
+
+552
+00:25:14,300 --> 00:25:18,939
+Yeah. Anybody else? Someone.
+
+553
+00:25:23,580 --> 00:25:30,579
+Sorry, again. Okay.
+
+554
+00:25:30,880 --> 00:25:34,899
+Okay. Okay, so in some sense,
+
+555
+00:25:34,899 --> 00:25:36,839
+actually it provides
+you even with
+
+556
+00:25:36,839 --> 00:25:39,839
+a weaker semantics than
+what he suggested because
+
+557
+00:25:39,839 --> 00:25:41,240
+you're basically introducing
+
+558
+00:25:41,240 --> 00:25:43,279
+an additional variable
+to which you're going
+
+559
+00:25:43,279 --> 00:25:46,779
+to be writing that I
+am going to the store,
+
+560
+00:25:46,779 --> 00:25:50,419
+Alice, can you please
+not do that as well?
+
+561
+00:25:50,419 --> 00:25:52,959
+And again, the problem
+
+562
+00:25:52,959 --> 00:25:55,499
+is that the read on the
+state of the fridge and
+
+563
+00:25:55,499 --> 00:25:57,079
+the writing of that message
+
+564
+00:25:57,079 --> 00:26:01,179
+are happening outside of a
+critical section, right?
+
+565
+00:26:01,179 --> 00:26:06,479
+And so they're not atomic
+relative to Alice.
+
+566
+00:26:06,479 --> 00:26:08,879
+Back to your earlier question,
+can you repeat that?
+
+567
+00:26:08,879 --> 00:26:12,389
+Again, this is another example
+of relative atomicity.
+
+568
+00:26:12,389 --> 00:26:15,419
+An atomic instruction to
+
+569
+00:26:15,419 --> 00:26:17,899
+check if the milk is there
+and lock the fridge.
+
+570
+00:26:17,899 --> 00:26:21,060
+So an atomic test
+and set function?
+
+571
+00:26:21,060 --> 00:26:27,059
+Yeah. Yeah. So you pretty
+much ended my fan here.
+
+572
+00:26:28,060 --> 00:26:32,019
+So basically, that's what we
+are heading towards, right?
+
+573
+00:26:32,019 --> 00:26:33,939
+We're trying and by the way,
+
+574
+00:26:33,939 --> 00:26:36,879
+by the way, this is actually
+not strictly required.
+
+575
+00:26:36,879 --> 00:26:38,219
+You don't actually need an
+
+576
+00:26:38,219 --> 00:26:40,240
+atomic transaction
+or instruction.
+
+577
+00:26:40,240 --> 00:26:41,920
+It is actually possible
+
+578
+00:26:41,920 --> 00:26:43,840
+to do it with atomics
+reads and writes.
+
+579
+00:26:43,840 --> 00:26:47,339
+And there was lots of research
+done on this in, I think,
+
+580
+00:26:47,339 --> 00:26:50,180
+70s and 80s when
+distributive systems became
+
+581
+00:26:50,180 --> 00:26:51,700
+popular and concurrency became
+
+582
+00:26:51,700 --> 00:26:53,759
+a huge headache for everyone.
+
+583
+00:26:53,759 --> 00:26:57,019
+And people actually did come
+up with algorithms for this.
+
+584
+00:26:57,019 --> 00:26:59,799
+But let's formalize this
+example first, right?
+
+585
+00:26:59,799 --> 00:27:03,920
+So, so that you actually
+have it in your notes.
+
+586
+00:27:03,920 --> 00:27:06,679
+So, Bob, what does he do?
+He checks the fridge.
+
+587
+00:27:06,679 --> 00:27:08,220
+There's no milk,
+goes to the store,
+
+588
+00:27:08,220 --> 00:27:10,719
+buys milk, arrives home,
+milk goes to the fridge.
+
+589
+00:27:10,719 --> 00:27:12,579
+That's sort of a sequence
+of your instructions,
+
+590
+00:27:12,579 --> 00:27:14,739
+just being very
+explicit about it.
+
+591
+00:27:14,739 --> 00:27:18,760
+Alice, same set of same
+set of instructions.
+
+592
+00:27:18,760 --> 00:27:20,519
+So basically, two threads,
+
+593
+00:27:20,519 --> 00:27:22,359
+kind of attempting
+exactly the same thing,
+
+594
+00:27:22,359 --> 00:27:24,039
+right? But here's the problem.
+
+595
+00:27:24,039 --> 00:27:26,979
+Here's the interleaving
+that's problematic, right?
+
+596
+00:27:26,979 --> 00:27:29,800
+So Bob checks this fridge,
+goes to the store,
+
+597
+00:27:29,800 --> 00:27:31,679
+buys milk, and then
+Alice goes in,
+
+598
+00:27:31,679 --> 00:27:33,720
+checks the fridge, goes
+to the store, buys milk.
+
+599
+00:27:33,720 --> 00:27:35,120
+And, of course, as
+we've established,
+
+600
+00:27:35,120 --> 00:27:37,339
+that's going to give us
+too much milk, right?
+
+601
+00:27:37,339 --> 00:27:39,939
+That's sort of what's
+going to happen.
+
+602
+00:27:39,939 --> 00:27:42,499
+Now, formalizing
+this a little bit,
+
+603
+00:27:42,499 --> 00:27:44,060
+how do we land this in something
+
+604
+00:27:44,060 --> 00:27:46,039
+that we can reason
+about in this class,
+
+605
+00:27:46,039 --> 00:27:47,559
+formalizing this a little bit.
+
+606
+00:27:47,559 --> 00:27:49,420
+So you have a couple
+of shared variables.
+
+607
+00:27:49,420 --> 00:27:52,760
+In this case, checking
+the fridge is basically,
+
+608
+00:27:52,760 --> 00:27:54,359
+in case it wasn't obvious,
+
+609
+00:27:54,359 --> 00:27:56,439
+reading a shared
+variable, right?
+
+610
+00:27:56,439 --> 00:27:58,479
+And then you put
+milk in the fridge,
+
+611
+00:27:58,479 --> 00:28:00,279
+that's updating the
+shared variable.
+
+612
+00:28:00,279 --> 00:28:01,600
+So you're reading fridge, you're
+
+613
+00:28:01,600 --> 00:28:03,499
+writing to the fridge, right?
+
+614
+00:28:03,499 --> 00:28:05,819
+And what we need
+to think about in
+
+615
+00:28:05,819 --> 00:28:06,979
+this particular case is
+
+616
+00:28:06,979 --> 00:28:09,760
+two key properties that
+guarantee correctness.
+
+617
+00:28:09,760 --> 00:28:11,779
+And as a first year PhD student,
+
+618
+00:28:11,779 --> 00:28:13,820
+I actually had to prove
+correctness for something
+
+619
+00:28:13,820 --> 00:28:16,399
+when I was interning
+at Microsoft Research.
+
+620
+00:28:16,399 --> 00:28:18,819
+So I still remember
+some of this.
+
+621
+00:28:19,530 --> 00:28:22,210
+There are two things
+safety property
+
+622
+00:28:22,210 --> 00:28:24,169
+and liveness. Now, safety here.
+
+623
+00:28:24,169 --> 00:28:26,109
+Actually, I want to start
+with liveness first.
+
+624
+00:28:26,109 --> 00:28:28,409
+Liveness guarantees progress.
+
+625
+00:28:28,409 --> 00:28:29,929
+Liveness says that some
+
+626
+00:28:29,929 --> 00:28:31,630
+progress in the
+system will be made.
+
+627
+00:28:31,630 --> 00:28:33,110
+In this particular case,
+
+628
+00:28:33,110 --> 00:28:37,490
+someone is going
+to buy the milk.
+
+629
+00:28:37,490 --> 00:28:39,529
+That's what we want
+to happen, right?
+
+630
+00:28:39,529 --> 00:28:41,469
+Because if that is false,
+
+631
+00:28:41,469 --> 00:28:43,489
+we know that it's
+incorrect because
+
+632
+00:28:43,489 --> 00:28:45,409
+the whole goal of
+
+633
+00:28:45,409 --> 00:28:46,910
+this multi threaded application
+
+634
+00:28:46,910 --> 00:28:49,119
+is to produce milk
+in the fridge.
+
+635
+00:28:49,119 --> 00:28:51,590
+Okay, so we need to
+guarantee liveness.
+
+636
+00:28:51,590 --> 00:28:54,049
+Was liveness Can liveness be
+
+637
+00:28:54,049 --> 00:28:57,309
+achieved in the previous example
+
+638
+00:28:57,309 --> 00:29:01,070
+without us doing anything else?
+
+639
+00:29:01,080 --> 00:29:04,259
+Will liveness be achieved?
+
+640
+00:29:04,259 --> 00:29:06,999
+Yes. Yes. Because if
+
+641
+00:29:06,999 --> 00:29:09,260
+both of them go by
+milk, it's still live.
+
+642
+00:29:09,260 --> 00:29:11,140
+Yeah, they make progress.
+
+643
+00:29:11,140 --> 00:29:12,819
+Milk will show up in the fridge.
+
+644
+00:29:12,819 --> 00:29:15,080
+It's life. The system is life.
+
+645
+00:29:15,080 --> 00:29:17,539
+Now, the safety property in
+
+646
+00:29:17,539 --> 00:29:20,120
+this particular case is
+that at most one person,
+
+647
+00:29:20,120 --> 00:29:25,220
+so less than or equal to one
+person must buy the milk.
+
+648
+00:29:25,220 --> 00:29:28,320
+And by the way, the combination
+of those two things,
+
+649
+00:29:28,320 --> 00:29:30,679
+because liveness
+is greater than or
+
+650
+00:29:30,679 --> 00:29:32,480
+equal to one person buys milk,
+
+651
+00:29:32,480 --> 00:29:35,000
+safety is less than equal
+to one person buys milk,
+
+652
+00:29:35,000 --> 00:29:37,760
+makes it that exactly
+one person buys milk.
+
+653
+00:29:37,760 --> 00:29:40,960
+And so that's why you need to
+make it mutually exclusive.
+
+654
+00:29:42,100 --> 00:29:49,740
+Yeah. Okay. And so the naive
+threat coordination here.
+
+655
+00:29:51,820 --> 00:29:57,059
+Okay. What did I want to say?
+
+656
+00:29:58,040 --> 00:30:00,800
+Ah, the naive
+threat coordination
+
+657
+00:30:00,800 --> 00:30:02,580
+here is basically leave a note.
+
+658
+00:30:02,580 --> 00:30:04,819
+I actually didn't animate
+the living note part.
+
+659
+00:30:04,819 --> 00:30:07,000
+Someone suggested
+leaving a note.
+
+660
+00:30:07,000 --> 00:30:08,699
+You know, we can
+walk through this
+
+661
+00:30:08,699 --> 00:30:10,859
+why this doesn't solve
+the problem, right?
+
+662
+00:30:10,859 --> 00:30:14,560
+Really briefly, it doesn't
+solve the problem.
+
+663
+00:30:15,200 --> 00:30:18,399
+Now, but why, right?
+
+664
+00:30:18,399 --> 00:30:20,059
+You need to prove this to me.
+
+665
+00:30:20,059 --> 00:30:22,520
+You know, I can
+sound like a joke,
+
+666
+00:30:22,520 --> 00:30:23,699
+but you need to
+prove this to me.
+
+667
+00:30:23,699 --> 00:30:25,119
+How do you prove this to me?
+
+668
+00:30:25,119 --> 00:30:26,959
+Well, you prove this
+to me by looking
+
+669
+00:30:26,959 --> 00:30:29,140
+at the safety and the liveness.
+
+670
+00:30:29,140 --> 00:30:31,679
+Is blindness still achieved?
+
+671
+00:30:32,170 --> 00:30:35,709
+Is liveness still achieved?
+That's the easy one, right?
+
+672
+00:30:35,709 --> 00:30:40,169
+If you know, if you
+go through kind of
+
+673
+00:30:40,169 --> 00:30:43,170
+mentally through all
+possible interleavings
+
+674
+00:30:43,170 --> 00:30:45,509
+of these treads on the left
+and the right hand side,
+
+675
+00:30:45,509 --> 00:30:48,689
+I think there's going to be
+milk in the fridge, right?
+
+676
+00:30:48,689 --> 00:30:50,209
+So liveness will be achieved.
+
+677
+00:30:50,209 --> 00:30:52,529
+I'm not going to spend time
+on proving this right now.
+
+678
+00:30:52,529 --> 00:30:54,839
+Is safety still achieved?
+
+679
+00:30:54,839 --> 00:30:59,270
+Yeah. Oh, no, because
+before Bob leaves the note,
+
+680
+00:30:59,270 --> 00:31:01,449
+Alice can check fridge.
+
+681
+00:31:01,449 --> 00:31:05,029
+Yeah, exactly. Because we can
+still have an interleaving.
+
+682
+00:31:05,029 --> 00:31:06,909
+As a matter of
+fact, they could be
+
+683
+00:31:06,909 --> 00:31:09,909
+leaving a note at exactly
+the same time, right?
+
+684
+00:31:09,909 --> 00:31:13,510
+And then so let's say
+that we got to the point.
+
+685
+00:31:13,510 --> 00:31:16,409
+You can imagine a virtual
+pointer right here where
+
+686
+00:31:16,409 --> 00:31:18,109
+Bob checked the fridge and is
+
+687
+00:31:18,109 --> 00:31:20,804
+leaving a note right
+here. Bob is here.
+
+688
+00:31:20,804 --> 00:31:23,439
+Is also here, also
+leaving a note, right?
+
+689
+00:31:23,439 --> 00:31:25,159
+And then one of them is going
+
+690
+00:31:25,159 --> 00:31:27,439
+to succeed kind of
+posting a note first.
+
+691
+00:31:27,439 --> 00:31:28,880
+Okay, fine. It doesn't
+
+692
+00:31:28,880 --> 00:31:30,439
+really matter what
+the order of that is.
+
+693
+00:31:30,439 --> 00:31:33,079
+Now we'll end up with two
+notes on the fridge, right?
+
+694
+00:31:33,079 --> 00:31:34,640
+And both of them go to store.
+
+695
+00:31:34,640 --> 00:31:37,535
+Both of them buy milk,
+and we get too much milk.
+
+696
+00:31:37,535 --> 00:31:40,369
+Okay? So the safety
+
+697
+00:31:40,369 --> 00:31:42,949
+here is the more complicated
+property to ensure,
+
+698
+00:31:42,949 --> 00:31:44,549
+and that's what we need the
+
+699
+00:31:44,549 --> 00:31:46,750
+more sophisticated
+concurrency primitives
+
+700
+00:31:46,750 --> 00:31:48,410
+that we're going to
+talk about next.
+
+701
+00:31:48,410 --> 00:31:53,570
+But before we even jump to
+that thing that you suggested,
+
+702
+00:31:53,570 --> 00:31:55,589
+which is the exchange operation,
+
+703
+00:31:55,589 --> 00:31:57,170
+the atomic exchange operation,
+
+704
+00:31:57,170 --> 00:31:59,409
+it is possible to
+do this without it.
+
+705
+00:31:59,409 --> 00:32:01,910
+And it's called the
+Peterson's algorithm.
+
+706
+00:32:01,910 --> 00:32:03,629
+How many of you looked at
+
+707
+00:32:03,629 --> 00:32:08,470
+the Peterson's algorithm
+before? Yeah, yeah.
+
+708
+00:32:08,470 --> 00:32:11,150
+So definitely take a look at
+the Peterson's algorithm.
+
+709
+00:32:11,150 --> 00:32:13,909
+It's a very interesting
+piece of code, okay.
+
+710
+00:32:13,909 --> 00:32:17,200
+And especially if you're
+
+711
+00:32:17,200 --> 00:32:19,280
+going to study
+distributed systems,
+
+712
+00:32:19,280 --> 00:32:22,639
+and I encourage you to study
+it in your spare time.
+
+713
+00:32:22,639 --> 00:32:26,619
+So this is where we sort
+of declare intent, right?
+
+714
+00:32:26,619 --> 00:32:28,560
+So the flag variable right here.
+
+715
+00:32:28,560 --> 00:32:30,460
+So zero corresponds
+to thread zero,
+
+716
+00:32:30,460 --> 00:32:31,959
+one corresponds to thread one.
+
+717
+00:32:31,959 --> 00:32:33,579
+The flag variable right here is
+
+718
+00:32:33,579 --> 00:32:35,659
+where we're going to
+declare intent that I
+
+719
+00:32:35,659 --> 00:32:40,839
+intend to get into the
+critical section, okay?
+
+720
+00:32:40,839 --> 00:32:43,340
+And then after that, we
+have an additional variable
+
+721
+00:32:43,340 --> 00:32:44,699
+here that's sort of denoted as
+
+722
+00:32:44,699 --> 00:32:46,720
+P zero gate and P one gate,
+
+723
+00:32:46,720 --> 00:32:50,624
+where we set the
+turn to one, okay?
+
+724
+00:32:50,624 --> 00:32:54,449
+And that's basically tries
+to impose some sort of
+
+725
+00:32:54,449 --> 00:32:56,190
+order in which they're
+
+726
+00:32:56,190 --> 00:32:58,889
+going to access the
+critical section.
+
+727
+00:32:58,889 --> 00:33:03,350
+And the wild condition is
+basically busy waiting, okay?
+
+728
+00:33:03,350 --> 00:33:05,209
+So if you look at
+the wild condition,
+
+729
+00:33:05,209 --> 00:33:07,870
+it's like an empty loop
+here or empty body.
+
+730
+00:33:07,870 --> 00:33:10,589
+It's a busy weight
+that is going to
+
+731
+00:33:10,589 --> 00:33:13,470
+busy wait for as long as
+this condition holds true.
+
+732
+00:33:13,470 --> 00:33:15,169
+And what is the condition?
+
+733
+00:33:15,169 --> 00:33:18,870
+While it's still
+my while I'm still
+
+734
+00:33:18,870 --> 00:33:23,400
+intending to get into the
+critical while I'm still sorry.
+
+735
+00:33:23,400 --> 00:33:26,750
+Let me while the
+other person is still
+
+736
+00:33:26,750 --> 00:33:27,850
+intending to get into
+
+737
+00:33:27,850 --> 00:33:30,570
+the critical section,
+and it's their turn.
+
+738
+00:33:30,570 --> 00:33:34,669
+I'm going to wait for
+them to complete. Right?
+
+739
+00:33:34,669 --> 00:33:38,189
+So Wil flag one is true
+and turn equals to one.
+
+740
+00:33:38,189 --> 00:33:40,929
+So let me get this
+one more time.
+
+741
+00:33:40,929 --> 00:33:42,390
+While the other person is still
+
+742
+00:33:42,390 --> 00:33:44,209
+intending to get into
+the critical section,
+
+743
+00:33:44,209 --> 00:33:46,230
+and it's my turn,
+I'm going to wait.
+
+744
+00:33:46,230 --> 00:33:48,769
+And then after that, you get
+into the critical section,
+
+745
+00:33:48,769 --> 00:33:50,849
+and then you reset
+the intent because
+
+746
+00:33:50,849 --> 00:33:54,069
+you no longer intend to get
+into the critical section.
+
+747
+00:33:54,069 --> 00:33:56,069
+So it gets really
+
+748
+00:33:56,069 --> 00:33:58,109
+complicated because
+you actually have to
+
+749
+00:33:58,109 --> 00:34:00,209
+introduce an additional
+variable for
+
+750
+00:34:00,209 --> 00:34:01,829
+every single thread
+that attempts to
+
+751
+00:34:01,829 --> 00:34:04,650
+participate in this
+concurrent operation.
+
+752
+00:34:04,650 --> 00:34:07,069
+And so it turns out that this is
+
+753
+00:34:07,069 --> 00:34:10,914
+completely impractical in
+realistic scenarios, right?
+
+754
+00:34:10,914 --> 00:34:12,559
+And we really want
+
+755
+00:34:12,559 --> 00:34:14,879
+something that's much
+better than that,
+
+756
+00:34:14,879 --> 00:34:16,660
+that's much more efficient.
+
+757
+00:34:16,660 --> 00:34:19,820
+In other words, we need a
+better concurrency mechanism
+
+758
+00:34:19,820 --> 00:34:21,719
+that in a sense,
+
+759
+00:34:21,719 --> 00:34:22,999
+does an atomic read and
+
+760
+00:34:22,999 --> 00:34:25,579
+atomic write in a single
+operation, right?
+
+761
+00:34:25,579 --> 00:34:28,039
+So Cen plus plus
+
+762
+00:34:28,039 --> 00:34:31,260
+11 standard does have
+some atomic primitives.
+
+763
+00:34:31,260 --> 00:34:32,379
+I just wanted to make sure that
+
+764
+00:34:32,379 --> 00:34:34,059
+I mentioned them here to you.
+
+765
+00:34:34,059 --> 00:34:35,919
+We have an atomic load,
+
+766
+00:34:35,919 --> 00:34:40,900
+an atomic store, an atomic
+fetch and d, atomic exchange,
+
+767
+00:34:40,900 --> 00:34:43,859
+and this is basically where
+we are doing a load and store
+
+768
+00:34:43,859 --> 00:34:47,460
+at the same time in a
+transactional fashion,
+
+769
+00:34:47,460 --> 00:34:50,580
+and even more
+sophisticated variant
+
+770
+00:34:50,580 --> 00:34:52,640
+of that atomic compare exchange.
+
+771
+00:34:52,640 --> 00:34:55,920
+So sort of even fancier
+where there's a condition,
+
+772
+00:34:55,920 --> 00:34:58,419
+which must hold true in
+
+773
+00:34:58,419 --> 00:35:01,839
+order for the exchange
+to take place.
+
+774
+00:35:02,240 --> 00:35:04,520
+Question?
+
+775
+00:35:12,340 --> 00:35:16,179
+Why do we need an atomic
+load and atomic store?
+
+776
+00:35:16,179 --> 00:35:18,800
+So in some sense, actually,
+
+777
+00:35:18,800 --> 00:35:20,859
+this is syntactic sugar
+to communicate to
+
+778
+00:35:20,859 --> 00:35:23,239
+the compiler that this load
+
+779
+00:35:23,239 --> 00:35:25,060
+and store actually
+has to be atomic.
+
+780
+00:35:25,060 --> 00:35:26,279
+So in a sense,
+
+781
+00:35:26,279 --> 00:35:28,179
+it's a declarative
+way of specifying to
+
+782
+00:35:28,179 --> 00:35:30,500
+the compiler that you want
+this read to be atomic.
+
+783
+00:35:30,500 --> 00:35:33,039
+And it has some implications
+from the perspective of
+
+784
+00:35:33,039 --> 00:35:36,559
+which optimizations the compiler
+is actually able to do.
+
+785
+00:35:36,559 --> 00:35:37,419
+Right.
+
+786
+00:35:37,419 --> 00:35:39,639
+So that's an interesting
+question because if you think
+
+787
+00:35:39,639 --> 00:35:42,759
+of also just in case, right,
+
+788
+00:35:42,759 --> 00:35:45,019
+just in case an
+atomic load is not
+
+789
+00:35:45,019 --> 00:35:47,200
+actually atomic
+
+790
+00:35:47,200 --> 00:35:49,100
+from the assembly
+instruction perspective,
+
+791
+00:35:49,100 --> 00:35:51,959
+because it is possible
+for you to, let's say,
+
+792
+00:35:51,959 --> 00:35:53,919
+get something from
+memory and put it in
+
+793
+00:35:53,919 --> 00:35:56,119
+a register and then maybe
+for whatever reason,
+
+794
+00:35:56,119 --> 00:35:58,100
+put it into a separate register.
+
+795
+00:35:58,100 --> 00:35:59,439
+So it is possible for it to be
+
+796
+00:35:59,439 --> 00:36:01,080
+a multi instruction operation.
+
+797
+00:36:01,080 --> 00:36:03,739
+So that's sort of another
+answer to your question.
+
+798
+00:36:03,739 --> 00:36:08,009
+Okay? Alright, so
+now the question is,
+
+799
+00:36:08,009 --> 00:36:09,609
+we made a big deal about getting
+
+800
+00:36:09,609 --> 00:36:10,730
+too much milk in the fridge.
+
+801
+00:36:10,730 --> 00:36:12,329
+Can we actually
+solve too much milk
+
+802
+00:36:12,329 --> 00:36:14,370
+with a sea lemon
+atomic exchange?
+
+803
+00:36:14,370 --> 00:36:16,469
+And just to throw it out there,
+
+804
+00:36:16,469 --> 00:36:18,969
+here's what an atomic exchange
+is going to look like.
+
+805
+00:36:18,969 --> 00:36:21,510
+You have a function exchange
+
+806
+00:36:21,510 --> 00:36:24,090
+that is trying to
+perform a swap.
+
+807
+00:36:24,090 --> 00:36:26,009
+And so it's going to store into
+
+808
+00:36:26,009 --> 00:36:28,529
+a temporary variable the
+contents of Y, right?
+
+809
+00:36:28,529 --> 00:36:31,849
+You're passing Y and
+X, the contents of Y,
+
+810
+00:36:31,849 --> 00:36:35,289
+and then it's going to
+star Y equals to X,
+
+811
+00:36:35,289 --> 00:36:37,609
+so it's going to save
+X into Y and it's
+
+812
+00:36:37,609 --> 00:36:40,190
+going to return whatever
+was there previously.
+
+813
+00:36:40,190 --> 00:36:44,129
+It's going to return T. So
+
+814
+00:36:44,129 --> 00:36:47,189
+the original contents
+of Y that were there in
+
+815
+00:36:47,189 --> 00:36:50,610
+Y are going to be returned
+out of this function.
+
+816
+00:36:50,610 --> 00:36:54,270
+Okay? And we're trying to do
+this with hardware support.
+
+817
+00:36:54,270 --> 00:36:56,050
+This is going to be
+an atomic operation.
+
+818
+00:36:56,050 --> 00:36:58,129
+So that means that
+nobody can get in
+
+819
+00:36:58,129 --> 00:37:01,330
+anywhere in between these
+statements anymore.
+
+820
+00:37:01,330 --> 00:37:02,689
+That was the problem that we
+
+821
+00:37:02,689 --> 00:37:04,370
+had with too much Milk example.
+
+822
+00:37:04,370 --> 00:37:05,889
+And that was the
+problem that we had
+
+823
+00:37:05,889 --> 00:37:07,849
+why we can't just
+leave a note, right?
+
+824
+00:37:07,849 --> 00:37:11,110
+Because it wasn't sort
+of an atomic operation.
+
+825
+00:37:11,110 --> 00:37:15,429
+Okay. And so how do we do this?
+
+826
+00:37:15,429 --> 00:37:17,669
+Let's say that we start with
+
+827
+00:37:17,669 --> 00:37:19,849
+an initial condition
+where lock is held.
+
+828
+00:37:19,849 --> 00:37:22,469
+Okay? We're going to set R,
+
+829
+00:37:22,469 --> 00:37:24,509
+which is our result to one,
+
+830
+00:37:24,509 --> 00:37:27,709
+and then while is not zero,
+
+831
+00:37:27,709 --> 00:37:31,110
+we will attempt to
+perform the exchange.
+
+832
+00:37:32,190 --> 00:37:35,829
+And so when the exchange
+actually took place,
+
+833
+00:37:35,829 --> 00:37:39,969
+right, R should be set to zero,
+
+834
+00:37:39,969 --> 00:37:43,550
+which is going to make
+this wild condition false.
+
+835
+00:37:43,550 --> 00:37:44,970
+It's going to make
+this wild condition
+
+836
+00:37:44,970 --> 00:37:47,429
+false and will break
+out of the loop.
+
+837
+00:37:48,370 --> 00:37:52,810
+So does everyone agree that
+this solves the problem?
+
+838
+00:37:55,010 --> 00:37:59,089
+Let's do it one more time.
+Okay? So lock is set to one.
+
+839
+00:37:59,089 --> 00:38:01,650
+Let's say that this is
+our initial condition.
+
+840
+00:38:01,650 --> 00:38:03,149
+There are only two
+possibilities.
+
+841
+00:38:03,149 --> 00:38:05,429
+We can cover both
+possibilities right now.
+
+842
+00:38:05,429 --> 00:38:07,549
+Let's start with
+this one. Lock is
+
+843
+00:38:07,549 --> 00:38:09,909
+held by somebody else, right?
+
+844
+00:38:09,909 --> 00:38:13,070
+And we set R to one.
+This is our result.
+
+845
+00:38:13,070 --> 00:38:15,670
+And then this allows
+
+846
+00:38:15,670 --> 00:38:17,909
+us to execute this Wild
+statement at least once.
+
+847
+00:38:17,909 --> 00:38:20,749
+We know we're going to get
+in. You guys see that?
+
+848
+00:38:20,749 --> 00:38:23,009
+We're getting into
+the wild body.
+
+849
+00:38:23,009 --> 00:38:25,010
+And then we're
+performing an exchange
+
+850
+00:38:25,010 --> 00:38:27,349
+of whatever's there in
+the lock with a one.
+
+851
+00:38:27,349 --> 00:38:30,209
+We want to put one
+into the lock.
+
+852
+00:38:30,209 --> 00:38:32,229
+Now, if it's already held,
+
+853
+00:38:32,229 --> 00:38:35,009
+what is this exchange
+going to return?
+
+854
+00:38:38,590 --> 00:38:41,729
+This kind of stuff
+will be on the test.
+
+855
+00:38:41,729 --> 00:38:44,069
+So what is exchange going to
+
+856
+00:38:44,069 --> 00:38:47,149
+return if lock is already held?
+
+857
+00:38:50,430 --> 00:38:52,469
+No.
+
+858
+00:38:53,070 --> 00:38:55,289
+The lock is already held, that
+
+859
+00:38:55,289 --> 00:38:57,629
+means that the lock
+is set to one.
+
+860
+00:38:58,430 --> 00:39:01,210
+The exchange is attempting.
+
+861
+00:39:01,210 --> 00:39:03,669
+Basically, the exchange
+in this particular case
+
+862
+00:39:03,669 --> 00:39:06,449
+is attempting to
+replace one with what.
+
+863
+00:39:06,449 --> 00:39:08,889
+So what is it going to return?
+
+864
+00:39:08,889 --> 00:39:10,610
+What's going to be
+the result of calling
+
+865
+00:39:10,610 --> 00:39:13,669
+this operation on the
+left hand side with,
+
+866
+00:39:13,669 --> 00:39:18,609
+you know, Y pointing to one
+and X equal to one. Come on.
+
+867
+00:39:18,609 --> 00:39:19,509
+One.
+
+868
+00:39:19,509 --> 00:39:21,749
+Yeah, you're going to
+return one, right?
+
+869
+00:39:21,749 --> 00:39:23,889
+And so if you're
+going to return one,
+
+870
+00:39:23,889 --> 00:39:26,829
+that means that the lock is
+still held by somebody else,
+
+871
+00:39:26,829 --> 00:39:30,189
+and we were unsuccessful
+at acquiring the lock.
+
+872
+00:39:30,189 --> 00:39:32,270
+And so we're going to execute
+
+873
+00:39:32,270 --> 00:39:33,509
+the wire loop again because the
+
+874
+00:39:33,509 --> 00:39:34,789
+condition will still hold true.
+
+875
+00:39:34,789 --> 00:39:38,029
+Do you see that? And for
+as long as that's true,
+
+876
+00:39:38,029 --> 00:39:41,429
+we're going to keep
+executing this wire loop.
+
+877
+00:39:42,070 --> 00:39:44,689
+Whoever held that, let's
+
+878
+00:39:44,689 --> 00:39:46,829
+say that they finally
+released the lock,
+
+879
+00:39:46,829 --> 00:39:49,169
+and I should mention that
+when they release the lock,
+
+880
+00:39:49,169 --> 00:39:51,609
+the lock is going
+to be set to zero.
+
+881
+00:39:51,609 --> 00:39:54,009
+So we got into the
+body loop right here.
+
+882
+00:39:54,009 --> 00:39:55,429
+The exchange is now
+
+883
+00:39:55,429 --> 00:39:57,629
+passing a pointer to
+
+884
+00:39:57,629 --> 00:39:59,809
+the memory location
+that holds a zero,
+
+885
+00:39:59,809 --> 00:40:02,349
+and we're trying to
+put a one into it.
+
+886
+00:40:02,349 --> 00:40:08,289
+Now, what will be the return
+of this exchange? Zero.
+
+887
+00:40:08,289 --> 00:40:10,549
+And so what's going
+to happen with
+
+888
+00:40:10,549 --> 00:40:15,689
+a zero return? What's that?
+
+889
+00:40:15,689 --> 00:40:20,809
+It's going to let us break
+out of the a loop, right?
+
+890
+00:40:20,809 --> 00:40:24,519
+And so it can some people
+
+891
+00:40:24,519 --> 00:40:27,079
+can sort of conceptualize
+and visualize these things.
+
+892
+00:40:27,079 --> 00:40:32,439
+Some of them are sort of think
+in a very different way.
+
+893
+00:40:32,439 --> 00:40:35,680
+And so in order for
+us to actually,
+
+894
+00:40:35,680 --> 00:40:37,079
+let's go through
+the lock equals to
+
+895
+00:40:37,079 --> 00:40:38,919
+zero example because I'm
+
+896
+00:40:38,919 --> 00:40:40,439
+going to build to something I
+
+897
+00:40:40,439 --> 00:40:42,379
+want to give you a conceptual
+framework for this.
+
+898
+00:40:42,379 --> 00:40:44,940
+So if lock is zero when
+we start this operation,
+
+899
+00:40:44,940 --> 00:40:48,079
+so we set R to one, one
+does not equal to zero.
+
+900
+00:40:48,079 --> 00:40:49,919
+We get in. We're trying to
+
+901
+00:40:49,919 --> 00:40:53,819
+exchange basically a lock
+that was freed with the one.
+
+902
+00:40:53,819 --> 00:40:55,400
+So what's going to happen?
+
+903
+00:40:55,400 --> 00:40:57,579
+The return value will be
+
+904
+00:40:58,690 --> 00:41:01,369
+If lock is now, we're
+
+905
+00:41:01,369 --> 00:41:03,069
+discussing this
+initial condition
+
+906
+00:41:03,069 --> 00:41:04,189
+when lock equals to zero.
+
+907
+00:41:04,189 --> 00:41:06,349
+The return value of this
+is going to be what?
+
+908
+00:41:06,349 --> 00:41:09,469
+Zero. And so if it's zero,
+
+909
+00:41:09,469 --> 00:41:11,089
+while zero not equal to zero,
+
+910
+00:41:11,089 --> 00:41:14,849
+is going to cause
+this to be false,
+
+911
+00:41:14,849 --> 00:41:16,249
+we break out of the wire loop.
+
+912
+00:41:16,249 --> 00:41:21,989
+We've completed this with a
+lock held in our hand, okay?
+
+913
+00:41:21,989 --> 00:41:23,429
+Because we were successful at
+
+914
+00:41:23,429 --> 00:41:25,929
+putting one into it ourselves.
+
+915
+00:41:26,000 --> 00:41:28,539
+In other words, as you can see,
+
+916
+00:41:28,539 --> 00:41:31,659
+we're going to spin
+for as long as
+
+917
+00:41:31,659 --> 00:41:33,679
+necessary until we are actually
+
+918
+00:41:33,679 --> 00:41:34,919
+successfully able to get
+
+919
+00:41:34,919 --> 00:41:36,719
+the lock in this
+particular case.
+
+920
+00:41:36,719 --> 00:41:41,379
+And that is exactly how the
+spinlock idea was born.
+
+921
+00:41:41,379 --> 00:41:43,619
+And that's exactly what you do
+
+922
+00:41:43,619 --> 00:41:45,339
+in your explicit implementation
+
+923
+00:41:45,339 --> 00:41:50,059
+of an acquire. Data.
+
+924
+00:41:50,099 --> 00:41:52,319
+Now, when you look at that code,
+
+925
+00:41:52,319 --> 00:41:53,899
+it's like a single line with
+
+926
+00:41:53,899 --> 00:41:55,579
+some additional
+things at the top,
+
+927
+00:41:55,579 --> 00:41:57,619
+like if I'm already holding
+
+928
+00:41:57,619 --> 00:42:00,320
+a lock and I'm trying to
+acquire a lock, panic.
+
+929
+00:42:00,320 --> 00:42:03,139
+Right? But then there's
+this one line that sort of
+
+930
+00:42:03,139 --> 00:42:06,599
+executes this with just a
+single wild condition, okay?
+
+931
+00:42:06,599 --> 00:42:09,119
+Which is exactly what
+I have on the slide.
+
+932
+00:42:09,119 --> 00:42:11,439
+And that's the implementation
+of a spinlock,
+
+933
+00:42:11,439 --> 00:42:14,219
+which is used for
+acquire in X six.
+
+934
+00:42:14,219 --> 00:42:17,679
+Alright. But here's a
+conceptual framework.
+
+935
+00:42:17,679 --> 00:42:20,099
+Here's where you're actually
+learning something,
+
+936
+00:42:20,099 --> 00:42:22,819
+a skill that is going to
+help you beyond this course.
+
+937
+00:42:22,819 --> 00:42:24,819
+Let's think about this from
+
+938
+00:42:24,819 --> 00:42:28,579
+the perspective of a
+finite state automaton.
+
+939
+00:42:29,860 --> 00:42:32,479
+Now we have two
+variables to worry
+
+940
+00:42:32,479 --> 00:42:35,239
+about in this finite
+state automaton.
+
+941
+00:42:35,239 --> 00:42:39,499
+And correspondingly,
+their state, right?
+
+942
+00:42:39,499 --> 00:42:42,319
+We have a lock
+variable that changes,
+
+943
+00:42:42,319 --> 00:42:44,699
+we have R that changes.
+
+944
+00:42:44,699 --> 00:42:48,639
+Okay? And so because both of
+them are binary variables,
+
+945
+00:42:48,639 --> 00:42:51,219
+how many possible
+states can we have?
+
+946
+00:42:51,539 --> 00:42:55,639
+Four, 00011011.
+
+947
+00:42:55,639 --> 00:42:58,279
+By now, everyone can
+count in binary, right?
+
+948
+00:42:58,279 --> 00:43:00,539
+So we can at least
+enumerate the states.
+
+949
+00:43:00,539 --> 00:43:01,999
+So if I ask you guys,
+
+950
+00:43:01,999 --> 00:43:04,179
+please enumerate
+all possible states
+
+951
+00:43:04,179 --> 00:43:06,574
+for a tople will you
+be able to do that?
+
+952
+00:43:06,574 --> 00:43:08,909
+Yes. Awesome.
+
+953
+00:43:08,909 --> 00:43:14,309
+Okay, now, let's see
+what's the way to do this?
+
+954
+00:43:14,309 --> 00:43:17,929
+Let's see what we've
+just discussed, right?
+
+955
+00:43:17,929 --> 00:43:19,529
+So let me ask you first,
+
+956
+00:43:19,529 --> 00:43:23,609
+what is what's the state
+that you want to end up in?
+
+957
+00:43:23,609 --> 00:43:27,349
+What is the successful state
+out of these four states?
+
+958
+00:43:27,349 --> 00:43:31,699
+Meaning that we successfully
+acquired the lock.
+
+959
+00:43:31,699 --> 00:43:35,909
+Yes. Zero. Why? Because 10
+
+960
+00:43:35,909 --> 00:43:37,309
+means we have acquired
+the lock and R
+
+961
+00:43:37,309 --> 00:43:39,009
+zero means we have
+exited the y loop,
+
+962
+00:43:39,009 --> 00:43:40,989
+so we have the lock.
+
+963
+00:43:40,989 --> 00:43:45,229
+Right. And so how do
+you get to that, right?
+
+964
+00:43:45,229 --> 00:43:48,169
+Let's break this down.
+We've successfully
+
+965
+00:43:48,169 --> 00:43:50,889
+and I'm trying to help you
+actually think through this.
+
+966
+00:43:50,889 --> 00:43:52,949
+We've successfully
+acquired the lock.
+
+967
+00:43:52,949 --> 00:43:54,649
+That means that one of
+
+968
+00:43:54,649 --> 00:43:56,829
+the necessary conditions
+for this state is that
+
+969
+00:43:56,829 --> 00:44:01,819
+the lock variable must
+be set to One, right?
+
+970
+00:44:01,819 --> 00:44:03,239
+That's obvious. So that already
+
+971
+00:44:03,239 --> 00:44:04,879
+eliminates half of
+the possibilities.
+
+972
+00:44:04,879 --> 00:44:06,419
+So if it's a multi
+choice question,
+
+973
+00:44:06,419 --> 00:44:09,479
+you already have 50%
+of success. Okay?
+
+974
+00:44:09,479 --> 00:44:11,939
+Now, we still have two
+states to worry about.
+
+975
+00:44:11,939 --> 00:44:13,939
+It's either 10 or one.
+
+976
+00:44:13,939 --> 00:44:16,240
+Why is it not 11?
+
+977
+00:44:16,639 --> 00:44:22,109
+Yeah. 11. The thing you're
+trying to exchange the lock.
+
+978
+00:44:22,109 --> 00:44:24,569
+The lock has a value of
+one. So it's still held.
+
+979
+00:44:24,569 --> 00:44:27,009
+You're trying to exchange
+the value of one into
+
+980
+00:44:27,009 --> 00:44:29,869
+an empty los alum
+so if you see 11,
+
+981
+00:44:29,869 --> 00:44:31,609
+that means you're trying
+to acquire a lock
+
+982
+00:44:31,609 --> 00:44:33,469
+that is currently
+acquired by enemy?
+
+983
+00:44:33,469 --> 00:44:35,109
+Yeah, basically, that means that
+
+984
+00:44:35,109 --> 00:44:37,349
+our R value is still
+
+985
+00:44:37,349 --> 00:44:40,110
+one after we've performed
+the exchange operation,
+
+986
+00:44:40,110 --> 00:44:42,390
+which means that the lock
+was held previously,
+
+987
+00:44:42,390 --> 00:44:45,409
+and we were unsuccessful
+at acquiring the lock.
+
+988
+00:44:45,409 --> 00:44:47,569
+We're going to go back
+to the wire loop,
+
+989
+00:44:47,569 --> 00:44:49,829
+and that condition is still
+going to be true and we'll
+
+990
+00:44:49,829 --> 00:44:52,109
+evaluate we'll still attempt
+
+991
+00:44:52,109 --> 00:44:54,489
+an exchange operation
+next, right?
+
+992
+00:44:54,489 --> 00:44:57,769
+So this 11 state is
+very interesting.
+
+993
+00:44:57,769 --> 00:45:00,910
+And let's get to
+that in a second.
+
+994
+00:45:00,910 --> 00:45:04,149
+So basically what we
+want is and what we
+
+995
+00:45:04,149 --> 00:45:05,869
+discussed with the example where
+
+996
+00:45:05,869 --> 00:45:08,369
+the initial condition
+was lock equals to one,
+
+997
+00:45:08,369 --> 00:45:10,689
+is we discussed this
+transition right here.
+
+998
+00:45:10,689 --> 00:45:14,129
+We want to transition
+from a state that was 11.
+
+999
+00:45:14,129 --> 00:45:15,709
+It was constantly 11.
+
+1000
+00:45:15,709 --> 00:45:17,729
+The lock is still held, 11,
+
+1001
+00:45:17,729 --> 00:45:19,229
+the lock is still held, 11.
+
+1002
+00:45:19,229 --> 00:45:22,169
+The lock is still held, 10,
+we've acquired the lock.
+
+1003
+00:45:22,169 --> 00:45:26,689
+That is our successful
+state transition
+
+1004
+00:45:26,689 --> 00:45:29,169
+in this finite state automaton.
+
+1005
+00:45:29,169 --> 00:45:33,859
+Do you guys agree
+with me? Okay, and I
+
+1006
+00:45:33,859 --> 00:45:38,539
+mentioned that there's this
+self edge on the 11 state,
+
+1007
+00:45:38,539 --> 00:45:40,399
+which is obviously possible.
+
+1008
+00:45:40,399 --> 00:45:43,219
+And this happens when what?
+
+1009
+00:45:43,219 --> 00:45:44,360
+How would you describe?
+
+1010
+00:45:44,360 --> 00:45:46,619
+What description would
+you give to this state?
+
+1011
+00:45:46,619 --> 00:45:50,300
+When does this state
+transition happen to itself?
+
+1012
+00:45:51,579 --> 00:45:55,899
+It is possible, right?
+We just talked about it.
+
+1013
+00:45:58,329 --> 00:46:00,389
+Yes.
+
+1014
+00:46:00,389 --> 00:46:02,869
+That's already held
+by someone else.
+
+1015
+00:46:02,869 --> 00:46:04,589
+When you try to
+acquire lock that's
+
+1016
+00:46:04,589 --> 00:46:07,169
+already held by
+somebody else, right,
+
+1017
+00:46:07,169 --> 00:46:09,350
+in this exchange operation,
+
+1018
+00:46:09,350 --> 00:46:13,089
+the lock or the lock
+pointer is pointing to one,
+
+1019
+00:46:13,089 --> 00:46:14,849
+you're attempting to
+write one into it.
+
+1020
+00:46:14,849 --> 00:46:18,629
+So basically, R is
+going to be one, right?
+
+1021
+00:46:18,629 --> 00:46:20,849
+And your lock is one.
+
+1022
+00:46:20,849 --> 00:46:24,349
+So basically, you
+keep spinning in
+
+1023
+00:46:24,349 --> 00:46:26,269
+this state until you're able
+
+1024
+00:46:26,269 --> 00:46:28,609
+to successfully
+transition to state one,
+
+1025
+00:46:28,609 --> 00:46:32,070
+zero, which is our
+success state, okay?
+
+1026
+00:46:32,070 --> 00:46:33,529
+So this is where you spin.
+
+1027
+00:46:33,529 --> 00:46:35,390
+You spin a lot on this vertex
+
+1028
+00:46:35,390 --> 00:46:38,609
+right here in this
+finite state automaton.
+
+1029
+00:46:39,330 --> 00:46:47,330
+Is this the only state transition
+that gives us success?
+
+1030
+00:46:49,090 --> 00:46:52,069
+That could be a trickier
+and a harder question.
+
+1031
+00:46:52,069 --> 00:46:53,990
+Is this the only
+state transition
+
+1032
+00:46:53,990 --> 00:46:55,229
+that gives us success? Yes.
+
+1033
+00:46:55,229 --> 00:46:57,610
+You can have another one 01-10.
+
+1034
+00:46:57,610 --> 00:47:00,169
+If no one else is holding the
+log and require it first.
+
+1035
+00:47:00,169 --> 00:47:02,929
+We can have this state
+transition, right?
+
+1036
+00:47:02,929 --> 00:47:06,530
+And what does this state
+transition represent?
+
+1037
+00:47:07,620 --> 00:47:10,659
+First of all, you know,
+it still leads to
+
+1038
+00:47:10,659 --> 00:47:13,720
+the same success state that
+we've already identified.
+
+1039
+00:47:13,720 --> 00:47:16,260
+That's why you need to
+approach this by thinking
+
+1040
+00:47:16,260 --> 00:47:17,479
+through exactly in the
+
+1041
+00:47:17,479 --> 00:47:19,419
+order that I'm giving
+you right now.
+
+1042
+00:47:19,419 --> 00:47:20,879
+What is the success state?
+
+1043
+00:47:20,879 --> 00:47:23,039
+And then which edges
+can I take in order
+
+1044
+00:47:23,039 --> 00:47:25,440
+to get to the
+success state, okay?
+
+1045
+00:47:25,440 --> 00:47:27,219
+This is a second
+edge that we can
+
+1046
+00:47:27,219 --> 00:47:29,179
+take to get to the
+success state,
+
+1047
+00:47:29,179 --> 00:47:31,939
+and it sort of corresponds
+to the situation where
+
+1048
+00:47:31,939 --> 00:47:35,860
+the lock was not
+initially held, okay?
+
+1049
+00:47:35,860 --> 00:47:38,480
+And it's sort of the most
+obvious and the easiest
+
+1050
+00:47:38,480 --> 00:47:41,099
+case when the lock was
+not initially held,
+
+1051
+00:47:41,099 --> 00:47:42,659
+it was set to zero.
+
+1052
+00:47:42,659 --> 00:47:44,439
+And if it is set to zero,
+
+1053
+00:47:44,439 --> 00:47:46,680
+our exchange essentially
+is successful
+
+1054
+00:47:46,680 --> 00:47:50,439
+immediately because it
+replaces zero with one, right?
+
+1055
+00:47:50,439 --> 00:47:53,499
+And so R is going to become one.
+
+1056
+00:47:53,500 --> 00:48:01,279
+Make sense? So this gives
+us lock success as well.
+
+1057
+00:48:01,279 --> 00:48:04,520
+And what is this state
+state transition?
+
+1058
+00:48:04,520 --> 00:48:07,020
+Is this state
+transition possible?
+
+1059
+00:48:07,020 --> 00:48:09,039
+The one with the question mark
+
+1060
+00:48:09,039 --> 00:48:11,460
+for those of you who
+missed the animation.
+
+1061
+00:48:13,350 --> 00:48:15,449
+If I were to ask you,
+
+1062
+00:48:15,449 --> 00:48:17,350
+right, give me the states,
+
+1063
+00:48:17,350 --> 00:48:20,010
+and then which state
+transitions are possible,
+
+1064
+00:48:20,010 --> 00:48:21,950
+which state transitions
+are not possible,
+
+1065
+00:48:21,950 --> 00:48:25,009
+you should be able to provide
+that answer to me, okay?
+
+1066
+00:48:25,009 --> 00:48:28,289
+We're running out of time,
+so I'm not going to ask you,
+
+1067
+00:48:28,289 --> 00:48:30,389
+so I'm going to leave
+this kind of as
+
+1068
+00:48:30,389 --> 00:48:32,804
+a thought exercise for
+you to think about.
+
+1069
+00:48:32,804 --> 00:48:35,679
+Now, I want to get through this,
+
+1070
+00:48:35,679 --> 00:48:39,019
+which is also something
+that's mind blowing.
+
+1071
+00:48:39,019 --> 00:48:40,939
+Okay. Here's the question.
+
+1072
+00:48:40,939 --> 00:48:43,879
+You have two threads.
+One of the threads is
+
+1073
+00:48:43,879 --> 00:48:46,139
+performing a move of
+
+1074
+00:48:46,139 --> 00:48:49,619
+an immediate value one
+into memory location X.
+
+1075
+00:48:49,619 --> 00:48:52,400
+And then it basically
+
+1076
+00:48:52,400 --> 00:48:56,220
+moves the contents of Y
+into the register EAX.
+
+1077
+00:48:56,220 --> 00:48:57,999
+And on the right hand side,
+
+1078
+00:48:57,999 --> 00:49:01,599
+you're trying to perform
+an immediate value move
+
+1079
+00:49:01,599 --> 00:49:03,079
+on immediate value one to Y.
+
+1080
+00:49:03,079 --> 00:49:04,759
+Basically, you're
+writing one to Y
+
+1081
+00:49:04,759 --> 00:49:07,259
+to memory pointed to by Y,
+
+1082
+00:49:07,259 --> 00:49:09,579
+and then you're trying to
+
+1083
+00:49:09,579 --> 00:49:13,040
+extract the value of X
+and put it into IBX.
+
+1084
+00:49:13,040 --> 00:49:16,760
+Okay. And the initial condition
+
+1085
+00:49:16,760 --> 00:49:19,159
+here is X and Y are set to zero.
+
+1086
+00:49:19,159 --> 00:49:22,780
+And how many different.
+
+1087
+00:49:22,780 --> 00:49:24,540
+The question is the following.
+
+1088
+00:49:24,540 --> 00:49:27,919
+What values can EAX
+and IBX end up with?
+
+1089
+00:49:27,919 --> 00:49:30,059
+I just copy pasted the code
+
+1090
+00:49:30,059 --> 00:49:32,180
+right here so that you
+have it as a reference.
+
+1091
+00:49:32,180 --> 00:49:35,299
+This basically
+means X assign one.
+
+1092
+00:49:35,299 --> 00:49:38,539
+Let me just go ahead and maybe
+write that on the board.
+
+1093
+00:49:38,539 --> 00:49:41,499
+This is X assign one, right?
+
+1094
+00:49:41,499 --> 00:49:49,359
+The second is register EAX
+assign Y. This is T one.
+
+1095
+00:49:49,359 --> 00:49:56,829
+F T two, for T two, we have Y,
+
+1096
+00:49:56,829 --> 00:50:06,109
+assign one, and we
+have EBX assign X.
+
+1097
+00:50:06,670 --> 00:50:09,589
+The question is,
+what is the value of
+
+1098
+00:50:09,589 --> 00:50:13,069
+EAX, EAX, question mark.
+
+1099
+00:50:13,069 --> 00:50:16,909
+What is the value of
+EBX? Question mark.
+
+1100
+00:50:16,909 --> 00:50:18,750
+Answers.
+
+1101
+00:50:26,120 --> 00:50:28,159
+Yes.
+
+1102
+00:50:29,480 --> 00:50:33,759
+Sorry? PC and D. Okay.
+
+1103
+00:50:33,759 --> 00:50:35,799
+BCG. Anybody else?
+
+1104
+00:50:35,799 --> 00:50:43,659
+Yes. Ooh. How's So
+
+1105
+00:50:43,659 --> 00:50:48,119
+G implies that basically all
+states are possible, right?
+
+1106
+00:50:56,370 --> 00:50:58,890
+I I'm going to
+give you a minute,
+
+1107
+00:50:58,890 --> 00:51:01,609
+because it takes some
+time to think about it.
+
+1108
+00:51:54,620 --> 00:51:56,779
+Yes.
+
+1109
+00:52:40,650 --> 00:52:43,569
+Okay. Any more ideas?
+
+1110
+00:52:43,569 --> 00:52:47,809
+What's the correct
+answer? How many of you.
+
+1111
+00:52:47,809 --> 00:52:52,289
+F. Okay. Any. How many
+of you think it's F?
+
+1112
+00:52:52,289 --> 00:52:55,909
+Wow. See, that's why
+
+1113
+00:52:55,909 --> 00:52:57,669
+I told you that your mind
+will be blown today.
+
+1114
+00:52:57,669 --> 00:52:59,049
+I don't know if it's 98%,
+
+1115
+00:52:59,049 --> 00:53:00,429
+but maybe 90%, right?
+
+1116
+00:53:00,429 --> 00:53:07,769
+How many of you think
+it's A through E?
+
+1117
+00:53:08,090 --> 00:53:11,889
+Okay, that's good. How
+many of you think it's G?
+
+1118
+00:53:11,890 --> 00:53:15,810
+Ah. Did you see the
+slides before the class?
+
+1119
+00:53:15,810 --> 00:53:19,189
+No. All right. Why
+do you think it's G?
+
+1120
+00:53:19,189 --> 00:53:23,689
+If I both threads are
+
+1121
+00:53:23,689 --> 00:53:26,309
+executing
+simultaneously and they
+
+1122
+00:53:26,309 --> 00:53:28,549
+get these instructions
+at the same time,
+
+1123
+00:53:28,549 --> 00:53:34,719
+then Mable is not
+
+1124
+00:53:34,719 --> 00:53:37,379
+necessarily guaranteed
+to be atomic here.
+
+1125
+00:53:37,379 --> 00:53:42,500
+Yeah. And so even
+
+1126
+00:53:42,500 --> 00:53:47,699
+if T two has executed
+that first instruction,
+
+1127
+00:53:47,699 --> 00:53:49,279
+it's not guaranteed that that's
+
+1128
+00:53:49,279 --> 00:53:51,920
+the same Y that the
+other thread is looking.
+
+1129
+00:53:51,920 --> 00:53:55,219
+So in other words, just
+to make it very clear,
+
+1130
+00:53:55,219 --> 00:53:58,239
+we're discussing the
+possibility of A here, right?
+
+1131
+00:53:58,239 --> 00:54:00,159
+How is it possible to get A?
+
+1132
+00:54:00,159 --> 00:54:02,379
+So give me the interleaving of
+
+1133
+00:54:02,379 --> 00:54:05,880
+these four instructions
+that makes A possible.
+
+1134
+00:54:07,400 --> 00:54:09,879
+As a possible? Yeah.
+
+1135
+00:54:09,879 --> 00:54:12,760
+That makes zero, zero possible.
+
+1136
+00:54:13,600 --> 00:54:17,159
+Because that's the way to
+answer this question is,
+
+1137
+00:54:17,159 --> 00:54:19,699
+what are the possible
+interleavings, right?
+
+1138
+00:54:19,699 --> 00:54:22,219
+And while you think about that,
+
+1139
+00:54:22,219 --> 00:54:24,559
+I just want to go through
+the other ones really
+
+1140
+00:54:24,559 --> 00:54:27,579
+quickly so that everyone
+is on the same page,
+
+1141
+00:54:27,579 --> 00:54:30,079
+how we get B C and D. Or
+
+1142
+00:54:30,079 --> 00:54:32,699
+does everyone understand
+how to get B C and D?
+
+1143
+00:54:32,699 --> 00:54:35,279
+Yeah? Okay. Well, so
+
+1144
+00:54:35,279 --> 00:54:37,500
+just so that you feel
+good about yourself,
+
+1145
+00:54:37,500 --> 00:54:40,480
+this is what the previous
+class also answered.
+
+1146
+00:54:40,480 --> 00:54:43,239
+They also said that
+the answer is BC and
+
+1147
+00:54:43,239 --> 00:54:48,839
+D. How do we get that?
+How do we get B?
+
+1148
+00:54:48,839 --> 00:54:50,839
+This is the interleaving.
+
+1149
+00:54:50,839 --> 00:54:55,680
+You execute T one first
+and T two second.
+
+1150
+00:54:55,680 --> 00:54:57,800
+If you go through the code,
+
+1151
+00:54:57,800 --> 00:54:59,499
+you can convince yourself that
+
+1152
+00:54:59,499 --> 00:55:02,059
+executing the T one set
+of instructions first
+
+1153
+00:55:02,059 --> 00:55:03,859
+followed by T two
+set of instructions
+
+1154
+00:55:03,859 --> 00:55:05,839
+second is actually going to give
+
+1155
+00:55:05,839 --> 00:55:10,470
+you zero in EAX and one in EBX.
+
+1156
+00:55:10,470 --> 00:55:14,259
+Everyone sees that?
+Okay, good. Thumbs up.
+
+1157
+00:55:14,259 --> 00:55:16,359
+Thumbs up, everyone.
+Okay, thank you.
+
+1158
+00:55:16,359 --> 00:55:19,460
+Thank you. Now, C
+is the opposite.
+
+1159
+00:55:19,460 --> 00:55:21,999
+Basically, if we take
+the entire T two block,
+
+1160
+00:55:21,999 --> 00:55:23,999
+right, followed by
+the T one block,
+
+1161
+00:55:23,999 --> 00:55:26,399
+it gives us the interleaving of
+
+1162
+00:55:26,399 --> 00:55:29,900
+these four instructions
+that make C possible,
+
+1163
+00:55:29,900 --> 00:55:33,760
+which is ending up with
+essentially symmetric.
+
+1164
+00:55:33,760 --> 00:55:35,299
+These are symmetric
+instructions.
+
+1165
+00:55:35,299 --> 00:55:36,960
+So we end up with the opposite,
+
+1166
+00:55:36,960 --> 00:55:39,339
+EAX being one and
+EBX being zero.
+
+1167
+00:55:39,339 --> 00:55:45,169
+Everyone sees that Okay, good.
+
+1168
+00:55:45,169 --> 00:55:47,369
+Now what is the third one?
+
+1169
+00:55:47,369 --> 00:55:49,529
+The third one is a little
+bit more interesting, right?
+
+1170
+00:55:49,529 --> 00:55:51,989
+This is where some
+finer granularity
+
+1171
+00:55:51,989 --> 00:55:55,214
+interleaving is actually
+taking place, right?
+
+1172
+00:55:55,214 --> 00:55:58,380
+The final granularity interleaving
+we still have one CPU,
+
+1173
+00:55:58,380 --> 00:55:59,639
+by the way, it's not
+like they're being
+
+1174
+00:55:59,639 --> 00:56:01,600
+executed on two CPUs.
+
+1175
+00:56:01,600 --> 00:56:04,379
+Still have one core executing
+those instructions.
+
+1176
+00:56:04,379 --> 00:56:06,159
+So I'm not sure whether you were
+
+1177
+00:56:06,159 --> 00:56:08,179
+going with two separate cores.
+
+1178
+00:56:08,179 --> 00:56:10,700
+But the interleaving
+here is basically
+
+1179
+00:56:10,700 --> 00:56:14,219
+taking one instruction
+from T two,
+
+1180
+00:56:14,219 --> 00:56:17,599
+followed by one instruction
+from TO and then again,
+
+1181
+00:56:17,599 --> 00:56:19,079
+one instruction from T two,
+
+1182
+00:56:19,079 --> 00:56:20,479
+followed by one instruction from
+
+1183
+00:56:20,479 --> 00:56:22,019
+TiO, it doesn't really matter.
+
+1184
+00:56:22,019 --> 00:56:25,020
+You're going to end up with
+a situation where both EAX
+
+1185
+00:56:25,020 --> 00:56:29,119
+and EBX are set to
+one. You see that?
+
+1186
+00:56:30,030 --> 00:56:32,449
+Now, how do we get A?
+
+1187
+00:56:32,449 --> 00:56:34,470
+So the question that I posted
+
+1188
+00:56:34,470 --> 00:56:36,969
+earlier that I phrased
+earlier is what
+
+1189
+00:56:36,969 --> 00:56:39,289
+interleaving is
+possible that will
+
+1190
+00:56:39,289 --> 00:56:42,830
+actually give us AAX
+and EBX both set to 00.
+
+1191
+00:56:42,830 --> 00:56:46,209
+Give me that set of
+instructions. Yes.
+
+1192
+00:56:46,209 --> 00:56:49,590
+Statements before either
+variables are assigned.
+
+1193
+00:56:49,590 --> 00:56:53,089
+So you have to run
+the second line
+
+1194
+00:56:53,089 --> 00:56:55,129
+of Team one and the
+second line of C two.
+
+1195
+00:56:55,129 --> 00:56:58,909
+Okay. The first.
+
+1196
+00:57:00,140 --> 00:57:04,179
+So that's the thing.
+You're correct, right?
+
+1197
+00:57:04,179 --> 00:57:06,639
+The interleaving
+that's necessary here,
+
+1198
+00:57:06,639 --> 00:57:09,339
+in order for us to get zero,
+
+1199
+00:57:09,339 --> 00:57:12,699
+in order for us to get
+a 00 tuple, right,
+
+1200
+00:57:12,699 --> 00:57:15,559
+we actually have to execute
+the second lines first,
+
+1201
+00:57:15,559 --> 00:57:17,519
+followed by the first lines.
+
+1202
+00:57:17,519 --> 00:57:20,660
+And so he's saying
+it can't happen.
+
+1203
+00:57:20,660 --> 00:57:22,699
+Yes.
+
+1204
+00:57:26,020 --> 00:57:34,480
+St Yes, exactly.
+
+1205
+00:57:34,480 --> 00:57:37,560
+It turns out that this
+interleaving is actually possible,
+
+1206
+00:57:37,560 --> 00:57:40,399
+and that's where you
+should be mind blown.
+
+1207
+00:57:40,399 --> 00:57:43,219
+It is actually possible to
+
+1208
+00:57:43,219 --> 00:57:44,899
+rearrange instructions
+
+1209
+00:57:44,899 --> 00:57:46,899
+within the context
+of a given thread,
+
+1210
+00:57:46,899 --> 00:57:49,019
+and the reason for this
+is because there are
+
+1211
+00:57:49,019 --> 00:57:51,799
+no data flow dependencies
+between those two instructions,
+
+1212
+00:57:51,799 --> 00:57:54,020
+and the read write dependencies
+are not guaranteed.
+
+1213
+00:57:54,020 --> 00:57:56,860
+The read write ordering
+is not guaranteed.
+
+1214
+00:57:57,060 --> 00:58:01,259
+So you think when
+you write your code,
+
+1215
+00:58:01,259 --> 00:58:04,799
+so the correct answer, by the
+way, is all of the above.
+
+1216
+00:58:04,799 --> 00:58:06,359
+You can actually get
+
+1217
+00:58:06,359 --> 00:58:11,000
+all four possible states
+with this example.
+
+1218
+00:58:11,000 --> 00:58:14,699
+All of the above is
+the correct answer.
+
+1219
+00:58:15,500 --> 00:58:18,359
+And the reason for this
+is because there are
+
+1220
+00:58:18,359 --> 00:58:19,959
+no data flow
+dependencies between
+
+1221
+00:58:19,959 --> 00:58:22,600
+the two instructions in
+either of the threads.
+
+1222
+00:58:22,600 --> 00:58:24,119
+And so the compiler will
+
+1223
+00:58:24,119 --> 00:58:26,139
+think that I can
+rearrange them in
+
+1224
+00:58:26,139 --> 00:58:27,919
+any order because there
+
+1225
+00:58:27,919 --> 00:58:30,739
+are no data flow
+dependencies between them.
+
+1226
+00:58:32,420 --> 00:58:36,819
+Yeah, now everybody
+is mind blown. Yes.
+
+1227
+00:58:39,260 --> 00:58:42,239
+Well, the compiler and
+
+1228
+00:58:42,239 --> 00:58:44,460
+actually the processor
+can actually,
+
+1229
+00:58:44,460 --> 00:58:46,300
+sorry, I have to correct myself.
+
+1230
+00:58:46,300 --> 00:58:48,579
+The processor can rearrange
+them in any order,
+
+1231
+00:58:48,579 --> 00:58:50,740
+especially the out
+of order processor,
+
+1232
+00:58:50,740 --> 00:58:52,900
+but also possibly the compiler.
+
+1233
+00:58:52,900 --> 00:59:00,099
+Yes. Sorry, I can't hear you.
+
+1234
+00:59:04,510 --> 00:59:10,190
+Even if you execute the charged
+order, it'll instruction.
+
+1235
+00:59:13,950 --> 00:59:18,429
+Well, but from the threads
+perspective, right,
+
+1236
+00:59:18,429 --> 00:59:21,069
+actually it doesn't matter
+
+1237
+00:59:21,069 --> 00:59:22,749
+what it doesn't have
+
+1238
+00:59:22,749 --> 00:59:25,150
+any data flow dependency
+between those two instructions.
+
+1239
+00:59:25,150 --> 00:59:27,610
+So let me try to move to the
+punch line really quickly.
+
+1240
+00:59:27,610 --> 00:59:29,209
+So what happens here, right,
+
+1241
+00:59:29,209 --> 00:59:31,850
+at a higher level is
+that X 86 actually
+
+1242
+00:59:31,850 --> 00:59:34,309
+uses a memory model that's
+called total store order.
+
+1243
+00:59:34,309 --> 00:59:36,249
+So the only thing
+that's guaranteed is
+
+1244
+00:59:36,249 --> 00:59:39,029
+actually a store
+order or write order.
+
+1245
+00:59:39,029 --> 00:59:43,790
+And this makes it possible for
+our loads to be reordered.
+
+1246
+00:59:43,790 --> 00:59:47,629
+So we'll probably cover this
+in detail sometime later.
+
+1247
+00:59:47,629 --> 00:59:50,110
+But essentially, only
+the stores are ordered.
+
+1248
+00:59:50,110 --> 00:59:52,430
+There isn't a guarantee
+overload orderings.
+
+1249
+00:59:52,430 --> 00:59:54,870
+So the TSO respects
+
+1250
+00:59:54,870 --> 00:59:58,029
+the right orderings and
+read write dependencies,
+
+1251
+00:59:58,029 --> 00:59:59,450
+but it does not respect
+
+1252
+00:59:59,450 --> 01:00:01,109
+the right read
+dependencies, right?
+
+1253
+01:00:01,109 --> 01:00:03,609
+And so what happens here
+is that you have a right
+
+1254
+01:00:03,609 --> 01:00:05,269
+here in the first line and
+
+1255
+01:00:05,269 --> 01:00:06,994
+a read here in the second line.
+
+1256
+01:00:06,994 --> 01:00:09,959
+And so what happens
+oftentimes with
+
+1257
+01:00:09,959 --> 01:00:12,020
+software developers
+is that we naturally
+
+1258
+01:00:12,020 --> 01:00:15,479
+assume sequential consistency
+when programming, right?
+
+1259
+01:00:15,479 --> 01:00:18,800
+But this is actually not
+a correct assumption.
+
+1260
+01:00:18,800 --> 01:00:22,500
+We are not promised sequential
+consistency by our CPU.
+
+1261
+01:00:22,500 --> 01:00:24,879
+We're not promised the
+sequential consistency
+
+1262
+01:00:24,879 --> 01:00:26,240
+by our programming language.
+
+1263
+01:00:26,240 --> 01:00:27,700
+We're not promised sequential
+
+1264
+01:00:27,700 --> 01:00:29,200
+consistency by the compiler.
+
+1265
+01:00:29,200 --> 01:00:31,179
+Instead, X 86 only
+
+1266
+01:00:31,179 --> 01:00:33,959
+promises total store order
+with ambiguous semantics,
+
+1267
+01:00:33,959 --> 01:00:35,979
+and the only way to
+write correct code
+
+1268
+01:00:35,979 --> 01:00:39,169
+is if it's data raise free.
+
+1269
+01:00:39,169 --> 01:00:41,659
+Or DRF zero.
+
+1270
+01:00:41,659 --> 01:00:44,360
+So in Ci plus plus
+as a version 11,
+
+1271
+01:00:44,360 --> 01:00:47,100
+there's a DRF zero
+semantics being offered,
+
+1272
+01:00:47,100 --> 01:00:49,000
+which basically
+means the following.
+
+1273
+01:00:49,000 --> 01:00:53,719
+If you don't have any explicit
+databases in your code,
+
+1274
+01:00:53,719 --> 01:00:56,599
+then your code will
+behave in a sequentially.
+
+1275
+01:00:56,599 --> 01:00:58,639
+Then and only then
+your code will
+
+1276
+01:00:58,639 --> 01:01:01,579
+behave in a sequentially
+consistent manner.
+
+1277
+01:01:01,820 --> 01:01:04,160
+That's the only way to guarantee
+
+1278
+01:01:04,160 --> 01:01:06,139
+sequential consistent
+semantics is if you
+
+1279
+01:01:06,139 --> 01:01:08,400
+have data base free code, okay?
+
+1280
+01:01:08,400 --> 01:01:11,419
+So the takeaway from
+all of this is that
+
+1281
+01:01:11,419 --> 01:01:13,179
+RF zero means that
+
+1282
+01:01:13,179 --> 01:01:15,019
+you should have no data
+bases in your code,
+
+1283
+01:01:15,019 --> 01:01:16,399
+and that's the only way that you
+
+1284
+01:01:16,399 --> 01:01:18,180
+can actually maintain
+your sanity.
+
+1285
+01:01:18,180 --> 01:01:20,180
+That's the only way
+that you can assume
+
+1286
+01:01:20,180 --> 01:01:21,619
+that the code will be
+
+1287
+01:01:21,619 --> 01:01:25,500
+committed or behave in a
+sequentially consistent manner,
+
+1288
+01:01:25,500 --> 01:01:28,059
+okay? So what do I do?
+
+1289
+01:01:28,059 --> 01:01:29,539
+What are the takeaways from
+
+1290
+01:01:29,539 --> 01:01:31,919
+this mind blowing
+exercise, right?
+
+1291
+01:01:31,919 --> 01:01:35,220
+Well, make sure that
+when you write the code,
+
+1292
+01:01:35,220 --> 01:01:37,599
+you introduce proper semantics,
+
+1293
+01:01:37,599 --> 01:01:39,839
+the relative atomicity
+that I talked about,
+
+1294
+01:01:39,839 --> 01:01:41,800
+remove all the data bases,
+
+1295
+01:01:41,800 --> 01:01:44,679
+use locks, semaphores,
+condition variables, right?
+
+1296
+01:01:44,679 --> 01:01:46,980
+And they all rely on
+special operations.
+
+1297
+01:01:46,980 --> 01:01:49,679
+They build up ordering and
+atomicity abstractions,
+
+1298
+01:01:49,679 --> 01:01:52,460
+just like other operating
+system concepts.
+
+1299
+01:01:52,460 --> 01:01:55,079
+And this is going to come up
+
+1300
+01:01:55,079 --> 01:01:56,720
+in lab two when
+you're implementing
+
+1301
+01:01:56,720 --> 01:01:58,704
+your ref counting exam.
+
+1302
+01:01:58,704 --> 01:02:01,429
+So make sure that's why I keep
+
+1303
+01:02:01,429 --> 01:02:03,670
+telling you submit
+your stuff tomorrow.
+
+1304
+01:02:03,670 --> 01:02:05,449
+You will be surprised
+that there will be
+
+1305
+01:02:05,449 --> 01:02:08,149
+some race conditions that
+you've introduced in your code,
+
+1306
+01:02:08,149 --> 01:02:10,190
+which will take
+another week to debug.
+
+1307
+01:02:10,190 --> 01:02:11,689
+So make sure you spend the next
+
+1308
+01:02:11,689 --> 01:02:13,609
+24 hours working on lab two.
+
+1309
+01:02:13,609 --> 01:02:16,469
+Okay, I'm going to end my
+lecture here, lecture here.
+
+1310
+01:02:16,469 --> 01:02:19,590
+Thank you so much, and
+I'll see you on Tuesday.
+
+1311
+01:02:35,150 --> 01:02:37,189
+Yeah.

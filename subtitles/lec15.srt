@@ -1,0 +1,6279 @@
+1
+00:00:04,400 --> 00:00:06,920
+At this point I
+
+2
+00:00:49,110 --> 00:00:56,269
+I A
+
+3
+00:01:33,510 --> 00:01:34,770
+All right.
+
+4
+00:01:34,770 --> 00:01:42,669
+Good afternoon,
+everyone. So today,
+
+5
+00:01:42,669 --> 00:01:45,090
+we're going to talk about
+the OSN networking.
+
+6
+00:01:45,090 --> 00:01:47,430
+This is the last lecture
+
+7
+00:01:47,430 --> 00:01:48,590
+that you're going
+to need to know for
+
+8
+00:01:48,590 --> 00:01:50,450
+the purposes of Exam one.
+
+9
+00:01:50,450 --> 00:01:52,169
+Next week on Tuesday,
+
+10
+00:01:52,169 --> 00:01:54,029
+we're going to have a professor
+
+11
+00:01:54,029 --> 00:01:57,569
+from School of
+Cybersecurity and Privacy
+
+12
+00:01:57,569 --> 00:01:59,769
+covering the Security
+One lecture.
+
+13
+00:01:59,769 --> 00:02:05,500
+Then on Thursday, we are
+going to have Exam one prep.
+
+14
+00:02:05,500 --> 00:02:08,200
+So we're going to spend
+basically a week from today,
+
+15
+00:02:08,200 --> 00:02:10,039
+we're going to spend some
+time actually trying to
+
+16
+00:02:10,039 --> 00:02:13,260
+prepare for your first
+exam in this class.
+
+17
+00:02:13,260 --> 00:02:15,199
+And let's see.
+
+18
+00:02:15,199 --> 00:02:17,159
+Your actual exam is going to be
+
+19
+00:02:17,159 --> 00:02:21,100
+the following
+Tuesday of March 11
+
+20
+00:02:21,100 --> 00:02:22,919
+in this class. So
+I'll get to that.
+
+21
+00:02:22,919 --> 00:02:25,299
+Today, we want to talk
+about operating systems and
+
+22
+00:02:25,299 --> 00:02:27,679
+networking and basically how
+
+23
+00:02:27,679 --> 00:02:29,899
+networking interacts
+and works inside of
+
+24
+00:02:29,899 --> 00:02:31,479
+the operating system
+and why we care
+
+25
+00:02:31,479 --> 00:02:33,684
+about networking in the
+first place, right?
+
+26
+00:02:33,684 --> 00:02:35,189
+Because after all, there are
+
+27
+00:02:35,189 --> 00:02:37,389
+other networking
+classes precisely.
+
+28
+00:02:37,389 --> 00:02:40,369
+After all, there are
+other networking classes
+
+29
+00:02:40,369 --> 00:02:42,529
+that you can take where
+you can go in depth in
+
+30
+00:02:42,529 --> 00:02:46,069
+term how all of these
+layers are actually
+
+31
+00:02:46,069 --> 00:02:47,829
+constructed and how
+the policies are
+
+32
+00:02:47,829 --> 00:02:49,370
+constructed and the algorithms
+
+33
+00:02:49,370 --> 00:02:50,530
+associated with networking,
+
+34
+00:02:50,530 --> 00:02:51,969
+which is a lot of fun, but
+
+35
+00:02:51,969 --> 00:02:54,585
+it's out of the scope
+for this class.
+
+36
+00:02:54,585 --> 00:02:56,999
+In this class, we're
+going to be focusing on
+
+37
+00:02:56,999 --> 00:03:00,499
+the abstractions that
+you have to sort of
+
+38
+00:03:00,499 --> 00:03:03,159
+build up layer by layer in
+order to get to the point
+
+39
+00:03:03,159 --> 00:03:04,939
+where you give the applications
+
+40
+00:03:04,939 --> 00:03:06,679
+and the user something
+that they expect,
+
+41
+00:03:06,679 --> 00:03:08,519
+something that they can
+actually work with.
+
+42
+00:03:08,519 --> 00:03:11,619
+And I'm going to try to make
+a case for how networking
+
+43
+00:03:11,619 --> 00:03:12,879
+really is no different from
+
+44
+00:03:12,879 --> 00:03:14,680
+the virtual memory
+management, for instance,
+
+45
+00:03:14,680 --> 00:03:19,180
+right, or the file system
+or other sort of verticals
+
+46
+00:03:19,180 --> 00:03:20,719
+in your kernel from
+the perspective of
+
+47
+00:03:20,719 --> 00:03:22,180
+the abstractions and
+the way you sort
+
+48
+00:03:22,180 --> 00:03:23,980
+of reason about
+those abstractions.
+
+49
+00:03:23,980 --> 00:03:30,470
+All right. So clarification
+on class effort.
+
+50
+00:03:30,470 --> 00:03:33,050
+I'm going to say
+this exactly once,
+
+51
+00:03:33,050 --> 00:03:34,849
+and I'll probably not
+come back to this
+
+52
+00:03:34,849 --> 00:03:37,530
+again because you're into
+your lab three right now.
+
+53
+00:03:37,530 --> 00:03:39,369
+So it really doesn't make
+
+54
+00:03:39,369 --> 00:03:41,509
+sense to repeat this
+too much, right?
+
+55
+00:03:41,509 --> 00:03:45,029
+So the reminder here is that
+our goal is for you guys to
+
+56
+00:03:45,029 --> 00:03:47,109
+spend on average about 10 hours
+
+57
+00:03:47,109 --> 00:03:49,309
+a week of out of class work.
+
+58
+00:03:49,309 --> 00:03:51,549
+So that doesn't include
+supervised labs,
+
+59
+00:03:51,549 --> 00:03:53,249
+doesn't include you being here.
+
+60
+00:03:53,249 --> 00:03:55,950
+Thank you very much for coming.
+
+61
+00:03:55,950 --> 00:03:59,550
+This is outside, out
+of class work, okay?
+
+62
+00:03:59,550 --> 00:04:01,849
+And so what that
+means is that if you
+
+63
+00:04:01,849 --> 00:04:05,489
+get a lab and you get
+three weeks to do it,
+
+64
+00:04:05,489 --> 00:04:07,329
+that means that
+the expectation is
+
+65
+00:04:07,329 --> 00:04:09,309
+sort of 30 hours on average.
+
+66
+00:04:09,309 --> 00:04:11,210
+Of course, there's going
+to be a distribution.
+
+67
+00:04:11,210 --> 00:04:13,430
+Some people can get it done
+faster, some are slower.
+
+68
+00:04:13,430 --> 00:04:17,769
+That's obvious, right? With
+by the law of large numbers,
+
+69
+00:04:17,769 --> 00:04:19,709
+there will be some sort
+of a distribution.
+
+70
+00:04:19,709 --> 00:04:22,470
+But if you're sort of
+falling under that,
+
+71
+00:04:22,470 --> 00:04:25,769
+then you might or actually,
+
+72
+00:04:25,769 --> 00:04:27,090
+let's take an extreme example.
+
+73
+00:04:27,090 --> 00:04:29,670
+If you do sort of 0 hours
+for two of the weeks,
+
+74
+00:04:29,670 --> 00:04:31,290
+then yes, of course,
+your third week is
+
+75
+00:04:31,290 --> 00:04:33,325
+going to be 30 plus
+hours of work.
+
+76
+00:04:33,325 --> 00:04:37,280
+And this is not a problem
+with this class, right?
+
+77
+00:04:37,280 --> 00:04:39,339
+This is not a
+problem with the TA,
+
+78
+00:04:39,339 --> 00:04:40,500
+so with the instructor,
+
+79
+00:04:40,500 --> 00:04:43,920
+it's a problem of time
+management in this class, right?
+
+80
+00:04:43,920 --> 00:04:45,460
+So let's just be mindful of
+
+81
+00:04:45,460 --> 00:04:48,199
+that because that's
+just how math works.
+
+82
+00:04:48,200 --> 00:04:52,859
+If you are spending a ton
+of time beyond this goal,
+
+83
+00:04:52,859 --> 00:04:54,720
+and that happens consistently,
+
+84
+00:04:54,720 --> 00:04:56,579
+right? And it's not improving.
+
+85
+00:04:56,579 --> 00:04:59,400
+You now should be much
+
+86
+00:04:59,400 --> 00:05:00,759
+more comfortable
+with the code base,
+
+87
+00:05:00,759 --> 00:05:02,680
+it should not really
+be happening where you
+
+88
+00:05:02,680 --> 00:05:06,444
+spend more time than 10
+hours per week on average.
+
+89
+00:05:06,444 --> 00:05:09,950
+Then, you know, please let
+the course staff know, right?
+
+90
+00:05:09,950 --> 00:05:12,430
+If you're stuck trying
+to debug something,
+
+91
+00:05:12,430 --> 00:05:15,870
+you know, you can easily
+spend a lot of time on this.
+
+92
+00:05:15,870 --> 00:05:17,270
+You know, please
+make sure you sort
+
+93
+00:05:17,270 --> 00:05:19,230
+of do spend some time on this,
+
+94
+00:05:19,230 --> 00:05:21,930
+but then also try to engage
+the teaching assistant
+
+95
+00:05:21,930 --> 00:05:23,130
+and try to engage them in
+
+96
+00:05:23,130 --> 00:05:24,830
+supervised labs and
+office hours, right?
+
+97
+00:05:24,830 --> 00:05:28,889
+That's obvious. We,
+the instruction staff
+
+98
+00:05:28,889 --> 00:05:30,450
+are being very careful and very
+
+99
+00:05:30,450 --> 00:05:33,330
+deliberate in how we
+design assignments.
+
+100
+00:05:33,330 --> 00:05:35,289
+You may be surprised
+that, for example,
+
+101
+00:05:35,289 --> 00:05:37,750
+for me to put together
+an assignment or to put
+
+102
+00:05:37,750 --> 00:05:38,949
+together an exam is a
+
+103
+00:05:38,949 --> 00:05:41,025
+lot more effort and
+for you to take it.
+
+104
+00:05:41,025 --> 00:05:44,059
+A lot like an order of
+magnitude, more effort,
+
+105
+00:05:44,059 --> 00:05:47,359
+especially if we
+count the human hours
+
+106
+00:05:47,359 --> 00:05:50,659
+collectively across the
+entire course staff.
+
+107
+00:05:50,659 --> 00:05:53,460
+The way we approach
+designing assignments is
+
+108
+00:05:53,460 --> 00:05:55,720
+that we aim for a balance
+of learning and work.
+
+109
+00:05:55,720 --> 00:05:59,000
+So we don't want you
+to just basically 100%
+
+110
+00:05:59,000 --> 00:06:00,840
+of your assignment
+to be perspiration.
+
+111
+00:06:00,840 --> 00:06:02,360
+We want this to be a balance
+
+112
+00:06:02,360 --> 00:06:05,465
+of inspiration and perspiration.
+
+113
+00:06:05,465 --> 00:06:07,749
+Okay? We want you
+to be inspired.
+
+114
+00:06:07,749 --> 00:06:08,950
+We want you to learn something,
+
+115
+00:06:08,950 --> 00:06:11,890
+to come out knowing something
+you didn't know before.
+
+116
+00:06:11,890 --> 00:06:14,309
+That's sort of a
+necessary condition.
+
+117
+00:06:14,309 --> 00:06:16,570
+Of course, it's not a
+sufficient condition.
+
+118
+00:06:16,570 --> 00:06:18,730
+The perspiration has
+to be in there, too.
+
+119
+00:06:18,730 --> 00:06:20,150
+You have to put in the work, you
+
+120
+00:06:20,150 --> 00:06:21,329
+have to put in the hours,
+
+121
+00:06:21,329 --> 00:06:22,690
+and then you're going to
+
+122
+00:06:22,690 --> 00:06:25,069
+get a combination of
+those two things.
+
+123
+00:06:25,069 --> 00:06:28,149
+My objective is always
+to maximize learning.
+
+124
+00:06:28,149 --> 00:06:30,589
+That's what I care about.
+That's why I teach this class.
+
+125
+00:06:30,589 --> 00:06:32,250
+I don't have to
+teach this class,
+
+126
+00:06:32,250 --> 00:06:33,690
+but I want to teach this class
+
+127
+00:06:33,690 --> 00:06:35,769
+because I believe it's
+at a pivotal point,
+
+128
+00:06:35,769 --> 00:06:37,590
+both in your personal
+development and
+
+129
+00:06:37,590 --> 00:06:40,970
+your professional development
+as a CISRc professional.
+
+130
+00:06:40,970 --> 00:06:44,290
+Um, and my goal here is
+
+131
+00:06:44,290 --> 00:06:45,470
+to have you thinking about
+
+132
+00:06:45,470 --> 00:06:47,809
+interesting systems
+design problems,
+
+133
+00:06:47,809 --> 00:06:50,369
+to shake up the foundation
+of your knowledge,
+
+134
+00:06:50,369 --> 00:06:52,949
+to get you to start
+asking the why questions
+
+135
+00:06:52,949 --> 00:06:56,649
+instead of just
+basically recalling
+
+136
+00:06:56,649 --> 00:06:58,910
+something you have learned
+
+137
+00:06:58,910 --> 00:07:00,470
+in previous classes
+without really
+
+138
+00:07:00,470 --> 00:07:02,270
+understanding the
+reasons that underpin
+
+139
+00:07:02,270 --> 00:07:04,929
+the design decisions someone
+has made on your behalf,
+
+140
+00:07:04,929 --> 00:07:07,069
+because without asking
+the why questions,
+
+141
+00:07:07,069 --> 00:07:11,350
+you really cannot approach
+designing anything new at all.
+
+142
+00:07:11,580 --> 00:07:14,419
+And then you're stuck recalling
+
+143
+00:07:14,419 --> 00:07:15,940
+stuff for the rest of
+
+144
+00:07:15,940 --> 00:07:18,899
+your life without really
+creating anything new.
+
+145
+00:07:19,220 --> 00:07:23,620
+We don't want that to
+happen. All right.
+
+146
+00:07:23,620 --> 00:07:27,780
+I already had this
+slide last time.
+
+147
+00:07:27,780 --> 00:07:29,120
+How many of you have not seen
+
+148
+00:07:29,120 --> 00:07:32,500
+the absory slide? Should
+I just skip that?
+
+149
+00:07:32,840 --> 00:07:36,940
+Okay, consider this
+a three week lab,
+
+150
+00:07:36,940 --> 00:07:38,499
+even though you have weeks
+
+151
+00:07:38,499 --> 00:07:41,680
+five calendar weeks to
+get it done, right?
+
+152
+00:07:41,680 --> 00:07:43,480
+I wanted to re emphasize we have
+
+153
+00:07:43,480 --> 00:07:45,480
+a couple of bonus
+opportunities here.
+
+154
+00:07:45,480 --> 00:07:48,360
+It's the longest lab that
+you have in this class.
+
+155
+00:07:48,360 --> 00:07:50,340
+I don't know if
+it's the hardest.
+
+156
+00:07:50,340 --> 00:07:52,260
+Every time I pull the students,
+
+157
+00:07:52,260 --> 00:07:54,119
+they tell me that Lab
+two was the hardest.
+
+158
+00:07:54,119 --> 00:07:55,919
+Some people say lab
+three was the hardest.
+
+159
+00:07:55,919 --> 00:07:57,320
+It really depends, but
+
+160
+00:07:57,320 --> 00:07:59,220
+it is always a toss
+up between those two.
+
+161
+00:07:59,220 --> 00:08:01,640
+Once you get past your
+lab two and lab three,
+
+162
+00:08:01,640 --> 00:08:04,359
+once you've survived
+that plus the exam,
+
+163
+00:08:04,359 --> 00:08:06,960
+you know, you're going to
+be in a pretty good shape.
+
+164
+00:08:06,960 --> 00:08:09,455
+You should be feeling good
+about yourself after that.
+
+165
+00:08:09,455 --> 00:08:12,310
+So this is a bonus
+opportunity where we sort of
+
+166
+00:08:12,310 --> 00:08:15,230
+created a checkpoint
+due date on a pie day,
+
+167
+00:08:15,230 --> 00:08:17,930
+March 14, right,
+where we want you to
+
+168
+00:08:17,930 --> 00:08:20,710
+complete and be on track to
+complete parts one and two.
+
+169
+00:08:20,710 --> 00:08:23,750
+And you really should
+do that, right?
+
+170
+00:08:23,750 --> 00:08:26,369
+This is a very
+meaningful checkpoint,
+
+171
+00:08:26,369 --> 00:08:28,450
+and we're trying to
+incentivize it with a bonus.
+
+172
+00:08:28,450 --> 00:08:32,749
+You get bonus for the
+percentage of tests 1-21,
+
+173
+00:08:32,749 --> 00:08:34,869
+inclusive that you
+have completed by
+
+174
+00:08:34,869 --> 00:08:37,929
+the deadline. Any
+questions about that?
+
+175
+00:08:37,929 --> 00:08:40,449
+It will be automatically
+calculated for
+
+176
+00:08:40,449 --> 00:08:42,710
+you as part of the
+or grader test,
+
+177
+00:08:42,710 --> 00:08:46,669
+and it will be logged
+to your autograder log.
+
+178
+00:08:46,669 --> 00:08:48,230
+So you'll be able to
+see it if you look at
+
+179
+00:08:48,230 --> 00:08:51,430
+the autograder log. Yeah.
+
+180
+00:08:51,430 --> 00:08:55,110
+Okay, and another one that
+I'm personally excited
+
+181
+00:08:55,110 --> 00:08:57,109
+about is that we're giving
+you an opportunity to
+
+182
+00:08:57,109 --> 00:08:59,410
+actually design a policy
+for the scheduler,
+
+183
+00:08:59,410 --> 00:09:01,129
+and we want you to
+bid the system.
+
+184
+00:09:01,129 --> 00:09:02,909
+We want you to bid
+the stock schedulers
+
+185
+00:09:02,909 --> 00:09:04,189
+that you have to implement,
+
+186
+00:09:04,189 --> 00:09:05,489
+which is required as part of
+
+187
+00:09:05,489 --> 00:09:07,069
+the rest of the
+assignment, okay?
+
+188
+00:09:07,069 --> 00:09:09,449
+And there are people who
+
+189
+00:09:09,449 --> 00:09:11,609
+get truly excited about
+
+190
+00:09:11,609 --> 00:09:13,630
+this and they come up
+with novel solutions.
+
+191
+00:09:13,630 --> 00:09:15,010
+And we want you to actually
+
+192
+00:09:15,010 --> 00:09:17,010
+prove to us that your
+schedule is better,
+
+193
+00:09:17,010 --> 00:09:19,569
+kind of drawing on
+the insights and
+
+194
+00:09:19,569 --> 00:09:21,489
+the success metrics that
+
+195
+00:09:21,489 --> 00:09:23,910
+we have already
+discussed in this class.
+
+196
+00:09:23,910 --> 00:09:26,550
+All right, that's a
+second bonus opportunity.
+
+197
+00:09:26,550 --> 00:09:29,850
+Exam. Again, everyone here,
+
+198
+00:09:29,850 --> 00:09:34,150
+were you in attendance
+in previous lecture?
+
+199
+00:09:34,150 --> 00:09:37,880
+I can skip this. We can come
+back to it next Thursday.
+
+200
+00:09:37,880 --> 00:09:40,440
+But here's a set of
+topics that we're
+
+201
+00:09:40,440 --> 00:09:42,960
+going to be covering for
+the exam, et cetera.
+
+202
+00:09:42,960 --> 00:09:48,479
+One thing that I guess I
+didn't mention is this.
+
+203
+00:09:48,479 --> 00:09:51,040
+We are going to post some
+sample prep questions
+
+204
+00:09:51,040 --> 00:09:53,300
+to codas by next week
+so that you guys
+
+205
+00:09:53,300 --> 00:09:55,700
+will actually have some
+sample questions to practice
+
+206
+00:09:55,700 --> 00:09:58,459
+on because as I
+mentioned last time,
+
+207
+00:09:58,459 --> 00:10:01,000
+the exam is going to be
+different from your labs.
+
+208
+00:10:01,000 --> 00:10:02,719
+The exam is going to be testing
+
+209
+00:10:02,719 --> 00:10:04,819
+your knowledge of
+
+210
+00:10:04,819 --> 00:10:07,619
+the lecture material and
+your ability to think.
+
+211
+00:10:07,619 --> 00:10:10,280
+This mid term this
+exam one prep,
+
+212
+00:10:10,280 --> 00:10:12,119
+I should say, is going to be
+
+213
+00:10:12,119 --> 00:10:15,030
+one week from today,
+next Thursday.
+
+214
+00:10:15,030 --> 00:10:18,620
+Here's a set of topics.
+
+215
+00:10:18,620 --> 00:10:20,300
+I mean, somebody asked
+for a study guide,
+
+216
+00:10:20,300 --> 00:10:21,899
+I believe this is what
+a study guide is.
+
+217
+00:10:21,899 --> 00:10:24,319
+It's sort of topics that
+we're going to be covering.
+
+218
+00:10:24,319 --> 00:10:26,039
+And in general, I
+
+219
+00:10:26,039 --> 00:10:28,400
+generally focus on
+conceptual knowledge.
+
+220
+00:10:28,400 --> 00:10:32,799
+I like to ask questions testing
+your understanding, okay?
+
+221
+00:10:33,420 --> 00:10:36,079
+And that's the reason
+why it's going
+
+222
+00:10:36,079 --> 00:10:38,319
+to be completely
+open notes, right?
+
+223
+00:10:38,319 --> 00:10:40,640
+I really don't care
+how many references
+
+224
+00:10:40,640 --> 00:10:42,639
+you can bring in the whole
+library if you want,
+
+225
+00:10:42,639 --> 00:10:45,520
+because that's just
+recall information.
+
+226
+00:10:45,520 --> 00:10:48,399
+And in real life, you will
+be able to look stuff up.
+
+227
+00:10:48,399 --> 00:10:51,739
+You will be able to refer
+to static material.
+
+228
+00:10:51,739 --> 00:10:53,419
+What I want what I really
+
+229
+00:10:53,419 --> 00:10:55,279
+want to test is your
+ability to sort of
+
+230
+00:10:55,279 --> 00:10:56,760
+work with that material
+
+231
+00:10:56,760 --> 00:10:59,539
+in an agile fashion
+mentally, right?
+
+232
+00:10:59,539 --> 00:11:01,580
+Under time constraints.
+
+233
+00:11:01,580 --> 00:11:04,259
+And I want to see you
+
+234
+00:11:04,259 --> 00:11:07,160
+figuring out why something
+operates the way it does,
+
+235
+00:11:07,160 --> 00:11:09,740
+as well as how it changes
+if we actually change
+
+236
+00:11:09,740 --> 00:11:10,999
+some underlying assumptions or
+
+237
+00:11:10,999 --> 00:11:13,420
+some conditions
+around the problem.
+
+238
+00:11:13,990 --> 00:11:17,110
+So this sort of requires
+some mental agility.
+
+239
+00:11:17,110 --> 00:11:20,750
+Be prepared to think. It's
+not going to be a recall,
+
+240
+00:11:20,750 --> 00:11:23,269
+true and false kind of midterm.
+
+241
+00:11:23,310 --> 00:11:27,510
+The exam will be open
+notes, closed Internet.
+
+242
+00:11:27,750 --> 00:11:31,549
+So you can bring any
+static material you want.
+
+243
+00:11:31,549 --> 00:11:33,670
+You can download the slides,
+
+244
+00:11:33,670 --> 00:11:36,290
+you can download whatever
+you want on your laptop,
+
+245
+00:11:36,290 --> 00:11:39,590
+but we will be disallowing
+access to the Internet.
+
+246
+00:11:39,590 --> 00:11:41,049
+And the exam will be proctored.
+
+247
+00:11:41,049 --> 00:11:43,490
+So you have people
+walking around,
+
+248
+00:11:43,490 --> 00:11:45,289
+kind of taking a look
+at what you're doing,
+
+249
+00:11:45,289 --> 00:11:46,820
+what's on your screen.
+
+250
+00:11:46,820 --> 00:11:50,589
+And the reason for that is
+because there's just really,
+
+251
+00:11:50,589 --> 00:11:53,389
+really increasingly hard
+for us to figure out,
+
+252
+00:11:53,389 --> 00:11:55,250
+are you just doing a good old
+
+253
+00:11:55,250 --> 00:11:57,789
+fashioned Google
+search with keywords,
+
+254
+00:11:57,789 --> 00:12:00,490
+which in my personal opinion
+would have been fine,
+
+255
+00:12:00,490 --> 00:12:02,929
+or are you literally copy
+
+256
+00:12:02,929 --> 00:12:05,710
+pasting the parts of the
+question into the Google search?
+
+257
+00:12:05,710 --> 00:12:07,109
+Because the back end for
+
+258
+00:12:07,109 --> 00:12:09,349
+Google search is
+now Gemini, right?
+
+259
+00:12:09,349 --> 00:12:13,369
+We just there's no way for
+us to police that, right?
+
+260
+00:12:13,369 --> 00:12:15,229
+And so it's just going to be
+
+261
+00:12:15,229 --> 00:12:17,790
+easier to as a matter of policy,
+
+262
+00:12:17,790 --> 00:12:20,850
+say that, okay, Internet
+is not allowed.
+
+263
+00:12:20,930 --> 00:12:23,949
+And again, there's a
+good reason for that.
+
+264
+00:12:23,949 --> 00:12:26,209
+The reason for this is
+because we really want to
+
+265
+00:12:26,209 --> 00:12:28,730
+test your ability to
+think, not only test,
+
+266
+00:12:28,730 --> 00:12:31,229
+but also develop your
+ability to think and
+
+267
+00:12:31,229 --> 00:12:32,989
+measure how successful we
+
+268
+00:12:32,989 --> 00:12:34,929
+were at teaching
+you how to think.
+
+269
+00:12:34,929 --> 00:12:37,889
+I don't want to
+test Gemini, right?
+
+270
+00:12:37,889 --> 00:12:40,529
+I'm pretty sure Gemini
+is pretty good.
+
+271
+00:12:40,529 --> 00:12:43,949
+I want to teach
+you and I want to
+
+272
+00:12:43,949 --> 00:12:47,949
+measure my success at
+being able to teach you.
+
+273
+00:12:47,949 --> 00:12:50,329
+So that's really
+what it's all about.
+
+274
+00:12:51,990 --> 00:12:56,570
+It will be in class
+here on your laptop.
+
+275
+00:12:56,570 --> 00:12:59,329
+No charging stations, as
+I mentioned previously,
+
+276
+00:12:59,329 --> 00:13:01,970
+please make sure your
+laptop is charged.
+
+277
+00:13:01,970 --> 00:13:05,030
+It will be sort
+of a Canvas quiz.
+
+278
+00:13:05,030 --> 00:13:06,629
+So obviously, you will need
+
+279
+00:13:06,629 --> 00:13:08,990
+access to Canvas, that's okay.
+
+280
+00:13:08,990 --> 00:13:10,629
+Please bring bus cards,
+
+281
+00:13:10,629 --> 00:13:12,809
+and they'll be checked as
+you're taking the test.
+
+282
+00:13:12,809 --> 00:13:14,449
+I think that's pretty standard.
+
+283
+00:13:14,449 --> 00:13:16,769
+And, of course, it's an
+individual assignment.
+
+284
+00:13:16,769 --> 00:13:18,870
+This is anyway, whatever.
+
+285
+00:13:18,870 --> 00:13:20,290
+It's an individual assignment.
+
+286
+00:13:20,290 --> 00:13:22,569
+Okay, so let's talk about
+networking unless there are
+
+287
+00:13:22,569 --> 00:13:26,550
+any questions about the
+administrative a so far.
+
+288
+00:13:26,620 --> 00:13:30,279
+No, good. Okay. So we
+
+289
+00:13:30,279 --> 00:13:33,199
+like to talk about abstractions
+in this class, right?
+
+290
+00:13:33,199 --> 00:13:36,419
+It's all about abstractions,
+abstractions, abstractions.
+
+291
+00:13:36,419 --> 00:13:37,859
+And there's a very
+good reason for
+
+292
+00:13:37,859 --> 00:13:39,659
+that because operating
+systems are all about
+
+293
+00:13:39,659 --> 00:13:41,280
+bridging this abstraction gap
+
+294
+00:13:41,280 --> 00:13:43,399
+and providing higher
+level abstractions.
+
+295
+00:13:43,399 --> 00:13:45,859
+From day one, I was
+saying things like,
+
+296
+00:13:45,859 --> 00:13:47,379
+you know, what is an
+operating system?
+
+297
+00:13:47,379 --> 00:13:48,979
+Remember, that's
+number one question
+
+298
+00:13:48,979 --> 00:13:51,119
+that I asked during the
+very first lecture.
+
+299
+00:13:51,119 --> 00:13:53,099
+Why do we need an
+operating system?
+
+300
+00:13:53,099 --> 00:13:55,039
+Is it necessary, right?
+
+301
+00:13:55,039 --> 00:13:57,379
+And some of the good answers
+
+302
+00:13:57,379 --> 00:13:59,020
+that I got from you
+guys, actually,
+
+303
+00:13:59,020 --> 00:14:00,819
+is that we have a
+bunch of resources
+
+304
+00:14:00,819 --> 00:14:03,019
+in the system that
+we don't really know
+
+305
+00:14:03,019 --> 00:14:05,099
+how to use because they're
+
+306
+00:14:05,099 --> 00:14:07,240
+because there's something
+wrong with them,
+
+307
+00:14:07,240 --> 00:14:08,220
+and I'm not going to give
+
+308
+00:14:08,220 --> 00:14:09,459
+you the answer
+right away, right?
+
+309
+00:14:09,459 --> 00:14:12,599
+So let's consider and
+
+310
+00:14:12,599 --> 00:14:16,279
+discuss this again in the
+context of networking, right?
+
+311
+00:14:16,279 --> 00:14:18,399
+So what does our
+networking hardware
+
+312
+00:14:18,399 --> 00:14:20,040
+look like in the
+operating system?
+
+313
+00:14:20,040 --> 00:14:21,700
+What abstraction
+does it provide?
+
+314
+00:14:21,700 --> 00:14:24,299
+Can anyone give me an idea?
+
+315
+00:14:24,299 --> 00:14:27,219
+What is a networking card doing?
+
+316
+00:14:31,660 --> 00:14:38,550
+Yes. Bids data from the
+network as like a file.
+
+317
+00:14:38,550 --> 00:14:40,289
+Huh, does it do that?
+
+318
+00:14:40,289 --> 00:14:41,770
+The network card itself.
+
+319
+00:14:41,770 --> 00:14:42,770
+Oh, not the network.
+
+320
+00:14:42,770 --> 00:14:44,230
+Yeah, the network card itself.
+
+321
+00:14:44,230 --> 00:14:46,489
+Yeah. So see already
+but it's good because
+
+322
+00:14:46,489 --> 00:14:48,030
+you're already
+foreshadowing something
+
+323
+00:14:48,030 --> 00:14:48,869
+that I'm going to talk about.
+
+324
+00:14:48,869 --> 00:14:49,389
+Yeah.
+
+325
+00:14:49,389 --> 00:14:50,950
+The card has the Mac address,
+
+326
+00:14:50,950 --> 00:14:52,189
+so that's the unique identifier
+
+327
+00:14:52,189 --> 00:14:53,330
+for the device on the network.
+
+328
+00:14:53,330 --> 00:14:55,249
+Okay, so you're
+talking about, how
+
+329
+00:14:55,249 --> 00:14:58,069
+do we make things work,
+the mechanisms, right?
+
+330
+00:14:58,069 --> 00:15:01,170
+But what it really
+provides us is the ability
+
+331
+00:15:01,170 --> 00:15:04,229
+to essentially send frames
+on the wire, right?
+
+332
+00:15:04,229 --> 00:15:05,649
+Even lower level than that,
+
+333
+00:15:05,649 --> 00:15:07,490
+it sends some
+signals on the wire.
+
+334
+00:15:07,490 --> 00:15:09,929
+You know, how good of an
+abstraction is that to work
+
+335
+00:15:09,929 --> 00:15:13,369
+with as an application
+developer, right?
+
+336
+00:15:13,630 --> 00:15:17,229
+Or do we tell the network
+interface card directly?
+
+337
+00:15:17,229 --> 00:15:22,570
+Go to www.google.com, and
+pass the query, please.
+
+338
+00:15:22,570 --> 00:15:24,129
+That's not exactly how we
+
+339
+00:15:24,129 --> 00:15:26,749
+interact with the
+network card, right?
+
+340
+00:15:27,270 --> 00:15:30,490
+So in general, in the old days,
+
+341
+00:15:30,490 --> 00:15:33,210
+basically we had this
+standard network card.
+
+342
+00:15:33,210 --> 00:15:35,129
+You have a computer here on
+
+343
+00:15:35,129 --> 00:15:37,110
+the left hand side,
+you have a NIC.
+
+344
+00:15:37,110 --> 00:15:39,510
+And basically, from the
+Nick's perspective,
+
+345
+00:15:39,510 --> 00:15:42,869
+it has the ability to pass,
+
+346
+00:15:42,870 --> 00:15:47,029
+let's say, frames
+of information in
+
+347
+00:15:47,029 --> 00:15:48,329
+a point to point fashion to
+
+348
+00:15:48,329 --> 00:15:50,629
+the down the line,
+down the cable.
+
+349
+00:15:50,629 --> 00:15:52,850
+That's it. That's what it does.
+
+350
+00:15:52,850 --> 00:15:54,590
+But what really happens,
+
+351
+00:15:54,590 --> 00:15:56,330
+is that somehow magically,
+
+352
+00:15:56,330 --> 00:15:58,449
+given this low
+level abstraction,
+
+353
+00:15:58,449 --> 00:15:59,869
+we're able to traverse the
+
+354
+00:15:59,869 --> 00:16:01,929
+entire Internet somehow, right?
+
+355
+00:16:01,929 --> 00:16:04,269
+And let's say we're in
+the United States and
+
+356
+00:16:04,269 --> 00:16:08,749
+the other servers in Europe,
+right, for instance.
+
+357
+00:16:08,749 --> 00:16:10,650
+And then somehow we
+were able to cross
+
+358
+00:16:10,650 --> 00:16:13,630
+the ocean and successfully
+
+359
+00:16:13,630 --> 00:16:15,970
+communicate it with a
+network interface card
+
+360
+00:16:15,970 --> 00:16:19,730
+that was locally installed
+on some remote server.
+
+361
+00:16:19,730 --> 00:16:22,590
+And we do that with
+the interface,
+
+362
+00:16:22,590 --> 00:16:24,410
+which is extremely low level,
+
+363
+00:16:24,410 --> 00:16:28,010
+send some fixed
+Ethernet frames down
+
+364
+00:16:28,010 --> 00:16:33,169
+the wire, period. Right?
+
+365
+00:16:35,810 --> 00:16:39,449
+So the question is,
+how does this happen?
+
+366
+00:16:39,490 --> 00:16:43,609
+How do we go from
+having this point to
+
+367
+00:16:43,609 --> 00:16:47,370
+point network interface card
+to network interface card,
+
+368
+00:16:47,370 --> 00:16:50,789
+communication mechanism and on
+
+369
+00:16:50,789 --> 00:16:53,969
+one hand side or at the
+bottom, right, of our stack,
+
+370
+00:16:53,969 --> 00:16:55,930
+and all the way to building
+
+371
+00:16:55,930 --> 00:16:58,269
+a worldwide web
+where you can have
+
+372
+00:16:58,269 --> 00:17:00,809
+anywhere to anywhere
+connections and
+
+373
+00:17:00,809 --> 00:17:04,569
+anywhere to anywhere
+communication mechanisms, right?
+
+374
+00:17:05,400 --> 00:17:08,119
+And so as we think through this,
+
+375
+00:17:08,119 --> 00:17:10,420
+this is a good sort
+of teaching moment
+
+376
+00:17:10,420 --> 00:17:14,199
+where I like to introduce
+the following, right?
+
+377
+00:17:14,199 --> 00:17:16,239
+It is essential for
+
+378
+00:17:16,239 --> 00:17:17,699
+the building blocks to
+
+379
+00:17:17,699 --> 00:17:19,500
+have the two
+fundamental properties.
+
+380
+00:17:19,500 --> 00:17:22,799
+You know, basically, in order
+for us to be able to bridge
+
+381
+00:17:22,799 --> 00:17:24,380
+this huge semantic gap
+
+382
+00:17:24,380 --> 00:17:26,959
+from talking signals
+on the wire, right,
+
+383
+00:17:26,959 --> 00:17:29,559
+to being able to provide
+
+384
+00:17:29,560 --> 00:17:32,519
+the worldwide web
+implementation,
+
+385
+00:17:32,519 --> 00:17:35,139
+you need to have the
+building blocks that have
+
+386
+00:17:35,139 --> 00:17:36,840
+the following two properties,
+
+387
+00:17:36,840 --> 00:17:40,484
+orthogonality and composability.
+
+388
+00:17:40,484 --> 00:17:43,209
+Okay? So in system design,
+
+389
+00:17:43,209 --> 00:17:46,369
+you will encounter
+multiple situations
+
+390
+00:17:46,410 --> 00:17:50,450
+where you sort of have to
+work with the interface
+
+391
+00:17:50,450 --> 00:17:54,329
+that we were provided
+and oftentimes create
+
+392
+00:17:54,329 --> 00:17:55,909
+a new interface or
+
+393
+00:17:55,909 --> 00:17:58,470
+cater to an interface
+that is expected.
+
+394
+00:17:58,470 --> 00:18:00,629
+So you need to bridge
+that gap, right?
+
+395
+00:18:00,629 --> 00:18:03,369
+And that's where system
+design really comes in,
+
+396
+00:18:03,369 --> 00:18:05,350
+including software engineering
+
+397
+00:18:05,350 --> 00:18:07,109
+and middleware system design.
+
+398
+00:18:07,109 --> 00:18:10,769
+And so the way you approach
+these design problems is
+
+399
+00:18:10,769 --> 00:18:12,429
+by thinking about constructing
+
+400
+00:18:12,429 --> 00:18:15,009
+primitives that are
+orthogonal and composable,
+
+401
+00:18:15,009 --> 00:18:16,550
+just like lego blocks.
+
+402
+00:18:16,550 --> 00:18:18,669
+It's really good to think
+of them as egoblock.
+
+403
+00:18:18,669 --> 00:18:20,790
+So what does that mean?
+What's orthogonality?
+
+404
+00:18:20,790 --> 00:18:22,669
+Orthogonalogy is sort of a term
+
+405
+00:18:22,669 --> 00:18:24,809
+that's borrowed from
+PL community, right?
+
+406
+00:18:24,809 --> 00:18:26,709
+And it means that you have
+
+407
+00:18:26,709 --> 00:18:28,049
+a relatively small set of
+
+408
+00:18:28,049 --> 00:18:30,949
+primitives or primitive
+constructs to work with.
+
+409
+00:18:30,949 --> 00:18:33,729
+So again, using the
+legal analogy, you know,
+
+410
+00:18:33,729 --> 00:18:35,309
+how many different
+blocks you usually
+
+411
+00:18:35,309 --> 00:18:38,044
+operate with? It's
+not a lot, right?
+
+412
+00:18:38,044 --> 00:18:40,199
+It's not like you have 1,000
+
+413
+00:18:40,199 --> 00:18:41,879
+different pieces to work with.
+
+414
+00:18:41,879 --> 00:18:43,619
+There's usually a handful of
+
+415
+00:18:43,619 --> 00:18:45,360
+different but fundamentally
+
+416
+00:18:45,360 --> 00:18:47,359
+different pieces to work with.
+
+417
+00:18:47,359 --> 00:18:50,419
+And so that's what
+orthogonality is referring to.
+
+418
+00:18:50,419 --> 00:18:52,239
+And at the same time,
+
+419
+00:18:52,239 --> 00:18:53,839
+you want to make sure
+that they can be
+
+420
+00:18:53,839 --> 00:18:56,160
+combined in a relatively
+small number of ways.
+
+421
+00:18:56,160 --> 00:18:57,619
+So if you have two lego blocks,
+
+422
+00:18:57,619 --> 00:18:59,659
+what are the different ways
+you can combine them, right?
+
+423
+00:18:59,659 --> 00:19:01,299
+You're not going to
+screw them together.
+
+424
+00:19:01,299 --> 00:19:03,159
+You're not going to
+nail them together.
+
+425
+00:19:03,159 --> 00:19:05,120
+It's usually just like a snap.
+
+426
+00:19:05,120 --> 00:19:08,119
+Pretty much one way to
+combine two lego blocks.
+
+427
+00:19:08,119 --> 00:19:10,859
+So that's another component
+of the orthogonal design.
+
+428
+00:19:10,859 --> 00:19:12,159
+So that's why ego is so
+
+429
+00:19:12,159 --> 00:19:15,039
+successful because
+it's very simple.
+
+430
+00:19:15,039 --> 00:19:18,999
+It comes with very primitive
+kind of set of constructs,
+
+431
+00:19:18,999 --> 00:19:20,780
+but that compose with each
+
+432
+00:19:20,780 --> 00:19:22,660
+other in a very small
+number of ways.
+
+433
+00:19:22,660 --> 00:19:26,139
+So in other words,
+it's easy, okay?
+
+434
+00:19:26,139 --> 00:19:29,039
+And composibility
+basically has to do with
+
+435
+00:19:29,039 --> 00:19:30,959
+a system design that
+
+436
+00:19:30,959 --> 00:19:33,600
+deals with interrelationship
+of components.
+
+437
+00:19:33,600 --> 00:19:35,439
+So a highly composable system,
+
+438
+00:19:35,439 --> 00:19:38,099
+it provides the components
+that can be selected and
+
+439
+00:19:38,099 --> 00:19:39,839
+assembled in various
+combinations
+
+440
+00:19:39,839 --> 00:19:42,760
+to satisfy specific
+user requirements.
+
+441
+00:19:43,850 --> 00:19:47,249
+And so we are going to
+observe basically how
+
+442
+00:19:47,249 --> 00:19:49,290
+these two properties manifest
+
+443
+00:19:49,290 --> 00:19:52,170
+themselves in a network
+protocol stack.
+
+444
+00:19:52,330 --> 00:19:55,249
+So what does our
+networking hardware
+
+445
+00:19:55,249 --> 00:19:57,029
+look like to the
+operating system?
+
+446
+00:19:57,029 --> 00:20:00,609
+It essentially looks like a
+device that provides us with
+
+447
+00:20:00,609 --> 00:20:02,169
+a low level capability of
+
+448
+00:20:02,169 --> 00:20:04,869
+point to point
+communication, right?
+
+449
+00:20:04,869 --> 00:20:07,770
+That's what it looks like
+at the very low level.
+
+450
+00:20:07,770 --> 00:20:09,549
+And if we get to
+that, I actually have
+
+451
+00:20:09,549 --> 00:20:12,809
+some diagrams that I drew from
+
+452
+00:20:12,809 --> 00:20:15,849
+Linux kernel documentation in
+
+453
+00:20:15,849 --> 00:20:18,710
+terms of how real Network
+percostxs are implemented.
+
+454
+00:20:18,710 --> 00:20:20,369
+But how does this differ from
+
+455
+00:20:20,369 --> 00:20:21,909
+the Internet abstraction that we
+
+456
+00:20:21,909 --> 00:20:23,830
+provide to the
+operating system users
+
+457
+00:20:23,830 --> 00:20:25,969
+and applications, right?
+
+458
+00:20:26,240 --> 00:20:29,040
+Applications, so the user
+
+459
+00:20:29,040 --> 00:20:32,339
+they operate at a much
+higher level of abstraction.
+
+460
+00:20:32,339 --> 00:20:35,280
+What do they expect?
+Just at a high level.
+
+461
+00:20:35,280 --> 00:20:37,479
+What an application or
+a user might want to
+
+462
+00:20:37,479 --> 00:20:39,259
+expect if they want to
+
+463
+00:20:39,259 --> 00:20:41,980
+conduct any sort of
+networking activity.
+
+464
+00:20:41,980 --> 00:20:44,780
+They don't want to send
+signals to the wire,
+
+465
+00:20:44,780 --> 00:20:46,539
+right? What do they want?
+
+466
+00:20:46,539 --> 00:20:52,130
+Yes. Sending a message
+or email, yes.
+
+467
+00:20:52,130 --> 00:20:54,730
+Protocols like H GDP.
+
+468
+00:20:54,730 --> 00:20:57,710
+So that's sort of a mechanism
+
+469
+00:20:57,710 --> 00:20:59,909
+of how we enact something
+to happen, right?
+
+470
+00:20:59,909 --> 00:21:01,390
+So in this particular case,
+
+471
+00:21:01,390 --> 00:21:02,569
+it's basically looking up
+
+472
+00:21:02,569 --> 00:21:04,789
+some information on
+the Internet, right?
+
+473
+00:21:04,789 --> 00:21:08,469
+Did you have. Alright,
+so if you have
+
+474
+00:21:08,469 --> 00:21:10,849
+RDBMS engine somewhere
+and you actually want
+
+475
+00:21:10,849 --> 00:21:14,089
+to perform queries on
+a body of data, right?
+
+476
+00:21:14,089 --> 00:21:16,709
+It can be structured or
+unstructured queries, right?
+
+477
+00:21:16,709 --> 00:21:18,569
+Interacting with
+data in general.
+
+478
+00:21:18,569 --> 00:21:19,990
+Some of you may go into
+
+479
+00:21:19,990 --> 00:21:22,009
+fourth year database
+classes, right,
+
+480
+00:21:22,009 --> 00:21:24,929
+and you will actually be
+building database engines
+
+481
+00:21:24,929 --> 00:21:28,930
+that enable that that have
+their own set of protocols.
+
+482
+00:21:30,210 --> 00:21:32,889
+And so, basically, in general,
+
+483
+00:21:32,889 --> 00:21:34,289
+the takeaway here is that
+
+484
+00:21:34,289 --> 00:21:37,249
+communication starts by
+sending some frames on
+
+485
+00:21:37,249 --> 00:21:39,529
+your Nick to the
+next neighbor in
+
+486
+00:21:39,529 --> 00:21:40,629
+order to communicate to the
+
+487
+00:21:40,629 --> 00:21:42,310
+computer on the other
+side of the world,
+
+488
+00:21:42,310 --> 00:21:45,030
+but the packets are being
+routed through a bunch
+
+489
+00:21:45,030 --> 00:21:47,829
+of switches and routers
+in betweens, in between.
+
+490
+00:21:47,829 --> 00:21:50,569
+And this is completely invisible
+from the perspective of
+
+491
+00:21:50,569 --> 00:21:53,729
+the end points of this
+communication, right?
+
+492
+00:21:53,729 --> 00:21:56,630
+Everything that's happening
+here is completely invisible.
+
+493
+00:21:56,630 --> 00:22:00,679
+Um, which is what we want,
+
+494
+00:22:00,679 --> 00:22:02,039
+because we want to
+sort of achieve
+
+495
+00:22:02,039 --> 00:22:04,340
+transparency from the
+application perspective.
+
+496
+00:22:04,340 --> 00:22:06,599
+So all of this is
+happening while you
+
+497
+00:22:06,599 --> 00:22:09,140
+think you the user or
+the user application,
+
+498
+00:22:09,140 --> 00:22:12,120
+you're talking directly to
+the other side of the world.
+
+499
+00:22:12,120 --> 00:22:15,439
+So that's the abstraction
+that we really provide.
+
+500
+00:22:16,600 --> 00:22:20,579
+And in general, what
+
+501
+00:22:20,579 --> 00:22:22,239
+the user applications and
+
+502
+00:22:22,239 --> 00:22:23,839
+kind of network
+application want,
+
+503
+00:22:23,839 --> 00:22:25,199
+right, is they want
+
+504
+00:22:25,199 --> 00:22:30,379
+the ability to have global
+addressing and naming, right?
+
+505
+00:22:30,379 --> 00:22:32,339
+So in other words, let's say you
+
+506
+00:22:32,339 --> 00:22:34,339
+have a browser and you
+
+507
+00:22:34,339 --> 00:22:36,499
+want to put in a URL
+or a domain name,
+
+508
+00:22:36,499 --> 00:22:37,639
+you want to have some sort of
+
+509
+00:22:37,639 --> 00:22:39,999
+DNS resolution, and in general,
+
+510
+00:22:39,999 --> 00:22:42,119
+you want your query or
+
+511
+00:22:42,119 --> 00:22:46,099
+HTTP query to go to the
+specified URL, right?
+
+512
+00:22:46,099 --> 00:22:48,420
+What's also enabled
+a point to point
+
+513
+00:22:48,420 --> 00:22:50,999
+communication and do we
+
+514
+00:22:50,999 --> 00:22:54,360
+have a how many different
+active connections
+
+515
+00:22:54,360 --> 00:22:55,899
+can we have at any
+given point in time?
+
+516
+00:22:55,899 --> 00:22:57,999
+Let's say we have
+one laptop, right?
+
+517
+00:22:57,999 --> 00:23:00,260
+How many different
+networking connections
+
+518
+00:23:00,260 --> 00:23:02,639
+do we have on that laptop
+at any given point in time,
+
+519
+00:23:02,639 --> 00:23:05,059
+even as we speak right now?
+
+520
+00:23:07,020 --> 00:23:10,359
+A lot, right? How many
+nicks do you have?
+
+521
+00:23:10,359 --> 00:23:13,080
+One, right? You have
+a wireless adapter,
+
+522
+00:23:13,080 --> 00:23:16,759
+which is also a Nick, talks
+a different protocol, right?
+
+523
+00:23:16,759 --> 00:23:18,599
+And how does that happen?
+
+524
+00:23:18,599 --> 00:23:20,659
+Our applications even aware
+
+525
+00:23:20,659 --> 00:23:23,540
+of the fact that you
+only have one Nick.
+
+526
+00:23:25,190 --> 00:23:28,469
+So this deals with
+multiplexing, right?
+
+527
+00:23:28,469 --> 00:23:30,170
+We have one Nick,
+many connections.
+
+528
+00:23:30,170 --> 00:23:32,729
+And even for the way this,
+
+529
+00:23:32,729 --> 00:23:34,749
+in fact, we have one
+nick and many ports.
+
+530
+00:23:34,749 --> 00:23:35,549
+Let's start there.
+
+531
+00:23:35,549 --> 00:23:39,169
+So we already have, 65,000
+ports or whatnot, right?
+
+532
+00:23:39,169 --> 00:23:41,429
+That can be hosted or
+
+533
+00:23:41,429 --> 00:23:45,110
+rather enabled and
+supported on the same nick.
+
+534
+00:23:45,110 --> 00:23:47,130
+But even for every single port,
+
+535
+00:23:47,130 --> 00:23:48,549
+we can actually have multiple
+
+536
+00:23:48,549 --> 00:23:50,849
+connections per port, right?
+
+537
+00:23:50,849 --> 00:23:54,369
+More generally, let's say
+if you're talking about
+
+538
+00:23:54,369 --> 00:23:58,329
+interactive streams or
+interactive content,
+
+539
+00:23:58,329 --> 00:24:02,549
+like playing a video or
+using IP telephone, right?
+
+540
+00:24:02,549 --> 00:24:06,370
+Any kind of audio call that
+you make over the Internet,
+
+541
+00:24:06,370 --> 00:24:08,590
+the application here assumes
+
+542
+00:24:08,590 --> 00:24:12,770
+the ability to have a
+stream of information.
+
+543
+00:24:12,770 --> 00:24:14,730
+And what is a stream
+of information?
+
+544
+00:24:14,730 --> 00:24:16,010
+Clearly, this is not something
+
+545
+00:24:16,010 --> 00:24:17,914
+that Au Nick knows
+anything about.
+
+546
+00:24:17,914 --> 00:24:20,040
+Right? By the time
+that information
+
+547
+00:24:20,040 --> 00:24:22,080
+goes down to the
+network interface card,
+
+548
+00:24:22,080 --> 00:24:24,999
+it doesn't know that
+these frames are actually
+
+549
+00:24:24,999 --> 00:24:26,359
+related to each other and they
+
+550
+00:24:26,359 --> 00:24:28,659
+belong to a specific stream.
+
+551
+00:24:28,659 --> 00:24:30,360
+So this construction must
+
+552
+00:24:30,360 --> 00:24:33,239
+happen at a higher level
+of abstraction, right?
+
+553
+00:24:33,239 --> 00:24:35,519
+And we'll see exactly
+where that happens.
+
+554
+00:24:35,519 --> 00:24:37,419
+So streaming here just
+
+555
+00:24:37,419 --> 00:24:39,200
+to make it a little
+bit more precise,
+
+556
+00:24:39,200 --> 00:24:40,880
+what I'm referring
+to is basically
+
+557
+00:24:40,880 --> 00:24:42,800
+having semantically
+relevant data.
+
+558
+00:24:42,800 --> 00:24:45,679
+And when you have a
+concept of flow, right?
+
+559
+00:24:45,679 --> 00:24:47,120
+So you don't just send
+
+560
+00:24:47,120 --> 00:24:49,219
+a single message, to
+your point, right?
+
+561
+00:24:49,219 --> 00:24:52,260
+Maybe there's a sequence of
+messages that actually create
+
+562
+00:24:52,260 --> 00:24:53,739
+a flow or a sequence of
+
+563
+00:24:53,739 --> 00:24:55,719
+video frames that
+you want to send,
+
+564
+00:24:55,719 --> 00:24:58,804
+right, with certain
+QS guarantees.
+
+565
+00:24:58,804 --> 00:25:01,550
+Or a sequence of audio messages,
+
+566
+00:25:01,550 --> 00:25:03,930
+packets that you want
+to be able to send.
+
+567
+00:25:03,930 --> 00:25:06,869
+And so that sort of
+becomes a stream.
+
+568
+00:25:06,869 --> 00:25:09,669
+And we also depend
+or really want
+
+569
+00:25:09,669 --> 00:25:12,490
+to depend from the application
+level perspective,
+
+570
+00:25:12,490 --> 00:25:14,729
+we want to have some
+sort of reliability.
+
+571
+00:25:14,729 --> 00:25:16,709
+So if you're talking
+to somebody on
+
+572
+00:25:16,709 --> 00:25:19,849
+the phone that is using
+IP telephony, right,
+
+573
+00:25:19,849 --> 00:25:24,850
+how garbled can your
+message be if you don't
+
+574
+00:25:24,850 --> 00:25:27,609
+introduce anything to sort
+of reorder the packets
+
+575
+00:25:27,609 --> 00:25:31,289
+or make sure they arrive
+in the right order, right?
+
+576
+00:25:32,950 --> 00:25:37,190
+Even more generally,
+forget about reordering.
+
+577
+00:25:38,030 --> 00:25:40,089
+More generally, you can have
+
+578
+00:25:40,089 --> 00:25:42,309
+failures because I
+just mentioned that,
+
+579
+00:25:42,309 --> 00:25:44,449
+you know, we have this thing.
+
+580
+00:25:44,449 --> 00:25:47,529
+We have a network of
+different network
+
+581
+00:25:47,529 --> 00:25:50,049
+enabled devices in the middle
+
+582
+00:25:50,049 --> 00:25:52,029
+between the two endpoints
+of communication.
+
+583
+00:25:52,029 --> 00:25:53,489
+And there are actually
+
+584
+00:25:53,489 --> 00:25:55,729
+multiple pathways
+that you can take
+
+585
+00:25:55,729 --> 00:25:58,030
+as you traverse this set
+
+586
+00:25:58,030 --> 00:26:00,724
+of vertices in this
+directed basically graph.
+
+587
+00:26:00,724 --> 00:26:02,960
+Oh, and by the way, sometimes
+
+588
+00:26:02,960 --> 00:26:06,099
+it becomes a non directed
+acyclic graph, right?
+
+589
+00:26:06,099 --> 00:26:08,300
+Sometimes they are
+actually cycles here.
+
+590
+00:26:08,300 --> 00:26:09,860
+And that's when the backbone
+
+591
+00:26:09,860 --> 00:26:12,080
+starts to go down and
+you have outages.
+
+592
+00:26:12,080 --> 00:26:14,759
+So you have to have the
+ability to detect cycles and
+
+593
+00:26:14,759 --> 00:26:18,019
+make sure that it's directly
+a cyclic graph, right?
+
+594
+00:26:18,019 --> 00:26:20,259
+But let's go back
+to reliability.
+
+595
+00:26:20,259 --> 00:26:22,259
+So let's say that this
+router fails, right?
+
+596
+00:26:22,259 --> 00:26:25,140
+Do you still want your
+message to go through?
+
+597
+00:26:25,220 --> 00:26:30,449
+You don't? Not
+through that router.
+
+598
+00:26:30,449 --> 00:26:32,529
+Yeah. Yeah. But in general,
+
+599
+00:26:32,529 --> 00:26:34,170
+as a matter of fact,
+you don't even
+
+600
+00:26:34,170 --> 00:26:35,509
+want the application to notice,
+
+601
+00:26:35,509 --> 00:26:36,690
+right, because you want to give
+
+602
+00:26:36,690 --> 00:26:39,129
+them that sense of isolation,
+
+603
+00:26:39,129 --> 00:26:41,409
+right, and fault tolerance.
+
+604
+00:26:41,409 --> 00:26:43,509
+So if this router fails,
+
+605
+00:26:43,509 --> 00:26:46,309
+we want to basically as
+
+606
+00:26:46,309 --> 00:26:47,629
+I think what you
+were alluding to,
+
+607
+00:26:47,629 --> 00:26:49,209
+we don't want to use that router
+
+608
+00:26:49,209 --> 00:26:51,169
+because it's malfunctioning
+in some way.
+
+609
+00:26:51,169 --> 00:26:53,169
+We want to remove
+the link around it,
+
+610
+00:26:53,169 --> 00:26:56,229
+and we want the adjacent
+routers to actually be aware of
+
+611
+00:26:56,229 --> 00:26:59,529
+this that this link is no
+longer a feasible link to take.
+
+612
+00:26:59,529 --> 00:27:01,109
+So I think that's what
+you were going with.
+
+613
+00:27:01,109 --> 00:27:04,499
+Yeah, that's a good point.
+Right? So we need to update
+
+614
+00:27:04,499 --> 00:27:08,099
+something some state
+that encapsulates
+
+615
+00:27:08,099 --> 00:27:11,299
+the adjacent links in this
+network in this directed to
+
+616
+00:27:11,299 --> 00:27:15,259
+cyclo graph that from
+this router right here,
+
+617
+00:27:15,259 --> 00:27:17,860
+you can no longer route
+messages down here,
+
+618
+00:27:17,860 --> 00:27:19,979
+and this router right
+here should not
+
+619
+00:27:19,979 --> 00:27:23,139
+expect any messages from
+this particular location,
+
+620
+00:27:23,139 --> 00:27:25,919
+this particular edge, right?
+
+621
+00:27:25,919 --> 00:27:31,059
+Okay, so instead, what we
+want is a green route,
+
+622
+00:27:31,059 --> 00:27:33,099
+for instance, because
+it's a healthy route.
+
+623
+00:27:33,099 --> 00:27:36,800
+And I'm trying to emphasize
+
+624
+00:27:36,800 --> 00:27:38,379
+the fact that all of
+this is happening
+
+625
+00:27:38,379 --> 00:27:40,919
+without the application
+even being aware of this.
+
+626
+00:27:40,919 --> 00:27:42,260
+And as a matter of fact,
+
+627
+00:27:42,260 --> 00:27:44,720
+you're not even making
+any global decisions.
+
+628
+00:27:44,720 --> 00:27:47,360
+So there's no global
+scheduler that says,
+
+629
+00:27:47,360 --> 00:27:49,339
+reconfigure the
+routing tables on
+
+630
+00:27:49,339 --> 00:27:52,079
+every single vertex in
+this fashion, right?
+
+631
+00:27:52,079 --> 00:27:54,199
+Because that would be
+really expensive and
+
+632
+00:27:54,199 --> 00:27:55,819
+your network would suck because
+
+633
+00:27:55,819 --> 00:27:57,500
+everything would
+be extremely slow.
+
+634
+00:27:57,500 --> 00:28:00,280
+As a matter of fact, these
+decisions are actually made
+
+635
+00:28:00,280 --> 00:28:03,619
+very locally in a thing like
+a vertex type of fashion,
+
+636
+00:28:03,619 --> 00:28:05,079
+which is awesome, right?
+
+637
+00:28:05,079 --> 00:28:06,599
+That sort of lends itself
+
+638
+00:28:06,599 --> 00:28:08,559
+very nicely to the
+orthogonality and
+
+639
+00:28:08,559 --> 00:28:11,559
+composability of the
+individual components
+
+640
+00:28:11,559 --> 00:28:14,140
+that I was talking
+about previously.
+
+641
+00:28:16,730 --> 00:28:19,929
+So the routing tables
+individually can be
+
+642
+00:28:19,929 --> 00:28:22,609
+updated in such a way
+that these updates
+
+643
+00:28:22,609 --> 00:28:25,509
+are highly local and they take
+
+644
+00:28:25,509 --> 00:28:28,769
+care of actually
+avoiding the bad routes.
+
+645
+00:28:28,769 --> 00:28:31,170
+And the way this typically
+happens is by updating
+
+646
+00:28:31,170 --> 00:28:33,709
+the weights associated with
+
+647
+00:28:33,709 --> 00:28:35,710
+specific routes in
+your routing table.
+
+648
+00:28:35,710 --> 00:28:38,150
+So if you set away to
+infinity, for example,
+
+649
+00:28:38,150 --> 00:28:41,429
+you're never going to
+take that route, okay?
+
+650
+00:28:41,429 --> 00:28:44,410
+And then if your detection
+mechanism has detected
+
+651
+00:28:44,410 --> 00:28:47,210
+that this router has come
+back to life, then again,
+
+652
+00:28:47,210 --> 00:28:51,189
+you need to have
+automated mechanisms
+
+653
+00:28:51,189 --> 00:28:53,669
+to lower the cost of
+
+654
+00:28:53,669 --> 00:28:57,669
+that route and dynamically
+adjust it appropriately.
+
+655
+00:28:57,669 --> 00:29:04,849
+Okay. So why are we
+talking about all of this?
+
+656
+00:29:04,849 --> 00:29:07,390
+We're in an operating
+systems class.
+
+657
+00:29:07,390 --> 00:29:09,750
+Have any of you
+taken networking?
+
+658
+00:29:09,750 --> 00:29:13,869
+Oh, gosh. Okay, can
+
+659
+00:29:13,869 --> 00:29:15,869
+you raise your hands
+higher. So what is it?
+
+660
+00:29:15,869 --> 00:29:17,549
+Half the class has
+taken networking.
+
+661
+00:29:17,549 --> 00:29:19,929
+So you know all of
+this already, right?
+
+662
+00:29:22,170 --> 00:29:25,529
+So let me make a
+connection to this class.
+
+663
+00:29:25,529 --> 00:29:28,350
+Why are we talking about
+networking in this class?
+
+664
+00:29:28,350 --> 00:29:30,109
+The reason for this
+is because the
+
+665
+00:29:30,109 --> 00:29:32,209
+network protocol stack or
+
+666
+00:29:32,209 --> 00:29:34,609
+this magic black
+box that sort of
+
+667
+00:29:34,609 --> 00:29:37,309
+fits in the kernel
+proper, right?
+
+668
+00:29:37,309 --> 00:29:40,270
+It actually provides
+us with the same set
+
+669
+00:29:40,270 --> 00:29:42,829
+of abstractions that we
+
+670
+00:29:42,829 --> 00:29:45,609
+have come to expect from other
+verticals in the kernel,
+
+671
+00:29:45,609 --> 00:29:49,029
+like virtual memory and file
+systems, et cetera, right?
+
+672
+00:29:49,029 --> 00:29:51,689
+So we get the following
+abstractions.
+
+673
+00:29:51,689 --> 00:29:54,550
+We get naming, we
+get reliability,
+
+674
+00:29:54,550 --> 00:29:56,979
+we get isolation, right?
+
+675
+00:29:56,979 --> 00:29:58,830
+We get multiplexing.
+
+676
+00:29:58,830 --> 00:30:01,209
+And all of those,
+do I have one more?
+
+677
+00:30:01,209 --> 00:30:03,230
+Oh, yes, we get protection.
+
+678
+00:30:03,230 --> 00:30:06,849
+And all of those should
+now start to sound really,
+
+679
+00:30:06,849 --> 00:30:08,610
+really familiar because it's
+
+680
+00:30:08,610 --> 00:30:10,110
+sort of a repeating theme
+
+681
+00:30:10,110 --> 00:30:13,309
+across the different components
+of the kernel that we
+
+682
+00:30:13,309 --> 00:30:16,529
+have already studied
+extensively and
+
+683
+00:30:16,529 --> 00:30:17,969
+we continue to study
+
+684
+00:30:17,969 --> 00:30:20,590
+extensively until the
+end of this class.
+
+685
+00:30:20,590 --> 00:30:24,450
+Naming reliability, isolation,
+multiplexing, protection.
+
+686
+00:30:24,450 --> 00:30:26,069
+So if I were to ask you,
+
+687
+00:30:26,069 --> 00:30:28,605
+let's say, on your
+final exam or exam
+
+688
+00:30:28,605 --> 00:30:30,299
+One, right? You know,
+
+689
+00:30:30,299 --> 00:30:33,719
+give me examples of the
+specific functionality in
+
+690
+00:30:33,719 --> 00:30:35,759
+the kernel that provides
+these abstractions
+
+691
+00:30:35,759 --> 00:30:37,500
+and name three examples.
+
+692
+00:30:37,500 --> 00:30:41,660
+I will want you to come up
+with those three examples.
+
+693
+00:30:42,590 --> 00:30:46,989
+Of course, one of them is
+networking. The other is VMM.
+
+694
+00:30:47,470 --> 00:30:51,449
+Okay, so I think we've belabored
+the point quite a bit.
+
+695
+00:30:51,449 --> 00:30:54,410
+We're dealing with very low
+level networking interface.
+
+696
+00:30:54,410 --> 00:30:58,190
+It provides an
+unreliable transport,
+
+697
+00:30:58,190 --> 00:31:01,150
+but it has the ability
+to not ability.
+
+698
+00:31:01,150 --> 00:31:03,590
+It doesn't do anything
+about packets
+
+699
+00:31:03,590 --> 00:31:04,889
+accidentally reorienting
+
+700
+00:31:04,889 --> 00:31:06,889
+themselves in the
+network, right?
+
+701
+00:31:06,889 --> 00:31:09,170
+Sometimes you can
+even drop data,
+
+702
+00:31:09,170 --> 00:31:11,110
+which is quite unfortunate,
+
+703
+00:31:11,110 --> 00:31:14,469
+and it communicates
+using a MAC address,
+
+704
+00:31:14,469 --> 00:31:16,705
+and it doesn't
+provide any security.
+
+705
+00:31:16,705 --> 00:31:21,059
+And I think the TLDR here,
+
+706
+00:31:21,059 --> 00:31:23,160
+the takeaway is that we're
+dealing with bare bones,
+
+707
+00:31:23,160 --> 00:31:25,200
+sort of frame based, unreliable
+
+708
+00:31:25,200 --> 00:31:27,219
+P to P communication system.
+
+709
+00:31:27,219 --> 00:31:31,349
+And starting with the
+data link, right,
+
+710
+00:31:31,349 --> 00:31:34,390
+it uses something
+extremely low level,
+
+711
+00:31:34,390 --> 00:31:36,149
+like, for example,
+a MAC address,
+
+712
+00:31:36,149 --> 00:31:38,389
+which consists of six octets.
+
+713
+00:31:38,389 --> 00:31:41,149
+And I guess, just to
+spend a minute on this,
+
+714
+00:31:41,149 --> 00:31:44,870
+it really is an ordered
+piece of information.
+
+715
+00:31:44,870 --> 00:31:46,889
+The top level three octets
+
+716
+00:31:46,889 --> 00:31:49,829
+comprise the organizationally
+unique identifier.
+
+717
+00:31:49,829 --> 00:31:53,169
+The bottom the least
+significant three octets
+
+718
+00:31:53,169 --> 00:31:56,209
+are the network interface
+controller specific part.
+
+719
+00:31:56,209 --> 00:31:59,549
+And basically, if you look
+at one of the octets here,
+
+720
+00:31:59,549 --> 00:32:02,090
+in the six octet tuple,
+
+721
+00:32:02,090 --> 00:32:04,469
+the least significant
+bit corresponds to
+
+722
+00:32:04,469 --> 00:32:06,609
+whether or not it's a
+unicast or a multicast,
+
+723
+00:32:06,609 --> 00:32:08,949
+and then the second
+least significant bit is
+
+724
+00:32:08,949 --> 00:32:10,209
+whether or not it's globally
+
+725
+00:32:10,209 --> 00:32:12,669
+unique or locally administered.
+
+726
+00:32:13,190 --> 00:32:15,790
+So that's how low level
+
+727
+00:32:15,790 --> 00:32:19,549
+the interface is at the
+data link layer, right?
+
+728
+00:32:19,549 --> 00:32:22,624
+But what we want, right?
+
+729
+00:32:22,624 --> 00:32:25,459
+Is for the operating system
+
+730
+00:32:25,459 --> 00:32:27,860
+to provide a reliable transport.
+
+731
+00:32:27,860 --> 00:32:31,039
+We want for the operating
+system to give us naming
+
+732
+00:32:31,039 --> 00:32:34,540
+and the ability to resolve
+host names like G tech dottGU.
+
+733
+00:32:34,540 --> 00:32:37,119
+We want the operating system
+to give us multiplexing,
+
+734
+00:32:37,119 --> 00:32:38,339
+like having many ports and
+
+735
+00:32:38,339 --> 00:32:40,560
+many connections even per port,
+
+736
+00:32:40,560 --> 00:32:42,459
+which I'm referring to here
+
+737
+00:32:42,459 --> 00:32:44,519
+as fine granularity
+multiplexing,
+
+738
+00:32:44,519 --> 00:32:47,200
+and we want protection or
+some sort of security,
+
+739
+00:32:47,200 --> 00:32:49,760
+some sort of at least
+limited security.
+
+740
+00:32:49,760 --> 00:32:52,659
+And this is sort of the
+focus of what we're going
+
+741
+00:32:52,659 --> 00:32:56,139
+to talk about in this
+lecture in this class, okay?
+
+742
+00:32:56,139 --> 00:33:01,299
+This is what provided to us
+by the networking stack.
+
+743
+00:33:03,710 --> 00:33:08,069
+Okay, so how do we build
+these abstractions, right?
+
+744
+00:33:08,069 --> 00:33:10,909
+Those of you who have taken
+the networking class,
+
+745
+00:33:10,909 --> 00:33:14,569
+are you familiar with the
+seven OSI layers, right?
+
+746
+00:33:14,569 --> 00:33:25,030
+Do you remember
+what they are? Yes.
+
+747
+00:33:25,030 --> 00:33:34,729
+Transport application.
+I think I'm skipping.
+
+748
+00:33:34,729 --> 00:33:36,889
+Yes. So there's something here.
+
+749
+00:33:36,889 --> 00:33:39,369
+Let me do this for
+you. Okay? And then
+
+750
+00:33:39,369 --> 00:33:40,809
+let's make sure that it actually
+
+751
+00:33:40,809 --> 00:33:42,329
+lines up with what you remember.
+
+752
+00:33:42,329 --> 00:33:44,049
+Here's the way I remember this,
+
+753
+00:33:44,049 --> 00:33:45,830
+and I've remembered
+this for the past,
+
+754
+00:33:45,830 --> 00:33:47,690
+I think, 25 years or something.
+
+755
+00:33:47,690 --> 00:33:51,310
+That's a long time. So
+it's a good mnemonic.
+
+756
+00:33:51,390 --> 00:34:01,510
+All people seem to
+need data process.
+
+757
+00:34:01,950 --> 00:34:06,030
+And you're going to remember
+it for your next 25 years.
+
+758
+00:34:06,030 --> 00:34:09,590
+All people seem to
+need data processing,
+
+759
+00:34:09,590 --> 00:34:12,849
+and this is the one that you
+refer to as a link layer.
+
+760
+00:34:12,849 --> 00:34:14,410
+So it's either data.
+
+761
+00:34:14,410 --> 00:34:16,049
+It's called the Datalink layer.
+
+762
+00:34:16,049 --> 00:34:19,769
+So basically, this is
+the application layer.
+
+763
+00:34:19,769 --> 00:34:22,269
+This is the presentation.
+
+764
+00:34:24,230 --> 00:34:27,809
+Layer, this is the
+session layer,
+
+765
+00:34:27,809 --> 00:34:31,269
+and this is the transport.
+
+766
+00:34:33,150 --> 00:34:37,629
+This is the network layer,
+
+767
+00:34:37,629 --> 00:34:46,070
+and this is the data
+link. And physical.
+
+768
+00:34:47,700 --> 00:34:52,580
+Okay. I'm also going to
+be not just me, actually,
+
+769
+00:34:52,580 --> 00:34:56,000
+the network backend ups
+
+770
+00:34:56,000 --> 00:34:57,719
+are usually referring to
+
+771
+00:34:57,719 --> 00:35:00,219
+these layers in a
+very specific way.
+
+772
+00:35:00,219 --> 00:35:02,859
+They usually say that
+this is an L four.
+
+773
+00:35:02,859 --> 00:35:06,679
+This is an L three,
+L two, and one.
+
+774
+00:35:06,679 --> 00:35:09,859
+Did you see that
+notation? Okay, good.
+
+775
+00:35:09,859 --> 00:35:12,419
+And also, usually in
+
+776
+00:35:12,419 --> 00:35:15,740
+textbooks or whatever
+or other classes,
+
+777
+00:35:15,740 --> 00:35:17,299
+people sometimes refer to
+
+778
+00:35:17,299 --> 00:35:21,159
+this whole thing at the top as I
+
+779
+00:35:21,159 --> 00:35:27,819
+cannot draw sideways as an
+application layer right here.
+
+780
+00:35:27,819 --> 00:35:29,699
+Okay.
+
+781
+00:35:32,060 --> 00:35:34,199
+And so in this class,
+
+782
+00:35:34,199 --> 00:35:36,119
+we're kind of primarily will be
+
+783
+00:35:36,119 --> 00:35:38,599
+concerning ourselves with
+these two layers right here,
+
+784
+00:35:38,599 --> 00:35:40,719
+but I wanted to make
+sure that you have
+
+785
+00:35:40,719 --> 00:35:43,540
+awareness of all of the layers
+because they're important.
+
+786
+00:35:43,540 --> 00:35:45,839
+Why they're important?
+Because starting at the top,
+
+787
+00:35:45,839 --> 00:35:47,179
+starting at the application,
+
+788
+00:35:47,179 --> 00:35:50,320
+you want to have a
+single piece of data.
+
+789
+00:35:50,320 --> 00:35:55,780
+So this is your data or payload
+being sent from one post.
+
+790
+00:35:55,780 --> 00:35:57,789
+So this is your host with data.
+
+791
+00:35:57,789 --> 00:36:00,759
+To another hot. This is
+your other host with data.
+
+792
+00:36:00,759 --> 00:36:03,440
+And all you want is you
+want that data essentially
+
+793
+00:36:03,440 --> 00:36:06,519
+at a high level to be
+propagated to that host, right?
+
+794
+00:36:06,519 --> 00:36:09,039
+But what really happens
+is that this data,
+
+795
+00:36:09,039 --> 00:36:12,160
+this piece of data starts
+going down the protocol stack,
+
+796
+00:36:12,160 --> 00:36:13,659
+and every single layer in
+
+797
+00:36:13,659 --> 00:36:16,420
+the protocol stack starts
+prepending or potentially
+
+798
+00:36:16,420 --> 00:36:20,999
+appending different headers
+and suffixes to that data.
+
+799
+00:36:20,999 --> 00:36:24,660
+So for instance, you could
+end up with a UDP header,
+
+800
+00:36:24,660 --> 00:36:27,680
+so that basically
+your L four protocol,
+
+801
+00:36:27,680 --> 00:36:29,920
+adding a UDP header,
+
+802
+00:36:29,920 --> 00:36:32,159
+prepending a UDP
+header to your data.
+
+803
+00:36:32,159 --> 00:36:35,419
+So now you have this.
+Right? And then
+
+804
+00:36:35,419 --> 00:36:38,419
+you keep going down the
+stack to the network layer.
+
+805
+00:36:38,419 --> 00:36:41,780
+So the network layer is
+going to add an IP header.
+
+806
+00:36:41,780 --> 00:36:43,839
+So now you have IP.
+
+807
+00:36:43,839 --> 00:36:48,020
+Yeah, that's good.
+IP, followed by UDP,
+
+808
+00:36:48,020 --> 00:36:51,080
+followed by your payload data.
+
+809
+00:36:51,120 --> 00:36:53,979
+So this is the L three
+addition to this.
+
+810
+00:36:53,979 --> 00:36:55,739
+Now we're going to
+go down to L two,
+
+811
+00:36:55,739 --> 00:36:57,459
+and for the purposes
+of this class,
+
+812
+00:36:57,459 --> 00:36:59,479
+let's assume that we're
+dealing with Ethernet.
+
+813
+00:36:59,479 --> 00:37:02,999
+So what are we going to
+prepend at the L two layer?
+
+814
+00:37:06,240 --> 00:37:10,479
+Half of you have taken
+networking, I recall.
+
+815
+00:37:10,479 --> 00:37:14,759
+So what are we prepending here
+as we keep going down the?
+
+816
+00:37:18,330 --> 00:37:22,210
+Yeah. Ethernet header.
+
+817
+00:37:22,210 --> 00:37:24,669
+Ethernet header.
+Can somebody tell
+
+818
+00:37:24,669 --> 00:37:28,290
+me how many bytes is
+the ethernet header?
+
+819
+00:37:32,450 --> 00:37:35,149
+And do you know why I know this?
+
+820
+00:37:35,149 --> 00:37:38,009
+Because I know the
+reason for this.
+
+821
+00:37:38,930 --> 00:37:41,629
+Okay, let's assume that
+we're dealing with
+
+822
+00:37:41,629 --> 00:37:43,690
+Ethernet as our L two protocol.
+
+823
+00:37:43,690 --> 00:37:45,689
+You're going to
+basically end up with
+
+824
+00:37:45,689 --> 00:37:49,570
+an ehader as ethernet
+frame header.
+
+825
+00:37:51,270 --> 00:37:56,070
+Which is going to
+consist of 14 bytes.
+
+826
+00:37:56,070 --> 00:38:00,749
+Six of which are going
+to be your source MAC.
+
+827
+00:38:02,710 --> 00:38:06,829
+Six of which are going to
+be your destination mac
+
+828
+00:38:07,390 --> 00:38:13,729
+and two bytes basically
+for the type. Okay?
+
+829
+00:38:13,729 --> 00:38:15,669
+And after all of this,
+
+830
+00:38:15,669 --> 00:38:17,750
+you are going to have your IP,
+
+831
+00:38:17,750 --> 00:38:24,689
+then your UDP, and then your
+payload, your data, right?
+
+832
+00:38:24,689 --> 00:38:27,849
+So look at what we have just
+constructed and how much
+
+833
+00:38:27,849 --> 00:38:29,689
+overhead there is for
+us to actually send
+
+834
+00:38:29,689 --> 00:38:32,549
+a single piece of data, right?
+
+835
+00:38:33,230 --> 00:38:38,470
+Now, why do we need
+all of this overhead?
+
+836
+00:38:38,470 --> 00:38:39,869
+As I mentioned, anytime you
+
+837
+00:38:39,869 --> 00:38:41,830
+see some sort of
+complexity or overhead,
+
+838
+00:38:41,830 --> 00:38:43,669
+there's usually a
+good reason for this.
+
+839
+00:38:43,669 --> 00:38:46,089
+So let's try to break this down.
+
+840
+00:38:46,089 --> 00:38:51,499
+Um, Okay, so I already
+talked about this.
+
+841
+00:38:51,499 --> 00:38:53,579
+We have physical at
+the bottom, right?
+
+842
+00:38:53,579 --> 00:38:55,719
+This is the layer that's
+
+843
+00:38:55,719 --> 00:38:57,000
+responsible for essentially
+
+844
+00:38:57,000 --> 00:38:59,080
+communicating
+signals on the wire.
+
+845
+00:38:59,080 --> 00:39:01,419
+For instance, one
+protocol you could
+
+846
+00:39:01,419 --> 00:39:03,860
+be talking is fiber
+optic cable, okay?
+
+847
+00:39:03,860 --> 00:39:05,479
+You can have coaxial cable.
+
+848
+00:39:05,479 --> 00:39:09,239
+You can have unshielded
+twisted pair, cat five E.
+
+849
+00:39:09,239 --> 00:39:11,959
+You can have shielded
+twisted pair, at six.
+
+850
+00:39:11,959 --> 00:39:14,859
+Okay? There are many
+different protocols that
+
+851
+00:39:14,859 --> 00:39:16,199
+you can actually
+be communicating
+
+852
+00:39:16,199 --> 00:39:18,779
+at the physical layer.
+There's a whole bunch.
+
+853
+00:39:19,480 --> 00:39:21,819
+And this is not even my area
+
+854
+00:39:21,819 --> 00:39:23,319
+of specialty. I can
+think of several.
+
+855
+00:39:23,319 --> 00:39:25,419
+I'm sure the electrical
+engineers here
+
+856
+00:39:25,419 --> 00:39:28,139
+in the audience can come
+up with many more, right?
+
+857
+00:39:28,139 --> 00:39:30,239
+Then you have the
+data link layer,
+
+858
+00:39:30,239 --> 00:39:32,479
+and this is the one that's
+sort of responsible
+
+859
+00:39:32,479 --> 00:39:36,239
+to provide you with
+essentially the containers,
+
+860
+00:39:36,239 --> 00:39:38,939
+the binarized containers
+to ship your data.
+
+861
+00:39:38,939 --> 00:39:40,739
+So if we again,
+
+862
+00:39:40,739 --> 00:39:44,700
+assume Ethernet
+frame ether network,
+
+863
+00:39:44,700 --> 00:39:47,099
+right, it gives you
+these rant frames
+
+864
+00:39:47,099 --> 00:39:49,799
+as a container to ship your
+data, wherever data you want.
+
+865
+00:39:49,799 --> 00:39:51,599
+That's the container
+you can put it in.
+
+866
+00:39:51,599 --> 00:39:53,039
+So that's the way
+to think about it.
+
+867
+00:39:53,039 --> 00:39:55,575
+Your eranet frames
+are like containers.
+
+868
+00:39:55,575 --> 00:39:58,330
+Then the networking
+layer is actually
+
+869
+00:39:58,330 --> 00:40:00,550
+responsible for kind of adding
+
+870
+00:40:00,550 --> 00:40:02,349
+the semantic awareness
+of host to host
+
+871
+00:40:02,349 --> 00:40:04,489
+communication because
+it kind of gives
+
+872
+00:40:04,489 --> 00:40:06,469
+you an idea of what's
+the address of
+
+873
+00:40:06,469 --> 00:40:09,049
+this end node that I
+want to talk to, right?
+
+874
+00:40:09,049 --> 00:40:13,034
+And so here you will have a
+source IP and destination IP.
+
+875
+00:40:13,034 --> 00:40:16,939
+A higher level, this is
+the transport layer,
+
+876
+00:40:16,939 --> 00:40:21,019
+the L four, let me add
+this here, the L four,
+
+877
+00:40:21,019 --> 00:40:22,720
+which is going to
+give you basically
+
+878
+00:40:22,720 --> 00:40:28,139
+some connection oriented or
+connection less information
+
+879
+00:40:28,139 --> 00:40:30,719
+on top of just bare bones point
+
+880
+00:40:30,719 --> 00:40:33,619
+to point communication
+provided by L three.
+
+881
+00:40:33,619 --> 00:40:35,999
+So that's what the
+transport layer is doing.
+
+882
+00:40:35,999 --> 00:40:38,660
+And then the application
+layer on top is basically
+
+883
+00:40:38,660 --> 00:40:41,440
+just handling whatever's
+necessary from the application.
+
+884
+00:40:41,440 --> 00:40:42,479
+Perspective is sort of
+
+885
+00:40:42,479 --> 00:40:44,439
+outside of the scope
+of this class.
+
+886
+00:40:44,439 --> 00:40:48,320
+Okay. Oh, yeah, and
+someone mentioned HTTP.
+
+887
+00:40:48,320 --> 00:40:53,880
+HTTP is a very good example
+of the specific protocol,
+
+888
+00:40:53,880 --> 00:40:56,539
+hypertext transfer protocol that
+
+889
+00:40:56,539 --> 00:40:59,300
+we are using at the
+application level, okay?
+
+890
+00:40:59,300 --> 00:41:01,359
+So what I'm trying
+to say here is that
+
+891
+00:41:01,359 --> 00:41:03,599
+even layers above L four,
+
+892
+00:41:03,599 --> 00:41:06,699
+so L five plus have
+their own protocols.
+
+893
+00:41:06,699 --> 00:41:08,680
+Like HTTP is one protocol.
+
+894
+00:41:08,680 --> 00:41:12,339
+FTP, the file transfer
+protocol, SFTP, right?
+
+895
+00:41:12,339 --> 00:41:15,959
+HTTPS. I'm going to put them
+in brackets right here.
+
+896
+00:41:15,959 --> 00:41:18,845
+All of those are kind of
+application level protocol.
+
+897
+00:41:18,845 --> 00:41:20,709
+L five plus.
+
+898
+00:41:20,709 --> 00:41:22,710
+Now, here for your transport,
+
+899
+00:41:22,710 --> 00:41:24,689
+you have TCP and UDP are
+
+900
+00:41:24,689 --> 00:41:26,629
+the quintessential examples
+that we're going to
+
+901
+00:41:26,629 --> 00:41:29,070
+talk about and you need
+to know for this class.
+
+902
+00:41:29,070 --> 00:41:32,329
+Then, of course,
+network IP, right?
+
+903
+00:41:32,329 --> 00:41:33,449
+These are the ones that you
+
+904
+00:41:33,449 --> 00:41:35,430
+really want to know
+for this class.
+
+905
+00:41:35,430 --> 00:41:37,769
+And below that, there are
+
+906
+00:41:37,769 --> 00:41:41,869
+different wired and wireless
+data link protocols
+
+907
+00:41:41,869 --> 00:41:44,069
+that are usually defined in
+
+908
+00:41:44,069 --> 00:41:48,284
+the eight oh two
+X standard of IE.
+
+909
+00:41:48,284 --> 00:41:50,659
+The very bottom,
+you basically have
+
+910
+00:41:50,659 --> 00:41:53,580
+some physical medium
+through which the signals,
+
+911
+00:41:53,580 --> 00:41:55,980
+the electrical
+signals propagate.
+
+912
+00:41:55,980 --> 00:41:57,699
+All right.
+
+913
+00:41:57,699 --> 00:42:02,099
+So one way to
+
+914
+00:42:02,099 --> 00:42:04,120
+think about it is that as
+you go through the stack,
+
+915
+00:42:04,120 --> 00:42:05,940
+you traverse the
+sequence of protocols.
+
+916
+00:42:05,940 --> 00:42:07,399
+You have to, in order to
+
+917
+00:42:07,399 --> 00:42:10,779
+unwrap the data that you
+are trying to send, right?
+
+918
+00:42:10,779 --> 00:42:12,819
+And going down the
+protocol stack,
+
+919
+00:42:12,819 --> 00:42:14,839
+you are wrapping it in
+these layers so that
+
+920
+00:42:14,839 --> 00:42:17,319
+each individual layer
+can actually interpose
+
+921
+00:42:17,319 --> 00:42:19,719
+and extract the necessary
+information to make
+
+922
+00:42:19,719 --> 00:42:23,360
+the control decisions
+that it is making, okay?
+
+923
+00:42:24,480 --> 00:42:27,019
+Okay, so this is what
+
+924
+00:42:27,019 --> 00:42:30,099
+I have just drawn
+on the whiteboard.
+
+925
+00:42:30,099 --> 00:42:33,120
+You can also see it
+kind of more cleanly
+
+926
+00:42:33,120 --> 00:42:36,120
+on the slide with a little
+bit more information.
+
+927
+00:42:36,120 --> 00:42:38,339
+So again, you have your
+payload right here,
+
+928
+00:42:38,339 --> 00:42:40,179
+then it's sort of wrapped into
+
+929
+00:42:40,179 --> 00:42:41,879
+transport layer protocol data.
+
+930
+00:42:41,879 --> 00:42:43,360
+Let's say TCP protocol,
+
+931
+00:42:43,360 --> 00:42:45,019
+like port numbers and
+things like that,
+
+932
+00:42:45,019 --> 00:42:47,400
+source and destination ports.
+
+933
+00:42:47,680 --> 00:42:50,339
+Where did that go?
+Okay, then you
+
+934
+00:42:50,339 --> 00:42:52,419
+have a Senders IP
+address on top of that.
+
+935
+00:42:52,419 --> 00:42:54,879
+See, I put it right here.
+
+936
+00:42:55,040 --> 00:42:57,999
+And then after that, which is
+
+937
+00:42:57,999 --> 00:43:00,220
+also source and destination
+IP address information.
+
+938
+00:43:00,220 --> 00:43:01,840
+After that, you
+have the receivers
+
+939
+00:43:01,840 --> 00:43:04,160
+and the Senders MAC address.
+
+940
+00:43:04,240 --> 00:43:05,739
+Okay.
+
+941
+00:43:05,739 --> 00:43:12,479
+So, um, ink layer communicates
+on a single link.
+
+942
+00:43:12,479 --> 00:43:14,700
+Internet layer manages
+multiple hops across
+
+943
+00:43:14,700 --> 00:43:18,099
+links and transport layer
+manages data reliability.
+
+944
+00:43:18,099 --> 00:43:19,939
+So this is really to reemphasize
+
+945
+00:43:19,939 --> 00:43:24,519
+that our goal, right, is this.
+
+946
+00:43:24,640 --> 00:43:28,239
+Right here, we want to send
+some data from Host A to
+
+947
+00:43:28,239 --> 00:43:29,519
+host B and have
+
+948
+00:43:29,519 --> 00:43:31,560
+it traverse whatever
+it needs to traverse.
+
+949
+00:43:31,560 --> 00:43:33,339
+But what really happens is that
+
+950
+00:43:33,339 --> 00:43:35,399
+it starts at the
+application layer and
+
+951
+00:43:35,399 --> 00:43:37,459
+basically starts
+to go down through
+
+952
+00:43:37,459 --> 00:43:39,779
+the protocol stack all the
+way to the link layer,
+
+953
+00:43:39,779 --> 00:43:42,939
+right, hits the medium
+that it gets sent over,
+
+954
+00:43:42,939 --> 00:43:47,105
+then starts going back up the
+stack on the next device.
+
+955
+00:43:47,105 --> 00:43:51,349
+Depending on how semantically
+aware that device is,
+
+956
+00:43:51,349 --> 00:43:53,149
+it could be L two, right?
+
+957
+00:43:53,149 --> 00:43:55,190
+It could be L three,
+and sometimes
+
+958
+00:43:55,190 --> 00:43:56,869
+it's even L four aware.
+
+959
+00:43:56,869 --> 00:43:58,329
+But usually, it's either L two,
+
+960
+00:43:58,329 --> 00:44:00,769
+which is your regular
+switch and L three,
+
+961
+00:44:00,769 --> 00:44:02,550
+which is your regular router.
+
+962
+00:44:02,550 --> 00:44:04,669
+Makes sense. So this is
+
+963
+00:44:04,669 --> 00:44:07,169
+L two is where most of
+your switches live,
+
+964
+00:44:07,169 --> 00:44:09,310
+and L three or repeaters,
+
+965
+00:44:09,310 --> 00:44:11,349
+for example, repeaters are
+even dumber than that.
+
+966
+00:44:11,349 --> 00:44:12,970
+And L three is basically
+
+967
+00:44:12,970 --> 00:44:14,450
+your routers because routers
+
+968
+00:44:14,450 --> 00:44:16,330
+need the networking information.
+
+969
+00:44:16,330 --> 00:44:19,390
+L four Aware routers exist.
+
+970
+00:44:19,390 --> 00:44:21,729
+Cisco four Aware routers exist,
+
+971
+00:44:21,729 --> 00:44:23,909
+for example, and they kind
+
+972
+00:44:23,909 --> 00:44:26,569
+of try to provide
+you QS guarantees.
+
+973
+00:44:26,569 --> 00:44:28,429
+They tried to provide
+you with the notion of
+
+974
+00:44:28,429 --> 00:44:30,669
+flows and streams so
+
+975
+00:44:30,669 --> 00:44:32,489
+that if there are any quality of
+
+976
+00:44:32,489 --> 00:44:34,849
+service guarantees imposed
+on a particular stream,
+
+977
+00:44:34,849 --> 00:44:36,590
+let's say audio video stream.
+
+978
+00:44:36,590 --> 00:44:38,849
+The only way to do
+that is if you have
+
+979
+00:44:38,849 --> 00:44:42,090
+some L four sematic information.
+
+980
+00:44:42,590 --> 00:44:44,870
+Alright.
+
+981
+00:44:48,070 --> 00:44:50,809
+Okay, I think so we've
+gone through this.
+
+982
+00:44:50,809 --> 00:44:52,769
+I'm not going to go
+through this again.
+
+983
+00:44:52,769 --> 00:44:54,369
+The point that I was trying to
+
+984
+00:44:54,369 --> 00:44:55,950
+make is that you will traverse
+
+985
+00:44:55,950 --> 00:44:57,369
+up and down and up and down
+
+986
+00:44:57,369 --> 00:44:59,109
+and up and down the
+stack multiple times.
+
+987
+00:44:59,109 --> 00:45:00,489
+So it's not just a direct point
+
+988
+00:45:00,489 --> 00:45:02,329
+to point communication
+anymore, right?
+
+989
+00:45:02,329 --> 00:45:05,989
+The data flow is much more
+complicated than this.
+
+990
+00:45:06,080 --> 00:45:08,679
+And then finally,
+you go all the way
+
+991
+00:45:08,679 --> 00:45:10,879
+back all the way up to the host.
+
+992
+00:45:10,879 --> 00:45:12,700
+So it's a lot of processing
+
+993
+00:45:12,700 --> 00:45:14,619
+that actually happens
+under the hood.
+
+994
+00:45:14,619 --> 00:45:16,559
+And, you know, by the way,
+
+995
+00:45:16,559 --> 00:45:19,120
+this does show up in
+interview questions.
+
+996
+00:45:19,120 --> 00:45:20,439
+I remember I myself when
+
+997
+00:45:20,439 --> 00:45:22,019
+I was interviewing
+for Microsoft,
+
+998
+00:45:22,019 --> 00:45:23,279
+people would ask me, you know,
+
+999
+00:45:23,279 --> 00:45:27,819
+what happens when I communicate
+between two hosts, right?
+
+1000
+00:45:27,819 --> 00:45:29,199
+And it's a very
+interesting kind of
+
+1001
+00:45:29,199 --> 00:45:31,599
+interview question
+because they try to test,
+
+1002
+00:45:31,599 --> 00:45:33,999
+you know, how deep your
+knowledge really goes.
+
+1003
+00:45:33,999 --> 00:45:35,419
+The test for the breadth and
+
+1004
+00:45:35,419 --> 00:45:37,760
+the depth of your
+knowledge simultaneously.
+
+1005
+00:45:37,760 --> 00:45:42,159
+And if you give them this,
+you know, it's a good start.
+
+1006
+00:45:42,230 --> 00:45:44,769
+Okay, so let's start talking
+
+1007
+00:45:44,769 --> 00:45:47,849
+about the two layers
+that I mentioned, right?
+
+1008
+00:45:47,849 --> 00:45:50,909
+The transport layer and
+network protocol layer.
+
+1009
+00:45:52,340 --> 00:45:56,979
+It's called here the
+Internet layer, right?
+
+1010
+00:45:56,979 --> 00:45:58,899
+That's the L three.
+
+1011
+00:45:58,899 --> 00:46:00,819
+That's the same thing as
+the network layer right
+
+1012
+00:46:00,819 --> 00:46:02,939
+here. So what does it enable?
+
+1013
+00:46:02,939 --> 00:46:04,299
+It gives us the ability to
+
+1014
+00:46:04,299 --> 00:46:06,159
+address hosts
+because now we want
+
+1015
+00:46:06,159 --> 00:46:10,340
+to have a notion of
+talking across hosts.
+
+1016
+00:46:10,340 --> 00:46:11,819
+Host to host communication
+
+1017
+00:46:11,819 --> 00:46:14,739
+is the semantic
+awareness of L three,
+
+1018
+00:46:14,739 --> 00:46:17,600
+and it also enables routing.
+
+1019
+00:46:17,600 --> 00:46:19,099
+So remember, I
+mentioned that we have
+
+1020
+00:46:19,099 --> 00:46:20,519
+these routing tables in
+
+1021
+00:46:20,519 --> 00:46:22,899
+the vertices of this
+director basically graph.
+
+1022
+00:46:22,899 --> 00:46:24,739
+You wouldn't be able
+to have any kind of
+
+1023
+00:46:24,739 --> 00:46:27,239
+routing if you didn't have
+addressing capability.
+
+1024
+00:46:27,239 --> 00:46:30,990
+So this three layer gives you
+the addressing capability.
+
+1025
+00:46:30,990 --> 00:46:37,579
+Okay? Let's see.
+
+1026
+00:46:37,579 --> 00:46:41,159
+And so this routing kind
+of starts to hint at how
+
+1027
+00:46:41,159 --> 00:46:42,479
+we provide reliability to
+
+1028
+00:46:42,479 --> 00:46:44,700
+the network applications
+in general.
+
+1029
+00:46:44,700 --> 00:46:46,579
+In fact, does anyone know what
+
+1030
+00:46:46,579 --> 00:46:51,599
+the first successful
+network built ever was,
+
+1031
+00:46:51,599 --> 00:46:55,439
+at least as far as we know, yes.
+
+1032
+00:46:55,439 --> 00:47:00,200
+It was like DARPA, right?
+It was pre DARPA, actually.
+
+1033
+00:47:03,590 --> 00:47:07,010
+It was arpanet. Exactly.
+
+1034
+00:47:07,010 --> 00:47:12,330
+It was arpanet. And they
+had a very serious concern.
+
+1035
+00:47:12,330 --> 00:47:16,019
+Just kind of interesting
+in retrospect,
+
+1036
+00:47:16,019 --> 00:47:17,700
+they had a serious concern.
+
+1037
+00:47:17,700 --> 00:47:20,279
+If you only have direct point
+
+1038
+00:47:20,279 --> 00:47:22,839
+to point communication, right?
+
+1039
+00:47:22,839 --> 00:47:25,899
+And let's say you
+need to talk between
+
+1040
+00:47:25,899 --> 00:47:27,239
+East Coast and West Coast and
+
+1041
+00:47:27,239 --> 00:47:28,999
+you have a direct line
+of communication,
+
+1042
+00:47:28,999 --> 00:47:30,939
+then you have a single point of
+
+1043
+00:47:30,939 --> 00:47:33,819
+failure at every single
+vertex in between, right?
+
+1044
+00:47:33,819 --> 00:47:37,939
+So you take out any telecom
+base station or whatever.
+
+1045
+00:47:37,939 --> 00:47:39,759
+I don't know what they
+were using at that time,
+
+1046
+00:47:39,759 --> 00:47:41,739
+any one of those
+vertices, right?
+
+1047
+00:47:41,739 --> 00:47:44,639
+Then you can no longer communicate
+between East and West.
+
+1048
+00:47:44,639 --> 00:47:46,659
+And so you needed to
+have some sort of
+
+1049
+00:47:46,659 --> 00:47:49,919
+redundant network so that if
+
+1050
+00:47:49,919 --> 00:47:51,540
+one of the vertices is actually
+
+1051
+00:47:51,540 --> 00:47:53,299
+taken out for whatever reason,
+
+1052
+00:47:53,299 --> 00:47:55,639
+or if it fails, you
+want to be able to sort
+
+1053
+00:47:55,639 --> 00:47:56,940
+of still make a connection
+
+1054
+00:47:56,940 --> 00:47:58,959
+between East and
+West Coast, right?
+
+1055
+00:47:58,959 --> 00:48:02,939
+And so this was successfully
+achieved with ARPAnet,
+
+1056
+00:48:02,939 --> 00:48:05,979
+where we started to see some
+
+1057
+00:48:05,979 --> 00:48:08,940
+original and some
+first kind of routing
+
+1058
+00:48:08,940 --> 00:48:11,839
+protocols that would
+automatically fail
+
+1059
+00:48:11,839 --> 00:48:15,659
+over between the vertices if
+the vertices were to fail.
+
+1060
+00:48:15,659 --> 00:48:18,300
+And I believe, if
+I'm not mistaken,
+
+1061
+00:48:18,300 --> 00:48:20,099
+at least, let's say
+five years ago,
+
+1062
+00:48:20,099 --> 00:48:22,559
+this was the case,
+it's still kind
+
+1063
+00:48:22,559 --> 00:48:24,859
+of part of the backbone
+
+1064
+00:48:24,859 --> 00:48:27,399
+of the Internet
+that we have today.
+
+1065
+00:48:29,010 --> 00:48:32,369
+Okay. Yes.
+
+1066
+00:48:33,010 --> 00:48:35,369
+And so DARPA is really
+
+1067
+00:48:35,369 --> 00:48:37,950
+credited with coming
+up with this project.
+
+1068
+00:48:37,950 --> 00:48:41,049
+You're correct. And
+because it was always sort
+
+1069
+00:48:41,049 --> 00:48:45,009
+of at the forefront of
+enabling these technologies.
+
+1070
+00:48:45,010 --> 00:48:47,550
+It was the one that was credited
+
+1071
+00:48:47,550 --> 00:48:49,449
+with essentially the birth of
+
+1072
+00:48:49,449 --> 00:48:51,249
+Internet before
+the World Wide Web
+
+1073
+00:48:51,249 --> 00:48:54,704
+became popular a couple
+of decades later.
+
+1074
+00:48:54,704 --> 00:48:58,139
+Okay, L four, this
+
+1075
+00:48:58,139 --> 00:49:00,920
+is a layer of particular
+interest to operating systems,
+
+1076
+00:49:00,920 --> 00:49:03,540
+right, because L four
+is where we start
+
+1077
+00:49:03,540 --> 00:49:05,119
+some interesting abstractions
+
+1078
+00:49:05,119 --> 00:49:07,120
+to really become implemented.
+
+1079
+00:49:07,120 --> 00:49:09,719
+And remember that the
+abstractions that
+
+1080
+00:49:09,719 --> 00:49:12,120
+we talked about are the
+streaming interface,
+
+1081
+00:49:12,120 --> 00:49:15,259
+the reliability, and point to
+point communication, right?
+
+1082
+00:49:15,259 --> 00:49:17,600
+So how do we provide
+streaming interface
+
+1083
+00:49:17,600 --> 00:49:20,565
+if we send packets?
+
+1084
+00:49:20,565 --> 00:49:23,109
+What does that even mean, right?
+
+1085
+00:49:23,109 --> 00:49:24,729
+So remember that
+the way to think
+
+1086
+00:49:24,729 --> 00:49:26,829
+about packets of frames is that
+
+1087
+00:49:26,829 --> 00:49:32,089
+this fixed container that
+you ship and it goes, right?
+
+1088
+00:49:32,089 --> 00:49:33,969
+So how do we make this look
+
+1089
+00:49:33,969 --> 00:49:35,929
+like a stream of
+arbitrary data rights?
+
+1090
+00:49:35,929 --> 00:49:37,610
+Because from the
+application perspective,
+
+1091
+00:49:37,610 --> 00:49:40,169
+you just want to open
+up a socket, right,
+
+1092
+00:49:40,169 --> 00:49:41,570
+and you want to write
+
+1093
+00:49:41,570 --> 00:49:44,490
+arbitrary amount of
+data into that socket.
+
+1094
+00:49:44,650 --> 00:49:47,610
+We break it up,
+right? So basically,
+
+1095
+00:49:47,610 --> 00:49:50,549
+the transport layer gives you
+the ability to break it up.
+
+1096
+00:49:50,549 --> 00:49:54,389
+And conversely, if your
+writes are extremely small,
+
+1097
+00:49:54,389 --> 00:49:56,689
+then do we really want to pay
+
+1098
+00:49:56,689 --> 00:50:00,250
+this entire overhead
+for every single write?
+
+1099
+00:50:00,540 --> 00:50:04,080
+You know, all the overhead
+and all the headers
+
+1100
+00:50:04,080 --> 00:50:05,559
+if you're trying to send
+
+1101
+00:50:05,559 --> 00:50:08,159
+a single byte of data
+over the network.
+
+1102
+00:50:08,159 --> 00:50:10,519
+We don't want to do that, right?
+
+1103
+00:50:10,519 --> 00:50:13,559
+So we also depend on the
+transport layer to sort of
+
+1104
+00:50:13,559 --> 00:50:16,879
+coalesce multiple rites
+into a single packet so
+
+1105
+00:50:16,879 --> 00:50:20,379
+that we only pay the
+overhead of slapping on
+
+1106
+00:50:20,379 --> 00:50:22,599
+the additional kind
+of metadata on top
+
+1107
+00:50:22,599 --> 00:50:25,139
+of that once per
+multiple small rites.
+
+1108
+00:50:25,139 --> 00:50:28,339
+So this is sort of a
+performance optimization.
+
+1109
+00:50:28,429 --> 00:50:31,170
+Right? So we use
+multiple packets
+
+1110
+00:50:31,170 --> 00:50:33,369
+for a single write if
+the write is very big,
+
+1111
+00:50:33,369 --> 00:50:35,829
+and that happens
+completely transparently.
+
+1112
+00:50:35,829 --> 00:50:38,249
+Application doesn't care,
+
+1113
+00:50:38,249 --> 00:50:40,889
+doesn't know that this
+is actually happening.
+
+1114
+00:50:40,889 --> 00:50:42,789
+You push your protobuf into
+
+1115
+00:50:42,789 --> 00:50:45,109
+a socket and you've
+just serialized it,
+
+1116
+00:50:45,109 --> 00:50:47,709
+you did a socket right,
+and you're done, right?
+
+1117
+00:50:47,709 --> 00:50:49,749
+And what happens
+underneath the hood,
+
+1118
+00:50:49,749 --> 00:50:51,529
+what's enabled by
+the transport layer
+
+1119
+00:50:51,529 --> 00:50:53,309
+is that you break it up
+into multiple packets.
+
+1120
+00:50:53,309 --> 00:50:55,289
+And conversely, as I
+mentioned, multiple packets,
+
+1121
+00:50:55,289 --> 00:50:57,469
+a coalesced into
+multiple writes,
+
+1122
+00:50:57,469 --> 00:50:59,429
+a coalesced into
+a single packet.
+
+1123
+00:50:59,429 --> 00:51:01,729
+Now, what happens if
+packets are actually
+
+1124
+00:51:01,729 --> 00:51:04,124
+reordered or drop, how
+do we handle that?
+
+1125
+00:51:04,124 --> 00:51:07,419
+Right? So some of the
+protocols actually
+
+1126
+00:51:07,419 --> 00:51:08,859
+give us the ability
+to handle that
+
+1127
+00:51:08,859 --> 00:51:11,579
+specifically the TCP protocol.
+
+1128
+00:51:14,219 --> 00:51:18,539
+Okay. And let's talk about
+how the TCP protocol
+
+1129
+00:51:18,539 --> 00:51:20,739
+actually enables
+basically handling
+
+1130
+00:51:20,739 --> 00:51:22,999
+packets arriving out of order.
+
+1131
+00:51:22,999 --> 00:51:25,039
+So what do we need?
+
+1132
+00:51:25,039 --> 00:51:27,299
+What sort of mechanism
+do we need in order to
+
+1133
+00:51:27,299 --> 00:51:31,269
+ensure that packets are ordered
+when they are received?
+
+1134
+00:51:31,269 --> 00:51:33,839
+We can take care of
+ordering them when they're
+
+1135
+00:51:33,839 --> 00:51:36,039
+sent because we have
+control over that, right?
+
+1136
+00:51:36,039 --> 00:51:38,519
+But then remember that
+we let it loose onto
+
+1137
+00:51:38,519 --> 00:51:40,979
+this network and
+something happens in
+
+1138
+00:51:40,979 --> 00:51:43,339
+the network and they can
+actually arrive out of order
+
+1139
+00:51:43,339 --> 00:51:45,439
+because they can take
+different pathways.
+
+1140
+00:51:45,439 --> 00:51:46,719
+There was a hand back there.
+
+1141
+00:51:46,719 --> 00:51:50,100
+You need numbering
+on your packets.
+
+1142
+00:51:50,100 --> 00:51:52,300
+Right. So you need
+numbering of the packets,
+
+1143
+00:51:52,300 --> 00:51:54,320
+and that gives you a
+detection mechanism
+
+1144
+00:51:54,320 --> 00:51:56,299
+if they arrived out
+of order, right?
+
+1145
+00:51:56,299 --> 00:52:00,059
+So you can reorder them
+on the receiving end.
+
+1146
+00:52:00,059 --> 00:52:02,699
+The sequence numbers are
+
+1147
+00:52:02,699 --> 00:52:06,039
+sufficient for us to handle
+out of order arrivals, right?
+
+1148
+00:52:06,039 --> 00:52:08,119
+Are they sufficient
+for us to handle
+
+1149
+00:52:08,119 --> 00:52:12,119
+dropped packets? No, why not?
+
+1150
+00:52:12,320 --> 00:52:18,699
+What else do we need? Yes.
+
+1151
+00:52:18,699 --> 00:52:19,979
+A packet.
+
+1152
+00:52:19,979 --> 00:52:21,439
+We need some way to detect
+
+1153
+00:52:21,439 --> 00:52:23,519
+that and know which one
+we have to set out.
+
+1154
+00:52:23,519 --> 00:52:25,079
+Yeah, so let's stop right there.
+
+1155
+00:52:25,079 --> 00:52:26,499
+We need to first of all,
+
+1156
+00:52:26,499 --> 00:52:28,039
+we need the mechanism
+to actually
+
+1157
+00:52:28,039 --> 00:52:29,840
+detect the fact that
+a packet was dropped.
+
+1158
+00:52:29,840 --> 00:52:31,960
+What is that mechanism?
+
+1159
+00:52:34,440 --> 00:52:37,979
+Say it again. Yes.
+
+1160
+00:52:37,979 --> 00:52:40,899
+So we have an acknowledgment
+mechanism, right?
+
+1161
+00:52:40,899 --> 00:52:42,480
+We have an acknowledgment
+mechanism,
+
+1162
+00:52:42,480 --> 00:52:43,799
+but how do we know when to send
+
+1163
+00:52:43,799 --> 00:52:46,119
+the acknowledgment for
+a particular packet?
+
+1164
+00:52:46,119 --> 00:52:49,800
+Actually, do we send an
+acknowledgment per packet?
+
+1165
+00:52:49,920 --> 00:52:59,299
+Yes. TCP. Wait Yeah.
+
+1166
+00:52:59,299 --> 00:53:02,359
+I where it came from.
+
+1167
+00:53:05,639 --> 00:53:08,019
+Right. But what do you actually
+
+1168
+00:53:08,019 --> 00:53:09,699
+encode as part of
+your acknowledgment?
+
+1169
+00:53:09,699 --> 00:53:13,519
+Does anybody know?
+Yes. But for TCP,
+
+1170
+00:53:13,519 --> 00:53:16,720
+the acknowledgment is the number
+
+1171
+00:53:16,720 --> 00:53:18,760
+of the bite that
+you expect next.
+
+1172
+00:53:18,760 --> 00:53:20,119
+So it can actually also
+
+1173
+00:53:20,119 --> 00:53:22,239
+acknowledge multiple
+packets that way as well.
+
+1174
+00:53:22,239 --> 00:53:24,739
+Yeah, exactly. Yeah,
+that is exactly right.
+
+1175
+00:53:24,739 --> 00:53:27,220
+So basically, what happens
+is that you have a buffer,
+
+1176
+00:53:27,220 --> 00:53:30,699
+receive buffer that you're
+putting your packets in order.
+
+1177
+00:53:30,699 --> 00:53:32,519
+The ability for us to order
+
+1178
+00:53:32,519 --> 00:53:34,099
+receive packets does come
+
+1179
+00:53:34,099 --> 00:53:36,479
+from sequence numbers,
+as you mentioned, right?
+
+1180
+00:53:36,479 --> 00:53:38,079
+But it's not enough for us
+
+1181
+00:53:38,079 --> 00:53:39,659
+to actually handle draw packets.
+
+1182
+00:53:39,659 --> 00:53:42,840
+Let's say it always work
+through an example.
+
+1183
+00:53:42,840 --> 00:53:45,679
+So let's say, I'm going to
+draw here a receive buffer on
+
+1184
+00:53:45,679 --> 00:53:49,139
+the receiving side and a send
+buffer on the sending side.
+
+1185
+00:53:49,139 --> 00:53:51,099
+So this is our well, anyway,
+
+1186
+00:53:51,099 --> 00:53:52,819
+so this is host source,
+
+1187
+00:53:52,819 --> 00:53:54,279
+this is host destination.
+
+1188
+00:53:54,279 --> 00:53:56,819
+And we send one,
+
+1189
+00:53:56,819 --> 00:53:59,659
+two, three, four, five.
+
+1190
+00:53:59,659 --> 00:54:01,379
+And here, we've already
+
+1191
+00:54:01,379 --> 00:54:04,399
+received sequenced
+and reordered, one,
+
+1192
+00:54:04,399 --> 00:54:08,179
+two, and then four,
+
+1193
+00:54:08,179 --> 00:54:11,779
+well, actually, let's
+say, four and five.
+
+1194
+00:54:11,779 --> 00:54:15,319
+Right? And so now we want
+to send an acknowledgment.
+
+1195
+00:54:15,319 --> 00:54:17,419
+What we're going
+to acknowledge is
+
+1196
+00:54:17,419 --> 00:54:20,659
+we have the ability to
+send the acknowledgment
+
+1197
+00:54:20,659 --> 00:54:23,179
+for the whole prefix
+that is ordered
+
+1198
+00:54:23,179 --> 00:54:26,019
+without any missing packets,
+
+1199
+00:54:26,019 --> 00:54:28,159
+without any missing
+segments, right?
+
+1200
+00:54:28,159 --> 00:54:30,739
+And so we're going to send
+an acknowledgment back
+
+1201
+00:54:30,739 --> 00:54:33,419
+saying we've already
+received up until two,
+
+1202
+00:54:33,419 --> 00:54:36,139
+and we expect three.
+
+1203
+00:54:36,139 --> 00:54:38,380
+And that's how the
+sending note actually
+
+1204
+00:54:38,380 --> 00:54:41,619
+knows that three has not
+arrived if it was sent.
+
+1205
+00:54:41,619 --> 00:54:44,479
+Makes sense? Okay, so
+
+1206
+00:54:44,479 --> 00:54:46,879
+we need an acknowledgment
+mechanism. Yeah, question?
+
+1207
+00:54:46,879 --> 00:54:49,059
+Well, to me to really stick.
+
+1208
+00:54:49,059 --> 00:54:54,319
+Huh? How do you know how do
+you know how do you know,
+
+1209
+00:54:54,319 --> 00:54:56,819
+you have to send an at at
+that specific moments? Yeah.
+
+1210
+00:54:56,819 --> 00:54:59,019
+Yeah. So you're really
+getting at what I
+
+1211
+00:54:59,019 --> 00:55:01,659
+wanted to make sure that
+I get to in this lecture.
+
+1212
+00:55:01,659 --> 00:55:03,259
+It is super important.
+
+1213
+00:55:03,259 --> 00:55:04,759
+And in fact, it's very, very
+
+1214
+00:55:04,759 --> 00:55:07,739
+important from distributed
+systems perspective as well.
+
+1215
+00:55:07,739 --> 00:55:10,760
+Like, when Because this
+is a control decision.
+
+1216
+00:55:10,760 --> 00:55:15,439
+Action always is following a
+specific control decision.
+
+1217
+00:55:15,439 --> 00:55:19,544
+The control decision here was
+to send an acknowledgment.
+
+1218
+00:55:19,544 --> 00:55:23,530
+Right? But how does this
+control decision happen?
+
+1219
+00:55:23,610 --> 00:55:26,849
+How do we know when
+this must happen?
+
+1220
+00:55:26,849 --> 00:55:30,849
+And let me start even
+from a simpler question.
+
+1221
+00:55:30,849 --> 00:55:34,729
+A acknowledgments sufficient
+for us to actually
+
+1222
+00:55:34,729 --> 00:55:37,569
+enable reliability
+and retransmission
+
+1223
+00:55:37,569 --> 00:55:39,390
+of the dropped packets?
+
+1224
+00:55:39,390 --> 00:55:42,389
+So sequencing is sufficient
+for us to reorder.
+
+1225
+00:55:42,389 --> 00:55:45,429
+And then the second mechanism
+is acknowledgments.
+
+1226
+00:55:45,429 --> 00:55:47,829
+Acknowledgments are sufficient
+for us to acknowledge.
+
+1227
+00:55:47,829 --> 00:55:49,109
+Are they sufficient for us to
+
+1228
+00:55:49,109 --> 00:55:52,209
+handle the problems
+of dropped packets?
+
+1229
+00:55:52,209 --> 00:55:55,510
+Yes. The acknowledgment fast.
+
+1230
+00:55:55,510 --> 00:55:58,909
+Huh? Acknowledgement getsrong.
+
+1231
+00:55:59,989 --> 00:56:02,470
+Well, now you're getting
+into the details
+
+1232
+00:56:02,470 --> 00:56:04,050
+of the actual protocol.
+
+1233
+00:56:04,050 --> 00:56:07,529
+We don't have time to
+go that deep, right?
+
+1234
+00:56:07,529 --> 00:56:11,269
+I want to build the
+motivation for the timeouts.
+
+1235
+00:56:11,269 --> 00:56:13,829
+So the timeouts here
+and this notion of
+
+1236
+00:56:13,829 --> 00:56:16,509
+time in these protocols are
+actually really important.
+
+1237
+00:56:16,509 --> 00:56:18,670
+And without having a
+timeout mechanism,
+
+1238
+00:56:18,670 --> 00:56:20,169
+you don't even know when to send
+
+1239
+00:56:20,169 --> 00:56:21,674
+the acknowledgment mechanism.
+
+1240
+00:56:21,674 --> 00:56:23,459
+The timeout mechanism also
+
+1241
+00:56:23,459 --> 00:56:25,799
+answers your question,
+by the way, as well,
+
+1242
+00:56:25,799 --> 00:56:28,219
+because you can start
+a timer on a source,
+
+1243
+00:56:28,219 --> 00:56:30,599
+and if you haven't received
+the acknowledgment,
+
+1244
+00:56:30,599 --> 00:56:32,179
+and the timeout expires,
+
+1245
+00:56:32,179 --> 00:56:34,479
+then you know that you just
+need to resend it again.
+
+1246
+00:56:34,479 --> 00:56:37,479
+Does that answer your question?
+Yeah. And so it is not
+
+1247
+00:56:37,479 --> 00:56:38,939
+sufficient for us to just rely
+
+1248
+00:56:38,939 --> 00:56:40,859
+on sequencing and
+acknowledgments alone.
+
+1249
+00:56:40,859 --> 00:56:42,639
+We actually need
+a notion of time
+
+1250
+00:56:42,639 --> 00:56:45,079
+in the system and
+timeouts in particular.
+
+1251
+00:56:45,079 --> 00:56:48,959
+It is very important.
+And as a matter of fact,
+
+1252
+00:56:48,959 --> 00:56:52,659
+because it is a
+very basic example
+
+1253
+00:56:52,659 --> 00:56:54,119
+of a distributed system,
+
+1254
+00:56:54,119 --> 00:56:56,360
+we are going to have a
+distributed systems lecture
+
+1255
+00:56:56,360 --> 00:56:57,659
+later on in this class,
+
+1256
+00:56:57,659 --> 00:56:59,059
+where I'm going to prove to
+
+1257
+00:56:59,059 --> 00:57:00,639
+you guys that without timeout,
+
+1258
+00:57:00,639 --> 00:57:02,099
+we cannot even arrive at
+
+1259
+00:57:02,099 --> 00:57:04,420
+any consensus in a
+distributed system.
+
+1260
+00:57:04,420 --> 00:57:06,379
+So that's really cool. You know,
+
+1261
+00:57:06,379 --> 00:57:08,919
+without having the
+ability to impose
+
+1262
+00:57:08,919 --> 00:57:12,000
+a timeout on the sending or
+receiving of your message,
+
+1263
+00:57:12,000 --> 00:57:14,059
+you cannot even arrive at
+
+1264
+00:57:14,059 --> 00:57:16,755
+any sort of consensus, probably.
+
+1265
+00:57:16,755 --> 00:57:21,109
+Probably between these two
+nodes. And this is insane.
+
+1266
+00:57:21,109 --> 00:57:22,929
+So that's why whenever you see
+
+1267
+00:57:22,929 --> 00:57:25,570
+a timeout or timeout
+retransmission timeout,
+
+1268
+00:57:25,570 --> 00:57:26,769
+it's just a mechanism,
+
+1269
+00:57:26,769 --> 00:57:28,649
+but there's so much
+depth to that.
+
+1270
+00:57:28,649 --> 00:57:32,289
+In fact, mathematically
+provable impossibility
+
+1271
+00:57:32,289 --> 00:57:33,909
+results in distributed
+systems that
+
+1272
+00:57:33,909 --> 00:57:36,829
+depend on you to
+implement that timeout.
+
+1273
+00:57:37,710 --> 00:57:39,149
+Okay.
+
+1274
+00:57:39,149 --> 00:57:43,129
+So people we kind
+
+1275
+00:57:43,129 --> 00:57:44,689
+of mostly talk about TCP and
+
+1276
+00:57:44,689 --> 00:57:47,169
+UDP in this class,
+right, because why?
+
+1277
+00:57:47,169 --> 00:57:48,349
+Because the examples of
+
+1278
+00:57:48,349 --> 00:57:50,010
+two fundamentally
+different protocols
+
+1279
+00:57:50,010 --> 00:57:51,830
+with fundamentally
+different properties.
+
+1280
+00:57:51,830 --> 00:57:54,129
+And that's really what
+I care about, right?
+
+1281
+00:57:54,129 --> 00:57:56,629
+I care about properties
+and abstractions.
+
+1282
+00:57:56,629 --> 00:57:58,849
+So TCP, what does it provide?
+
+1283
+00:57:58,849 --> 00:58:00,849
+It provides data reliability.
+
+1284
+00:58:00,849 --> 00:58:03,809
+It gives us this notion
+of bitstream interface.
+
+1285
+00:58:03,809 --> 00:58:05,849
+You know, we just push
+bites into the pipe,
+
+1286
+00:58:05,849 --> 00:58:08,189
+and they just packetize
+themselves and
+
+1287
+00:58:08,189 --> 00:58:10,429
+reorder themselves
+and retransmit
+
+1288
+00:58:10,429 --> 00:58:12,389
+themselves on a specific time.
+
+1289
+00:58:12,389 --> 00:58:14,729
+And their policies
+associated with setting
+
+1290
+00:58:14,729 --> 00:58:17,729
+the timeout and controlling
+the acknowledgment mechanism.
+
+1291
+00:58:17,729 --> 00:58:20,909
+It also gives us the ability
+to avoid duplicates,
+
+1292
+00:58:20,909 --> 00:58:23,229
+so we don't receive the
+same packet multiple times
+
+1293
+00:58:23,229 --> 00:58:25,709
+and it takes care
+of drop packets.
+
+1294
+00:58:25,709 --> 00:58:30,049
+UDP is an alternative to TCP.
+
+1295
+00:58:30,049 --> 00:58:33,470
+It actually provides
+the only guarantee,
+
+1296
+00:58:33,470 --> 00:58:37,589
+which is that your data
+has arrived uncorrupted.
+
+1297
+00:58:37,719 --> 00:58:40,660
+At least we have that
+kind of guarantee,
+
+1298
+00:58:40,660 --> 00:58:42,699
+and it does that with checksums.
+
+1299
+00:58:42,699 --> 00:58:47,619
+You data has arrived and
+your data was uncorrupted.
+
+1300
+00:58:47,619 --> 00:58:49,979
+But that's it. It
+doesn't give us
+
+1301
+00:58:49,979 --> 00:58:53,359
+any guarantees as
+far as reordering,
+
+1302
+00:58:53,359 --> 00:58:55,539
+retransmission, duplicates,
+
+1303
+00:58:55,539 --> 00:58:57,999
+out of order arrivals,
+or drop packets.
+
+1304
+00:58:57,999 --> 00:59:00,219
+Why would we ever want UDP?
+
+1305
+00:59:00,219 --> 00:59:05,159
+Yeah. Streaming information
+where it's more useful to
+
+1306
+00:59:05,159 --> 00:59:07,659
+just continue the stream
+rather than paying
+
+1307
+00:59:07,659 --> 00:59:10,799
+the overhead of resending
+your phone call,
+
+1308
+00:59:10,799 --> 00:59:12,259
+for example, you'd rather
+
+1309
+00:59:12,259 --> 00:59:14,039
+just miss a section
+of your phone calls
+
+1310
+00:59:14,039 --> 00:59:15,779
+and have to wait for someone
+
+1311
+00:59:15,779 --> 00:59:18,499
+to send that piece that
+didn't get their original.
+
+1312
+00:59:18,499 --> 00:59:20,819
+Yeah, exactly. So this has to do
+
+1313
+00:59:20,819 --> 00:59:22,959
+with the property of the
+workload in some sense,
+
+1314
+00:59:22,959 --> 00:59:25,959
+right, the property of
+the data that you send,
+
+1315
+00:59:25,959 --> 00:59:28,779
+I should say, because in
+this particular case,
+
+1316
+00:59:28,779 --> 00:59:30,739
+let's say you're a gamer, right,
+
+1317
+00:59:30,739 --> 00:59:34,839
+and you probably don't want
+to slow down your game to
+
+1318
+00:59:34,839 --> 00:59:36,619
+make sure that that
+one missed frame
+
+1319
+00:59:36,619 --> 00:59:39,479
+actually arrives and
+is placed in sequence,
+
+1320
+00:59:39,479 --> 00:59:42,039
+you just rather skip that frame
+
+1321
+00:59:42,039 --> 00:59:44,379
+and move on to the next
+frame, maybe, right?
+
+1322
+00:59:44,379 --> 00:59:46,070
+I'm not a gamer myself.
+
+1323
+00:59:46,070 --> 00:59:48,599
+Uh, so that you
+
+1324
+00:59:48,599 --> 00:59:51,520
+actually have much higher
+frames per second,
+
+1325
+00:59:51,520 --> 00:59:53,279
+even if that one drame arrived
+
+1326
+00:59:53,279 --> 00:59:55,059
+out of water and has
+to be dropped, right?
+
+1327
+00:59:55,059 --> 00:59:56,599
+So you'd much rather
+
+1328
+00:59:56,599 --> 00:59:59,100
+have less guarantee,
+higher throughput.
+
+1329
+00:59:59,100 --> 01:00:01,519
+And so, oh, I just
+gave it away, right?
+
+1330
+01:00:01,519 --> 01:00:03,479
+So basically, the
+disadvantage is
+
+1331
+01:00:03,479 --> 01:00:06,759
+that it gives you
+less reliability.
+
+1332
+01:00:06,759 --> 01:00:08,659
+But the advantage
+is that it gives
+
+1333
+01:00:08,659 --> 01:00:10,579
+you higher performance,
+typically,
+
+1334
+01:00:10,579 --> 01:00:12,939
+because it doesn't have
+to pay the overhead
+
+1335
+01:00:12,939 --> 01:00:14,840
+associated with
+actually imposing
+
+1336
+01:00:14,840 --> 01:00:17,019
+all of these guarantees
+provided by TCP.
+
+1337
+01:00:17,019 --> 01:00:18,759
+So this is yet another trade off
+
+1338
+01:00:18,759 --> 01:00:21,279
+guys that I want you
+to think about, right?
+
+1339
+01:00:21,279 --> 01:00:23,399
+TCP versus UDP doesn't
+
+1340
+01:00:23,399 --> 01:00:25,309
+mean that one is better
+or worse than the other.
+
+1341
+01:00:25,309 --> 01:00:26,499
+It just means that there's
+
+1342
+01:00:26,499 --> 01:00:27,819
+a trade off
+associated with that.
+
+1343
+01:00:27,819 --> 01:00:30,459
+It can be better or worse
+for different scenarios,
+
+1344
+01:00:30,459 --> 01:00:31,879
+and we want to be able to reason
+
+1345
+01:00:31,879 --> 01:00:33,959
+through these trade offs, right?
+
+1346
+01:00:35,400 --> 01:00:37,779
+Oh, it's 3:00. And I
+
+1347
+01:00:37,779 --> 01:00:39,860
+guess that's where I'm
+going to stop the lecture.
+
+1348
+01:00:39,860 --> 01:00:41,679
+Thank you.

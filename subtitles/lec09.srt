@@ -1,0 +1,6075 @@
+1
+00:00:00,000 --> 00:00:01,279
+So
+
+2
+00:00:46,660 --> 00:00:47,819
+Okay.
+
+3
+00:00:47,819 --> 00:00:50,179
+Good afternoon, everybody.
+
+4
+00:00:53,890 --> 00:00:56,389
+We have such a limited amount of
+
+5
+00:00:56,389 --> 00:00:59,250
+time with you guys that
+every minute counts.
+
+6
+00:00:59,930 --> 00:01:02,889
+Is there some sort of a
+career fair happening
+
+7
+00:01:02,889 --> 00:01:05,530
+or there seems to be like,
+
+8
+00:01:05,530 --> 00:01:07,970
+quite a few seats
+empty in the back.
+
+9
+00:01:07,970 --> 00:01:11,330
+Does anybody know what the
+reason for that might be?
+
+10
+00:01:12,430 --> 00:01:15,470
+Surely it's not me, right?
+
+11
+00:01:16,030 --> 00:01:18,930
+Especially for this
+lecture because this
+
+12
+00:01:18,930 --> 00:01:21,309
+is the last lecture on
+virtual memory management,
+
+13
+00:01:21,309 --> 00:01:24,169
+out of the four lectures
+over the past two weeks.
+
+14
+00:01:24,169 --> 00:01:28,010
+And this is going to be
+hopefully a slam dunk.
+
+15
+00:01:28,010 --> 00:01:29,669
+We're going to be
+kind of covering
+
+16
+00:01:29,669 --> 00:01:31,570
+what we finished off with.
+
+17
+00:01:31,570 --> 00:01:33,810
+During the last lecture, we're
+going to be finishing up
+
+18
+00:01:33,810 --> 00:01:35,330
+our discussion of virtual memory
+
+19
+00:01:35,330 --> 00:01:37,489
+management tips
+and tricks, okay?
+
+20
+00:01:37,489 --> 00:01:39,329
+So let's go ahead
+and get started.
+
+21
+00:01:39,329 --> 00:01:42,810
+I'm not even going to bore
+you guys with administrativa.
+
+22
+00:01:42,810 --> 00:01:45,430
+We'll jump right in, okay.
+
+23
+00:01:45,430 --> 00:01:49,340
+Last time we discussed
+copy on right fork, right?
+
+24
+00:01:49,340 --> 00:01:51,709
+As a recap, we discussed
+
+25
+00:01:51,709 --> 00:01:53,790
+whether or not it even
+makes sense for us
+
+26
+00:01:53,790 --> 00:01:56,030
+to actually perform the copy of
+
+27
+00:01:56,030 --> 00:01:58,970
+the entire virtual address
+space on fork, right?
+
+28
+00:01:58,970 --> 00:02:01,330
+And you have to remember
+what that means.
+
+29
+00:02:01,330 --> 00:02:04,230
+Every single word here has a
+precise definition, right?
+
+30
+00:02:04,230 --> 00:02:05,830
+The virtual memory to physical
+
+31
+00:02:05,830 --> 00:02:07,670
+memory address is
+sort of propped up by
+
+32
+00:02:07,670 --> 00:02:09,269
+the whole paging
+mechanism that we
+
+33
+00:02:09,269 --> 00:02:11,329
+already discussed
+extensively, right,
+
+34
+00:02:11,329 --> 00:02:14,630
+which consists of a set
+of page table pages,
+
+35
+00:02:14,630 --> 00:02:16,389
+one of which is a
+page directory,
+
+36
+00:02:16,389 --> 00:02:18,490
+and then the last level
+of page table pages,
+
+37
+00:02:18,490 --> 00:02:20,109
+mapping all of the
+physical frames
+
+38
+00:02:20,109 --> 00:02:21,970
+that were allocated
+to the process,
+
+39
+00:02:21,970 --> 00:02:23,530
+right, to be used.
+
+40
+00:02:23,530 --> 00:02:26,199
+Um, then so the question that I
+
+41
+00:02:26,199 --> 00:02:29,460
+raised during the
+previous lecture
+
+42
+00:02:29,460 --> 00:02:30,879
+is whether or not
+it makes sense to
+
+43
+00:02:30,879 --> 00:02:32,759
+actually make a copy
+of that, right?
+
+44
+00:02:32,759 --> 00:02:36,159
+And we've sort of established
+that, no, I don't think so.
+
+45
+00:02:36,159 --> 00:02:38,620
+You know, it's quite a
+lot of stuff to copy,
+
+46
+00:02:38,620 --> 00:02:40,619
+especially for
+stateful applications.
+
+47
+00:02:40,619 --> 00:02:42,440
+In some cases, it makes sense.
+
+48
+00:02:42,440 --> 00:02:44,159
+In some cases, it might not.
+
+49
+00:02:44,159 --> 00:02:47,099
+We discussed the
+mechanisms that will
+
+50
+00:02:47,099 --> 00:02:48,539
+allow us to actually get
+
+51
+00:02:48,539 --> 00:02:50,624
+rid of that copy
+altogether, right?
+
+52
+00:02:50,624 --> 00:02:52,650
+And so I also very briefly
+
+53
+00:02:52,650 --> 00:02:54,489
+kind of showed you
+this illustration of
+
+54
+00:02:54,489 --> 00:02:55,729
+what that means from
+
+55
+00:02:55,729 --> 00:02:57,289
+the application
+perspective because
+
+56
+00:02:57,289 --> 00:02:59,150
+previous slide was
+sort of mechanismic.
+
+57
+00:02:59,150 --> 00:03:01,249
+This slide this slide is
+
+58
+00:03:01,249 --> 00:03:03,510
+actually much more from the
+application perspective.
+
+59
+00:03:03,510 --> 00:03:06,470
+So on the left hand side,
+on the left hand side,
+
+60
+00:03:06,470 --> 00:03:10,630
+you have your virtual address
+space and two processes,
+
+61
+00:03:10,630 --> 00:03:12,430
+a parent and the
+child at the bottom.
+
+62
+00:03:12,430 --> 00:03:13,789
+On the right hand side, you
+
+63
+00:03:13,789 --> 00:03:15,894
+have a physical
+address space, right?
+
+64
+00:03:15,894 --> 00:03:19,439
+So I draw memory like this.
+
+65
+00:03:19,439 --> 00:03:21,900
+And then in the
+parent address space
+
+66
+00:03:21,900 --> 00:03:23,539
+in the parent virtual
+address space,
+
+67
+00:03:23,539 --> 00:03:24,960
+you have, let's
+say, three frames,
+
+68
+00:03:24,960 --> 00:03:26,519
+four kilobyte size each.
+
+69
+00:03:26,519 --> 00:03:29,920
+Right. And these
+three frames mapped
+
+70
+00:03:29,920 --> 00:03:31,300
+to some physical frames
+
+71
+00:03:31,300 --> 00:03:33,620
+underpinning those
+virtual frames, okay?
+
+72
+00:03:33,620 --> 00:03:35,459
+And when we perform
+a copy, sorry,
+
+73
+00:03:35,459 --> 00:03:37,819
+when we perform a
+fork, you know,
+
+74
+00:03:37,819 --> 00:03:40,680
+the default of what's
+happening in Expix right now
+
+75
+00:03:40,680 --> 00:03:44,019
+is actually a full copy of
+all of the physical frames,
+
+76
+00:03:44,019 --> 00:03:46,200
+the blue frame at the bottom,
+
+77
+00:03:46,200 --> 00:03:47,559
+the green frame in the middle,
+
+78
+00:03:47,559 --> 00:03:49,144
+and the red frame at the top.
+
+79
+00:03:49,144 --> 00:03:50,849
+Of the virtual address space.
+
+80
+00:03:50,849 --> 00:03:52,389
+The physical frames underpinning
+
+81
+00:03:52,389 --> 00:03:53,869
+those are going to
+be copied, right?
+
+82
+00:03:53,869 --> 00:03:55,710
+And the reason for
+this, as we discussed,
+
+83
+00:03:55,710 --> 00:03:57,190
+is also quite important.
+
+84
+00:03:57,190 --> 00:03:59,849
+The reason for this is
+that's the simplest way of
+
+85
+00:03:59,849 --> 00:04:01,589
+enabling something
+that we really want
+
+86
+00:04:01,589 --> 00:04:04,789
+the operating system to
+provide, which is what?
+
+87
+00:04:07,640 --> 00:04:09,899
+Isolation. Thank you.
+
+88
+00:04:09,899 --> 00:04:12,459
+Right. But is it
+necessary, right?
+
+89
+00:04:12,459 --> 00:04:16,099
+We want this to be
+much more performant.
+
+90
+00:04:16,099 --> 00:04:18,300
+And we discussed that.
+
+91
+00:04:18,300 --> 00:04:20,820
+No, it turns out, oh,
+well, one more thing.
+
+92
+00:04:20,820 --> 00:04:23,779
+What is the complexity
+of this kind of fork?
+
+93
+00:04:23,779 --> 00:04:26,080
+If I were to ask you, basically,
+
+94
+00:04:26,080 --> 00:04:29,039
+with vanilla X V six with
+no modification whatsoever,
+
+95
+00:04:29,039 --> 00:04:30,760
+what is the complexity of fork
+
+96
+00:04:30,760 --> 00:04:33,799
+as a function of the
+number of physical frames?
+
+97
+00:04:37,380 --> 00:04:40,500
+You guys have taken Okay,
+
+98
+00:04:40,500 --> 00:04:44,160
+you have, OVN, right?
+
+99
+00:04:44,160 --> 00:04:46,140
+So the complexity of this is ON.
+
+100
+00:04:46,140 --> 00:04:49,440
+So what that means is that if
+you actually time the fork,
+
+101
+00:04:49,440 --> 00:04:51,239
+if you actually run
+the experiments,
+
+102
+00:04:51,239 --> 00:04:53,539
+right, you'll get
+different numbers
+
+103
+00:04:53,539 --> 00:04:55,040
+where the latency of the fork,
+
+104
+00:04:55,040 --> 00:04:56,300
+the micro benchmark that
+
+105
+00:04:56,300 --> 00:04:58,280
+actually tries to
+figure out, you know,
+
+106
+00:04:58,280 --> 00:05:00,320
+how long the fork takes is
+
+107
+00:05:00,320 --> 00:05:02,879
+going to be a function of
+how many pages you run,
+
+108
+00:05:02,879 --> 00:05:05,260
+how many pages you're
+dealing with, right?
+
+109
+00:05:05,260 --> 00:05:07,080
+And hopefully if we get time,
+
+110
+00:05:07,080 --> 00:05:08,440
+we'll circle back to
+
+111
+00:05:08,440 --> 00:05:11,079
+this observation at the
+very end of this lecture,
+
+112
+00:05:11,079 --> 00:05:14,579
+and this is something that
+was sort of directly fed into
+
+113
+00:05:14,579 --> 00:05:15,959
+the motivation of the Euross
+
+114
+00:05:15,959 --> 00:05:18,200
+2021 paper that I
+mentioned previously.
+
+115
+00:05:18,200 --> 00:05:20,700
+Okay? Okay, but we
+don't want to do that.
+
+116
+00:05:20,700 --> 00:05:22,380
+It's a lot of copying, right?
+
+117
+00:05:22,380 --> 00:05:24,039
+Let's try to save on copying.
+
+118
+00:05:24,039 --> 00:05:25,419
+Let's try to dedupe,
+
+119
+00:05:25,419 --> 00:05:27,479
+especially since in many cases,
+
+120
+00:05:27,479 --> 00:05:29,779
+we actually don't need all
+of this state to carry
+
+121
+00:05:29,779 --> 00:05:32,720
+forward to carry over,
+
+122
+00:05:32,720 --> 00:05:35,079
+rather, from the
+parent address space
+
+123
+00:05:35,079 --> 00:05:36,940
+to the child address
+space, right?
+
+124
+00:05:36,940 --> 00:05:39,575
+So what if we did
+something like this?
+
+125
+00:05:39,575 --> 00:05:43,070
+So a parent forks
+a child, right?
+
+126
+00:05:43,070 --> 00:05:47,649
+That's a fork. And
+a child instead
+
+127
+00:05:47,649 --> 00:05:49,970
+of performing a copy of all of
+
+128
+00:05:49,970 --> 00:05:51,710
+the physical frames
+allocated to the parent
+
+129
+00:05:51,710 --> 00:05:53,790
+to the child to
+preserve isolation,
+
+130
+00:05:53,790 --> 00:05:56,670
+right, we actually just
+pointing all the VONs from
+
+131
+00:05:56,670 --> 00:05:58,590
+the child address space to
+
+132
+00:05:58,590 --> 00:05:59,770
+the same PONs from
+
+133
+00:05:59,770 --> 00:06:01,550
+the physical address
+space of the parent.
+
+134
+00:06:01,550 --> 00:06:04,070
+What is the complexity of that?
+
+135
+00:06:07,280 --> 00:06:08,820
+Yes.
+
+136
+00:06:08,820 --> 00:06:13,139
+Of one. Okay? So I want
+to make that clear
+
+137
+00:06:13,139 --> 00:06:14,680
+because we're not
+just shaving off
+
+138
+00:06:14,680 --> 00:06:17,540
+a few milliseconds
+here and there.
+
+139
+00:06:17,540 --> 00:06:19,700
+This is actually the complexity
+
+140
+00:06:19,700 --> 00:06:21,700
+itself has improved, right?
+
+141
+00:06:21,700 --> 00:06:23,540
+Even if you actually introduce
+
+142
+00:06:23,540 --> 00:06:25,100
+some additional overhead of sort
+
+143
+00:06:25,100 --> 00:06:26,960
+of keeping track
+of some metadata,
+
+144
+00:06:26,960 --> 00:06:29,399
+you know, the reference
+counts and whatnot,
+
+145
+00:06:29,399 --> 00:06:31,980
+the logical and physical
+permissions and whatnot, right?
+
+146
+00:06:31,980 --> 00:06:34,340
+You've actually improved
+the complexity to off one,
+
+147
+00:06:34,340 --> 00:06:34,860
+and this is
+
+148
+00:06:34,860 --> 00:06:36,880
+sort of the best possible
+complexity you can have.
+
+149
+00:06:36,880 --> 00:06:39,355
+Can the complexity be
+better than off one?
+
+150
+00:06:39,355 --> 00:06:40,710
+But you're going to pay
+
+151
+00:06:40,710 --> 00:06:42,410
+the cost for that
+later on, right?
+
+152
+00:06:42,410 --> 00:06:45,910
+And that cost is
+basically what we were
+
+153
+00:06:45,910 --> 00:06:49,669
+referring to as the lazy
+allocation of physical frames.
+
+154
+00:06:49,669 --> 00:06:52,790
+You have to pay the cost
+later on if the child
+
+155
+00:06:52,790 --> 00:06:54,190
+actually starts writing to
+
+156
+00:06:54,190 --> 00:06:56,650
+its virtual address
+space, right?
+
+157
+00:06:56,650 --> 00:06:59,010
+And this is what you're going
+to have to do in lab two.
+
+158
+00:06:59,010 --> 00:07:00,910
+You already know
+that. It's a recap.
+
+159
+00:07:00,910 --> 00:07:02,990
+So now the child tries to write.
+
+160
+00:07:02,990 --> 00:07:06,730
+And I also gave you a very
+simple example of the
+
+161
+00:07:06,730 --> 00:07:08,670
+very obvious that you
+
+162
+00:07:08,670 --> 00:07:11,189
+would most often expect
+the child to perform.
+
+163
+00:07:11,189 --> 00:07:12,950
+And it's currently
+signified with
+
+164
+00:07:12,950 --> 00:07:15,425
+this arrow right there on the
+slide. What is that right?
+
+165
+00:07:15,425 --> 00:07:21,400
+Ta ta, ta, ta, ta, ta. Yes.
+
+166
+00:07:21,400 --> 00:07:23,820
+A what? No, no,
+
+167
+00:07:23,820 --> 00:07:25,380
+the fork has already happened.
+
+168
+00:07:25,380 --> 00:07:27,240
+Yeah, the fork has
+already happened and we
+
+169
+00:07:27,240 --> 00:07:30,100
+did due the physical
+frames. Yes.
+
+170
+00:07:30,140 --> 00:07:37,230
+What? Sorry? No, yes.
+
+171
+00:07:37,230 --> 00:07:41,130
+Stack, right? When there's
+
+172
+00:07:41,130 --> 00:07:42,849
+a specific reason why
+
+173
+00:07:42,849 --> 00:07:45,670
+each of those colored
+rectangles are there.
+
+174
+00:07:45,670 --> 00:07:47,450
+The blue rectangle is
+
+175
+00:07:47,450 --> 00:07:49,749
+actually very low in
+the address space,
+
+176
+00:07:49,749 --> 00:07:51,850
+and that's typically where
+
+177
+00:07:51,850 --> 00:07:54,050
+your code and data are
+for your ELF binary.
+
+178
+00:07:54,050 --> 00:07:56,769
+Okay? That's where you map
+your elf binaries, usually.
+
+179
+00:07:56,769 --> 00:07:59,070
+The red one is closer to
+
+180
+00:07:59,070 --> 00:08:00,630
+the middle right where your most
+
+181
+00:08:00,630 --> 00:08:02,990
+significant bit flips 0-1,
+
+182
+00:08:02,990 --> 00:08:06,049
+which, of course, means
+that the very top
+
+183
+00:08:06,049 --> 00:08:09,170
+of that address space is
+kernel address space, right?
+
+184
+00:08:09,170 --> 00:08:11,710
+And then right
+before it flips 0-1,
+
+185
+00:08:11,710 --> 00:08:13,950
+or somewhere very high in
+
+186
+00:08:13,950 --> 00:08:18,550
+the in the virtual
+address space,
+
+187
+00:08:18,550 --> 00:08:21,069
+you have a red frame,
+
+188
+00:08:21,069 --> 00:08:23,810
+and the red frame is usually
+where your stack is, right?
+
+189
+00:08:23,810 --> 00:08:26,370
+And somewhere in the middle
+is where your heap space is.
+
+190
+00:08:26,370 --> 00:08:28,850
+So the green one usually
+corresponds to the heap. Okay?
+
+191
+00:08:28,850 --> 00:08:30,330
+So this write
+actually means that
+
+192
+00:08:30,330 --> 00:08:32,490
+the child is actually trying
+to write to the stack.
+
+193
+00:08:32,490 --> 00:08:35,049
+Now, should we allow for
+this to happen, right?
+
+194
+00:08:35,049 --> 00:08:38,410
+We've deduped we
+improve the complexity.
+
+195
+00:08:38,410 --> 00:08:40,189
+Should we allow for
+this write to happen?
+
+196
+00:08:40,189 --> 00:08:43,389
+Does the child have a logical
+permission to write to
+
+197
+00:08:43,389 --> 00:08:46,729
+its own stack?
+Absolutely, right?
+
+198
+00:08:46,729 --> 00:08:49,209
+How can you run your
+programs otherwise?
+
+199
+00:08:49,209 --> 00:08:50,850
+But should the child
+
+200
+00:08:50,850 --> 00:08:52,849
+have a physical
+permission to write to
+
+201
+00:08:52,849 --> 00:08:56,929
+its own stack at this
+point in time, no.
+
+202
+00:08:56,929 --> 00:08:59,129
+And what do we use?
+Which mechanism do
+
+203
+00:08:59,129 --> 00:09:02,490
+we use in order to prevent
+this from happening?
+
+204
+00:09:03,010 --> 00:09:05,590
+Yeah, copy on write.
+
+205
+00:09:05,590 --> 00:09:07,369
+That's sort of a catch all.
+
+206
+00:09:07,369 --> 00:09:09,249
+And there's a specific
+permission bit
+
+207
+00:09:09,249 --> 00:09:10,069
+that we use for that.
+
+208
+00:09:10,069 --> 00:09:11,249
+Yes.
+
+209
+00:09:11,290 --> 00:09:13,270
+Page table entry.
+
+210
+00:09:13,270 --> 00:09:14,630
+Yeah, the PTE that's
+
+211
+00:09:14,630 --> 00:09:17,069
+actually mapping that
+stack frame, right?
+
+212
+00:09:17,069 --> 00:09:20,150
+The VFN corresponding
+to a stack frame,
+
+213
+00:09:20,150 --> 00:09:22,149
+the page table entry is going
+
+214
+00:09:22,149 --> 00:09:24,430
+to have its right
+bit set to zero.
+
+215
+00:09:24,430 --> 00:09:26,850
+And we're going to go
+through an example step
+
+216
+00:09:26,850 --> 00:09:29,489
+by step so that you can
+actually appreciate how you
+
+217
+00:09:29,489 --> 00:09:31,589
+need to set those
+permission bits in order to
+
+218
+00:09:31,589 --> 00:09:34,469
+actually disentangle
+the logical permissions
+
+219
+00:09:34,469 --> 00:09:36,770
+from the physical
+permissions and therefore
+
+220
+00:09:36,770 --> 00:09:40,455
+enable the entirety of the
+copy on write mechanism.
+
+221
+00:09:40,455 --> 00:09:44,499
+Alright, so the right
+wants to right there.
+
+222
+00:09:44,499 --> 00:09:46,319
+We've established that
+we don't want to do
+
+223
+00:09:46,319 --> 00:09:48,200
+that because it's
+going to leak state.
+
+224
+00:09:48,200 --> 00:09:50,140
+It's a security violation.
+
+225
+00:09:50,140 --> 00:09:52,319
+It's going to get rid of
+
+226
+00:09:52,319 --> 00:09:53,519
+the isolation that we really
+
+227
+00:09:53,519 --> 00:09:56,110
+want the operating
+system to provide.
+
+228
+00:09:56,110 --> 00:09:59,880
+Not going to happen.
+What we do instead
+
+229
+00:09:59,880 --> 00:10:03,739
+is we perform a copy of
+the physical frame. Okay?
+
+230
+00:10:03,739 --> 00:10:07,139
+And watch this. If you haven't
+seen, watch this, right?
+
+231
+00:10:07,139 --> 00:10:10,280
+Nice. We're moving VFN.
+
+232
+00:10:10,280 --> 00:10:12,159
+We're moving a VFN arrow
+
+233
+00:10:12,159 --> 00:10:14,680
+to point to a new
+physical frame.
+
+234
+00:10:14,680 --> 00:10:16,979
+And we're going to see
+an example of that.
+
+235
+00:10:16,979 --> 00:10:19,260
+Now the write can proceed.
+
+236
+00:10:19,260 --> 00:10:21,359
+Now, the logical and
+
+237
+00:10:21,359 --> 00:10:23,279
+the physical permissions for
+
+238
+00:10:23,279 --> 00:10:26,735
+the child to write
+are going to align.
+
+239
+00:10:26,735 --> 00:10:30,830
+And we've now changed the state.
+
+240
+00:10:30,830 --> 00:10:32,849
+We've now actually
+mutated the state of
+
+241
+00:10:32,849 --> 00:10:35,149
+that physical frame after it
+
+242
+00:10:35,149 --> 00:10:37,889
+was copied and
+after we've updated
+
+243
+00:10:37,889 --> 00:10:41,205
+the VTP mapping for
+the child process.
+
+244
+00:10:41,205 --> 00:10:44,019
+Okay. So this is
+
+245
+00:10:44,019 --> 00:10:45,979
+a good foray and sort of
+
+246
+00:10:45,979 --> 00:10:48,519
+review of the logical and
+physical permissions, right?
+
+247
+00:10:48,519 --> 00:10:50,019
+We separate permissions into
+
+248
+00:10:50,019 --> 00:10:51,740
+two types, logical and physical.
+
+249
+00:10:51,740 --> 00:10:54,580
+Logical is basically, is
+it legal for a process
+
+250
+00:10:54,580 --> 00:10:56,740
+to address to access
+
+251
+00:10:56,740 --> 00:10:58,979
+or write to the memory that
+it's currently writing?
+
+252
+00:10:58,979 --> 00:11:01,640
+And physical is
+basically whether
+
+253
+00:11:01,640 --> 00:11:04,600
+or not this is physically going
+to be allowed to proceed,
+
+254
+00:11:04,600 --> 00:11:06,419
+or if we actually need
+
+255
+00:11:06,419 --> 00:11:08,179
+to have mechanisms
+to stop that from
+
+256
+00:11:08,179 --> 00:11:10,520
+happening so that gives us
+an opportunity to actually
+
+257
+00:11:10,520 --> 00:11:13,199
+do the dejavu trick, right?
+
+258
+00:11:13,199 --> 00:11:16,280
+To actually suspend reality
+for the process attempting
+
+259
+00:11:16,280 --> 00:11:18,579
+this operation and make
+
+260
+00:11:18,579 --> 00:11:21,459
+some changes that
+actually make it okay.
+
+261
+00:11:21,459 --> 00:11:24,220
+Which is a technical term.
+
+262
+00:11:24,740 --> 00:11:27,339
+Okay, so now we've got to
+
+263
+00:11:27,339 --> 00:11:29,199
+the point where we
+believe it's unnecessary
+
+264
+00:11:29,199 --> 00:11:33,259
+to copy the actual physical
+frames of memory, right?
+
+265
+00:11:33,259 --> 00:11:38,059
+We want to keep them the
+same across the fork,
+
+266
+00:11:38,059 --> 00:11:40,120
+from a parent to
+a child process.
+
+267
+00:11:40,120 --> 00:11:41,919
+So you have your
+physical frames on
+
+268
+00:11:41,919 --> 00:11:43,840
+the right hand side
+in this diagram.
+
+269
+00:11:43,840 --> 00:11:46,620
+And again, this is a
+recap, so I'm going fast.
+
+270
+00:11:46,620 --> 00:11:49,419
+It's a recap from the
+previous lecture.
+
+271
+00:11:49,419 --> 00:11:52,280
+And now you have
+a page directory,
+
+272
+00:11:52,280 --> 00:11:55,519
+which is basically mapping
+all of the page tables,
+
+273
+00:11:55,519 --> 00:11:57,819
+and the process
+one is pointing to
+
+274
+00:11:57,819 --> 00:11:59,000
+its page directory through
+
+275
+00:11:59,000 --> 00:12:01,259
+the contents of this
+here three register.
+
+276
+00:12:01,259 --> 00:12:04,279
+Okay, so process two
+comes along, right?
+
+277
+00:12:04,279 --> 00:12:07,524
+It's a fork of process one.
+
+278
+00:12:07,524 --> 00:12:11,709
+And instead of just telling
+you what should happen,
+
+279
+00:12:11,709 --> 00:12:13,389
+you know, the way
+you should think
+
+280
+00:12:13,389 --> 00:12:15,530
+about this is as follows.
+
+281
+00:12:15,530 --> 00:12:18,469
+You need to have some
+sort of mechanism that
+
+282
+00:12:18,469 --> 00:12:22,149
+maps V virtual address to
+physical address space, right?
+
+283
+00:12:22,149 --> 00:12:25,629
+So what do you get on
+input from process two?
+
+284
+00:12:25,629 --> 00:12:27,110
+You have just forked.
+
+285
+00:12:27,110 --> 00:12:29,230
+The moment you have just forked,
+
+286
+00:12:29,230 --> 00:12:31,290
+everything in the
+virtual address space
+
+287
+00:12:31,290 --> 00:12:32,489
+of the child is going to
+
+288
+00:12:32,489 --> 00:12:33,869
+be the same or different from
+
+289
+00:12:33,869 --> 00:12:36,265
+the virtual address
+space of the parent.
+
+290
+00:12:36,265 --> 00:12:40,239
+Same. Is the stack at the
+same location, right?
+
+291
+00:12:40,239 --> 00:12:42,220
+You depend on that, in fact,
+
+292
+00:12:42,220 --> 00:12:44,039
+because if you actually performs
+
+293
+00:12:44,039 --> 00:12:46,340
+a bunch of nested
+codes for a function,
+
+294
+00:12:46,340 --> 00:12:48,719
+you actually expect the child to
+
+295
+00:12:48,719 --> 00:12:50,740
+actually stay in that
+activation frame
+
+296
+00:12:50,740 --> 00:12:51,979
+when the child forks, right?
+
+297
+00:12:51,979 --> 00:12:55,180
+You depend on that. The heap
+
+298
+00:12:55,180 --> 00:12:56,659
+allocated data
+structures, right?
+
+299
+00:12:56,659 --> 00:13:00,285
+Are they in the same location
+on the heap after the fork?
+
+300
+00:13:00,285 --> 00:13:03,290
+You're still able to interact
+with them after the fork.
+
+301
+00:13:03,290 --> 00:13:04,949
+They're still there, right?
+
+302
+00:13:04,949 --> 00:13:09,009
+The pointer that was saved
+on stack that actually saved
+
+303
+00:13:09,009 --> 00:13:10,129
+the memory address of
+
+304
+00:13:10,129 --> 00:13:11,849
+your mallet data structure on
+
+305
+00:13:11,849 --> 00:13:14,369
+the heap remains
+exactly the same.
+
+306
+00:13:14,369 --> 00:13:16,110
+All of the virtual addresses
+
+307
+00:13:16,110 --> 00:13:17,950
+have remained the
+same after the fork.
+
+308
+00:13:17,950 --> 00:13:19,750
+So the input to this black box
+
+309
+00:13:19,750 --> 00:13:22,169
+that we're trying to
+figure out is the same.
+
+310
+00:13:22,169 --> 00:13:24,910
+Is the output the same?
+
+311
+00:13:25,430 --> 00:13:28,969
+We've decided we're going
+to make it the same, right?
+
+312
+00:13:28,969 --> 00:13:32,009
+Because we want to dedupe
+the physical frames.
+
+313
+00:13:32,009 --> 00:13:34,230
+Okay, so input is the same.
+
+314
+00:13:34,230 --> 00:13:36,350
+The output is the same.
+
+315
+00:13:36,790 --> 00:13:40,590
+What does that tell you
+about the black box?
+
+316
+00:13:41,310 --> 00:13:44,329
+The black box the purpose of
+
+317
+00:13:44,329 --> 00:13:45,910
+the black box is to carry
+
+318
+00:13:45,910 --> 00:13:47,810
+the mapping of the
+input to the output.
+
+319
+00:13:47,810 --> 00:13:51,209
+And if the input is the same
+and the output is the same,
+
+320
+00:13:51,209 --> 00:13:55,069
+like copying a C plus
+plus hash map, right?
+
+321
+00:13:55,069 --> 00:13:56,949
+So if the hash map keys
+
+322
+00:13:56,949 --> 00:13:58,550
+and the values are
+exactly the same,
+
+323
+00:13:58,550 --> 00:14:00,739
+is that going to be
+the same hash map?
+
+324
+00:14:00,739 --> 00:14:03,769
+Yeah, the mapping is going to
+be exactly the same, right?
+
+325
+00:14:03,769 --> 00:14:05,209
+So you will end up with
+
+326
+00:14:05,209 --> 00:14:07,029
+the same contents
+that you're going to
+
+327
+00:14:07,029 --> 00:14:08,810
+put in the black box regardless
+
+328
+00:14:08,810 --> 00:14:10,729
+of how it's actually
+implemented,
+
+329
+00:14:10,729 --> 00:14:12,389
+you know, two
+level, three level,
+
+330
+00:14:12,389 --> 00:14:14,589
+five level, whatever, right?
+
+331
+00:14:14,589 --> 00:14:16,769
+The important thing here
+is that it's going to
+
+332
+00:14:16,769 --> 00:14:19,529
+have exactly the same contents
+as the pairing, right?
+
+333
+00:14:19,529 --> 00:14:21,769
+And this is what I
+want to, you know,
+
+334
+00:14:21,769 --> 00:14:23,950
+get through to you on
+this slide right here.
+
+335
+00:14:23,950 --> 00:14:26,070
+So the contents of
+the black box at
+
+336
+00:14:26,070 --> 00:14:27,930
+the top actually equal
+
+337
+00:14:27,930 --> 00:14:30,150
+to the contents of the
+black box at the bottom.
+
+338
+00:14:30,150 --> 00:14:32,189
+And that's why it
+raised the question
+
+339
+00:14:32,189 --> 00:14:35,850
+of whether or not we could
+dedupe them as well.
+
+340
+00:14:36,010 --> 00:14:37,769
+Right?
+
+341
+00:14:37,769 --> 00:14:40,489
+So that's what we
+discussed last time.
+
+342
+00:14:40,489 --> 00:14:43,290
+Any questions about this so far?
+
+343
+00:14:46,310 --> 00:14:49,629
+Six, don't we don't
+like process to
+
+344
+00:14:49,629 --> 00:14:52,330
+point to the same page
+dactor same page tables?
+
+345
+00:14:52,330 --> 00:14:54,209
+We do not, no, no.
+
+346
+00:14:54,209 --> 00:14:56,670
+XP six, you will
+only have to concern
+
+347
+00:14:56,670 --> 00:14:59,690
+yourself with deduping
+the physical frames.
+
+348
+00:14:59,690 --> 00:15:02,629
+Yeah. Okay.
+
+349
+00:15:03,150 --> 00:15:07,050
+And so, you know, here we
+are just going through
+
+350
+00:15:07,050 --> 00:15:08,669
+this process to
+demonstrate that we
+
+351
+00:15:08,669 --> 00:15:11,070
+can make additional
+optimizations,
+
+352
+00:15:11,070 --> 00:15:13,230
+such as deduping the page tables
+
+353
+00:15:13,230 --> 00:15:14,729
+and the page directory by
+
+354
+00:15:14,729 --> 00:15:18,610
+making process 2.2 exactly
+the same set of mappings,
+
+355
+00:15:18,610 --> 00:15:20,549
+the VTP mappings, right?
+
+356
+00:15:20,549 --> 00:15:23,539
+Um Okay,
+
+357
+00:15:23,539 --> 00:15:26,059
+so this is just another
+slide demonstrating that,
+
+358
+00:15:26,059 --> 00:15:29,559
+but we can't just get away
+with doing this because we
+
+359
+00:15:29,559 --> 00:15:31,500
+need to do something
+when the child process
+
+360
+00:15:31,500 --> 00:15:33,599
+actually attempts
+to write, right?
+
+361
+00:15:33,599 --> 00:15:35,800
+When the child process
+attempts to write,
+
+362
+00:15:35,800 --> 00:15:39,059
+we need to have the mechanism
+to trap that right.
+
+363
+00:15:39,059 --> 00:15:40,999
+And once we've
+trapped that right,
+
+364
+00:15:40,999 --> 00:15:42,979
+we have the color
+information, right?
+
+365
+00:15:42,979 --> 00:15:44,259
+We have the color context,
+
+366
+00:15:44,259 --> 00:15:45,700
+in this case, process too,
+
+367
+00:15:45,700 --> 00:15:48,279
+and we know where the where
+
+368
+00:15:48,279 --> 00:15:51,124
+which physical frame the
+write is attempted on.
+
+369
+00:15:51,124 --> 00:15:52,649
+Now we need to figure out
+
+370
+00:15:52,649 --> 00:15:54,130
+what to do with
+this information.
+
+371
+00:15:54,130 --> 00:15:56,309
+And we discussed last time that
+
+372
+00:15:56,309 --> 00:15:57,609
+the number one thing you should
+
+373
+00:15:57,609 --> 00:15:59,189
+be asking yourself, right,
+
+374
+00:15:59,189 --> 00:16:01,409
+whether or not to
+permit this right
+
+375
+00:16:01,409 --> 00:16:04,730
+is whether or not this page
+or this physical frame
+
+376
+00:16:04,730 --> 00:16:12,190
+is or is it accessible by
+more than one process?
+
+377
+00:16:12,190 --> 00:16:14,409
+If it is accessible by
+more than one process,
+
+378
+00:16:14,409 --> 00:16:16,309
+should we allow the
+right to happen?
+
+379
+00:16:16,309 --> 00:16:18,329
+No. So it must be
+
+380
+00:16:18,329 --> 00:16:21,970
+accessible by at most,
+how many processes?
+
+381
+00:16:22,210 --> 00:16:25,849
+One, how do we figure that out?
+
+382
+00:16:28,620 --> 00:16:31,999
+Sure. Ref count is a way of
+
+383
+00:16:31,999 --> 00:16:33,379
+implementing sort
+
+384
+00:16:33,379 --> 00:16:35,659
+of the conceptual
+approach to this, right?
+
+385
+00:16:35,659 --> 00:16:40,019
+And here on this slide,
+how do we figure that out?
+
+386
+00:16:40,019 --> 00:16:43,919
+We see how many kind of
+references there are
+
+387
+00:16:43,919 --> 00:16:45,959
+or how many vertices in
+
+388
+00:16:45,959 --> 00:16:48,620
+this particular graph
+directed basically graph,
+
+389
+00:16:48,620 --> 00:16:51,879
+point to the vertex that we're
+trying to mutate, right?
+
+390
+00:16:51,879 --> 00:16:53,660
+So let's start back propping.
+
+391
+00:16:53,660 --> 00:16:56,260
+How many page table pages
+
+392
+00:16:56,700 --> 00:17:00,299
+have a reference to
+this physical frame?
+
+393
+00:17:00,730 --> 00:17:06,269
+Just one, right? Hmm.
+We're still good so far.
+
+394
+00:17:06,269 --> 00:17:11,289
+Haven't encountered a reason
+to copy the frame, right?
+
+395
+00:17:11,289 --> 00:17:13,789
+Okay, let's keep going.
+How many page directories
+
+396
+00:17:13,789 --> 00:17:15,940
+are referencing the page table?
+
+397
+00:17:15,940 --> 00:17:19,689
+One, okay? Still haven't
+encountered the reason for us
+
+398
+00:17:19,689 --> 00:17:23,809
+to make a copy of the
+physical frame. Dang it.
+
+399
+00:17:23,809 --> 00:17:27,950
+Okay. Well, how many
+process vertices
+
+400
+00:17:27,950 --> 00:17:30,470
+are actually referenced
+in the page directory?
+
+401
+00:17:30,470 --> 00:17:34,569
+Two, now we've encountered the
+reason to actually go back
+
+402
+00:17:34,569 --> 00:17:37,170
+and perform a copy
+
+403
+00:17:37,170 --> 00:17:40,069
+on the physical frame that
+we're trying to mutate, okay?
+
+404
+00:17:40,069 --> 00:17:43,270
+In other words, as I mentioned
+during the previous class,
+
+405
+00:17:43,270 --> 00:17:44,409
+and I don't know how many of you
+
+406
+00:17:44,409 --> 00:17:46,464
+actually picked up
+on that, right?
+
+407
+00:17:46,464 --> 00:17:48,459
+There is a way to actually
+
+408
+00:17:48,459 --> 00:17:51,479
+represent this as a
+directed basically graph.
+
+409
+00:17:51,479 --> 00:17:54,079
+One of the simplest kind of
+data structures to do this is
+
+410
+00:17:54,079 --> 00:17:55,559
+the adjacency matrix where you
+
+411
+00:17:55,559 --> 00:17:57,599
+have vertices horizontally
+and vertically,
+
+412
+00:17:57,599 --> 00:17:59,520
+and the element is non zero.
+
+413
+00:17:59,520 --> 00:18:01,219
+If and all, there exists
+
+414
+00:18:01,219 --> 00:18:04,699
+an edge from element
+I to element J.
+
+415
+00:18:04,699 --> 00:18:07,139
+Okay? And so it is actually
+
+416
+00:18:07,139 --> 00:18:09,059
+possible to use
+this data structure
+
+417
+00:18:09,059 --> 00:18:10,240
+at least as a mental model.
+
+418
+00:18:10,240 --> 00:18:12,339
+I'm not saying you should
+do that in your lab, right?
+
+419
+00:18:12,339 --> 00:18:14,479
+I'm not saying that. But what
+
+420
+00:18:14,479 --> 00:18:15,859
+I'm saying is that you
+should keep that as
+
+421
+00:18:15,859 --> 00:18:19,759
+a mental model because if you
+transpose that adjacency.
+
+422
+00:18:19,759 --> 00:18:22,319
+Okay, this is a bit of an
+aside. 1 minute, I promise.
+
+423
+00:18:22,319 --> 00:18:25,159
+If you transpose this adjacency
+matrix, what do you get?
+
+424
+00:18:25,159 --> 00:18:28,960
+It's an interview
+question. Very common.
+
+425
+00:18:28,960 --> 00:18:30,679
+Yes. Reverse.
+
+426
+00:18:30,679 --> 00:18:32,060
+Yeah, it's the reverse graph.
+
+427
+00:18:32,060 --> 00:18:34,700
+You reverse all the edges
+in this adjacency graph,
+
+428
+00:18:34,700 --> 00:18:37,440
+once you've reversed that
+and you still have a hold,
+
+429
+00:18:37,440 --> 00:18:40,059
+a handle on your physical
+frame, you're mutating, right?
+
+430
+00:18:40,059 --> 00:18:43,139
+That gives you the ability
+to perform path finding to
+
+431
+00:18:43,139 --> 00:18:44,620
+figure out how many unique paths
+
+432
+00:18:44,620 --> 00:18:46,739
+through the graph you
+are able to get, right?
+
+433
+00:18:46,739 --> 00:18:49,480
+And if it's more than one, then
+
+434
+00:18:49,480 --> 00:18:53,060
+that means that you need
+to mutate the frame.
+
+435
+00:18:53,060 --> 00:18:56,379
+You need to copy the
+frame and then mutate.
+
+436
+00:18:56,379 --> 00:18:58,979
+Make sense? Yes.
+
+437
+00:18:59,830 --> 00:19:01,749
+Process.
+
+438
+00:19:01,749 --> 00:19:05,270
+Speech process needs
+to tell page table.
+
+439
+00:19:05,270 --> 00:19:08,689
+Wouldn't there only be one?
+
+440
+00:19:08,689 --> 00:19:10,730
+Even though both processes
+
+441
+00:19:10,730 --> 00:19:12,250
+referenced the same
+page directory,
+
+442
+00:19:12,250 --> 00:19:14,389
+wouldn't it only be
+possible to actually get to
+
+443
+00:19:14,389 --> 00:19:17,290
+that page only from the process
+that initially refused?
+
+444
+00:19:17,290 --> 00:19:18,730
+Because to get to that page,
+
+445
+00:19:18,730 --> 00:19:22,669
+you would have had to go to
+process the page table first.
+
+446
+00:19:28,680 --> 00:19:31,260
+Okay, so there are answer
+
+447
+00:19:31,260 --> 00:19:32,760
+there are two
+answers in my mind.
+
+448
+00:19:32,760 --> 00:19:35,380
+One of them is sort of more
+directly related to your lab,
+
+449
+00:19:35,380 --> 00:19:37,619
+and one of them is more directly
+related to the lecture.
+
+450
+00:19:37,619 --> 00:19:40,179
+So, so first of all,
+
+451
+00:19:40,179 --> 00:19:43,179
+even if you assume that
+the processes are going to
+
+452
+00:19:43,179 --> 00:19:45,839
+be addressing their own
+separate page directory, right,
+
+453
+00:19:45,839 --> 00:19:47,659
+we've already discussed
+that you're going
+
+454
+00:19:47,659 --> 00:19:51,479
+to maintain the same mapping
+to the physical frames.
+
+455
+00:19:51,479 --> 00:19:54,160
+And so there will
+be page tables,
+
+456
+00:19:54,260 --> 00:19:57,399
+even if a set of page tables
+
+457
+00:19:57,399 --> 00:19:58,840
+is separate from the processes,
+
+458
+00:19:58,840 --> 00:20:01,019
+you can still have
+physical frames pointed
+
+459
+00:20:01,019 --> 00:20:04,120
+to by more than one
+page table page.
+
+460
+00:20:04,120 --> 00:20:06,939
+That's why you need to
+do this calculus, right?
+
+461
+00:20:06,939 --> 00:20:11,839
+Okay. Okay, so this
+is what it's going to
+
+462
+00:20:11,839 --> 00:20:13,619
+look like after you
+actually have back
+
+463
+00:20:13,619 --> 00:20:15,300
+propagated all the mutations
+
+464
+00:20:15,300 --> 00:20:16,879
+that you need to perform, right?
+
+465
+00:20:16,879 --> 00:20:19,819
+So you need to perform
+a copy on write for
+
+466
+00:20:19,819 --> 00:20:22,459
+the sim physical
+frame that you have
+
+467
+00:20:22,459 --> 00:20:24,639
+attempted to write
+that pay process
+
+468
+00:20:24,639 --> 00:20:26,099
+two has attempted to write to,
+
+469
+00:20:26,099 --> 00:20:30,009
+and you got the orange physical
+frame, right, right here.
+
+470
+00:20:30,009 --> 00:20:32,279
+Is the orange physical
+frame that you received.
+
+471
+00:20:32,279 --> 00:20:36,439
+Okay. And now, for every
+single step kind of think,
+
+472
+00:20:36,439 --> 00:20:38,839
+what precisely happened
+in your universe?
+
+473
+00:20:38,839 --> 00:20:40,400
+What happened in your universe?
+
+474
+00:20:40,400 --> 00:20:42,500
+You've attempted to mutate
+
+475
+00:20:42,500 --> 00:20:45,519
+a particular address
+in the VFN, right?
+
+476
+00:20:45,519 --> 00:20:48,020
+And the PFN associated
+with that has changed.
+
+477
+00:20:48,020 --> 00:20:50,439
+So that means that the
+mapping has changed, right?
+
+478
+00:20:50,439 --> 00:20:53,599
+The VFN to PFN
+mapping has changed.
+
+479
+00:20:53,599 --> 00:20:55,819
+We need to propagate
+that mapping back
+
+480
+00:20:55,819 --> 00:20:58,020
+to the last level page
+table page because that's
+
+481
+00:20:58,020 --> 00:21:03,480
+where that mapping is
+captured, right? Makes sense?
+
+482
+00:21:03,680 --> 00:21:06,399
+That's where that
+mapping is captured.
+
+483
+00:21:06,399 --> 00:21:09,479
+So in other words, the last
+level page table page carries
+
+484
+00:21:09,479 --> 00:21:14,170
+a PT which encodes two things.
+
+485
+00:21:14,170 --> 00:21:16,489
+One of them is the
+physical frame number of
+
+486
+00:21:16,489 --> 00:21:18,089
+the physical frame
+you're accessing and
+
+487
+00:21:18,089 --> 00:21:20,649
+the other one is a set of
+permission bits, right?
+
+488
+00:21:20,649 --> 00:21:23,030
+And that PTE is going to change,
+
+489
+00:21:23,030 --> 00:21:25,889
+which implies that there
+must be a right to
+
+490
+00:21:25,889 --> 00:21:30,189
+the page table page in
+order to update that PTE.
+
+491
+00:21:30,430 --> 00:21:33,369
+So now we're at a
+different point in now
+
+492
+00:21:33,369 --> 00:21:35,710
+a graph that we've captured,
+
+493
+00:21:35,710 --> 00:21:37,229
+and we are attempting to
+
+494
+00:21:37,229 --> 00:21:40,509
+mutate a different
+vertex in that graph.
+
+495
+00:21:40,790 --> 00:21:43,209
+And same logic applies.
+
+496
+00:21:43,209 --> 00:21:47,510
+Can I mutate it? Yes or
+no? How can we tell?
+
+497
+00:21:48,140 --> 00:21:51,120
+Exactly the same logic, yes.
+
+498
+00:21:51,120 --> 00:21:55,660
+You can check the write
+bit on the page table?
+
+499
+00:21:55,660 --> 00:21:57,539
+No, no, no, no, no, no,
+
+500
+00:21:57,539 --> 00:22:00,559
+no, exactly the same
+algorithm applies.
+
+501
+00:22:00,559 --> 00:22:02,939
+You need to figure out
+how many references
+
+502
+00:22:02,939 --> 00:22:04,220
+there are to this page table
+
+503
+00:22:04,220 --> 00:22:05,779
+that you're trying
+to access, right?
+
+504
+00:22:05,779 --> 00:22:08,599
+Is it possible for
+more than one process
+
+505
+00:22:08,599 --> 00:22:10,460
+to access this page table?
+
+506
+00:22:10,460 --> 00:22:13,099
+If there is,
+attempting a write in
+
+507
+00:22:13,099 --> 00:22:14,979
+a shared vertex in this graph
+
+508
+00:22:14,979 --> 00:22:17,400
+is going to leak state, okay?
+
+509
+00:22:17,400 --> 00:22:19,779
+And we must never prevent
+that from happening.
+
+510
+00:22:19,779 --> 00:22:22,700
+So we're in the
+kernel right now.
+
+511
+00:22:22,790 --> 00:22:25,489
+We're in the kernel right
+now and we're trying to
+
+512
+00:22:25,489 --> 00:22:27,309
+sort of correct the
+situation of leaking
+
+513
+00:22:27,309 --> 00:22:30,649
+state because of all the
+performance optimizations
+
+514
+00:22:30,649 --> 00:22:32,849
+that we are trying to implement.
+
+515
+00:22:32,849 --> 00:22:36,350
+Okay? So the rules are
+a little bit different.
+
+516
+00:22:36,350 --> 00:22:37,730
+You need to think
+more carefully.
+
+517
+00:22:37,730 --> 00:22:38,949
+You cannot just rely on
+
+518
+00:22:38,949 --> 00:22:41,549
+those right bits
+because you are God.
+
+519
+00:22:41,549 --> 00:22:44,389
+You are the one that's actually
+controlling those bits.
+
+520
+00:22:44,389 --> 00:22:47,090
+You are omniscient and
+omnipotent observer
+
+521
+00:22:47,090 --> 00:22:50,709
+that's interposing on the
+reality of those processes.
+
+522
+00:22:50,709 --> 00:22:53,509
+Okay, so do not
+rely on those bits.
+
+523
+00:22:53,509 --> 00:22:55,669
+You're the one setting them.
+
+524
+00:22:58,240 --> 00:23:01,759
+So we've decided that the
+page table itself needs to
+
+525
+00:23:01,759 --> 00:23:04,460
+be copied in order
+
+526
+00:23:04,460 --> 00:23:07,119
+for us to perform a
+mutation on the PTE, right?
+
+527
+00:23:07,119 --> 00:23:08,819
+And once we've copied that,
+
+528
+00:23:08,819 --> 00:23:11,499
+we know that there's a
+page directory entry
+
+529
+00:23:11,499 --> 00:23:13,879
+that used to reference
+that page table,
+
+530
+00:23:13,879 --> 00:23:15,699
+and that mapping has changed,
+
+531
+00:23:15,699 --> 00:23:17,179
+which means that
+we need to update
+
+532
+00:23:17,179 --> 00:23:20,619
+the PDE in order to
+reflect that mapping.
+
+533
+00:23:20,619 --> 00:23:25,600
+Oh. So what does that tell
+us about the page directory?
+
+534
+00:23:25,600 --> 00:23:29,019
+Can we perform the update
+
+535
+00:23:29,019 --> 00:23:32,240
+on a PDE inside the
+page directory?
+
+536
+00:23:35,400 --> 00:23:38,400
+Yes. Until we make a copy?
+
+537
+00:23:38,400 --> 00:23:41,419
+No, not until we make a
+copy because it's shared.
+
+538
+00:23:41,419 --> 00:23:42,699
+It's more than one process
+
+539
+00:23:42,699 --> 00:23:44,839
+accessing that
+vertex in the graph.
+
+540
+00:23:44,839 --> 00:23:47,299
+So essentially, what
+I have done is I have
+
+541
+00:23:47,299 --> 00:23:50,499
+given you a conceptual
+algorithm that you can
+
+542
+00:23:50,499 --> 00:23:53,299
+sort of recursively
+invoke regardless of
+
+543
+00:23:53,299 --> 00:23:54,919
+where in the graph
+
+544
+00:23:54,919 --> 00:23:57,760
+the mutation is trying
+to be performed.
+
+545
+00:23:57,760 --> 00:24:02,100
+Okay. And you can see that
+conceptual this mindset,
+
+546
+00:24:02,100 --> 00:24:05,219
+this conceptual approach can
+actually give you a very,
+
+547
+00:24:05,219 --> 00:24:08,419
+very powerful approach
+to keep track of which
+
+548
+00:24:08,419 --> 00:24:10,839
+physical frames of
+memory actually
+
+549
+00:24:10,839 --> 00:24:12,339
+need are allowed to be
+
+550
+00:24:12,339 --> 00:24:14,199
+mutated and which
+need to be copied,
+
+551
+00:24:14,199 --> 00:24:16,160
+regardless of what's
+happening in terms
+
+552
+00:24:16,160 --> 00:24:18,140
+of parent, children,
+grandchildren,
+
+553
+00:24:18,140 --> 00:24:20,459
+grand grand grandchildren,
+and allowing
+
+554
+00:24:20,459 --> 00:24:23,985
+the rights across this
+entire family hierarchy.
+
+555
+00:24:23,985 --> 00:24:26,169
+Okay? Because that graph
+
+556
+00:24:26,169 --> 00:24:27,989
+is all you have to
+worry about is,
+
+557
+00:24:27,989 --> 00:24:30,229
+how do you update this graph as
+
+558
+00:24:30,229 --> 00:24:33,370
+a function of time
+and then identify
+
+559
+00:24:33,370 --> 00:24:35,529
+which vertex of that graph you
+
+560
+00:24:35,529 --> 00:24:38,150
+are performing a write on
+and figure out whether
+
+561
+00:24:38,150 --> 00:24:39,569
+or not the write should proceed
+
+562
+00:24:39,569 --> 00:24:41,689
+or figure out whether or not you
+
+563
+00:24:41,689 --> 00:24:43,209
+need to perform a copy and back
+
+564
+00:24:43,209 --> 00:24:45,450
+propagate the
+results of the copy,
+
+565
+00:24:45,450 --> 00:24:48,309
+the implications of that
+copy, I should say.
+
+566
+00:24:48,309 --> 00:24:50,209
+Okay.
+
+567
+00:24:51,070 --> 00:24:54,009
+I'm having entirely too
+much fun with this.
+
+568
+00:24:54,009 --> 00:24:56,669
+But this is so powerful,
+because, you know,
+
+569
+00:24:56,669 --> 00:24:58,169
+this is a simple example of
+
+570
+00:24:58,169 --> 00:25:00,329
+just a parent and the
+child process, right?
+
+571
+00:25:00,329 --> 00:25:01,929
+But then you can ask, what
+
+572
+00:25:01,929 --> 00:25:03,790
+if the parent forked
+another child?
+
+573
+00:25:03,790 --> 00:25:05,249
+Are you going to have to worry
+
+574
+00:25:05,249 --> 00:25:06,569
+about that in your lab, too?
+
+575
+00:25:06,569 --> 00:25:09,909
+What if the child forked
+another child, right?
+
+576
+00:25:09,909 --> 00:25:11,970
+What if the child
+forked another child?
+
+577
+00:25:11,970 --> 00:25:14,209
+So a grandchild, but
+the child exited,
+
+578
+00:25:14,209 --> 00:25:15,669
+then what happens, right?
+
+579
+00:25:15,669 --> 00:25:17,469
+So all of these
+cornea cases will
+
+580
+00:25:17,469 --> 00:25:19,389
+have to be covered
+by your lab, too.
+
+581
+00:25:19,389 --> 00:25:20,449
+And this sort of gives you
+
+582
+00:25:20,449 --> 00:25:21,930
+a conceptual framework to reason
+
+583
+00:25:21,930 --> 00:25:23,169
+about what changes to
+
+584
+00:25:23,169 --> 00:25:26,509
+the graph so that you
+maintain correctness.
+
+585
+00:25:27,680 --> 00:25:29,719
+Okay.
+
+586
+00:25:32,200 --> 00:25:36,479
+So, let's recap on
+this. Let's see.
+
+587
+00:25:36,479 --> 00:25:39,919
+So basically, what
+happens now if
+
+588
+00:25:39,919 --> 00:25:43,820
+parent wants to update
+or mutate the sien page,
+
+589
+00:25:43,820 --> 00:25:45,120
+the original science page,
+
+590
+00:25:45,120 --> 00:25:47,219
+should this be
+allowed to proceed?
+
+591
+00:25:47,219 --> 00:25:49,819
+That's the same exact
+kind of question.
+
+592
+00:25:49,819 --> 00:25:51,599
+Think about the vertex,
+
+593
+00:25:51,599 --> 00:25:53,319
+think about the graph, think
+
+594
+00:25:53,319 --> 00:25:54,760
+about the sharing information.
+
+595
+00:25:54,760 --> 00:25:56,499
+So update or any kind of
+
+596
+00:25:56,499 --> 00:25:58,920
+mutation operation
+on a SIN page,
+
+597
+00:25:58,920 --> 00:26:01,459
+this one right here, right?
+
+598
+00:26:01,459 --> 00:26:04,579
+Should we allow for
+this to proceed?
+
+599
+00:26:04,579 --> 00:26:08,079
+How many processes
+are pointing to that?
+
+600
+00:26:10,480 --> 00:26:14,239
+One, right? And
+it's right there.
+
+601
+00:26:14,239 --> 00:26:16,739
+So the process one is still able
+
+602
+00:26:16,739 --> 00:26:20,159
+to reference the original page
+
+603
+00:26:20,159 --> 00:26:22,359
+that process two
+attempted to write to,
+
+604
+00:26:22,359 --> 00:26:25,819
+and there exists exactly one
+path through this graph.
+
+605
+00:26:25,819 --> 00:26:27,099
+And so that process
+
+606
+00:26:27,099 --> 00:26:29,379
+one write should be
+allowed to proceed.
+
+607
+00:26:29,379 --> 00:26:32,160
+And that should trigger
+something in your mind, okay?
+
+608
+00:26:32,160 --> 00:26:33,899
+I'm not going to say what
+it is, but there are
+
+609
+00:26:33,899 --> 00:26:36,999
+implications associated
+with that, right?
+
+610
+00:26:37,000 --> 00:26:43,780
+So do we need to copy every
+mapped physical page on fork?
+
+611
+00:26:43,780 --> 00:26:46,180
+No. Do we even
+
+612
+00:26:46,180 --> 00:26:48,699
+need to make a page
+table for each process?
+
+613
+00:26:48,699 --> 00:26:52,339
+No. What do we need to
+track to ensure copy and
+
+614
+00:26:52,339 --> 00:26:57,080
+write operations correctness,
+sharing information?
+
+615
+00:26:57,130 --> 00:27:01,329
+Yes. So is this sharing
+information is it
+
+616
+00:27:01,329 --> 00:27:04,810
+stored processes like kernel
+memory, that makes sense?
+
+617
+00:27:04,810 --> 00:27:08,329
+Or is it shared,
+I'm just confused,
+
+618
+00:27:08,329 --> 00:27:14,790
+this information where do
+you store that adjacent?
+
+619
+00:27:14,790 --> 00:27:16,809
+Yeah, so that's part of
+
+620
+00:27:16,809 --> 00:27:18,989
+what you have to figure out
+in the context of Lab two,
+
+621
+00:27:18,989 --> 00:27:21,809
+where that information
+is going to be stored.
+
+622
+00:27:23,860 --> 00:27:28,080
+Okay. So how do we do this
+protection mechanisms.
+
+623
+00:27:28,080 --> 00:27:29,439
+The write bits that actually
+
+624
+00:27:29,439 --> 00:27:31,519
+give us the hammers
+to enable, right?
+
+625
+00:27:31,519 --> 00:27:33,799
+And we already discussed
+what they are.
+
+626
+00:27:33,799 --> 00:27:36,940
+We talked about what
+the present bit means,
+
+627
+00:27:36,940 --> 00:27:40,319
+and the write bits
+are they exist
+
+628
+00:27:40,319 --> 00:27:41,820
+both in the page directory entry
+
+629
+00:27:41,820 --> 00:27:43,179
+and the page table entry.
+
+630
+00:27:43,179 --> 00:27:45,560
+They basically mean
+whether or not the write
+
+631
+00:27:45,560 --> 00:27:48,099
+to the next level is
+allowed to proceed, right?
+
+632
+00:27:48,099 --> 00:27:50,940
+In both cases, the semantic
+meaning is exactly the same.
+
+633
+00:27:50,940 --> 00:27:53,739
+So for the page directory
+entry, we bit set to one,
+
+634
+00:27:53,739 --> 00:27:56,600
+that means that the
+PTE page table entry
+
+635
+00:27:56,600 --> 00:27:58,899
+at the next level
+that means that
+
+636
+00:27:58,899 --> 00:28:00,839
+you should be
+allowed to write to
+
+637
+00:28:00,839 --> 00:28:02,540
+the page table page
+at the next level
+
+638
+00:28:02,540 --> 00:28:04,959
+that this PG is pointing to.
+
+639
+00:28:04,959 --> 00:28:07,559
+You only have to
+concern yourself with
+
+640
+00:28:07,559 --> 00:28:09,919
+PTE, page table entries.
+
+641
+00:28:09,919 --> 00:28:12,259
+If the right bit is set to one,
+
+642
+00:28:12,259 --> 00:28:14,019
+that means that you're
+allowed to mutate
+
+643
+00:28:14,019 --> 00:28:17,945
+the physical frame of memory
+that's being accessed, okay?
+
+644
+00:28:17,945 --> 00:28:20,190
+Alright, so let's walk
+
+645
+00:28:20,190 --> 00:28:21,869
+through a copy on
+write example and
+
+646
+00:28:21,869 --> 00:28:24,010
+actually figure out exactly
+
+647
+00:28:24,010 --> 00:28:26,069
+how we use these
+mechanismic bits.
+
+648
+00:28:26,069 --> 00:28:27,789
+I'm referring to
+them as mechanismic
+
+649
+00:28:27,789 --> 00:28:29,969
+because they enable
+something, right?
+
+650
+00:28:29,969 --> 00:28:32,749
+And how these permission bits
+are going to be updated.
+
+651
+00:28:32,749 --> 00:28:34,229
+We start with process one.
+
+652
+00:28:34,229 --> 00:28:37,250
+It has a PD one page directory,
+
+653
+00:28:37,250 --> 00:28:40,889
+which has two page tables,
+right, roughly speaking,
+
+654
+00:28:40,889 --> 00:28:42,929
+and it has three
+physical frames of
+
+655
+00:28:42,929 --> 00:28:45,710
+memory allocated in the
+physical address space.
+
+656
+00:28:45,710 --> 00:28:48,650
+So each page directory, sorry,
+
+657
+00:28:48,650 --> 00:28:52,410
+each page table is an
+array, okay? It's a table.
+
+658
+00:28:52,410 --> 00:28:57,769
+Of a bunch of PTEsPage
+table elements, right?
+
+659
+00:28:57,769 --> 00:29:00,929
+W that carry the information
+about the physical frame of
+
+660
+00:29:00,929 --> 00:29:04,110
+the physical frame number
+and the permission bits.
+
+661
+00:29:04,110 --> 00:29:06,069
+So let's examine what
+
+662
+00:29:06,069 --> 00:29:11,429
+our permission bits in each
+case have to be, okay?
+
+663
+00:29:11,429 --> 00:29:14,270
+So let's specifically talk
+about what the page table
+
+664
+00:29:14,270 --> 00:29:15,689
+one contents are and
+
+665
+00:29:15,689 --> 00:29:18,009
+what the page table
+two contents are.
+
+666
+00:29:18,009 --> 00:29:20,349
+So we have three
+physical frames,
+
+667
+00:29:20,349 --> 00:29:23,229
+how many PTs we need
+to worry about.
+
+668
+00:29:25,600 --> 00:29:28,499
+The physical frames, on
+
+669
+00:29:28,499 --> 00:29:29,799
+the right hand side that we need
+
+670
+00:29:29,799 --> 00:29:31,579
+to provide the mapping for.
+
+671
+00:29:31,579 --> 00:29:35,559
+How many PTs we need to
+worry about? Three, right?
+
+672
+00:29:35,559 --> 00:29:36,840
+Because there's one PT
+
+673
+00:29:36,840 --> 00:29:39,239
+per physical frame
+that we're mapping.
+
+674
+00:29:39,239 --> 00:29:43,199
+Okay? So what should the bits?
+
+675
+00:29:43,199 --> 00:29:45,140
+Actually, the starting condition
+
+676
+00:29:45,140 --> 00:29:48,019
+here is that we're just
+going to enable everything.
+
+677
+00:29:48,019 --> 00:29:49,959
+So I'm just going to
+give you that, right?
+
+678
+00:29:49,959 --> 00:29:51,560
+This is the starting condition.
+
+679
+00:29:51,560 --> 00:29:54,319
+We're able to write to P one.
+
+680
+00:29:54,319 --> 00:29:56,139
+We're able to write to P two,
+
+681
+00:29:56,139 --> 00:29:58,199
+and we're able to
+write to P three.
+
+682
+00:29:58,199 --> 00:30:01,334
+Okay, we fork the process too.
+
+683
+00:30:01,334 --> 00:30:05,910
+So what should happen to the PTs
+
+684
+00:30:05,910 --> 00:30:08,410
+in page table one and PT
+
+685
+00:30:08,410 --> 00:30:11,829
+is in page table two.
+What should happen?
+
+686
+00:30:12,390 --> 00:30:14,429
+Yes.
+
+687
+00:30:19,450 --> 00:30:22,569
+Yes. Exactly. So specifically,
+
+688
+00:30:22,569 --> 00:30:24,269
+the question reduces down to
+
+689
+00:30:24,269 --> 00:30:26,370
+what should happen to
+those permission bits,
+
+690
+00:30:26,370 --> 00:30:27,990
+those mechanismic
+permission bits
+
+691
+00:30:27,990 --> 00:30:30,129
+that are at our
+disposal in the kernel.
+
+692
+00:30:30,129 --> 00:30:32,629
+And as you correctly
+pointed out,
+
+693
+00:30:32,629 --> 00:30:34,589
+we need to turn them off, right?
+
+694
+00:30:34,589 --> 00:30:36,570
+We need to set the
+right bits to zero.
+
+695
+00:30:36,570 --> 00:30:39,189
+And the reason for this is
+because for every single
+
+696
+00:30:39,189 --> 00:30:42,149
+one of the leaf
+vertices in this dag,
+
+697
+00:30:42,149 --> 00:30:44,509
+okay, every single one of
+
+698
+00:30:44,509 --> 00:30:48,469
+your physical frames,
+they are shared.
+
+699
+00:30:48,469 --> 00:30:52,424
+They are shared and accessible
+by more than one process.
+
+700
+00:30:52,424 --> 00:30:55,799
+So we should not allow
+the write to proceed.
+
+701
+00:30:55,799 --> 00:30:57,119
+The way we enable that is
+
+702
+00:30:57,119 --> 00:30:58,720
+by setting the
+right bit to zero.
+
+703
+00:30:58,720 --> 00:31:00,959
+That should be pretty
+straightforward, right?
+
+704
+00:31:00,959 --> 00:31:04,800
+Okay, so now process two
+wants to perform a write.
+
+705
+00:31:06,440 --> 00:31:10,559
+Specifically, it wants to
+perform a write to P one.
+
+706
+00:31:10,559 --> 00:31:12,959
+So first of all,
+
+707
+00:31:12,959 --> 00:31:14,099
+we've already established,
+
+708
+00:31:14,099 --> 00:31:15,480
+I'm not going to
+go over it again.
+
+709
+00:31:15,480 --> 00:31:16,699
+We've already established that
+
+710
+00:31:16,699 --> 00:31:18,199
+we need to trap that, right?
+
+711
+00:31:18,199 --> 00:31:20,660
+And now we are in
+the handler code.
+
+712
+00:31:20,660 --> 00:31:22,460
+We're inside the handler code.
+
+713
+00:31:22,460 --> 00:31:24,879
+So what needs to happen,
+
+714
+00:31:25,610 --> 00:31:29,650
+so the first thing that
+needs to happen as we've
+
+715
+00:31:29,650 --> 00:31:31,289
+already discussed is we need to
+
+716
+00:31:31,289 --> 00:31:33,630
+make a copy to P
+one to P one prime.
+
+717
+00:31:33,630 --> 00:31:35,730
+So that's this copy right here.
+
+718
+00:31:35,730 --> 00:31:38,069
+P one to P one prime
+has been copied.
+
+719
+00:31:38,069 --> 00:31:40,929
+Page table one to page table
+one prime has been copied,
+
+720
+00:31:40,929 --> 00:31:42,310
+page directory one to page
+
+721
+00:31:42,310 --> 00:31:43,969
+directory prime has been copied.
+
+722
+00:31:43,969 --> 00:31:46,449
+So we've already gone over
+that and the reasons for this.
+
+723
+00:31:46,449 --> 00:31:48,269
+And the process to
+is now pointing to
+
+724
+00:31:48,269 --> 00:31:52,449
+its own separate page
+directory table, okay?
+
+725
+00:31:52,449 --> 00:31:55,210
+Okay, so that's what we
+are handling right here.
+
+726
+00:31:55,210 --> 00:31:57,829
+And the question is, you
+
+727
+00:31:57,829 --> 00:31:59,549
+have to answer the
+following question.
+
+728
+00:31:59,549 --> 00:32:05,315
+What the page table entries
+look like for PT one prime?
+
+729
+00:32:05,315 --> 00:32:09,399
+And what page table entries
+look like for PG two.
+
+730
+00:32:09,399 --> 00:32:11,779
+So let's start
+with a simple one.
+
+731
+00:32:11,779 --> 00:32:17,219
+PG two. There's a
+page table element
+
+732
+00:32:17,219 --> 00:32:21,479
+that's handling physical
+frame three, P three.
+
+733
+00:32:21,479 --> 00:32:25,140
+What should be the
+permissions be right here?
+
+734
+00:32:25,140 --> 00:32:26,599
+Yes.
+
+735
+00:32:26,599 --> 00:32:27,739
+Okay.
+
+736
+00:32:27,739 --> 00:32:29,779
+What's that?
+
+737
+00:32:30,990 --> 00:32:33,409
+Should be on and
+write should be off.
+
+738
+00:32:33,409 --> 00:32:36,270
+And how can we tell that
+write should be off?
+
+739
+00:32:36,270 --> 00:32:39,209
+If you reverse the
+pads for P three,
+
+740
+00:32:39,209 --> 00:32:41,949
+you'll see that PT
+two refering to
+
+741
+00:32:41,949 --> 00:32:46,249
+PD one and PD one
+process process.
+
+742
+00:32:46,249 --> 00:32:49,169
+Exactly. So if you
+trace it back, right,
+
+743
+00:32:49,169 --> 00:32:51,189
+you will eventually
+find that PD one and
+
+744
+00:32:51,189 --> 00:32:53,989
+PD one prime actually
+point to P three, right?
+
+745
+00:32:53,989 --> 00:32:57,729
+And so that means
+that permission bid,
+
+746
+00:32:57,729 --> 00:33:00,050
+the right permission bit
+should still be zero
+
+747
+00:33:00,050 --> 00:33:01,829
+because we should still continue
+
+748
+00:33:01,829 --> 00:33:03,649
+to disallow rights to P three.
+
+749
+00:33:03,649 --> 00:33:05,589
+We should still trap any
+
+750
+00:33:05,589 --> 00:33:08,914
+possible writes to P three
+in the future, right?
+
+751
+00:33:08,914 --> 00:33:12,440
+Okay. Now, what about the PTs
+
+752
+00:33:12,440 --> 00:33:16,320
+that are mapping P
+two and P one prime?
+
+753
+00:33:16,320 --> 00:33:18,519
+So let's maybe
+start with a P two.
+
+754
+00:33:18,519 --> 00:33:19,999
+That's the easy case, right?
+
+755
+00:33:19,999 --> 00:33:23,479
+What should the right
+bit be for P two?
+
+756
+00:33:26,000 --> 00:33:28,400
+In other words, right here,
+
+757
+00:33:28,400 --> 00:33:30,659
+is it a zero or a one?
+
+758
+00:33:30,659 --> 00:33:34,759
+It's a zero. Why is that?
+
+759
+00:33:35,430 --> 00:33:45,070
+Two. For the same reason
+
+760
+00:33:45,070 --> 00:33:47,629
+why the right bit for P
+three is zero, right?
+
+761
+00:33:47,629 --> 00:33:49,929
+It is possible for
+you to actually
+
+762
+00:33:49,929 --> 00:33:52,709
+access this from more
+than one process, right?
+
+763
+00:33:52,709 --> 00:33:56,729
+You can find paths back
+to P one and process one,
+
+764
+00:33:56,729 --> 00:33:58,929
+Proc one and process two.
+
+765
+00:33:58,929 --> 00:34:03,309
+Oh, here we go. Bunch of
+stuff starts happening.
+
+766
+00:34:03,309 --> 00:34:07,870
+Okay. And finally, what
+should be the P one prime?
+
+767
+00:34:07,870 --> 00:34:09,909
+Basically, what permission
+bits should be set for
+
+768
+00:34:09,909 --> 00:34:12,709
+the PTE mapping our
+P one prime frame?
+
+769
+00:34:12,709 --> 00:34:15,749
+One. And what's the
+reason for that?
+
+770
+00:34:16,640 --> 00:34:19,419
+There's only one path
+through the graph that
+
+771
+00:34:19,419 --> 00:34:22,040
+actually leads us to
+P one prime, okay?
+
+772
+00:34:22,040 --> 00:34:24,519
+And that's how you can tell.
+
+773
+00:34:25,080 --> 00:34:28,279
+Does that example make sense?
+
+774
+00:34:30,050 --> 00:34:32,769
+There are questions, yes.
+
+775
+00:34:32,769 --> 00:34:37,270
+Let's say process two
+allocates a new page.
+
+776
+00:34:37,270 --> 00:34:40,629
+We have to update
+the page dt and
+
+777
+00:34:40,629 --> 00:34:44,930
+the page table process
+two Yeah, exactly.
+
+778
+00:34:44,930 --> 00:34:48,329
+Yeah. Basically, if
+you're if you're not
+
+779
+00:34:48,329 --> 00:34:53,590
+referencing the state that you
+inherited from the parent,
+
+780
+00:34:53,590 --> 00:34:55,369
+you're just doing
+an S break, right,
+
+781
+00:34:55,369 --> 00:34:58,230
+and allocating new
+physical frames of memory,
+
+782
+00:34:58,230 --> 00:35:02,430
+you still have to update the
+last level page table pages
+
+783
+00:35:02,430 --> 00:35:04,229
+in order to insert the PTs that
+
+784
+00:35:04,229 --> 00:35:06,590
+map that new physical frames,
+
+785
+00:35:06,590 --> 00:35:08,190
+those new physical frames.
+
+786
+00:35:08,190 --> 00:35:10,329
+So even though, let's say
+
+787
+00:35:10,329 --> 00:35:12,949
+process reallocates a
+new page called P four,
+
+788
+00:35:12,949 --> 00:35:15,449
+which is outside the
+scope of process one.
+
+789
+00:35:15,449 --> 00:35:17,629
+Okay. Yeah. So P four, right?
+
+790
+00:35:17,629 --> 00:35:19,949
+Then why do we have
+
+791
+00:35:19,949 --> 00:35:22,529
+to update the page wrapping
+page table in that case?
+
+792
+00:35:22,529 --> 00:35:26,269
+Like Well, the
+reason for this is
+
+793
+00:35:26,269 --> 00:35:28,610
+because there's a
+new v2p mapping
+
+794
+00:35:28,610 --> 00:35:31,109
+that you need to keep
+track of, right?
+
+795
+00:35:31,109 --> 00:35:33,030
+That didn't previously exist.
+
+796
+00:35:33,030 --> 00:35:34,530
+So now there's an additional
+
+797
+00:35:34,530 --> 00:35:35,909
+VT P mapping that
+you're trying to
+
+798
+00:35:35,909 --> 00:35:39,389
+capture and save somehow
+using this mechanism, right?
+
+799
+00:35:39,389 --> 00:35:43,149
+And if it's a brand
+new physical frame
+
+800
+00:35:43,149 --> 00:35:45,569
+allocated to a brand
+new VFN, right,
+
+801
+00:35:45,569 --> 00:35:46,889
+you need to reflect that in
+
+802
+00:35:46,889 --> 00:35:50,970
+the PTE and because
+you're updating the PTE,
+
+803
+00:35:50,970 --> 00:35:54,129
+you need to if the PTE is
+
+804
+00:35:54,129 --> 00:35:55,309
+actually inserted into
+
+805
+00:35:55,309 --> 00:35:57,610
+a page table page that
+previously existed,
+
+806
+00:35:57,610 --> 00:36:00,389
+nothing should happen in
+page directory, right?
+
+807
+00:36:00,389 --> 00:36:02,809
+If, however, the PTE needs to be
+
+808
+00:36:02,809 --> 00:36:05,810
+inserted into a page table
+page that did not exist,
+
+809
+00:36:05,810 --> 00:36:07,890
+you need to allocate
+that and update
+
+810
+00:36:07,890 --> 00:36:09,549
+the page directory
+entry to point to
+
+811
+00:36:09,549 --> 00:36:11,709
+a newly allocated
+page table page.
+
+812
+00:36:11,709 --> 00:36:13,969
+Then in that case,
+you need to copy.
+
+813
+00:36:13,969 --> 00:36:18,009
+Yes. Yeah. Yeah,
+good question. Yes.
+
+814
+00:36:21,890 --> 00:36:26,589
+In what case? Yeah.
+
+815
+00:36:26,589 --> 00:36:30,069
+Yeah, because that's purely
+and entirely kind of in
+
+816
+00:36:30,069 --> 00:36:33,750
+the V to P mapping space
+of a separate process,
+
+817
+00:36:33,750 --> 00:36:37,009
+that does not concern any
+other process, right?
+
+818
+00:36:37,009 --> 00:36:44,199
+Yes. I the original P one. Yes.
+
+819
+00:36:44,199 --> 00:36:47,279
+Yeah, so that's a really
+good question, right?
+
+820
+00:36:47,279 --> 00:36:49,299
+I hinted that something needs to
+
+821
+00:36:49,299 --> 00:36:51,180
+happen to the P
+one, and actually,
+
+822
+00:36:51,180 --> 00:36:54,579
+let me sort of answer
+
+823
+00:36:54,579 --> 00:36:57,240
+that question in the context
+of the next few slides.
+
+824
+00:36:57,240 --> 00:36:59,199
+So then I'll take
+
+825
+00:36:59,199 --> 00:37:01,979
+more questions closer towards
+the end of the class.
+
+826
+00:37:01,979 --> 00:37:03,699
+Okay? So here's a question
+
+827
+00:37:03,699 --> 00:37:06,419
+that's going to ultimately
+give the answer to you.
+
+828
+00:37:06,419 --> 00:37:09,199
+How many TOB page invalidates
+
+829
+00:37:09,199 --> 00:37:12,419
+do we need to make
+on a right to P one?
+
+830
+00:37:13,980 --> 00:37:19,860
+Is it 01 or a quintessential 42.
+
+831
+00:37:23,140 --> 00:37:26,119
+So in other words,
+
+832
+00:37:26,119 --> 00:37:28,639
+process two is a
+child of process one.
+
+833
+00:37:28,639 --> 00:37:34,359
+Process two has attempted
+to write P one,
+
+834
+00:37:34,359 --> 00:37:35,859
+right? It's right here.
+
+835
+00:37:35,859 --> 00:37:37,240
+I know it's hard to track,
+
+836
+00:37:37,240 --> 00:37:39,279
+but we attempted
+to write to P one.
+
+837
+00:37:39,279 --> 00:37:42,299
+Then we made a copy of P
+one to P one prime, right?
+
+838
+00:37:42,299 --> 00:37:45,060
+So something happened
+there, okay?
+
+839
+00:37:45,060 --> 00:37:48,600
+And the question asks,
+
+840
+00:37:48,600 --> 00:37:50,680
+how many TOB patient validates
+
+841
+00:37:50,680 --> 00:37:53,119
+do we need to perform
+as a result of this?
+
+842
+00:37:53,119 --> 00:37:56,614
+So first of all, does anybody
+think that it's zero?
+
+843
+00:37:56,614 --> 00:38:01,270
+No. Does anybody think it's 42?
+
+844
+00:38:01,270 --> 00:38:04,069
+No. So it must be 1-2,
+
+845
+00:38:04,069 --> 00:38:08,129
+right? How do we know that?
+
+846
+00:38:08,129 --> 00:38:13,390
+Well, let's look at this
+figure again, okay?
+
+847
+00:38:13,390 --> 00:38:16,569
+So we know that we've
+changed the permission and
+
+848
+00:38:16,569 --> 00:38:20,769
+the physical address for the
+P one prime frame, right?
+
+849
+00:38:20,769 --> 00:38:23,309
+So that right there means that
+
+850
+00:38:23,309 --> 00:38:26,470
+there exists a VTP
+mapping that has changed.
+
+851
+00:38:26,470 --> 00:38:29,389
+And do you remember what
+TLB is responsible for?
+
+852
+00:38:29,389 --> 00:38:33,839
+COB is responsible
+for caching VM to
+
+853
+00:38:33,839 --> 00:38:36,319
+PT mappings is responsible for
+
+854
+00:38:36,319 --> 00:38:40,780
+caching virtual frame
+numbers to PT mappings.
+
+855
+00:38:40,780 --> 00:38:45,099
+PTE consists, as I
+mentioned, from two things.
+
+856
+00:38:45,099 --> 00:38:50,889
+One of them is What
+
+857
+00:38:50,889 --> 00:38:52,789
+are the two high
+level things that
+
+858
+00:38:52,789 --> 00:38:55,709
+a patient hold information for?
+
+859
+00:38:55,709 --> 00:38:57,430
+The address and flags.
+
+860
+00:38:57,430 --> 00:38:59,449
+The address and
+the flags, right?
+
+861
+00:38:59,449 --> 00:39:01,790
+Has the address changed?
+
+862
+00:39:01,790 --> 00:39:04,950
+The physical frame
+number, has it changed?
+
+863
+00:39:04,950 --> 00:39:06,969
+Yeah, it has changed, right?
+
+864
+00:39:06,969 --> 00:39:09,369
+So the VFN that
+
+865
+00:39:09,369 --> 00:39:12,029
+process to the child
+process has attempted to
+
+866
+00:39:12,029 --> 00:39:13,549
+write on now has
+
+867
+00:39:13,549 --> 00:39:18,110
+a different PFN that
+it's writing into, okay?
+
+868
+00:39:18,250 --> 00:39:21,609
+So that right there should
+trigger an invalidate.
+
+869
+00:39:21,609 --> 00:39:23,949
+Is that the only
+invalidate Is that
+
+870
+00:39:23,949 --> 00:39:25,209
+the only thing that has
+
+871
+00:39:25,209 --> 00:39:27,950
+changed that I need
+to ask yourself?
+
+872
+00:39:27,950 --> 00:39:30,750
+Is that the only thing that
+has changed in the system,
+
+873
+00:39:30,750 --> 00:39:31,869
+or is that the only thing that
+
+874
+00:39:31,869 --> 00:39:33,210
+should change in the system?
+
+875
+00:39:33,210 --> 00:39:35,590
+And back to your
+question, what if process
+
+876
+00:39:35,590 --> 00:39:38,609
+one now wants to write to P one?
+
+877
+00:39:38,609 --> 00:39:40,709
+In this figure right here,
+
+878
+00:39:40,709 --> 00:39:42,910
+do the mental
+gymnastics to figure
+
+879
+00:39:42,910 --> 00:39:46,009
+out how many processes
+are pointing to P one.
+
+880
+00:39:47,390 --> 00:39:49,249
+How many?
+
+881
+00:39:49,249 --> 00:39:53,549
+One, right? But what
+was its permission bit?
+
+882
+00:39:53,549 --> 00:39:56,530
+Zero. And so what
+happens if process
+
+883
+00:39:56,530 --> 00:40:00,149
+one writes to P one with
+a zero permission bit?
+
+884
+00:40:01,030 --> 00:40:04,349
+Yeah, it's going to give
+you a page fall, right?
+
+885
+00:40:04,349 --> 00:40:06,590
+Do we want that page
+fault to happen?
+
+886
+00:40:06,590 --> 00:40:08,149
+No, there's no reason for
+
+887
+00:40:08,149 --> 00:40:10,049
+that page fault
+to happen, right?
+
+888
+00:40:10,049 --> 00:40:14,189
+So that means that we
+probably should have updated
+
+889
+00:40:14,189 --> 00:40:19,789
+the permissions on the
+physical frame P one.
+
+890
+00:40:20,080 --> 00:40:23,399
+Uh huh. So now that means that
+
+891
+00:40:23,399 --> 00:40:26,040
+it's not just one thing that
+has changed in our universe.
+
+892
+00:40:26,040 --> 00:40:29,259
+It's two things. One of them
+
+893
+00:40:29,259 --> 00:40:30,859
+is associated with the new frame
+
+894
+00:40:30,859 --> 00:40:32,760
+P one prime that
+we've just allocated.
+
+895
+00:40:32,760 --> 00:40:34,279
+That one is the easy one.
+
+896
+00:40:34,279 --> 00:40:37,559
+So we know and invalidate
+happened there.
+
+897
+00:40:37,680 --> 00:40:40,419
+And the other one is
+that we need to change
+
+898
+00:40:40,419 --> 00:40:42,619
+the permission bits on
+physical frame one so that we
+
+899
+00:40:42,619 --> 00:40:44,760
+don't unnecessarily
+trap the parent
+
+900
+00:40:44,760 --> 00:40:47,680
+on the frame that is
+no longer shared.
+
+901
+00:40:48,260 --> 00:40:52,959
+Two things have changed.
+More specifically,
+
+902
+00:40:52,959 --> 00:40:56,839
+things have changed to
+two different via fans.
+
+903
+00:40:56,839 --> 00:40:59,999
+Now, how many of you think
+that this is going to
+
+904
+00:40:59,999 --> 00:41:02,479
+require two invalidates because
+
+905
+00:41:02,479 --> 00:41:05,259
+of this, two TLB invalidates.
+
+906
+00:41:06,380 --> 00:41:08,759
+Okay, how many of
+you think that it's
+
+907
+00:41:08,759 --> 00:41:11,309
+going to require one invalidate?
+
+908
+00:41:11,309 --> 00:41:15,519
+Okay, why do you think
+that it's going to be one?
+
+909
+00:41:16,960 --> 00:41:20,239
+You, for example.
+P one prime was
+
+910
+00:41:20,239 --> 00:41:23,159
+never in until he got
+created brand new.
+
+911
+00:41:23,159 --> 00:41:25,079
+So you wouldn't necessarily be
+
+912
+00:41:25,079 --> 00:41:28,599
+invalidating as much as
+adding a new entry to.
+
+913
+00:41:28,599 --> 00:41:30,939
+So when you're
+doing invalidating
+
+914
+00:41:30,939 --> 00:41:34,040
+the original P one red obscure.
+
+915
+00:41:34,040 --> 00:41:36,679
+Right. And so let me just
+
+916
+00:41:36,679 --> 00:41:38,019
+paraphrase that a little bit
+
+917
+00:41:38,019 --> 00:41:39,619
+for everybody's benefit, right?
+
+918
+00:41:39,619 --> 00:41:43,459
+So what happens is that
+who is the color that
+
+919
+00:41:43,459 --> 00:41:45,739
+initiated a right to P one
+
+920
+00:41:45,739 --> 00:41:48,219
+that became a right to P one
+prime in the first place?
+
+921
+00:41:48,219 --> 00:41:50,059
+The color is process two.
+
+922
+00:41:50,059 --> 00:41:53,119
+Okay? So the context
+that's currently loaded in
+
+923
+00:41:53,119 --> 00:41:56,240
+the kernel is the
+process to context.
+
+924
+00:41:56,240 --> 00:41:58,539
+Okay. So anything that
+
+925
+00:41:58,539 --> 00:42:01,759
+pertains to the process
+to context, you know,
+
+926
+00:42:01,759 --> 00:42:05,580
+is in all the mappings
+
+927
+00:42:05,580 --> 00:42:06,719
+that are in the TLB that
+
+928
+00:42:06,719 --> 00:42:09,200
+pertain to the
+process to context.
+
+929
+00:42:09,200 --> 00:42:11,919
+If we attempt to make changes to
+
+930
+00:42:11,919 --> 00:42:16,600
+VA to PTE mappings for
+any other process,
+
+931
+00:42:16,600 --> 00:42:19,469
+this is not in the TOB
+that we have right now.
+
+932
+00:42:19,469 --> 00:42:21,219
+And as a matter of fact, we need
+
+933
+00:42:21,219 --> 00:42:22,980
+to just update the
+data structure,
+
+934
+00:42:22,980 --> 00:42:25,739
+and next time we switch
+contacts back to process one,
+
+935
+00:42:25,739 --> 00:42:27,360
+the contact switch itself
+
+936
+00:42:27,360 --> 00:42:29,680
+is going to take
+care of that flush
+
+937
+00:42:29,680 --> 00:42:31,280
+because we will be writing
+
+938
+00:42:31,280 --> 00:42:35,139
+the page directory of
+process one into CR three,
+
+939
+00:42:35,139 --> 00:42:37,879
+which triggers a TLB flush.
+
+940
+00:42:37,879 --> 00:42:47,009
+Okay? So that means once
+again that the answer is one.
+
+941
+00:42:47,009 --> 00:42:49,769
+We only need to perform
+a TLB and validate
+
+942
+00:42:49,769 --> 00:42:52,529
+for the single update
+that we're making for
+
+943
+00:42:52,529 --> 00:42:55,190
+the P one frame
+
+944
+00:42:55,190 --> 00:42:56,409
+because that's what's in the
+
+945
+00:42:56,409 --> 00:42:58,949
+context of the kernel right now.
+
+946
+00:42:58,949 --> 00:43:00,869
+So that's a bit of
+a trick question,
+
+947
+00:43:00,869 --> 00:43:03,949
+right? But it's fun
+to think about.
+
+948
+00:43:03,949 --> 00:43:05,489
+Does that answer your question?
+
+949
+00:43:05,489 --> 00:43:07,629
+And that answers his question.
+
+950
+00:43:07,629 --> 00:43:12,029
+Okay? The answer
+is one. All right.
+
+951
+00:43:12,029 --> 00:43:13,809
+So we got through
+this example and
+
+952
+00:43:13,809 --> 00:43:15,649
+we still have some
+time. That's awesome.
+
+953
+00:43:15,649 --> 00:43:17,489
+So basically, what do we track?
+
+954
+00:43:17,489 --> 00:43:19,730
+Think about per physical page
+
+955
+00:43:19,730 --> 00:43:21,889
+versus per virtual page data.
+
+956
+00:43:21,889 --> 00:43:24,329
+How do I know when I
+need to copy a page?
+
+957
+00:43:24,329 --> 00:43:25,629
+We have already discussed that.
+
+958
+00:43:25,629 --> 00:43:27,129
+I sort of gave you my mental
+
+959
+00:43:27,129 --> 00:43:29,059
+model about how to
+think about it.
+
+960
+00:43:29,059 --> 00:43:31,669
+How do I know when P one
+prime has been freed?
+
+961
+00:43:31,669 --> 00:43:33,529
+You know? What about P two?
+
+962
+00:43:33,529 --> 00:43:36,629
+So you have to think about
+corner cases because it's not
+
+963
+00:43:36,629 --> 00:43:40,129
+just going to be a simple
+parent and child relationship.
+
+964
+00:43:40,129 --> 00:43:43,110
+It could be grandchildren,
+grand grandgrandchildren.
+
+965
+00:43:43,110 --> 00:43:45,549
+It could be somebody dying
+in the process, right?
+
+966
+00:43:45,549 --> 00:43:48,690
+It could be someone who is
+being orphaned in the process.
+
+967
+00:43:48,690 --> 00:43:50,629
+So how do I handle cases like
+
+968
+00:43:50,629 --> 00:43:53,370
+this and how do I handle
+out of memory instances?
+
+969
+00:43:53,370 --> 00:43:56,599
+Um, so basically, the
+way to think about
+
+970
+00:43:56,599 --> 00:44:00,059
+this is when you really dig
+in your lab to, you know,
+
+971
+00:44:00,059 --> 00:44:02,159
+try to go back to this
+deck of slides and
+
+972
+00:44:02,159 --> 00:44:05,539
+possibly this video as
+well and sort of ask
+
+973
+00:44:05,539 --> 00:44:08,319
+yourself to think about this
+conceptually as a graph
+
+974
+00:44:08,319 --> 00:44:09,659
+that's sort of
+being mutated over
+
+975
+00:44:09,659 --> 00:44:11,520
+time and think like a vertex,
+
+976
+00:44:11,520 --> 00:44:12,759
+you know, because there's so
+
+977
+00:44:12,759 --> 00:44:14,459
+much stuff happening
+around this,
+
+978
+00:44:14,459 --> 00:44:17,059
+but we were able to kind
+of reduce it down to
+
+979
+00:44:17,059 --> 00:44:18,439
+the narrow waste interface of
+
+980
+00:44:18,439 --> 00:44:20,520
+thinking about it as a
+graph data structure.
+
+981
+00:44:20,520 --> 00:44:23,399
+That's a function
+of time and being
+
+982
+00:44:23,399 --> 00:44:24,820
+able to mutate the vertices
+
+983
+00:44:24,820 --> 00:44:27,199
+along the way, as
+well as the graph.
+
+984
+00:44:27,199 --> 00:44:29,279
+As a result of all of this,
+
+985
+00:44:29,279 --> 00:44:32,699
+it gives us the ability to
+perform copy on write fork,
+
+986
+00:44:32,699 --> 00:44:35,240
+extensive discussion, okay,
+
+987
+00:44:35,240 --> 00:44:37,320
+demand paging or
+lazy allocation,
+
+988
+00:44:37,320 --> 00:44:39,599
+so we can defer
+allocation later on.
+
+989
+00:44:39,599 --> 00:44:41,200
+We can have on demand
+
+990
+00:44:41,200 --> 00:44:43,660
+zero filled pages because
+zero filling is actually
+
+991
+00:44:43,660 --> 00:44:45,879
+an expensive operation
+if you perform this on
+
+992
+00:44:45,879 --> 00:44:48,600
+a critical path of a
+malloc or a calloc,
+
+993
+00:44:48,600 --> 00:44:52,139
+I guess, right? Or an break.
+
+994
+00:44:52,650 --> 00:44:56,290
+We can have a 10 field
+page in our system.
+
+995
+00:44:56,290 --> 00:44:58,329
+And as a matter of fact,
+when I was working on
+
+996
+00:44:58,329 --> 00:45:00,850
+the Snowflok research project
+
+997
+00:45:00,850 --> 00:45:04,250
+back at the University
+of Toronto, basically,
+
+998
+00:45:04,250 --> 00:45:06,049
+I needed to worry about kind of
+
+999
+00:45:06,049 --> 00:45:08,429
+carrying over the zero
+field page from the guest
+
+1000
+00:45:08,429 --> 00:45:11,589
+Linux kernel and
+across the fork to
+
+1001
+00:45:11,589 --> 00:45:13,190
+the rest of the virtual machines
+
+1002
+00:45:13,190 --> 00:45:15,465
+that were forked from
+the original parent.
+
+1003
+00:45:15,465 --> 00:45:17,740
+It enables virtual allocation.
+
+1004
+00:45:17,740 --> 00:45:19,800
+It enables virtual
+shared memory.
+
+1005
+00:45:19,800 --> 00:45:21,980
+Hopefully, we'll get
+to that example.
+
+1006
+00:45:21,980 --> 00:45:24,560
+We can also map files.
+
+1007
+00:45:24,560 --> 00:45:26,319
+So instead of doing file IO,
+
+1008
+00:45:26,319 --> 00:45:28,360
+we can actually
+perform memory reason
+
+1009
+00:45:28,360 --> 00:45:32,140
+writes as soon as our files
+were mapped into memory,
+
+1010
+00:45:32,140 --> 00:45:34,080
+which is a very
+powerful construct,
+
+1011
+00:45:34,080 --> 00:45:37,399
+and databases use it
+all the time, okay?
+
+1012
+00:45:37,399 --> 00:45:39,459
+They map a bunch of files that
+
+1013
+00:45:39,459 --> 00:45:42,119
+actually represent the
+data on disk, right?
+
+1014
+00:45:42,119 --> 00:45:43,860
+And you can actually
+
+1015
+00:45:43,860 --> 00:45:46,420
+with high efficiency
+and high throughput,
+
+1016
+00:45:46,420 --> 00:45:51,815
+perform your database operations
+on memory mapped data.
+
+1017
+00:45:51,815 --> 00:45:56,149
+You can also basically
+page frames to disc,
+
+1018
+00:45:56,149 --> 00:45:58,809
+and this is a necessary
+condition for us to even
+
+1019
+00:45:58,809 --> 00:46:02,590
+have memory oversubscription
+in the first case, okay?
+
+1020
+00:46:02,870 --> 00:46:06,470
+Because if you ran out
+of physical frames,
+
+1021
+00:46:06,470 --> 00:46:07,750
+if you ran out of physical
+
+1022
+00:46:07,750 --> 00:46:10,109
+resources that you have to give,
+
+1023
+00:46:10,150 --> 00:46:12,849
+and you want to prop
+up this illusion of
+
+1024
+00:46:12,849 --> 00:46:14,750
+infinite memory to
+every single process,
+
+1025
+00:46:14,750 --> 00:46:16,549
+you have to do something
+under the hood.
+
+1026
+00:46:16,549 --> 00:46:20,829
+And that something is paging
+frames to disk, okay?
+
+1027
+00:46:20,829 --> 00:46:24,430
+So maybe let's talk
+about lazy allocation.
+
+1028
+00:46:24,430 --> 00:46:27,129
+If we assign a process
+virtual memory space,
+
+1029
+00:46:27,129 --> 00:46:29,910
+do we need to populate
+it with physical memory?
+
+1030
+00:46:29,910 --> 00:46:33,069
+Well, the answer is now
+obviously no, right?
+
+1031
+00:46:33,069 --> 00:46:36,050
+Can we assign more virtual
+memory than physical memory?
+
+1032
+00:46:36,050 --> 00:46:38,410
+Yes, of course, that's
+called oversubscription.
+
+1033
+00:46:38,410 --> 00:46:40,489
+There are trade offs
+associated with that.
+
+1034
+00:46:40,489 --> 00:46:43,110
+Always think about
+trade offs, okay?
+
+1035
+00:46:43,110 --> 00:46:44,869
+Always think about trade offs,
+
+1036
+00:46:44,869 --> 00:46:47,309
+as I myself aspire to do,
+
+1037
+00:46:47,309 --> 00:46:50,689
+and I try to sort of instill
+that on you as well.
+
+1038
+00:46:50,689 --> 00:46:56,269
+Lazy zeroing. So, specifically,
+
+1039
+00:46:56,269 --> 00:46:57,489
+I think we're going
+to discuss this
+
+1040
+00:46:57,489 --> 00:46:59,209
+in the context of an break.
+
+1041
+00:46:59,209 --> 00:47:01,289
+So pages from the
+kernel that are
+
+1042
+00:47:01,289 --> 00:47:03,650
+allocated from the kernel
+are zero by default.
+
+1043
+00:47:03,650 --> 00:47:06,929
+Why? Well, if you
+didn't do that,
+
+1044
+00:47:06,929 --> 00:47:08,269
+you could have received a
+
+1045
+00:47:08,269 --> 00:47:10,029
+physical frame from
+someone that might
+
+1046
+00:47:10,029 --> 00:47:11,849
+have stored your private SSH key
+
+1047
+00:47:11,849 --> 00:47:13,529
+in that physical frame, right?
+
+1048
+00:47:13,529 --> 00:47:16,169
+So that would be a
+huge security leak,
+
+1049
+00:47:16,169 --> 00:47:17,189
+you know, very easy,
+
+1050
+00:47:17,189 --> 00:47:18,889
+low hanging fruit
+kind of stuff for
+
+1051
+00:47:18,889 --> 00:47:22,029
+the hackers to take
+advantage of, right?
+
+1052
+00:47:22,029 --> 00:47:23,910
+So, you know, by default,
+
+1053
+00:47:23,910 --> 00:47:26,349
+you really want your
+kernel pages to be free.
+
+1054
+00:47:26,349 --> 00:47:30,110
+Um so do we need to zero
+them on allocation?
+
+1055
+00:47:30,110 --> 00:47:36,869
+As I mentioned, that's
+hard because it's hold on.
+
+1056
+00:47:36,869 --> 00:47:38,889
+As I mentioned, that's
+hard because it's
+
+1057
+00:47:38,889 --> 00:47:42,290
+an expensive kind of
+MM set on 4,096 bytes,
+
+1058
+00:47:42,290 --> 00:47:44,149
+which actually takes
+quite a bit of
+
+1059
+00:47:44,149 --> 00:47:45,829
+time and it's non
+
+1060
+00:47:45,829 --> 00:47:48,270
+trivial overhead that you
+want to be able to avoid.
+
+1061
+00:47:48,270 --> 00:47:49,810
+So do all of these mappings
+
+1062
+00:47:49,810 --> 00:47:51,930
+need to different
+physical pages?
+
+1063
+00:47:51,930 --> 00:47:53,489
+Of course, the answer is no.
+
+1064
+00:47:53,489 --> 00:47:55,230
+Let's walk through an example.
+
+1065
+00:47:55,230 --> 00:47:56,589
+On the left hand side, you have
+
+1066
+00:47:56,589 --> 00:47:58,309
+virtual address space and you
+
+1067
+00:47:58,309 --> 00:48:00,829
+have your process kind of
+
+1068
+00:48:00,829 --> 00:48:03,710
+trying to allocate
+additional memory,
+
+1069
+00:48:03,710 --> 00:48:06,200
+o and they do that
+by calling break.
+
+1070
+00:48:06,200 --> 00:48:08,649
+Okay? So they call as break to
+
+1071
+00:48:08,649 --> 00:48:13,510
+allocate two times page
+size worth of memory.
+
+1072
+00:48:13,510 --> 00:48:15,989
+So that means that this
+is going to create
+
+1073
+00:48:15,989 --> 00:48:18,869
+two additional V ofens
+and the question is,
+
+1074
+00:48:18,869 --> 00:48:22,069
+what physical frames
+they're going to map two.
+
+1075
+00:48:22,069 --> 00:48:23,729
+And on the right hand side,
+
+1076
+00:48:23,729 --> 00:48:26,450
+you have your physical
+memory, so you have space.
+
+1077
+00:48:26,450 --> 00:48:30,350
+So you could have allocated
+a Pfen five to VfN
+
+1078
+00:48:30,350 --> 00:48:32,049
+four and Pfen six
+
+1079
+00:48:32,049 --> 00:48:34,489
+to VfN five, right? You
+could have done that.
+
+1080
+00:48:34,489 --> 00:48:38,089
+But are we going
+to do that? Is it
+
+1081
+00:48:38,089 --> 00:48:39,869
+necessary for us to do that?
+
+1082
+00:48:39,869 --> 00:48:42,209
+It's not necessary, right?
+
+1083
+00:48:42,209 --> 00:48:44,770
+What could we do instead?
+
+1084
+00:48:47,770 --> 00:48:50,889
+Yes. You can point them
+
+1085
+00:48:50,889 --> 00:48:53,549
+both at the same
+page and then zero
+
+1086
+00:48:53,549 --> 00:48:55,309
+that one singular page and
+
+1087
+00:48:55,309 --> 00:48:57,389
+then worry about remapping when
+
+1088
+00:48:57,389 --> 00:49:01,710
+you actually make a write
+to one of your VFN pages.
+
+1089
+00:49:01,710 --> 00:49:04,409
+Exactly, right? We've already
+
+1090
+00:49:04,409 --> 00:49:06,889
+extensively discussed the
+whole copy on write stuff,
+
+1091
+00:49:06,889 --> 00:49:08,810
+right, and on demand paging.
+
+1092
+00:49:08,810 --> 00:49:10,790
+What we could do is basically
+
+1093
+00:49:10,790 --> 00:49:12,509
+just take one physical frame,
+
+1094
+00:49:12,509 --> 00:49:14,009
+MM set it to zero, right,
+
+1095
+00:49:14,009 --> 00:49:16,630
+and point both of
+those VfNs to that PFN
+
+1096
+00:49:16,630 --> 00:49:19,509
+and worry about copy
+on write later,
+
+1097
+00:49:19,509 --> 00:49:22,969
+just like we've done
+already in this class.
+
+1098
+00:49:22,969 --> 00:49:24,990
+And so that saves memory,
+
+1099
+00:49:24,990 --> 00:49:28,669
+which means that now you have
+more virtual frames that
+
+1100
+00:49:28,669 --> 00:49:31,129
+are that the processes and
+
+1101
+00:49:31,129 --> 00:49:34,350
+the applications in general
+believe to be in existence,
+
+1102
+00:49:34,350 --> 00:49:37,250
+right, then there
+are physical frames.
+
+1103
+00:49:37,770 --> 00:49:40,589
+So that's the mechanism that
+
+1104
+00:49:40,589 --> 00:49:43,369
+actually allows us over
+subscription, right?
+
+1105
+00:49:43,369 --> 00:49:46,009
+And so this is a read
+only mapping, of course.
+
+1106
+00:49:46,009 --> 00:49:47,669
+So that means that
+when we do that,
+
+1107
+00:49:47,669 --> 00:49:50,309
+of course, we do have to set
+our we bit to zero, right,
+
+1108
+00:49:50,309 --> 00:49:52,529
+so that we can take
+that trap so that we
+
+1109
+00:49:52,529 --> 00:49:55,190
+can do all of that magic that
+we've already discussed,
+
+1110
+00:49:55,190 --> 00:49:58,769
+right, to perform
+a copy on write.
+
+1111
+00:49:59,830 --> 00:50:02,690
+We can also do shared memory.
+
+1112
+00:50:02,690 --> 00:50:04,709
+Does every virtual page need to
+
+1113
+00:50:04,709 --> 00:50:06,390
+map to a unique
+physical webpage?
+
+1114
+00:50:06,390 --> 00:50:07,689
+I mean, that's obvious that
+
+1115
+00:50:07,689 --> 00:50:09,589
+the answer to that is no, right?
+
+1116
+00:50:09,589 --> 00:50:11,110
+What are some of the examples
+
+1117
+00:50:11,110 --> 00:50:12,630
+of useful shared
+memory mappings?
+
+1118
+00:50:12,630 --> 00:50:14,129
+Do you guys know? Give me
+
+1119
+00:50:14,129 --> 00:50:17,550
+some good examples of
+shared memory mappings.
+
+1120
+00:50:21,710 --> 00:50:26,869
+Yeah, Libraries, right?
+
+1121
+00:50:28,310 --> 00:50:30,990
+Libraries. Exactly. And UNIX
+
+1122
+00:50:30,990 --> 00:50:33,030
+sort of became really popular.
+
+1123
+00:50:33,030 --> 00:50:37,269
+I don't know. 40 years ago,
+something like this, right?
+
+1124
+00:50:37,269 --> 00:50:40,170
+Because it actually saved
+quite a bit of memory.
+
+1125
+00:50:40,170 --> 00:50:41,929
+It was ultra efficient at
+
+1126
+00:50:41,929 --> 00:50:44,749
+the time when the amount
+of memory you had,
+
+1127
+00:50:44,749 --> 00:50:47,769
+you know, was orders of
+magnitude less, right,
+
+1128
+00:50:47,769 --> 00:50:50,510
+by allowing these
+shared object files,
+
+1129
+00:50:50,510 --> 00:50:53,850
+the data so files
+to be loaded into
+
+1130
+00:50:53,850 --> 00:50:55,589
+multiple address spaces of
+
+1131
+00:50:55,589 --> 00:50:57,409
+multiple processes and using
+
+1132
+00:50:57,409 --> 00:50:59,530
+only a small number
+of physical frames.
+
+1133
+00:50:59,530 --> 00:51:03,850
+So it was a huge
+saving exercise, okay?
+
+1134
+00:51:03,850 --> 00:51:05,769
+And so you can actually
+play around with
+
+1135
+00:51:05,769 --> 00:51:08,009
+this and take a look
+at it yourself, right?
+
+1136
+00:51:08,009 --> 00:51:10,209
+So here, I did a
+very simple thing.
+
+1137
+00:51:10,209 --> 00:51:12,469
+I started two sleep
+processes, right,
+
+1138
+00:51:12,469 --> 00:51:15,030
+sleep 100 seconds or
+sleep 200 seconds.
+
+1139
+00:51:15,030 --> 00:51:16,490
+And I looked at their maps,
+
+1140
+00:51:16,490 --> 00:51:19,450
+which are located
+on the Slash PC
+
+1141
+00:51:19,450 --> 00:51:23,030
+PID slash MAPS, okay?
+
+1142
+00:51:23,030 --> 00:51:26,089
+And actually, it looks
+nauseating, right?
+
+1143
+00:51:26,089 --> 00:51:27,869
+It's so much information here,
+
+1144
+00:51:27,869 --> 00:51:29,369
+but there's actually
+quite a bit of
+
+1145
+00:51:29,369 --> 00:51:31,449
+very useful and interesting
+information here.
+
+1146
+00:51:31,449 --> 00:51:33,209
+For instance, right?
+
+1147
+00:51:33,209 --> 00:51:34,549
+Let's take a look at
+
+1148
+00:51:34,549 --> 00:51:36,909
+this Lip C shared
+object file that was
+
+1149
+00:51:36,909 --> 00:51:41,350
+loaded at exactly
+the same address
+
+1150
+00:51:41,350 --> 00:51:43,169
+for both of these processes.
+
+1151
+00:51:43,169 --> 00:51:45,829
+And the physical frames that are
+
+1152
+00:51:45,829 --> 00:51:49,209
+occupied by the Lips library
+are exactly the same,
+
+1153
+00:51:49,209 --> 00:51:52,789
+and they are mapped into two
+processes at the same time.
+
+1154
+00:51:52,789 --> 00:51:54,989
+But without paying the cost
+
+1155
+00:51:54,989 --> 00:51:57,389
+without paying the
+double cost for them.
+
+1156
+00:51:57,389 --> 00:52:01,799
+Okay? So that's an easy one,
+
+1157
+00:52:01,799 --> 00:52:04,199
+but there's so much more
+information out there.
+
+1158
+00:52:04,199 --> 00:52:07,099
+So, for example, let's
+
+1159
+00:52:07,099 --> 00:52:08,499
+take a look at this
+mapping right here.
+
+1160
+00:52:08,499 --> 00:52:11,779
+Do you see my cursor? Okay, so
+
+1161
+00:52:11,779 --> 00:52:14,519
+this mapping is so first of all,
+
+1162
+00:52:14,519 --> 00:52:17,920
+the three least significant
+hexadecimal digits,
+
+1163
+00:52:17,920 --> 00:52:19,660
+notice that all of the mappings,
+
+1164
+00:52:19,660 --> 00:52:21,120
+they have three
+least significant
+
+1165
+00:52:21,120 --> 00:52:23,539
+hexadecimal digits
+to being zero.
+
+1166
+00:52:23,539 --> 00:52:27,839
+Why is that the case? Yeah, the
+
+1167
+00:52:27,839 --> 00:52:30,999
+page what's the page size
+in this system? You think?
+
+1168
+00:52:31,370 --> 00:52:33,349
+What?
+
+1169
+00:52:33,349 --> 00:52:36,309
+Yeah, two to the
+power of 12, right?
+
+1170
+00:52:36,309 --> 00:52:41,130
+And the 12 bits are basically
+three hexadecimal digits.
+
+1171
+00:52:41,130 --> 00:52:42,949
+So all of these mappings
+are page aligned.
+
+1172
+00:52:42,949 --> 00:52:46,009
+That's observation simple
+observation number one, right?
+
+1173
+00:52:46,009 --> 00:52:47,810
+What are some additional
+observations?
+
+1174
+00:52:47,810 --> 00:52:49,849
+Well, let's look at
+this region right here.
+
+1175
+00:52:49,849 --> 00:52:53,370
+So now shift right by
+three hexadecimal digits.
+
+1176
+00:52:53,370 --> 00:52:55,870
+So disregard them because
+they're all page aligned,
+
+1177
+00:52:55,870 --> 00:52:58,249
+and you will be
+dealing with VfNs.
+
+1178
+00:52:58,249 --> 00:53:03,109
+Okay? So this particular
+mapping is from
+
+1179
+00:53:03,109 --> 00:53:08,210
+c00 VfN to D eight A VN.
+
+1180
+00:53:08,210 --> 00:53:10,469
+And it's readable
+and executable.
+
+1181
+00:53:10,469 --> 00:53:12,609
+What do you think that is?
+
+1182
+00:53:13,190 --> 00:53:19,769
+For lip C. Yeah, huh?
+
+1183
+00:53:19,769 --> 00:53:22,489
+It's a code segment
+for lip C, right?
+
+1184
+00:53:22,489 --> 00:53:24,489
+Exactly. You don't
+want to write to it,
+
+1185
+00:53:24,489 --> 00:53:26,709
+but you want to read it and
+you want to execute it.
+
+1186
+00:53:26,709 --> 00:53:29,790
+And how many virtual
+frames or actually,
+
+1187
+00:53:29,790 --> 00:53:31,329
+how many physical frames does
+
+1188
+00:53:31,329 --> 00:53:33,070
+it take in order
+for us to actually
+
+1189
+00:53:33,070 --> 00:53:35,450
+maintain this specific mapping
+
+1190
+00:53:35,450 --> 00:53:37,109
+for the code segment of lip C?
+
+1191
+00:53:37,109 --> 00:53:39,209
+If I were to ask
+you this question,
+
+1192
+00:53:39,209 --> 00:53:42,549
+how many physical frames
+do I need in order
+
+1193
+00:53:42,549 --> 00:53:46,670
+to support a ip
+Cde code segment?
+
+1194
+00:53:46,670 --> 00:53:49,389
+And the answer can
+be in hexodecimal.
+
+1195
+00:53:49,389 --> 00:53:51,809
+I don't want you to do
+the decimal math here.
+
+1196
+00:53:51,809 --> 00:53:54,869
+What's the answer
+in hexodecimal?
+
+1197
+00:53:59,460 --> 00:54:07,760
+18 A. It's D eight A give
+me my cursor. 1 second.
+
+1198
+00:54:07,760 --> 00:54:09,399
+Maybe if I switch it to
+
+1199
+00:54:09,399 --> 00:54:11,399
+a laser pointer, it
+would be better.
+
+1200
+00:54:11,399 --> 00:54:13,679
+It's D eight A right here
+
+1201
+00:54:13,679 --> 00:54:17,379
+minus c00 right
+here. You get 18 A.
+
+1202
+00:54:17,379 --> 00:54:21,220
+18 a VM the PfN mappings,
+
+1203
+00:54:21,220 --> 00:54:25,100
+how many PTs does that take
+to maintain this mapping?
+
+1204
+00:54:26,920 --> 00:54:31,979
+18 A. Now, so
+
+1205
+00:54:31,979 --> 00:54:34,640
+that means that we need
+at least 18 A mappings
+
+1206
+00:54:34,640 --> 00:54:36,599
+in order to map Lip C
+in this case, right?
+
+1207
+00:54:36,599 --> 00:54:39,899
+So how many page
+table pages does it
+
+1208
+00:54:39,899 --> 00:54:44,719
+take in order to
+maintain 18 A PTs?
+
+1209
+00:54:45,720 --> 00:54:50,319
+Only one because how many
+elements can we fit?
+
+1210
+00:54:54,960 --> 00:54:57,739
+One page table page.
+
+1211
+00:54:57,739 --> 00:55:02,520
+So this is a bit of a
+tricky 64 bit system.
+
+1212
+00:55:02,920 --> 00:55:05,359
+But let's forget about
+
+1213
+00:55:05,359 --> 00:55:07,180
+the fact that it's
+a 64 bit system.
+
+1214
+00:55:07,180 --> 00:55:08,840
+We can treat it as
+a 32 bit system
+
+1215
+00:55:08,840 --> 00:55:10,279
+for the purposes
+of this question.
+
+1216
+00:55:10,279 --> 00:55:11,859
+In a 32 bit system,
+
+1217
+00:55:11,859 --> 00:55:15,179
+the breakdown of linear
+address is 101012, okay?
+
+1218
+00:55:15,179 --> 00:55:18,320
+The second most
+significant ten digits
+
+1219
+00:55:18,320 --> 00:55:21,339
+is an index into a last level
+page table page, right?
+
+1220
+00:55:21,339 --> 00:55:24,560
+So that means that there
+are 1024 elements,
+
+1221
+00:55:24,560 --> 00:55:26,640
+due to the power of ten elements
+
+1222
+00:55:26,640 --> 00:55:28,919
+that you can store in a
+single page table page.
+
+1223
+00:55:28,919 --> 00:55:31,839
+What is 1024 in hex?
+
+1224
+00:55:32,660 --> 00:55:34,699
+What?
+
+1225
+00:55:40,380 --> 00:55:45,539
+It's 400. It's going
+to be less than sorry,
+
+1226
+00:55:45,539 --> 00:55:48,079
+it's going to be
+greater than 18 A.
+
+1227
+00:55:48,079 --> 00:55:50,219
+So the answer that you only need
+
+1228
+00:55:50,219 --> 00:55:52,459
+a single page table page here in
+
+1229
+00:55:52,459 --> 00:55:56,720
+order to map 18 A
+PTs is correct.
+
+1230
+00:55:56,720 --> 00:55:58,939
+Okay? So you only got away with
+
+1231
+00:55:58,939 --> 00:56:00,999
+a single last level
+page table page to
+
+1232
+00:56:00,999 --> 00:56:03,719
+map the entirety of
+the Lipsey code.
+
+1233
+00:56:03,719 --> 00:56:06,499
+Just one page table page.
+
+1234
+00:56:06,870 --> 00:56:10,969
+Okay, so there's so much
+information in these things.
+
+1235
+00:56:10,969 --> 00:56:12,350
+For a 64 bit system,
+
+1236
+00:56:12,350 --> 00:56:14,430
+just for the purposes
+of completion,
+
+1237
+00:56:14,430 --> 00:56:17,049
+we're now dealing with
+a 48 bit address space,
+
+1238
+00:56:17,049 --> 00:56:18,829
+and the last level
+page table page
+
+1239
+00:56:18,829 --> 00:56:20,589
+has nine bits
+indexing into that.
+
+1240
+00:56:20,589 --> 00:56:22,229
+Remember? You guys
+remember that?
+
+1241
+00:56:22,229 --> 00:56:24,689
+Because this is the last
+lecture we're discussing this.
+
+1242
+00:56:24,689 --> 00:56:28,429
+Okay, so with nine bits,
+how many elements is that?
+
+1243
+00:56:32,940 --> 00:56:38,439
+Yes, 512 in decimal,
+200 in hexadecimal.
+
+1244
+00:56:38,439 --> 00:56:40,939
+So that's still going to
+be greater than 18 A.
+
+1245
+00:56:40,939 --> 00:56:43,540
+Okay? So even in
+the 64 bit system,
+
+1246
+00:56:43,540 --> 00:56:44,999
+you're able to get away with
+
+1247
+00:56:44,999 --> 00:56:48,739
+a single page table page in
+order to map the lips code.
+
+1248
+00:56:48,739 --> 00:56:52,079
+Okay? So is that fun or what?
+
+1249
+00:56:52,079 --> 00:56:54,020
+Just by looking at
+this information,
+
+1250
+00:56:54,020 --> 00:56:55,239
+you can already ask
+
+1251
+00:56:55,239 --> 00:56:57,539
+some really cool questions
+and ask yourself, well,
+
+1252
+00:56:57,539 --> 00:57:00,539
+what is the overhead
+associated with me,
+
+1253
+00:57:00,539 --> 00:57:03,340
+maintaining these
+shared mappings across
+
+1254
+00:57:03,340 --> 00:57:06,559
+the processes for a
+shared object file. Okay?
+
+1255
+00:57:06,559 --> 00:57:08,319
+So this is a laundry list of
+
+1256
+00:57:08,319 --> 00:57:11,259
+everything we're able
+to support, right?
+
+1257
+00:57:11,580 --> 00:57:15,375
+We're going to talk about
+swapping on Tuesday.
+
+1258
+00:57:15,375 --> 00:57:19,509
+And I just wanted to end
+on a research perspective.
+
+1259
+00:57:19,509 --> 00:57:24,109
+This Eurosis 2000
+sorry, where is it?
+
+1260
+00:57:24,109 --> 00:57:27,330
+The On Demand fork,
+the 2021 paper.
+
+1261
+00:57:27,330 --> 00:57:28,970
+It's going to be in the slides
+
+1262
+00:57:28,970 --> 00:57:30,569
+and the slides have
+already been shared.
+
+1263
+00:57:30,569 --> 00:57:32,309
+I encourage you to
+take a look at that.
+
+1264
+00:57:32,309 --> 00:57:33,729
+And the reason why this was
+
+1265
+00:57:33,729 --> 00:57:35,209
+a really cool paper is
+
+1266
+00:57:35,209 --> 00:57:37,889
+because it's the paper
+that made the right call
+
+1267
+00:57:37,889 --> 00:57:40,889
+of performing copy on write on
+
+1268
+00:57:40,889 --> 00:57:42,710
+the last level page table pages
+
+1269
+00:57:42,710 --> 00:57:46,109
+for stateful read
+only applications.
+
+1270
+00:57:46,109 --> 00:57:47,949
+Okay, so the motivation was that
+
+1271
+00:57:47,949 --> 00:57:50,829
+the applications have
+large memory footprints.
+
+1272
+00:57:50,829 --> 00:57:52,329
+That means that
+they have lots of
+
+1273
+00:57:52,329 --> 00:57:55,669
+PTEs to map a large
+memory space,
+
+1274
+00:57:55,669 --> 00:57:57,190
+which does not change.
+
+1275
+00:57:57,190 --> 00:57:59,469
+So that's hundreds of megabytes.
+
+1276
+00:57:59,469 --> 00:58:01,769
+There are lots of PTPs to copy,
+
+1277
+00:58:01,769 --> 00:58:03,969
+lots of page table
+pages to copy.
+
+1278
+00:58:03,969 --> 00:58:05,410
+So is it possible?
+
+1279
+00:58:05,410 --> 00:58:08,249
+Well, we don't have time to
+consider other alternatives.
+
+1280
+00:58:08,249 --> 00:58:09,789
+The proposed solution was
+
+1281
+00:58:09,789 --> 00:58:11,989
+that there is a drop in
+replacement for fork.
+
+1282
+00:58:11,989 --> 00:58:14,469
+They literally implemented
+their own fork
+
+1283
+00:58:14,469 --> 00:58:17,089
+that performs page table
+page copy on write.
+
+1284
+00:58:17,089 --> 00:58:19,349
+And, of course, they
+evaluated this with
+
+1285
+00:58:19,349 --> 00:58:22,550
+applications that allocate
+1 gigabyte of memory.
+
+1286
+00:58:22,550 --> 00:58:25,309
+And now, do the
+mental gymnastics to
+
+1287
+00:58:25,309 --> 00:58:27,810
+figure out if you're mapping
+1 gigabyte of memory,
+
+1288
+00:58:27,810 --> 00:58:31,989
+how many PTPs do we
+need for this?o?
+
+1289
+00:58:32,040 --> 00:58:35,119
+Does anybody want to do that?
+
+1290
+00:58:37,440 --> 00:58:40,140
+I'll leave it as a
+thought exercise,
+
+1291
+00:58:40,140 --> 00:58:42,499
+but there's a very
+precise answer to this.
+
+1292
+00:58:42,499 --> 00:58:44,939
+1 gigabyte is due
+to the power of 30,
+
+1293
+00:58:44,939 --> 00:58:47,620
+and that's your
+starting point, okay?
+
+1294
+00:58:47,620 --> 00:58:50,199
+So that's a lot of PTPs.
+
+1295
+00:58:50,199 --> 00:58:52,620
+And if you're not
+making any changes
+
+1296
+00:58:52,620 --> 00:58:55,039
+to the PTEs of those PTPs,
+
+1297
+00:58:55,039 --> 00:58:57,679
+you might as well not
+copy them on a fork.
+
+1298
+00:58:57,679 --> 00:59:00,959
+As a result, the micro benchmark
+demonstrated that they
+
+1299
+00:59:00,959 --> 00:59:05,084
+were able to save 99%
+of latency on fork.
+
+1300
+00:59:05,084 --> 00:59:07,670
+Okay? So that's basically,
+
+1301
+00:59:07,670 --> 00:59:09,569
+let's say, 100 to one.
+
+1302
+00:59:09,569 --> 00:59:11,830
+It's almost 100 X improvement
+
+1303
+00:59:11,830 --> 00:59:14,030
+as far as the micro
+benchmark is concerned.
+
+1304
+00:59:14,030 --> 00:59:17,069
+But then the question
+is, does it help when
+
+1305
+00:59:17,069 --> 00:59:18,849
+the applications are
+really running and
+
+1306
+00:59:18,849 --> 00:59:21,370
+really executing in production.
+
+1307
+00:59:21,370 --> 00:59:23,430
+That's called a macro benchmark.
+
+1308
+00:59:23,430 --> 00:59:24,929
+So the macro benchmark here
+
+1309
+00:59:24,929 --> 00:59:26,950
+demonstrated that the
+execution throughput
+
+1310
+00:59:26,950 --> 00:59:32,569
+itself was showing
+improvements anywhere 59-226%.
+
+1311
+00:59:32,569 --> 00:59:36,509
+Okay? And that's
+really it for today.
+
+1312
+00:59:36,509 --> 00:59:39,090
+I encourage you to go
+back to this lecture.
+
+1313
+00:59:39,090 --> 00:59:41,210
+Thankfully, it's recorded.

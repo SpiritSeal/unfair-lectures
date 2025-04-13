@@ -1,0 +1,6160 @@
+1
+00:01:12,680 --> 00:01:22,659
+Okay. All right. Good
+afternoon, everyone.
+
+2
+00:01:26,100 --> 00:01:28,659
+You're going to have
+to forgive me to
+
+3
+00:01:28,659 --> 00:01:32,339
+be for being slightly
+winded today as I
+
+4
+00:01:32,339 --> 00:01:35,180
+made my way back
+from the 14th Street
+
+5
+00:01:35,180 --> 00:01:40,179
+all the way across
+campus, pretty much here.
+
+6
+00:01:40,340 --> 00:01:44,580
+Just came back from the
+COC awards ceremony,
+
+7
+00:01:44,580 --> 00:01:48,739
+which was a lot of fun, where I
+
+8
+00:01:48,739 --> 00:01:50,020
+happily received
+
+9
+00:01:50,020 --> 00:01:52,739
+the outstanding Junior
+Faculty Research Award
+
+10
+00:01:52,739 --> 00:01:55,020
+for the College of Computing.
+
+11
+00:01:55,020 --> 00:02:03,469
+I This brings back
+memories because, in fact,
+
+12
+00:02:03,469 --> 00:02:05,469
+deja vu a year ago,
+
+13
+00:02:05,469 --> 00:02:08,390
+I was also just
+about to get started
+
+14
+00:02:08,390 --> 00:02:11,670
+with one of the file
+systems lectures,
+
+15
+00:02:11,670 --> 00:02:15,150
+and I got the same award
+for teaching as well.
+
+16
+00:02:15,150 --> 00:02:17,510
+So back to back teaching
+and research award,
+
+17
+00:02:17,510 --> 00:02:18,509
+that's something that I was
+
+18
+00:02:18,509 --> 00:02:19,670
+really looking
+forward to having.
+
+19
+00:02:19,670 --> 00:02:22,030
+And I'm not the only one in
+this audience who actually
+
+20
+00:02:22,030 --> 00:02:24,710
+had an award from the
+COC awards ceremony.
+
+21
+00:02:24,710 --> 00:02:26,470
+You know, there's a student here
+
+22
+00:02:26,470 --> 00:02:28,350
+in this class who
+actually received
+
+23
+00:02:28,350 --> 00:02:30,710
+an outstanding undergraduate
+teaching award
+
+24
+00:02:30,710 --> 00:02:32,350
+from the College of Computing.
+
+25
+00:02:32,350 --> 00:02:36,309
+So I'm not going to
+put her on the spot
+
+26
+00:02:36,390 --> 00:02:39,789
+But I would like everyone
+to give a round of
+
+27
+00:02:39,789 --> 00:02:42,270
+applause for the undergraduate
+teaching assistants,
+
+28
+00:02:42,270 --> 00:02:43,470
+in particular, the ones who are
+
+29
+00:02:43,470 --> 00:02:46,389
+deserving of such a
+wonderful recognition.
+
+30
+00:02:50,460 --> 00:02:54,220
+So this is definitely
+something to aspire and it's
+
+31
+00:02:54,220 --> 00:02:55,980
+sort of a segue to make
+
+32
+00:02:55,980 --> 00:02:58,859
+sure I encourage you guys
+to do well in this class.
+
+33
+00:02:58,859 --> 00:03:00,779
+Getting a teaching assistantship
+
+34
+00:03:00,779 --> 00:03:01,980
+position in this class is
+
+35
+00:03:01,980 --> 00:03:06,259
+sort of the pinnacle of the
+undergraduate CSR career.
+
+36
+00:03:06,259 --> 00:03:09,020
+And we are going to start hiring
+
+37
+00:03:09,020 --> 00:03:11,939
+our next batch of undergraduate
+teaching assistants
+
+38
+00:03:11,939 --> 00:03:13,460
+to TA in the fall.
+
+39
+00:03:13,460 --> 00:03:17,140
+And so we're definitely looking
+forward for you to submit
+
+40
+00:03:17,140 --> 00:03:21,340
+your UTA applications
+to the TA app.
+
+41
+00:03:21,340 --> 00:03:25,000
+I'm going to have a URL
+for you next time I teach.
+
+42
+00:03:25,000 --> 00:03:29,540
+But definitely start looking
+out for those emails that
+
+43
+00:03:29,540 --> 00:03:34,099
+encourage you to apply for
+CS 30 to ten. And who knows?
+
+44
+00:03:34,099 --> 00:03:35,580
+Maybe a year from today,
+
+45
+00:03:35,580 --> 00:03:37,340
+I'm going to be
+standing here and
+
+46
+00:03:37,340 --> 00:03:39,260
+congratulating one of you on
+
+47
+00:03:39,260 --> 00:03:41,019
+the receipt of
+your undergraduate
+
+48
+00:03:41,019 --> 00:03:44,380
+teaching assistantship
+award at the college level.
+
+49
+00:03:44,380 --> 00:03:47,979
+Okay, so back to this class.
+
+50
+00:03:47,979 --> 00:03:49,779
+We started talking
+about ordering
+
+51
+00:03:49,779 --> 00:03:52,260
+ethnicity on file
+systems last time,
+
+52
+00:03:52,260 --> 00:03:54,644
+and it's definitely a handful.
+
+53
+00:03:54,644 --> 00:03:57,510
+So I don't have any
+administrative slides.
+
+54
+00:03:57,510 --> 00:03:59,670
+We have a lot of material
+to cover in this class.
+
+55
+00:03:59,670 --> 00:04:02,590
+Chances are we'll have some
+spillover into Thursday.
+
+56
+00:04:02,590 --> 00:04:05,270
+So let's go ahead and
+get started, right?
+
+57
+00:04:05,270 --> 00:04:08,670
+Last class, what we were
+talking about is we
+
+58
+00:04:08,670 --> 00:04:09,990
+were trying to get a sense of
+
+59
+00:04:09,990 --> 00:04:11,790
+why we need all of
+this complexity.
+
+60
+00:04:11,790 --> 00:04:13,990
+What is file systems
+really providing us,
+
+61
+00:04:13,990 --> 00:04:17,069
+especially as far as crash
+consistency is concerned?
+
+62
+00:04:17,069 --> 00:04:19,109
+And I motivated
+this with lots of
+
+63
+00:04:19,109 --> 00:04:21,909
+examples that we white
+boarded together, right,
+
+64
+00:04:21,909 --> 00:04:25,509
+to really get a good feel
+for how we have to deal with
+
+65
+00:04:25,509 --> 00:04:29,400
+this partial disk sector
+write interface with flushes.
+
+66
+00:04:29,400 --> 00:04:32,849
+And how do we turn that into
+something much more sane,
+
+67
+00:04:32,849 --> 00:04:34,809
+something much more
+predictable into
+
+68
+00:04:34,809 --> 00:04:37,529
+this atomic multi block data and
+
+69
+00:04:37,529 --> 00:04:41,369
+Nde update that our file
+system needs, right?
+
+70
+00:04:41,369 --> 00:04:44,009
+And so we have to deal
+with things like this.
+
+71
+00:04:44,009 --> 00:04:46,249
+We cannot update in
+
+72
+00:04:46,249 --> 00:04:49,009
+place because disk
+interface doesn't allow it.
+
+73
+00:04:49,009 --> 00:04:50,689
+Instead, we have to make a copy,
+
+74
+00:04:50,689 --> 00:04:52,969
+then we have to atomically
+commit that copy.
+
+75
+00:04:52,969 --> 00:04:54,050
+We have to find ways of
+
+76
+00:04:54,050 --> 00:04:55,849
+doing that, and we
+discussed this.
+
+77
+00:04:55,849 --> 00:04:58,850
+We discussed two primary
+methods to do this.
+
+78
+00:04:58,850 --> 00:05:00,410
+The first one was shadowing,
+
+79
+00:05:00,410 --> 00:05:01,770
+and the second one was logging.
+
+80
+00:05:01,770 --> 00:05:02,929
+We didn't get to login,
+
+81
+00:05:02,929 --> 00:05:04,250
+so we only discussed shadowing.
+
+82
+00:05:04,250 --> 00:05:06,235
+A brief overview of shadowing.
+
+83
+00:05:06,235 --> 00:05:10,179
+If you recall, maintain two
+copies of the data, right?
+
+84
+00:05:10,179 --> 00:05:12,340
+And we have a shadow
+bit which is Boolean,
+
+85
+00:05:12,340 --> 00:05:15,059
+which basically
+points to the version
+
+86
+00:05:15,059 --> 00:05:17,939
+of the data that's current
+at any given moment in time.
+
+87
+00:05:17,939 --> 00:05:19,739
+So you have to be
+careful with that.
+
+88
+00:05:19,739 --> 00:05:22,659
+When reading, we always
+read the current copy.
+
+89
+00:05:22,659 --> 00:05:25,019
+When writing, we update
+the shadow copy.
+
+90
+00:05:25,019 --> 00:05:27,100
+And then after the
+writing has completed,
+
+91
+00:05:27,100 --> 00:05:28,819
+we flip the shadow bit, right?
+
+92
+00:05:28,819 --> 00:05:30,219
+And we discuss the beauty and
+
+93
+00:05:30,219 --> 00:05:32,339
+the elegance of the
+shadow bit being binary,
+
+94
+00:05:32,339 --> 00:05:33,820
+being in one of only two states,
+
+95
+00:05:33,820 --> 00:05:36,900
+zero and non zero, and that
+sort of gives us a way of
+
+96
+00:05:36,900 --> 00:05:38,340
+atomically updating it in
+
+97
+00:05:38,340 --> 00:05:40,899
+such a way that doesn't leave
+it in an undefined state.
+
+98
+00:05:40,899 --> 00:05:42,659
+This undefined state is really
+
+99
+00:05:42,659 --> 00:05:44,884
+what we're trying to
+preserve the system from.
+
+100
+00:05:44,884 --> 00:05:47,629
+Okay? So it's either
+zero or it was
+
+101
+00:05:47,629 --> 00:05:51,149
+corrupted in some way that
+makes it a non zero value,
+
+102
+00:05:51,149 --> 00:05:54,269
+in which case it simply
+points to the shadow copy.
+
+103
+00:05:54,269 --> 00:05:58,629
+Okay, so this is
+shadowing illustrated.
+
+104
+00:05:58,629 --> 00:06:01,069
+On the left hand side, you
+have the current data.
+
+105
+00:06:01,069 --> 00:06:03,189
+On the right hand side,
+you have shadow data.
+
+106
+00:06:03,189 --> 00:06:05,549
+You have some data that you
+want to be able to update.
+
+107
+00:06:05,549 --> 00:06:07,309
+You perform a copy first, right?
+
+108
+00:06:07,309 --> 00:06:09,789
+Then you perform a mutation,
+then you flip the bit.
+
+109
+00:06:09,789 --> 00:06:11,110
+This is overview, so I'm
+
+110
+00:06:11,110 --> 00:06:12,350
+not going to dwell
+on this too much.
+
+111
+00:06:12,350 --> 00:06:13,869
+I just wanted to
+refresh your memory
+
+112
+00:06:13,869 --> 00:06:16,029
+because it's been five
+days and, you know,
+
+113
+00:06:16,029 --> 00:06:17,949
+five days in the life of
+
+114
+00:06:17,949 --> 00:06:20,710
+undergraduate students
+at Georgia Tech
+
+115
+00:06:20,710 --> 00:06:22,950
+is can be very, very eventful.
+
+116
+00:06:22,950 --> 00:06:28,259
+Um, I want to get on a
+tangent, but I won't.
+
+117
+00:06:28,259 --> 00:06:31,140
+Okay, maybe at the end of class.
+
+118
+00:06:31,140 --> 00:06:34,339
+So basically, then once
+you've performed an update,
+
+119
+00:06:34,339 --> 00:06:36,699
+you flip your shadow bit to
+point to the current data,
+
+120
+00:06:36,699 --> 00:06:38,259
+and so on the right hand side
+
+121
+00:06:38,259 --> 00:06:39,819
+is where your current data now,
+
+122
+00:06:39,819 --> 00:06:41,989
+the most freshly updated data.
+
+123
+00:06:41,989 --> 00:06:44,839
+We talked about what
+happens if you actually do
+
+124
+00:06:44,839 --> 00:06:48,919
+the sequence of write
+operations one after another,
+
+125
+00:06:48,919 --> 00:06:50,799
+and we actually looked at
+
+126
+00:06:50,799 --> 00:06:55,359
+the flush disk operation as
+a way of imposing order,
+
+127
+00:06:55,359 --> 00:06:58,399
+and we reasoned about
+why you don't need to
+
+128
+00:06:58,399 --> 00:07:02,399
+explicitly impose order on
+the operations one and two,
+
+129
+00:07:02,399 --> 00:07:04,999
+why you do need to
+explicitly impose
+
+130
+00:07:04,999 --> 00:07:07,600
+order between
+operations one, two,
+
+131
+00:07:07,600 --> 00:07:09,439
+and three and why you also need
+
+132
+00:07:09,439 --> 00:07:14,290
+an additional order
+3-4 and five.
+
+133
+00:07:14,290 --> 00:07:16,250
+And that's basically overview.
+
+134
+00:07:16,250 --> 00:07:17,849
+So the TLDR of this
+
+135
+00:07:17,849 --> 00:07:19,969
+is that we have to deal
+with lots of rights.
+
+136
+00:07:19,969 --> 00:07:22,009
+We also have to have lots of
+
+137
+00:07:22,009 --> 00:07:25,314
+flushes in order to impose
+these ordering constraints.
+
+138
+00:07:25,314 --> 00:07:28,099
+So at the end of previous class,
+
+139
+00:07:28,099 --> 00:07:30,619
+I sort of left things with
+the following question,
+
+140
+00:07:30,619 --> 00:07:32,259
+you know, is there a better way?
+
+141
+00:07:32,259 --> 00:07:35,019
+Because we discussed some
+of the disadvantages that
+
+142
+00:07:35,019 --> 00:07:38,059
+shadowing clearly has, right?
+
+143
+00:07:38,059 --> 00:07:39,579
+One of them is that you
+
+144
+00:07:39,579 --> 00:07:41,899
+basically need to
+have twice the amount
+
+145
+00:07:41,899 --> 00:07:46,019
+of storage in order to
+keep track of your data,
+
+146
+00:07:46,019 --> 00:07:48,699
+one for the current copy,
+one for the shadow.
+
+147
+00:07:48,699 --> 00:07:50,940
+That's one of the
+biggest disadvantages,
+
+148
+00:07:50,940 --> 00:07:51,779
+and the other one,
+
+149
+00:07:51,779 --> 00:07:54,060
+which is the performance
+disadvantage
+
+150
+00:07:54,060 --> 00:07:56,659
+is the number of flushes
+that you have to do in
+
+151
+00:07:56,659 --> 00:08:01,459
+order to ascertain and
+ensure the atomicity and
+
+152
+00:08:01,459 --> 00:08:05,219
+ordering of invariance that
+
+153
+00:08:05,219 --> 00:08:07,179
+we're looking for in
+this case, right?
+
+154
+00:08:07,179 --> 00:08:09,259
+So journaling is another
+way of doing this,
+
+155
+00:08:09,259 --> 00:08:11,899
+and today we're going to be
+talking about journaling.
+
+156
+00:08:11,899 --> 00:08:16,250
+I So how does the journal work?
+
+157
+00:08:16,250 --> 00:08:18,050
+At a very high level, instead
+
+158
+00:08:18,050 --> 00:08:19,929
+of writing directly
+to disk, right?
+
+159
+00:08:19,929 --> 00:08:22,809
+We're going to write what we
+want to the journal first.
+
+160
+00:08:22,809 --> 00:08:25,290
+And then we're going to
+write a journal commit
+
+161
+00:08:25,290 --> 00:08:26,569
+in order to atomically
+
+162
+00:08:26,569 --> 00:08:30,329
+commit some section
+of the log, okay?
+
+163
+00:08:30,329 --> 00:08:32,050
+So the log and journal
+
+164
+00:08:32,050 --> 00:08:34,010
+here are being used
+interchangeably.
+
+165
+00:08:34,010 --> 00:08:38,530
+So let's instead keep a
+log or a journal of data,
+
+166
+00:08:38,530 --> 00:08:39,969
+and then we're going to keep
+
+167
+00:08:39,969 --> 00:08:41,970
+a record of what the
+new data should be,
+
+168
+00:08:41,970 --> 00:08:43,730
+and we're going to
+put that in the log.
+
+169
+00:08:43,730 --> 00:08:45,409
+And then we're
+going to atomically
+
+170
+00:08:45,409 --> 00:08:47,180
+commit the record in the log.
+
+171
+00:08:47,180 --> 00:08:48,949
+For any committed log record,
+
+172
+00:08:48,949 --> 00:08:51,790
+the log supersedes the
+actual data block, okay?
+
+173
+00:08:51,790 --> 00:08:53,150
+So basically, there's
+
+174
+00:08:53,150 --> 00:08:55,790
+the supremacy clause
+between the log
+
+175
+00:08:55,790 --> 00:08:58,190
+and the data on disk that
+
+176
+00:08:58,190 --> 00:09:00,550
+if there's a committed
+entry in the log,
+
+177
+00:09:00,550 --> 00:09:02,910
+then it supersedes
+the actual data block
+
+178
+00:09:02,910 --> 00:09:05,470
+or the metadata block in
+the file system, okay?
+
+179
+00:09:05,470 --> 00:09:08,310
+So whatever's in the
+log, if it's committed,
+
+180
+00:09:08,310 --> 00:09:09,750
+it supersedes whatever's in
+
+181
+00:09:09,750 --> 00:09:12,789
+the data or metadata
+part of the file system.
+
+182
+00:09:12,789 --> 00:09:15,549
+Otherwise, if it's
+not in the log,
+
+183
+00:09:15,549 --> 00:09:18,430
+we go to the data block or
+the metadata block that's
+
+184
+00:09:18,430 --> 00:09:19,830
+actually in the file
+system in order
+
+185
+00:09:19,830 --> 00:09:22,030
+to read from there, okay?
+
+186
+00:09:22,030 --> 00:09:25,670
+So here's what the
+log looks like.
+
+187
+00:09:25,670 --> 00:09:29,389
+You have an entry, then
+you place a commit.
+
+188
+00:09:29,389 --> 00:09:31,910
+The entries can be
+of different types.
+
+189
+00:09:31,910 --> 00:09:34,190
+You know, it can be
+a data block update,
+
+190
+00:09:34,190 --> 00:09:35,909
+it can be an ode update.
+
+191
+00:09:35,909 --> 00:09:37,550
+And then the second
+field there is
+
+192
+00:09:37,550 --> 00:09:40,150
+basically the location of where
+
+193
+00:09:40,150 --> 00:09:43,070
+the data block or the
+ode block is that
+
+194
+00:09:43,070 --> 00:09:45,910
+you're trying to perform
+an update on, right?
+
+195
+00:09:45,910 --> 00:09:47,989
+And then the last
+component of the entry is
+
+196
+00:09:47,989 --> 00:09:49,990
+essentially the payload
+or the data that
+
+197
+00:09:49,990 --> 00:09:51,710
+you really want to go to
+
+198
+00:09:51,710 --> 00:09:55,550
+that location of
+that type, okay?
+
+199
+00:09:55,550 --> 00:09:57,870
+Any questions so far?
+
+200
+00:09:59,230 --> 00:10:07,270
+Question. Awesome.
+Yeah. Once you commit,
+
+201
+00:10:07,270 --> 00:10:11,709
+you still the entries.
+
+202
+00:10:11,790 --> 00:10:14,269
+Okay, so we're going
+to get to that
+
+203
+00:10:14,269 --> 00:10:16,310
+because you cannot do
+it infinitely, right?
+
+204
+00:10:16,310 --> 00:10:18,189
+I think where you're
+going with this question
+
+205
+00:10:18,189 --> 00:10:20,830
+is that it seems that
+if you keep doing this,
+
+206
+00:10:20,830 --> 00:10:22,270
+here's another entry, right?
+
+207
+00:10:22,270 --> 00:10:25,309
+Here's another commit,
+here's another entry,
+
+208
+00:10:25,309 --> 00:10:27,469
+and so on and so forth.
+
+209
+00:10:27,469 --> 00:10:30,029
+So we can't really do
+that ad infinitum.
+
+210
+00:10:30,029 --> 00:10:32,709
+So there has to be some sort
+of mechanism to operate
+
+211
+00:10:32,709 --> 00:10:35,470
+within the fixed resources
+
+212
+00:10:35,470 --> 00:10:37,789
+available to you on a
+particular computing system,
+
+213
+00:10:37,789 --> 00:10:39,830
+right? And we're
+going to get to that.
+
+214
+00:10:39,830 --> 00:10:41,685
+So I'll get to that question.
+
+215
+00:10:41,685 --> 00:10:44,019
+So if an entry, however,
+
+216
+00:10:44,019 --> 00:10:47,539
+is uncommitted, right, then
+it's considered invalid.
+
+217
+00:10:47,539 --> 00:10:51,020
+And it has very important
+consequences as a result of
+
+218
+00:10:51,020 --> 00:10:54,940
+this that we will revisit
+a few slides from now.
+
+219
+00:10:54,940 --> 00:10:57,460
+What's important, though,
+is that as soon as you
+
+220
+00:10:57,460 --> 00:11:00,420
+find by sequential
+scanning the log,
+
+221
+00:11:00,420 --> 00:11:03,939
+as soon as you find an
+entry that was uncommitted,
+
+222
+00:11:03,939 --> 00:11:06,419
+everything else after that entry
+
+223
+00:11:06,419 --> 00:11:08,260
+is going to be invalidated.
+
+224
+00:11:08,260 --> 00:11:10,340
+We're not going to
+consider anything
+
+225
+00:11:10,340 --> 00:11:13,219
+following the entry
+that is uncommitted,
+
+226
+00:11:13,219 --> 00:11:15,740
+even if everything else in
+
+227
+00:11:15,740 --> 00:11:19,100
+the suffix of the log has a
+commit that's valid, okay?
+
+228
+00:11:19,100 --> 00:11:22,620
+And that's an important
+valid prefix property
+
+229
+00:11:22,620 --> 00:11:27,715
+of the log that will give us
+the guarantees that we want.
+
+230
+00:11:27,715 --> 00:11:29,490
+Okay.
+
+231
+00:11:29,490 --> 00:11:32,329
+So just to make sure that
+
+232
+00:11:32,329 --> 00:11:35,170
+everybody understands the
+supremacy clause, right?
+
+233
+00:11:35,170 --> 00:11:38,010
+So let's say that we're
+reading block seven.
+
+234
+00:11:38,010 --> 00:11:39,930
+And in this particular case,
+
+235
+00:11:39,930 --> 00:11:42,410
+we have an entry, right?
+
+236
+00:11:42,650 --> 00:11:45,130
+We have an entry right here,
+
+237
+00:11:45,130 --> 00:11:46,969
+and it has a commit.
+
+238
+00:11:46,969 --> 00:11:48,370
+And the entry is of
+
+239
+00:11:48,370 --> 00:11:50,170
+the following type.
+It's a data block.
+
+240
+00:11:50,170 --> 00:11:52,090
+It's located in location seven,
+
+241
+00:11:52,090 --> 00:11:54,210
+and it has a hello world, right?
+
+242
+00:11:54,210 --> 00:11:56,330
+And in the bottom
+right hand side,
+
+243
+00:11:56,330 --> 00:11:58,929
+what we have is a set
+of data blocks on disk.
+
+244
+00:11:58,929 --> 00:12:02,440
+And one of them is
+a data block seven.
+
+245
+00:12:02,440 --> 00:12:04,510
+Which contains some data.
+
+246
+00:12:04,510 --> 00:12:09,310
+So now we have some data on
+disk in the data block seven,
+
+247
+00:12:09,310 --> 00:12:11,110
+and we have some data in
+
+248
+00:12:11,110 --> 00:12:15,069
+the log in the first
+entry in the log.
+
+249
+00:12:15,069 --> 00:12:17,950
+Okay? So the question is,
+if I read block seven,
+
+250
+00:12:17,950 --> 00:12:19,510
+where do I get my data from?
+
+251
+00:12:19,510 --> 00:12:21,190
+Do I get it from the log or
+
+252
+00:12:21,190 --> 00:12:24,070
+do I get it from
+the data blocks?
+
+253
+00:12:24,470 --> 00:12:27,830
+Yeah. Why?
+
+254
+00:12:31,390 --> 00:12:33,630
+Because of the commit, right?
+
+255
+00:12:33,630 --> 00:12:35,150
+Because the commit is valid.
+
+256
+00:12:35,150 --> 00:12:36,669
+And more importantly,
+not only because
+
+257
+00:12:36,669 --> 00:12:38,670
+the commit is valid
+for this entry,
+
+258
+00:12:38,670 --> 00:12:40,629
+because all the commits up to
+
+259
+00:12:40,629 --> 00:12:43,230
+and including this
+entry are valid.
+
+260
+00:12:43,230 --> 00:12:46,349
+Okay? So that's a
+trick question.
+
+261
+00:12:46,349 --> 00:12:47,950
+If I were to point you to
+
+262
+00:12:47,950 --> 00:12:50,710
+some entry for which the
+commit is actually valid,
+
+263
+00:12:50,710 --> 00:12:53,190
+but there exists an entry in
+
+264
+00:12:53,190 --> 00:12:55,710
+the prefix of the log
+that's not valid,
+
+265
+00:12:55,710 --> 00:12:58,709
+then you would be reading
+from the data blocks.
+
+266
+00:12:58,709 --> 00:13:01,109
+Makes sense? Because of
+
+267
+00:13:01,109 --> 00:13:04,510
+this prefix property
+that we're looking for.
+
+268
+00:13:04,880 --> 00:13:07,880
+Okay. And here's
+another example,
+
+269
+00:13:07,880 --> 00:13:09,920
+which is also pretty
+straightforward.
+
+270
+00:13:09,920 --> 00:13:12,560
+You have an entry in the log for
+
+271
+00:13:13,600 --> 00:13:16,800
+and you also have a data block
+
+272
+00:13:16,800 --> 00:13:20,240
+for block six. So
+it's right here.
+
+273
+00:13:20,240 --> 00:13:21,960
+In this particular case, where
+
+274
+00:13:21,960 --> 00:13:23,399
+would you be reading
+the data from?
+
+275
+00:13:23,399 --> 00:13:25,360
+You're trying to read block six.
+
+276
+00:13:25,360 --> 00:13:28,000
+An entry for it
+exists in the log,
+
+277
+00:13:28,000 --> 00:13:31,439
+and an entry for it exists
+as a data block on disk.
+
+278
+00:13:31,439 --> 00:13:33,760
+Where would you
+read the data from?
+
+279
+00:13:35,200 --> 00:13:41,240
+You would read it from
+data blocks, right?
+
+280
+00:13:41,240 --> 00:13:43,319
+You would read it from
+disk. You would read
+
+281
+00:13:43,319 --> 00:13:45,680
+it from the data blocks
+section of your disk.
+
+282
+00:13:45,680 --> 00:13:47,839
+Okay. That should be
+pretty straightforward.
+
+283
+00:13:47,839 --> 00:13:50,320
+Is anyone confused yet?
+
+284
+00:13:50,480 --> 00:13:53,000
+Okay. Very good.
+
+285
+00:13:53,000 --> 00:13:57,860
+So, What's so special
+about logging?
+
+286
+00:13:57,860 --> 00:13:59,700
+Why are we using this
+particular structure?
+
+287
+00:13:59,700 --> 00:14:01,260
+So far, I've only been talking
+
+288
+00:14:01,260 --> 00:14:03,300
+about sort of the
+mechanics of this, right,
+
+289
+00:14:03,300 --> 00:14:05,619
+how this works and
+what the rules are
+
+290
+00:14:05,619 --> 00:14:08,380
+associated with using this
+particular structure.
+
+291
+00:14:08,380 --> 00:14:10,420
+The reason we use
+logging is because of
+
+292
+00:14:10,420 --> 00:14:12,339
+its append only semantics.
+
+293
+00:14:12,339 --> 00:14:14,900
+One thing I believe I
+forgot to mention is
+
+294
+00:14:14,900 --> 00:14:17,860
+that we are only allowed
+to append to the log.
+
+295
+00:14:17,860 --> 00:14:20,860
+And that is very important
+because by design,
+
+296
+00:14:20,860 --> 00:14:23,740
+it actually gives us this
+sequentiality, right?
+
+297
+00:14:23,740 --> 00:14:26,179
+It gives us this ordering
+
+298
+00:14:26,179 --> 00:14:28,499
+because we are only
+appending to the log.
+
+299
+00:14:28,499 --> 00:14:30,100
+We're never writing
+to the log in
+
+300
+00:14:30,100 --> 00:14:32,165
+arbitrary locations of the log.
+
+301
+00:14:32,165 --> 00:14:34,590
+Every entry, so every
+write operation,
+
+302
+00:14:34,590 --> 00:14:36,269
+every mutation that we want to
+
+303
+00:14:36,269 --> 00:14:38,630
+do is going to be locked in
+
+304
+00:14:38,630 --> 00:14:42,789
+a professional the ordering
+
+305
+00:14:42,789 --> 00:14:45,070
+semantics that
+we're looking for.
+
+306
+00:14:45,070 --> 00:14:47,110
+Okay.
+
+307
+00:14:50,150 --> 00:14:55,270
+And so that is how
+you achieve ordering,
+
+308
+00:14:55,270 --> 00:14:59,150
+simply by nature of the fact
+that a log is a pen only.
+
+309
+00:14:59,150 --> 00:15:02,870
+Now, does it give us
+atomicity, right?
+
+310
+00:15:03,390 --> 00:15:05,709
+In addition to ordering,
+
+311
+00:15:05,709 --> 00:15:07,789
+we also want to have a mechanism
+
+312
+00:15:07,789 --> 00:15:09,790
+that gives us the ability to
+
+313
+00:15:09,790 --> 00:15:11,750
+enforce this happens before
+
+314
+00:15:11,750 --> 00:15:15,030
+relationship between
+an entry and a commit.
+
+315
+00:15:15,030 --> 00:15:17,390
+And I want to make
+absolutely sure
+
+316
+00:15:17,390 --> 00:15:19,990
+that you understand
+what that means, okay?
+
+317
+00:15:19,990 --> 00:15:22,790
+A happens before relationship
+is not just English.
+
+318
+00:15:22,790 --> 00:15:24,749
+It's a mathematical construct.
+
+319
+00:15:24,749 --> 00:15:26,910
+It's a relation, okay?
+
+320
+00:15:26,910 --> 00:15:29,590
+It's a relation that
+creates a partial order
+
+321
+00:15:29,590 --> 00:15:32,589
+imposed on a set of
+vertices in your universe.
+
+322
+00:15:32,589 --> 00:15:34,470
+In this particular case, a set
+
+323
+00:15:34,470 --> 00:15:37,470
+of vertices are
+entries and commits.
+
+324
+00:15:37,470 --> 00:15:39,510
+And we're going to draw
+some partial orders on
+
+325
+00:15:39,510 --> 00:15:42,215
+the whiteboard today,
+which is a lot of fun.
+
+326
+00:15:42,215 --> 00:15:44,640
+Because it really clarifies and
+
+327
+00:15:44,640 --> 00:15:47,360
+crystallizes the
+thinking that goes into
+
+328
+00:15:47,360 --> 00:15:51,479
+designing these various
+different types
+
+329
+00:15:51,479 --> 00:15:54,039
+of journaled file systems.
+
+330
+00:15:54,039 --> 00:15:55,640
+Believe it or not,
+there are actually
+
+331
+00:15:55,640 --> 00:15:58,599
+multiple different types
+of journaled file systems.
+
+332
+00:15:58,599 --> 00:16:01,760
+And in order to understand
+the differences between them,
+
+333
+00:16:01,760 --> 00:16:04,840
+in order to appreciate the
+trade offs each of them is
+
+334
+00:16:04,840 --> 00:16:06,639
+inducing in the trade off
+
+335
+00:16:06,639 --> 00:16:09,800
+space that we
+haven't yet defined,
+
+336
+00:16:09,800 --> 00:16:12,120
+you really have to
+understand the nature
+
+337
+00:16:12,120 --> 00:16:13,559
+of the happens
+before relationship.
+
+338
+00:16:13,559 --> 00:16:16,020
+What does it mean?
+So if there is
+
+339
+00:16:16,020 --> 00:16:17,220
+a happens before relationship
+
+340
+00:16:17,220 --> 00:16:19,419
+between verdicts
+A and verdict B,
+
+341
+00:16:19,419 --> 00:16:22,580
+right, that means that
+if B has been written,
+
+342
+00:16:22,580 --> 00:16:25,900
+it implies that A has
+also been written.
+
+343
+00:16:27,340 --> 00:16:31,340
+So A arrow B means that if
+
+344
+00:16:31,340 --> 00:16:35,500
+B has become visible
+to the outside world,
+
+345
+00:16:35,500 --> 00:16:39,820
+it implies that A is also
+visible to the outside world,
+
+346
+00:16:39,820 --> 00:16:44,620
+and that is what ensures
+atomicity of A, okay?
+
+347
+00:16:44,620 --> 00:16:46,780
+That's the mechanism for us to
+
+348
+00:16:46,780 --> 00:16:49,340
+ensuring the atomicity of A.
+
+349
+00:16:51,040 --> 00:16:54,199
+Okay. So let's briefly
+
+350
+00:16:54,199 --> 00:16:55,240
+go through the we're
+
+351
+00:16:55,240 --> 00:16:56,480
+going to come back
+to this in a second.
+
+352
+00:16:56,480 --> 00:16:58,560
+Let's briefly go through
+the properties of
+
+353
+00:16:58,560 --> 00:17:00,880
+the log just to put
+them on a slide, right?
+
+354
+00:17:00,880 --> 00:17:04,440
+So it gives us this implicit
+ordering of operations.
+
+355
+00:17:04,440 --> 00:17:06,319
+And the reason for
+this is because it has
+
+356
+00:17:06,319 --> 00:17:09,919
+this append only
+semantics on right.
+
+357
+00:17:09,919 --> 00:17:12,440
+It's sequential order
+reason recovery.
+
+358
+00:17:12,440 --> 00:17:14,239
+So we're going to get to
+the recovery in a second.
+
+359
+00:17:14,239 --> 00:17:17,480
+But basically, in addition
+to append only writes,
+
+360
+00:17:17,480 --> 00:17:19,880
+you also want to make sure
+that when you recover,
+
+361
+00:17:19,880 --> 00:17:21,640
+you read it from the log
+
+362
+00:17:21,640 --> 00:17:24,149
+in a sequential fashion
+as well, right?
+
+363
+00:17:24,149 --> 00:17:27,579
+And we'll discuss recovery in
+a bit more detail later on.
+
+364
+00:17:27,579 --> 00:17:31,780
+So logs provide us with
+ordering almost by design.
+
+365
+00:17:31,780 --> 00:17:33,900
+And specifically,
+what that means
+
+366
+00:17:33,900 --> 00:17:35,779
+is that it gives us
+the ability to have
+
+367
+00:17:35,779 --> 00:17:37,819
+this relationship
+where entry sub
+
+368
+00:17:37,819 --> 00:17:41,179
+by happens before
+entry sub by plus one.
+
+369
+00:17:41,179 --> 00:17:43,619
+Okay? So the ordering between
+
+370
+00:17:43,619 --> 00:17:46,219
+entry sub by and entry suba plus
+
+371
+00:17:46,219 --> 00:17:54,220
+one is ensured by the apparent
+only semantics of the log.
+
+372
+00:17:56,240 --> 00:18:00,360
+Okay. Now, does it
+give us atomicity?
+
+373
+00:18:00,360 --> 00:18:03,840
+As I mentioned, the answer
+to that is no, not directly.
+
+374
+00:18:03,840 --> 00:18:06,720
+The log does not automatically
+provide atomicity.
+
+375
+00:18:06,720 --> 00:18:08,719
+Aimsity is implemented by
+
+376
+00:18:08,719 --> 00:18:12,680
+this commit by committing
+the records in the log.
+
+377
+00:18:12,680 --> 00:18:15,280
+And so let's see how this works.
+
+378
+00:18:15,280 --> 00:18:18,280
+But first of all, remember
+from the previous lecture,
+
+379
+00:18:18,280 --> 00:18:19,919
+we also were curious whether or
+
+380
+00:18:19,919 --> 00:18:21,960
+not we need to perform
+some sort of ordering
+
+381
+00:18:21,960 --> 00:18:23,079
+between the commit for
+
+382
+00:18:23,079 --> 00:18:26,119
+the previous entry and
+the entry that follows.
+
+383
+00:18:26,119 --> 00:18:28,159
+So we definitely want
+
+384
+00:18:28,159 --> 00:18:30,280
+to make sure that to
+ensure atomicity,
+
+385
+00:18:30,280 --> 00:18:32,399
+we need to establish this
+happens before relationship
+
+386
+00:18:32,399 --> 00:18:35,199
+between entry suba
+and commitab, right?
+
+387
+00:18:35,199 --> 00:18:38,239
+The entry Say plus one
+and commitaylus one.
+
+388
+00:18:38,239 --> 00:18:41,319
+But the question is, and we
+have mechanisms for this.
+
+389
+00:18:41,319 --> 00:18:42,919
+We discussed flush, right?
+
+390
+00:18:42,919 --> 00:18:44,400
+That's one mechanism.
+
+391
+00:18:44,400 --> 00:18:47,919
+But the question is, do we
+want to also ensure that
+
+392
+00:18:47,919 --> 00:18:51,929
+the commits a by happens
+before entry subi plus one?
+
+393
+00:18:51,929 --> 00:18:55,380
+Is there any reason
+for us to ensure that?
+
+394
+00:18:58,980 --> 00:19:01,499
+In other words, can they
+
+395
+00:19:01,499 --> 00:19:03,779
+be written to this
+at the same time?
+
+396
+00:19:03,779 --> 00:19:12,340
+Yes. The entries
+
+397
+00:19:12,340 --> 00:19:16,179
+after. I'm sorry?
+
+398
+00:19:26,600 --> 00:19:29,680
+No, that's not
+exactly what I said.
+
+399
+00:19:29,680 --> 00:19:32,199
+I said is that when
+
+400
+00:19:32,199 --> 00:19:34,199
+you're reading through
+the log, for instance,
+
+401
+00:19:34,199 --> 00:19:36,879
+either during recovery
+or in order to find
+
+402
+00:19:36,879 --> 00:19:40,159
+whether a particular block
+
+403
+00:19:40,159 --> 00:19:41,840
+you're trying to
+read is in the log,
+
+404
+00:19:41,840 --> 00:19:44,639
+as soon as you encounter
+an invalidated entry,
+
+405
+00:19:44,639 --> 00:19:46,999
+you stop passing the log, right?
+
+406
+00:19:46,999 --> 00:19:48,839
+But the way the log is actually
+
+407
+00:19:48,839 --> 00:19:51,279
+populated is sort of
+orthogonal from that.
+
+408
+00:19:51,279 --> 00:19:52,639
+And there are multiple different
+
+409
+00:19:52,639 --> 00:19:54,040
+ways of populating the log.
+
+410
+00:19:54,040 --> 00:19:57,200
+The first one is the
+sequential that includes
+
+411
+00:19:57,200 --> 00:19:59,000
+the flushes to
+ensure that happens
+
+412
+00:19:59,000 --> 00:20:01,559
+before relationship between
+entry and commit, right?
+
+413
+00:20:01,559 --> 00:20:05,200
+And so you're kind
+
+414
+00:20:05,200 --> 00:20:08,519
+of appending entries and
+commits one at a time.
+
+415
+00:20:08,519 --> 00:20:11,519
+But then if you recall,
+
+416
+00:20:11,519 --> 00:20:13,359
+you're doing these
+writes, right?
+
+417
+00:20:13,359 --> 00:20:15,560
+But doing these writes
+in isolation is
+
+418
+00:20:15,560 --> 00:20:16,720
+not sufficient to ensure
+
+419
+00:20:16,720 --> 00:20:17,920
+that happens before
+relationship.
+
+420
+00:20:17,920 --> 00:20:19,600
+We need an additional
+mechanism like
+
+421
+00:20:19,600 --> 00:20:21,599
+flush in order to
+do that, right?
+
+422
+00:20:21,599 --> 00:20:23,399
+And so the question is
+
+423
+00:20:23,399 --> 00:20:25,399
+based basically whether
+or not we need to have
+
+424
+00:20:25,399 --> 00:20:30,759
+a flush between a commitr
+by an entry IP score, okay?
+
+425
+00:20:30,759 --> 00:20:33,279
+And so one way to maybe
+
+426
+00:20:33,279 --> 00:20:35,919
+draw that to make it a
+little bit more clear is,
+
+427
+00:20:35,919 --> 00:20:38,599
+let's say you have entry one.
+
+428
+00:20:38,599 --> 00:20:40,759
+This is the log, by the way.
+
+429
+00:20:40,759 --> 00:20:42,799
+This is your log. And we have
+
+430
+00:20:42,799 --> 00:20:45,679
+entry one followed
+by commit one,
+
+431
+00:20:45,679 --> 00:20:47,759
+and then we have entry E two,
+
+432
+00:20:47,759 --> 00:20:49,479
+followed by commit two.
+
+433
+00:20:49,479 --> 00:20:54,039
+This is two. And then
+we have entry E three,
+
+434
+00:20:54,039 --> 00:20:57,399
+followed by commit three, okay?
+
+435
+00:20:57,800 --> 00:21:00,599
+And to ensure that
+happens before
+
+436
+00:21:00,599 --> 00:21:02,999
+relationship between any IAB by
+
+437
+00:21:02,999 --> 00:21:10,210
+pair by the way to do that is
+to put a flush in between.
+
+438
+00:21:10,210 --> 00:21:14,819
+Okay? And so a flush
+imposes partial order.
+
+439
+00:21:14,819 --> 00:21:16,340
+So we know that if we put
+
+440
+00:21:16,340 --> 00:21:18,979
+a flush between E one and C one,
+
+441
+00:21:18,979 --> 00:21:21,299
+we're going to create the
+following partial order,
+
+442
+00:21:21,299 --> 00:21:24,460
+E one in the set by itself,
+
+443
+00:21:24,460 --> 00:21:26,939
+and then this happens
+before arrow, right?
+
+444
+00:21:26,939 --> 00:21:31,499
+And then we open a new set
+that starts with C one, right?
+
+445
+00:21:31,499 --> 00:21:34,540
+We've imposed this partial
+order with the flush.
+
+446
+00:21:34,540 --> 00:21:35,860
+And so the question is,
+
+447
+00:21:35,860 --> 00:21:39,299
+do we need I'm going to put
+a dash line right here.
+
+448
+00:21:39,299 --> 00:21:42,180
+Do we need a separate flush
+
+449
+00:21:42,180 --> 00:21:45,569
+that imposes order
+between C one and E two?
+
+450
+00:21:45,569 --> 00:21:49,119
+Do we want to make
+sure that E two
+
+451
+00:21:49,119 --> 00:21:52,719
+is guaranteed to be sort
+of written after C one?
+
+452
+00:21:52,719 --> 00:22:00,080
+Or do we care? Is there
+anything bad that's going to
+
+453
+00:22:00,080 --> 00:22:02,919
+happen if C one and E
+
+454
+00:22:02,919 --> 00:22:08,440
+two are written simultaneously
+or out of order to disk?
+
+455
+00:22:11,320 --> 00:22:15,559
+There was a yeah. E two
+is written before C one,
+
+456
+00:22:15,559 --> 00:22:16,479
+then there could be a case
+
+457
+00:22:16,479 --> 00:22:17,879
+where something is
+trying to read E
+
+458
+00:22:17,879 --> 00:22:19,239
+two and then you'll
+go to the blocks
+
+459
+00:22:19,239 --> 00:22:21,560
+even though E two is the pile.
+
+460
+00:22:24,170 --> 00:22:28,970
+Yeah, it'll construct
+everything after C one invalid,
+
+461
+00:22:28,970 --> 00:22:32,009
+whereas E two might
+actually be valid still.
+
+462
+00:22:33,210 --> 00:22:37,410
+So I think you're trying
+to prematurely optimize,
+
+463
+00:22:37,410 --> 00:22:39,129
+but all we were trying to
+
+464
+00:22:39,129 --> 00:22:41,769
+ensure is that we're
+crash consistent, right?
+
+465
+00:22:41,769 --> 00:22:43,210
+So it is indeed possible
+
+466
+00:22:43,210 --> 00:22:45,249
+for E two to be
+written before C one,
+
+467
+00:22:45,249 --> 00:22:47,089
+and then let's say
+crash happens.
+
+468
+00:22:47,089 --> 00:22:48,609
+And in that particular case,
+
+469
+00:22:48,609 --> 00:22:50,929
+E one would not have
+been committed, right?
+
+470
+00:22:50,929 --> 00:22:53,209
+E one would not
+have a commit bit
+
+471
+00:22:53,209 --> 00:22:54,809
+actually written to disk.
+
+472
+00:22:54,809 --> 00:22:55,929
+And so what you would have in
+
+473
+00:22:55,929 --> 00:22:57,369
+the log is that you would have
+
+474
+00:22:57,369 --> 00:23:00,929
+E one invalid and E two invalid.
+
+475
+00:23:00,929 --> 00:23:06,210
+Is that a problem? With
+respect to crash consistency,
+
+476
+00:23:06,210 --> 00:23:07,769
+it is actually not a problem.
+
+477
+00:23:07,769 --> 00:23:09,850
+Yes, you've lost some rights,
+
+478
+00:23:09,850 --> 00:23:11,809
+but that's not what
+we're optimizing for.
+
+479
+00:23:11,809 --> 00:23:13,970
+We're optimizing for
+crash consistency.
+
+480
+00:23:13,970 --> 00:23:16,249
+We're optimizing for
+correctness in this particular.
+
+481
+00:23:16,249 --> 00:23:19,329
+We're ensuring correctness
+with the set of
+
+482
+00:23:19,329 --> 00:23:21,250
+techniques and mechanisms that
+
+483
+00:23:21,250 --> 00:23:22,929
+we are discussing today, okay?
+
+484
+00:23:22,929 --> 00:23:27,009
+So writing E two out of water
+with C one is actually not
+
+485
+00:23:27,009 --> 00:23:29,850
+a problem if crash consistency
+
+486
+00:23:29,850 --> 00:23:32,734
+is what we're trying
+to ensure, okay?
+
+487
+00:23:32,734 --> 00:23:35,219
+In other words, it is
+
+488
+00:23:35,219 --> 00:23:37,980
+not necessary for us
+to actually impose
+
+489
+00:23:37,980 --> 00:23:40,740
+a flush between consecutive IA
+
+490
+00:23:40,740 --> 00:23:44,100
+by Csa by pairs in the log.
+
+491
+00:23:44,100 --> 00:23:48,460
+And so we will ensure ordering
+
+492
+00:23:48,460 --> 00:23:50,299
+between IA by and Cis by with
+
+493
+00:23:50,299 --> 00:23:52,579
+a flush for each of
+the pairs, right?
+
+494
+00:23:52,579 --> 00:23:55,620
+So what you have is essentially
+
+495
+00:23:55,620 --> 00:23:57,699
+your second set in
+
+496
+00:23:57,699 --> 00:24:01,409
+this partial order starting
+with C one and E two.
+
+497
+00:24:01,409 --> 00:24:04,520
+And then there's this
+particular happens
+
+498
+00:24:04,520 --> 00:24:07,160
+before relationship that
+insured by the flush.
+
+499
+00:24:07,160 --> 00:24:10,919
+And then you have a
+C two and E three in
+
+500
+00:24:10,919 --> 00:24:15,079
+the third set and C three
+in the fourth step.
+
+501
+00:24:15,079 --> 00:24:16,839
+So that's how you actually get
+
+502
+00:24:16,839 --> 00:24:19,374
+a partial order out of this law.
+
+503
+00:24:19,374 --> 00:24:23,429
+So E one will happen
+before everything else.
+
+504
+00:24:23,429 --> 00:24:27,389
+And then after
+that, in any order,
+
+505
+00:24:27,389 --> 00:24:29,830
+you can write all of the
+elements in this set,
+
+506
+00:24:29,830 --> 00:24:32,029
+then it happens before, then all
+
+507
+00:24:32,029 --> 00:24:34,429
+of these elements in the set
+can be written in any order.
+
+508
+00:24:34,429 --> 00:24:36,270
+It doesn't matter.
+That doesn't matter.
+
+509
+00:24:36,270 --> 00:24:39,309
+And then it happens before
+and then C three. Yes.
+
+510
+00:24:39,309 --> 00:24:42,349
+Then we are enforcing that C
+
+511
+00:24:42,349 --> 00:24:47,229
+two happens before say C
+one happens before C two.
+
+512
+00:24:47,760 --> 00:24:52,559
+Yeah, exactly. So notice
+what we've done here.
+
+513
+00:24:52,559 --> 00:24:55,719
+What we've ensured,
+just like you said,
+
+514
+00:24:55,719 --> 00:24:57,920
+but I'm going to correct
+it a little bit.
+
+515
+00:24:57,920 --> 00:25:00,319
+This way is actually it is
+
+516
+00:25:00,319 --> 00:25:02,400
+sufficient for us to
+have this flush between
+
+517
+00:25:02,400 --> 00:25:06,919
+I by to guarantee the
+ordering as well, right?
+
+518
+00:25:06,919 --> 00:25:10,360
+You're actually guaranteeing
+that ISA B is going to
+
+519
+00:25:10,360 --> 00:25:13,919
+be persistent before IA by plus
+
+520
+00:25:13,919 --> 00:25:17,359
+one for any I And you don't
+
+521
+00:25:17,359 --> 00:25:19,119
+need this additional flush in
+
+522
+00:25:19,119 --> 00:25:21,639
+between the pairs in
+order to do that.
+
+523
+00:25:21,639 --> 00:25:24,879
+You can allow some reordering
+
+524
+00:25:24,879 --> 00:25:27,799
+of CA by and IA by plus one.
+
+525
+00:25:27,799 --> 00:25:29,839
+Makes sense?
+
+526
+00:25:36,010 --> 00:25:39,649
+And so I'm jumping
+ahead of myself here,
+
+527
+00:25:39,649 --> 00:25:41,530
+but since we have this
+on the whiteboard,
+
+528
+00:25:41,530 --> 00:25:43,850
+you can already see that
+we're starting to save
+
+529
+00:25:43,850 --> 00:25:46,930
+some flushes here
+compared to shadowing,
+
+530
+00:25:46,930 --> 00:25:49,729
+where shadowing
+required three flushes
+
+531
+00:25:49,729 --> 00:25:51,849
+for us to perform
+two writes, right?
+
+532
+00:25:51,849 --> 00:25:54,649
+Those two writes could have
+corresponded to, let's say,
+
+533
+00:25:54,649 --> 00:25:57,769
+e1c1 and e2c2 with
+only two flushes,
+
+534
+00:25:57,769 --> 00:26:00,330
+so we will have already
+saved one flush.
+
+535
+00:26:00,330 --> 00:26:04,369
+In addition to not requiring
+this memory or, I guess,
+
+536
+00:26:04,369 --> 00:26:06,209
+storage overhead
+in order to keep
+
+537
+00:26:06,209 --> 00:26:08,689
+track of the current data
+and the shadow data.
+
+538
+00:26:08,689 --> 00:26:10,330
+So we've already won,
+
+539
+00:26:10,330 --> 00:26:15,610
+even with this limited
+rudimentary journaling approach.
+
+540
+00:26:17,210 --> 00:26:19,889
+And you should always
+make sure that it
+
+541
+00:26:19,889 --> 00:26:22,489
+checks out on all of the
+properties we're looking for.
+
+542
+00:26:22,489 --> 00:26:28,370
+Is it consistent with
+the ordering of IABse?
+
+543
+00:26:28,370 --> 00:26:30,970
+It is consistent with
+the ordering of IABis.
+
+544
+00:26:30,970 --> 00:26:33,650
+Does it guarantee atomicity?
+
+545
+00:26:33,650 --> 00:26:36,250
+It guarantees the atomicity
+
+546
+00:26:36,250 --> 00:26:38,689
+of every IABi, right? Because?
+
+547
+00:26:38,689 --> 00:26:41,650
+Why? What's the how do
+you answer this question?
+
+548
+00:26:41,650 --> 00:26:43,409
+Because pick any seed,
+
+549
+00:26:43,409 --> 00:26:46,010
+let's say CSA Bi,
+
+550
+00:26:46,010 --> 00:26:51,569
+and then if CSA BI is
+
+551
+00:26:51,569 --> 00:26:59,370
+committed or written or visible
+to the external universe,
+
+552
+00:26:59,370 --> 00:27:04,729
+then this implies
+that Isabai is also
+
+553
+00:27:04,729 --> 00:27:09,650
+visible to the external universe
+
+554
+00:27:09,650 --> 00:27:14,850
+because of this partial order
+that was imposed by Flush.
+
+555
+00:27:18,590 --> 00:27:21,629
+Any questions so far?
+
+556
+00:27:22,350 --> 00:27:24,909
+Okay, let's keep
+going through this.
+
+557
+00:27:24,909 --> 00:27:26,469
+It will become a
+little bit more clear.
+
+558
+00:27:26,469 --> 00:27:30,109
+So this is our commit
+mechanism number one.
+
+559
+00:27:30,109 --> 00:27:33,629
+Basically, the
+question is or part of
+
+560
+00:27:33,629 --> 00:27:35,350
+the discussion we need
+to have is how to
+
+561
+00:27:35,350 --> 00:27:37,430
+ensure atomic
+rights for commits.
+
+562
+00:27:37,430 --> 00:27:39,230
+And you could also be writing
+
+563
+00:27:39,230 --> 00:27:43,149
+basically single block
+granularity, right?
+
+564
+00:27:43,149 --> 00:27:45,230
+Because we're
+guaranteed atomicity
+
+565
+00:27:45,230 --> 00:27:46,910
+at single block granularity.
+
+566
+00:27:46,910 --> 00:27:48,149
+One block for the entry,
+
+567
+00:27:48,149 --> 00:27:49,429
+one block for commit,
+
+568
+00:27:49,429 --> 00:27:51,750
+one block for the entry,
+one block for commit,
+
+569
+00:27:51,750 --> 00:27:53,070
+and so on and so forth.
+
+570
+00:27:53,070 --> 00:27:55,429
+But this is clearly
+suboptimal, right?
+
+571
+00:27:55,429 --> 00:27:57,150
+So instead, what we're
+
+572
+00:27:57,150 --> 00:27:58,950
+doing is what I have
+just described.
+
+573
+00:27:58,950 --> 00:28:01,030
+You have a right for the entry,
+
+574
+00:28:01,030 --> 00:28:02,710
+and then you put a flush
+
+575
+00:28:02,710 --> 00:28:04,509
+and you have a right
+for the commit.
+
+576
+00:28:04,509 --> 00:28:07,429
+And this gives us this
+happens before relationship.
+
+577
+00:28:07,429 --> 00:28:10,669
+So again, E one,
+
+578
+00:28:10,990 --> 00:28:13,350
+followed by the flush,
+
+579
+00:28:13,350 --> 00:28:15,829
+followed by C one, right?
+
+580
+00:28:15,829 --> 00:28:17,669
+And then you have E two,
+
+581
+00:28:17,669 --> 00:28:19,430
+followed by the flush,
+
+582
+00:28:19,430 --> 00:28:21,749
+followed by C two,
+and then you have E
+
+583
+00:28:21,749 --> 00:28:25,069
+three followed by the
+flush, followed by C three.
+
+584
+00:28:30,050 --> 00:28:32,929
+So the flashes are
+giving us this
+
+585
+00:28:32,929 --> 00:28:35,969
+happens before semantics
+that we're looking for.
+
+586
+00:28:36,530 --> 00:28:39,489
+And yeah, and this is
+
+587
+00:28:39,489 --> 00:28:43,329
+just of what we discussed
+with this particular log.
+
+588
+00:28:43,329 --> 00:28:44,969
+And this is how you would
+
+589
+00:28:44,969 --> 00:28:47,089
+instantiate the partial
+order or direct
+
+590
+00:28:47,089 --> 00:28:48,769
+the graph out of
+
+591
+00:28:48,769 --> 00:28:51,809
+the vertices that are
+participating in your log, right?
+
+592
+00:28:51,809 --> 00:28:53,009
+And we discussed how you
+
+593
+00:28:53,009 --> 00:28:54,809
+don't need an
+additional flush here.
+
+594
+00:28:54,809 --> 00:28:57,010
+You can allow some out
+of order operations
+
+595
+00:28:57,010 --> 00:29:00,369
+between CI and de capital for.
+
+596
+00:29:02,750 --> 00:29:07,389
+Okay. So this is commit
+mechanism number one.
+
+597
+00:29:07,389 --> 00:29:11,069
+We can see that we've
+arrived at a point in
+
+598
+00:29:11,069 --> 00:29:15,709
+the design space where
+we're getting itemity,
+
+599
+00:29:15,709 --> 00:29:18,469
+we're getting ordering, and
+
+600
+00:29:18,469 --> 00:29:21,229
+we're doing better in terms
+of performance, right?
+
+601
+00:29:21,229 --> 00:29:23,350
+So we're achieving
+correctness and we're
+
+602
+00:29:23,350 --> 00:29:25,669
+improving on performance
+relative to shadowing.
+
+603
+00:29:25,669 --> 00:29:27,789
+So we should be
+very happy, right?
+
+604
+00:29:27,789 --> 00:29:29,869
+And there must have been a point
+
+605
+00:29:29,869 --> 00:29:31,869
+in the design space at
+some point in time,
+
+606
+00:29:31,869 --> 00:29:33,789
+but we've moved on
+from that point.
+
+607
+00:29:33,789 --> 00:29:35,829
+There are some better
+ways of doing this,
+
+608
+00:29:35,829 --> 00:29:37,510
+and this is what I'm
+
+609
+00:29:37,510 --> 00:29:40,629
+referring to as commit
+mechanism number two.
+
+610
+00:29:40,629 --> 00:29:43,309
+Let's motivate this commit
+
+611
+00:29:43,309 --> 00:29:45,149
+mechanism number two
+with a question.
+
+612
+00:29:45,149 --> 00:29:48,029
+Somebody asked me the
+following question, right?
+
+613
+00:29:48,029 --> 00:29:49,309
+And it was a really
+good question,
+
+614
+00:29:49,309 --> 00:29:51,269
+and sort of I gave me pause.
+
+615
+00:29:51,269 --> 00:29:54,270
+So the question was, how
+can we distinguish between
+
+616
+00:29:54,270 --> 00:29:58,389
+an erroneous commit and
+an invalid commit, right?
+
+617
+00:29:58,389 --> 00:30:01,109
+What if we make a mistake
+when writing an entry?
+
+618
+00:30:01,109 --> 00:30:03,189
+So let's say we've
+written an entry and
+
+619
+00:30:03,189 --> 00:30:05,269
+then we've written a
+commit and there's
+
+620
+00:30:05,269 --> 00:30:06,669
+a cosmic ray or a bit
+
+621
+00:30:06,669 --> 00:30:08,589
+flip that sort of
+
+622
+00:30:08,589 --> 00:30:11,189
+went unchecked in the
+process of a write?
+
+623
+00:30:11,189 --> 00:30:14,030
+And do we have
+
+624
+00:30:14,030 --> 00:30:17,469
+any mechanism of actually
+detecting that, right?
+
+625
+00:30:17,810 --> 00:30:20,489
+So at this moment in time,
+
+626
+00:30:20,489 --> 00:30:24,970
+we only use the commit write
+as sort of a signal that
+
+627
+00:30:24,970 --> 00:30:27,409
+the entry corresponding to
+
+628
+00:30:27,409 --> 00:30:30,049
+it has been written to
+disk, and that's it.
+
+629
+00:30:30,049 --> 00:30:32,649
+That's the only way
+
+630
+00:30:32,649 --> 00:30:35,210
+in which we're actually
+leveraging a commit.
+
+631
+00:30:35,210 --> 00:30:37,169
+So here's an insight for you.
+
+632
+00:30:37,169 --> 00:30:39,969
+Since we're writing a commit to
+
+633
+00:30:39,969 --> 00:30:43,130
+serve that purpose
+already anyway,
+
+634
+00:30:43,130 --> 00:30:45,710
+why not make it a checks?
+
+635
+00:30:45,710 --> 00:30:47,969
+We're already spending it right,
+
+636
+00:30:47,969 --> 00:30:49,730
+which is an
+inexpensive operation.
+
+637
+00:30:49,730 --> 00:30:52,169
+We're already doing
+that in order for us
+
+638
+00:30:52,169 --> 00:30:55,130
+to actually ensure and enact,
+
+639
+00:30:55,130 --> 00:30:58,249
+in fact, the ethnicity
+
+640
+00:30:58,249 --> 00:31:00,289
+of the entry that
+it corresponds to.
+
+641
+00:31:00,289 --> 00:31:03,810
+Let's just overload it and
+give it some semantic meaning.
+
+642
+00:31:03,810 --> 00:31:07,330
+Thank you to check some of
+the entry that we're writing.
+
+643
+00:31:07,330 --> 00:31:10,050
+It seems pretty like a sort
+
+644
+00:31:10,050 --> 00:31:12,809
+of not quite a leap
+of faith, right?
+
+645
+00:31:12,809 --> 00:31:15,519
+It seems pretty
+thing for us to try.
+
+646
+00:31:15,519 --> 00:31:17,280
+So instead of just writing
+
+647
+00:31:17,280 --> 00:31:19,719
+some arbitrary data for CSA Bs,
+
+648
+00:31:19,719 --> 00:31:23,959
+make it a checks of ES one ESAB.
+
+649
+00:31:23,959 --> 00:31:26,254
+So how would that work?
+
+650
+00:31:26,254 --> 00:31:28,029
+To commit an entry,
+
+651
+00:31:28,029 --> 00:31:29,989
+what we're going to do is
+we're going to compute
+
+652
+00:31:29,989 --> 00:31:32,229
+a check sum of that entry, okay?
+
+653
+00:31:32,229 --> 00:31:36,029
+And we are also
+
+654
+00:31:36,029 --> 00:31:37,949
+going to make it possible for
+
+655
+00:31:37,949 --> 00:31:41,189
+multiple entries on the same
+this block to be written.
+
+656
+00:31:41,189 --> 00:31:43,830
+We can write all of them
+in a single operation,
+
+657
+00:31:43,830 --> 00:31:45,950
+and we can compute
+a single check sum.
+
+658
+00:31:45,950 --> 00:31:47,949
+So I believe in XB six,
+
+659
+00:31:47,949 --> 00:31:50,110
+this is called a
+group commit, right?
+
+660
+00:31:50,110 --> 00:31:52,789
+So it is actually possible
+to have a group commit with
+
+661
+00:31:52,789 --> 00:31:54,909
+a single check sum
+that's calculated on
+
+662
+00:31:54,909 --> 00:31:58,270
+multiple writes in
+a single operation.
+
+663
+00:31:59,600 --> 00:32:02,279
+And so why is that interesting?
+
+664
+00:32:02,279 --> 00:32:03,639
+Well, that's interesting because
+
+665
+00:32:03,639 --> 00:32:05,640
+checksum is now overloaded.
+
+666
+00:32:05,640 --> 00:32:08,079
+It still gives us this ability
+
+667
+00:32:08,079 --> 00:32:11,119
+to impose order and
+ethnicity, right?
+
+668
+00:32:11,119 --> 00:32:13,039
+But it also gives
+you the ability
+
+669
+00:32:13,039 --> 00:32:15,320
+to validate or
+invalidate the entries.
+
+670
+00:32:15,320 --> 00:32:18,559
+So in other words, if you
+check the checksum, sorry,
+
+671
+00:32:18,559 --> 00:32:20,839
+if you read CSA B and it doesn't
+
+672
+00:32:20,839 --> 00:32:23,440
+correspond to the
+check sum of ISAI,
+
+673
+00:32:23,440 --> 00:32:26,639
+we will consider
+that entry invalid.
+
+674
+00:32:28,560 --> 00:32:30,639
+Okay?
+
+675
+00:32:31,600 --> 00:32:34,959
+Everything else stays the same.
+
+676
+00:32:35,280 --> 00:32:40,320
+Everything else stays
+the same. Mm hmm.
+
+677
+00:32:40,320 --> 00:32:42,000
+A very interesting question is,
+
+678
+00:32:42,000 --> 00:32:43,199
+what does that by us,
+
+679
+00:32:43,199 --> 00:32:44,639
+this additional thing, right?
+
+680
+00:32:44,639 --> 00:32:46,679
+Well, it buys us very,
+
+681
+00:32:46,679 --> 00:32:48,599
+very cool properties and
+
+682
+00:32:48,599 --> 00:32:52,559
+huge performance improvements
+as it turns out.
+
+683
+00:32:55,120 --> 00:32:57,560
+Now, let's see what logging
+
+684
+00:32:57,560 --> 00:32:59,120
+with checks on
+commit looks like.
+
+685
+00:32:59,120 --> 00:33:02,160
+Any questions? Oh,
+sorry, I didn't notice.
+
+686
+00:33:02,940 --> 00:33:08,699
+Yeah. Entry. Would you what?
+
+687
+00:33:08,699 --> 00:33:10,379
+Would you recommit that entry
+
+688
+00:33:10,379 --> 00:33:12,540
+or Would you recommit
+that I mean,
+
+689
+00:33:12,540 --> 00:33:14,539
+it depends on what
+you're doing, right?
+
+690
+00:33:14,539 --> 00:33:16,820
+So for example, if
+you're performing
+
+691
+00:33:16,820 --> 00:33:19,219
+a read operation
+on block I, right?
+
+692
+00:33:19,219 --> 00:33:20,580
+And the first thing you're
+
+693
+00:33:20,580 --> 00:33:21,860
+going to do is you're
+going to traverse
+
+694
+00:33:21,860 --> 00:33:23,179
+a log to see if that block
+
+695
+00:33:23,179 --> 00:33:24,819
+I is already in the log, right?
+
+696
+00:33:24,819 --> 00:33:27,460
+And so you'll be
+
+697
+00:33:27,460 --> 00:33:30,819
+traversing the log for as long
+as the entries are valid.
+
+698
+00:33:30,819 --> 00:33:34,619
+Where valid is defined
+as the check sum of
+
+699
+00:33:34,619 --> 00:33:38,729
+ISA B equals to CSA B.
+
+700
+00:33:38,729 --> 00:33:39,769
+Okay.
+
+701
+00:33:39,769 --> 00:33:42,369
+The termination
+condition of this for
+
+702
+00:33:42,369 --> 00:33:44,569
+loop is essentially you're
+
+703
+00:33:44,569 --> 00:33:46,290
+encountering an entry for which
+
+704
+00:33:46,290 --> 00:33:49,729
+this equality no longer
+holds true, okay?
+
+705
+00:33:49,729 --> 00:33:52,129
+So like your question
+is a little bit vague.
+
+706
+00:33:52,129 --> 00:33:53,369
+It depends on what you're doing.
+
+707
+00:33:53,369 --> 00:33:55,209
+So if you're doing
+this screen operation,
+
+708
+00:33:55,209 --> 00:33:56,570
+you wouldn't recommit anything.
+
+709
+00:33:56,570 --> 00:33:58,529
+You basically just stop. It will
+
+710
+00:33:58,529 --> 00:34:00,489
+be a termination
+condition, right?
+
+711
+00:34:00,489 --> 00:34:01,729
+Okay.
+
+712
+00:34:01,729 --> 00:34:05,649
+I Does that answer
+your question?
+
+713
+00:34:05,649 --> 00:34:09,169
+Okay. So what you
+
+714
+00:34:09,169 --> 00:34:10,489
+mean when you're
+performing a write
+
+715
+00:34:10,489 --> 00:34:12,609
+and you're writing
+into the log, right?
+
+716
+00:34:12,609 --> 00:34:15,929
+So when you write
+
+717
+00:34:15,929 --> 00:34:17,409
+into the log and the entry was
+
+718
+00:34:17,409 --> 00:34:19,849
+written and the
+checks was written,
+
+719
+00:34:20,490 --> 00:34:23,569
+you know, presumably
+there's there's
+
+720
+00:34:23,569 --> 00:34:26,049
+a way to check that that
+write was actually has
+
+721
+00:34:26,049 --> 00:34:31,049
+gone through and the checks
+corresponds to the commit.
+
+722
+00:34:31,049 --> 00:34:36,250
+Yeah. You would not would
+not perform this operations.
+
+723
+00:34:36,250 --> 00:34:38,969
+Okay, let's see how
+this is useful, though,
+
+724
+00:34:38,969 --> 00:34:41,889
+because it's actually when I
+saw this for the first time,
+
+725
+00:34:41,889 --> 00:34:43,369
+it kind of really blew my mind.
+
+726
+00:34:43,369 --> 00:34:46,729
+So now we have the
+same situation here.
+
+727
+00:34:46,729 --> 00:34:49,849
+You have a log and it has
+a bunch of entries, right?
+
+728
+00:34:49,849 --> 00:34:52,849
+So what's really,
+
+729
+00:34:52,849 --> 00:34:55,489
+really interesting is
+that these entries
+
+730
+00:34:55,489 --> 00:35:01,609
+can now be written to
+the log in any order,
+
+731
+00:35:01,609 --> 00:35:04,410
+and that's mind blowing.
+
+732
+00:35:06,240 --> 00:35:10,559
+Now, sequentiality is
+still guaranteed by
+
+733
+00:35:10,559 --> 00:35:12,359
+basically grabbing a position to
+
+734
+00:35:12,359 --> 00:35:15,119
+which you're going to
+perform a write, okay?
+
+735
+00:35:15,119 --> 00:35:18,600
+So there's a specific log block
+
+736
+00:35:18,600 --> 00:35:20,280
+to which you're
+going to be writing,
+
+737
+00:35:20,280 --> 00:35:22,679
+and that is given to
+you in sequence, right?
+
+738
+00:35:22,679 --> 00:35:27,199
+So write operations are still
+sequential and they are
+
+739
+00:35:27,199 --> 00:35:30,439
+ordered by virtue of
+
+740
+00:35:30,439 --> 00:35:32,799
+actually getting this
+log block number
+
+741
+00:35:32,799 --> 00:35:35,079
+to which the write is
+supposed to happen.
+
+742
+00:35:35,079 --> 00:35:38,279
+But you don't have to wait
+for the write to complete.
+
+743
+00:35:38,279 --> 00:35:40,199
+All of these writes, both for
+
+744
+00:35:40,199 --> 00:35:42,600
+the entries and the check sums
+
+745
+00:35:42,600 --> 00:35:47,400
+can actually happen in any
+order. And that's crazy.
+
+746
+00:35:47,400 --> 00:35:50,560
+Now, you no longer need
+to have this flash
+
+747
+00:35:50,560 --> 00:35:54,720
+between the IAA and CAB if
+you're using checksums.
+
+748
+00:35:59,500 --> 00:36:03,419
+I'm going to let you think
+about this for a second,
+
+749
+00:36:03,980 --> 00:36:08,739
+because that has tons
+of implications, right?
+
+750
+00:36:08,739 --> 00:36:11,020
+The way you should be thinking
+
+751
+00:36:11,020 --> 00:36:13,379
+through this is what happens if,
+
+752
+00:36:13,379 --> 00:36:17,779
+you know, E three and C
+three gets written, right?
+
+753
+00:36:17,779 --> 00:36:20,139
+E one gets written
+but not C one,
+
+754
+00:36:20,139 --> 00:36:23,179
+and then maybe C two gets
+written but not E two.
+
+755
+00:36:23,179 --> 00:36:25,099
+And you should be thinking
+
+756
+00:36:25,099 --> 00:36:27,100
+about what happens
+when we are performing
+
+757
+00:36:27,100 --> 00:36:29,979
+a read or when we're
+performing a recovery over
+
+758
+00:36:29,979 --> 00:36:34,259
+a log like this in
+situations like this. Yes.
+
+759
+00:36:34,260 --> 00:36:36,379
+I might have missed this, but
+
+760
+00:36:36,379 --> 00:36:38,099
+let's say you perform a write
+
+761
+00:36:38,099 --> 00:36:39,859
+on a block on
+
+762
+00:36:39,859 --> 00:36:41,859
+a location that's already
+in the log, right?
+
+763
+00:36:41,859 --> 00:36:43,979
+So you perform a write
+
+764
+00:36:43,979 --> 00:36:45,659
+and you append it to
+the end of the log.
+
+765
+00:36:45,659 --> 00:36:48,339
+And then when you perform a
+read on that same data block,
+
+766
+00:36:48,339 --> 00:36:49,819
+how do you differentiate
+
+767
+00:36:49,819 --> 00:36:53,099
+between the first write
+and the second write?
+
+768
+00:36:53,099 --> 00:36:56,419
+You don't. You don't have
+to differentiate, right?
+
+769
+00:36:56,419 --> 00:36:58,779
+So if you perform two writes
+to the same data block,
+
+770
+00:36:58,779 --> 00:37:00,100
+there will be two entries
+
+771
+00:37:00,100 --> 00:37:02,559
+sequentially ordered in the log.
+
+772
+00:37:02,559 --> 00:37:06,499
+So you don't stop when you
+see the first location?
+
+773
+00:37:06,499 --> 00:37:08,899
+Why would you? Yeah. If
+you're performing a write,
+
+774
+00:37:08,899 --> 00:37:11,739
+it's just a mutation
+operation that you log.
+
+775
+00:37:11,739 --> 00:37:14,859
+When you read, you have to read
+
+776
+00:37:14,859 --> 00:37:16,699
+the entire log so that then you
+
+777
+00:37:16,699 --> 00:37:17,859
+apply the first write and
+
+778
+00:37:17,859 --> 00:37:19,019
+then you apply the second write,
+
+779
+00:37:19,019 --> 00:37:21,924
+assuming both of them are
+actually valid rights.
+
+780
+00:37:21,924 --> 00:37:25,150
+And so what's interesting
+is that you let's
+
+781
+00:37:25,150 --> 00:37:26,830
+say there are K rights
+
+782
+00:37:26,830 --> 00:37:28,749
+that were appended
+to the log, right?
+
+783
+00:37:28,749 --> 00:37:30,989
+But only a small subset of them,
+
+784
+00:37:30,989 --> 00:37:34,470
+let's say the third right
+for some reason was invalid.
+
+785
+00:37:34,470 --> 00:37:36,269
+It doesn't have a valid commit.
+
+786
+00:37:36,269 --> 00:37:39,869
+So upon reading the
+log left to right,
+
+787
+00:37:39,869 --> 00:37:41,790
+you will only consider
+the first two rights
+
+788
+00:37:41,790 --> 00:37:43,789
+and the rest are going
+to be discarded.
+
+789
+00:37:43,789 --> 00:37:48,270
+So remember that it is
+possible to miss rights,
+
+790
+00:37:48,270 --> 00:37:50,589
+right, because that's not
+what we're optimizing for.
+
+791
+00:37:50,589 --> 00:37:51,869
+What we're optimizing for
+
+792
+00:37:51,869 --> 00:37:54,069
+crash consistency and
+making sure that we
+
+793
+00:37:54,069 --> 00:37:58,639
+leave the system
+in the same state.
+
+794
+00:37:58,639 --> 00:37:59,529
+Okay.
+
+795
+00:37:59,529 --> 00:38:01,570
+Can we can we flush
+
+796
+00:38:01,570 --> 00:38:03,770
+the log after a certain
+amount of rights,
+
+797
+00:38:03,770 --> 00:38:05,529
+I guess, because, like,
+
+798
+00:38:05,529 --> 00:38:07,009
+it's we're guaranteed that
+
+799
+00:38:07,009 --> 00:38:08,694
+they're going to persist, it is.
+
+800
+00:38:08,694 --> 00:38:10,899
+Yeah, yeah. So basically,
+
+801
+00:38:10,899 --> 00:38:13,899
+I really like where this
+question is going, right?
+
+802
+00:38:13,899 --> 00:38:17,100
+As a developer, you
+have no guarantee
+
+803
+00:38:17,100 --> 00:38:20,460
+that the stuff you're writing
+actually persists to disk.
+
+804
+00:38:20,460 --> 00:38:22,179
+There is a way to do that,
+
+805
+00:38:22,179 --> 00:38:23,539
+but it's very expensive.
+
+806
+00:38:23,539 --> 00:38:27,059
+And we're actually going to
+get to how to do that both
+
+807
+00:38:27,059 --> 00:38:28,819
+from the application
+perspective and
+
+808
+00:38:28,819 --> 00:38:31,059
+from a file system
+perspective, okay?
+
+809
+00:38:31,059 --> 00:38:34,819
+And basically how expensive
+the FSInc actually
+
+810
+00:38:34,819 --> 00:38:36,219
+is when you do try to
+
+811
+00:38:36,219 --> 00:38:38,659
+persist something to
+disk because you really,
+
+812
+00:38:38,659 --> 00:38:40,685
+really want it to
+be on the disk.
+
+813
+00:38:40,685 --> 00:38:42,669
+But yeah, that question really
+
+814
+00:38:42,669 --> 00:38:45,349
+stems from the right place
+in your thinking that you
+
+815
+00:38:45,349 --> 00:38:48,030
+should understand by
+now that when you're
+
+816
+00:38:48,030 --> 00:38:51,270
+performing a write clocking
+write and it returns,
+
+817
+00:38:51,270 --> 00:38:53,030
+and it says it has successfully
+
+818
+00:38:53,030 --> 00:38:55,949
+written, it means nothing.
+
+819
+00:38:56,030 --> 00:38:59,789
+The data may not have
+persisted to disk, okay?
+
+820
+00:38:59,789 --> 00:39:01,789
+It's still somewhere out there,
+
+821
+00:39:01,789 --> 00:39:05,510
+potentially in the log,
+somewhere in memory.
+
+822
+00:39:05,510 --> 00:39:09,029
+And in order for you to
+actually persist your data,
+
+823
+00:39:09,029 --> 00:39:10,469
+you really need to work quite
+
+824
+00:39:10,469 --> 00:39:14,189
+hard for it to be
+persistent to disk.
+
+825
+00:39:14,189 --> 00:39:16,029
+But let's get back to this.
+
+826
+00:39:16,029 --> 00:39:17,790
+So the checksum is
+really beautiful
+
+827
+00:39:17,790 --> 00:39:20,379
+because we really got rid
+of all of the flushes.
+
+828
+00:39:20,379 --> 00:39:24,089
+Okay? And so you can
+take advantage of
+
+829
+00:39:24,089 --> 00:39:29,249
+the vector processing
+capabilities of your modern CPUs,
+
+830
+00:39:29,249 --> 00:39:30,690
+for instance, in
+order to calculate
+
+831
+00:39:30,690 --> 00:39:32,889
+the check sums in the
+SIMD fashion, right?
+
+832
+00:39:32,889 --> 00:39:34,689
+Single instruction,
+multiple data.
+
+833
+00:39:34,689 --> 00:39:36,529
+You have multiple data
+in this particular case,
+
+834
+00:39:36,529 --> 00:39:38,329
+multiple entries, which you
+
+835
+00:39:38,329 --> 00:39:40,929
+can write at the
+same time, okay?
+
+836
+00:39:40,929 --> 00:39:44,409
+And you can calculate their
+check sums at the same time,
+
+837
+00:39:44,409 --> 00:39:47,450
+and you can write the
+commits also simultaneously.
+
+838
+00:39:47,450 --> 00:39:50,130
+And what's important is that
+the order is still preserved
+
+839
+00:39:50,130 --> 00:39:52,810
+because you're writing to the
+right location in the log,
+
+840
+00:39:52,810 --> 00:39:54,849
+but the actual act of
+
+841
+00:39:54,849 --> 00:39:58,329
+writing data can
+happen in any order.
+
+842
+00:39:58,329 --> 00:40:04,209
+And that's really
+beautiful. Okay.
+
+843
+00:40:04,209 --> 00:40:07,209
+Yeah, and what
+happens is that if
+
+844
+00:40:07,209 --> 00:40:10,409
+you ever need to go through
+the log for whatever reason,
+
+845
+00:40:10,409 --> 00:40:12,929
+either by reading the log or by
+
+846
+00:40:12,929 --> 00:40:16,409
+merging the log or by
+recovering from the log, okay,
+
+847
+00:40:16,409 --> 00:40:21,049
+you will stop at the very
+first entry for which
+
+848
+00:40:21,049 --> 00:40:23,929
+the check sum of
+the entry does not
+
+849
+00:40:23,929 --> 00:40:28,889
+equal to the commit
+written to disk, okay?
+
+850
+00:40:31,180 --> 00:40:36,579
+So this entry in this particular
+case would be invalid.
+
+851
+00:40:36,579 --> 00:40:39,500
+And in order to preserve
+
+852
+00:40:39,500 --> 00:40:42,140
+this prefix property that
+I mentioned previously,
+
+853
+00:40:42,140 --> 00:40:45,819
+as soon as we encounter an
+invalid entry in the log,
+
+854
+00:40:45,819 --> 00:40:49,979
+it invalidates all of the
+remaining entries in the log.
+
+855
+00:40:51,540 --> 00:40:55,780
+And the reason for this
+is consider three rights.
+
+856
+00:40:55,780 --> 00:40:58,900
+Let's say the first was valid
+and check some matching.
+
+857
+00:40:58,900 --> 00:41:02,299
+The third was valid, that
+check some matching.
+
+858
+00:41:02,299 --> 00:41:04,380
+But the second one,
+the one in the middle,
+
+859
+00:41:04,380 --> 00:41:07,300
+for some reason got corrupted
+as it was written to disk.
+
+860
+00:41:07,300 --> 00:41:10,739
+So as you're replaying those
+rights one after another,
+
+861
+00:41:10,739 --> 00:41:12,659
+you want to stop
+at the second one
+
+862
+00:41:12,659 --> 00:41:14,819
+because it can
+corrupt your file,
+
+863
+00:41:14,819 --> 00:41:16,659
+even though the third one was
+
+864
+00:41:16,659 --> 00:41:18,660
+correctly check
+suped and validated.
+
+865
+00:41:18,660 --> 00:41:21,459
+Does that make sense?
+So you never want to go
+
+866
+00:41:21,459 --> 00:41:25,259
+past the entry that is for
+whatever reason, invalid.
+
+867
+00:41:25,259 --> 00:41:27,499
+It invalidates the
+rest of the log.
+
+868
+00:41:27,499 --> 00:41:30,819
+The entire suffix of the
+log is now invalid. Yes.
+
+869
+00:41:30,819 --> 00:41:33,859
+This log array that's
+depicted here,
+
+870
+00:41:33,859 --> 00:41:37,019
+does it only pertain to
+one single location or
+
+871
+00:41:37,019 --> 00:41:40,900
+one single isode or is
+it for the entire disk?
+
+872
+00:41:42,660 --> 00:41:45,565
+Entries can be multi block.
+
+873
+00:41:45,565 --> 00:41:48,469
+And entries can also
+be a combination
+
+874
+00:41:48,469 --> 00:41:52,069
+of data block updates and
+iNte updates as well, okay?
+
+875
+00:41:52,069 --> 00:41:55,630
+Remember how we talked about
+in the previous lecture,
+
+876
+00:41:55,630 --> 00:41:58,069
+I showed you some
+examples where we
+
+877
+00:41:58,069 --> 00:42:00,629
+can result in interesting
+situations where
+
+878
+00:42:00,629 --> 00:42:03,790
+you updated updated
+the data blocks
+
+879
+00:42:03,790 --> 00:42:06,229
+but did not update
+the iNs, right?
+
+880
+00:42:06,229 --> 00:42:08,789
+And so we pointed out
+that there can be
+
+881
+00:42:08,789 --> 00:42:10,229
+some security violations if
+
+882
+00:42:10,229 --> 00:42:12,069
+you actually allow
+for this to happen.
+
+883
+00:42:12,069 --> 00:42:14,509
+So the way for this
+not to happen is to
+
+884
+00:42:14,509 --> 00:42:17,229
+enact some sort of
+transactional semantics.
+
+885
+00:42:17,229 --> 00:42:20,549
+And the way you do that
+is with commits, okay?
+
+886
+00:42:20,549 --> 00:42:21,829
+So entries can be
+
+887
+00:42:21,829 --> 00:42:25,735
+multi block and can also
+be of different types.
+
+888
+00:42:25,735 --> 00:42:29,720
+Batched together. So you
+can have a metadata entry,
+
+889
+00:42:29,720 --> 00:42:31,320
+followed by a data entry.
+
+890
+00:42:31,320 --> 00:42:34,000
+See the entries do have
+their specific types.
+
+891
+00:42:34,000 --> 00:42:35,919
+So you would have,
+let's say, two, three,
+
+892
+00:42:35,919 --> 00:42:38,759
+four, five, or however
+many entries you want,
+
+893
+00:42:38,759 --> 00:42:40,399
+either metadata or data,
+
+894
+00:42:40,399 --> 00:42:42,719
+and then you can place
+a commit to enact
+
+895
+00:42:42,719 --> 00:42:45,199
+this transactional semantics on
+
+896
+00:42:45,199 --> 00:42:47,359
+the entire group commit, okay?
+
+897
+00:42:47,359 --> 00:42:48,799
+Answers your question?
+
+898
+00:42:48,799 --> 00:42:51,399
+Perfect. All right.
+Let's keep going.
+
+899
+00:42:51,399 --> 00:42:54,389
+So Now, let's talk
+
+900
+00:42:54,389 --> 00:42:56,149
+about these scenarios that
+
+901
+00:42:56,149 --> 00:42:58,389
+people have already started
+wondering about, right?
+
+902
+00:42:58,389 --> 00:43:02,349
+We have a finite number of
+resources in the system, okay?
+
+903
+00:43:02,349 --> 00:43:04,469
+So what happens when
+the log gets full?
+
+904
+00:43:04,469 --> 00:43:06,749
+Remember that logs are basically
+
+905
+00:43:06,749 --> 00:43:09,910
+these blocks in a specific
+location on your disk.
+
+906
+00:43:09,910 --> 00:43:12,189
+So there's only a
+finite number of them.
+
+907
+00:43:12,189 --> 00:43:15,469
+It's not an infinite tape
+in a turing machine, right?
+
+908
+00:43:15,469 --> 00:43:17,829
+So what do we do?
+Well, we perform
+
+909
+00:43:17,829 --> 00:43:20,829
+a log merge operation.
+What does that mean?
+
+910
+00:43:20,829 --> 00:43:22,789
+That means that we iterate over
+
+911
+00:43:22,789 --> 00:43:25,269
+all the committed
+entries of the log.
+
+912
+00:43:25,269 --> 00:43:26,830
+And then for each entry,
+
+913
+00:43:26,830 --> 00:43:28,909
+we override the normal
+version of the data
+
+914
+00:43:28,909 --> 00:43:32,124
+or metadata with the
+version in the log.
+
+915
+00:43:32,124 --> 00:43:34,259
+Okay? So in other words,
+
+916
+00:43:34,259 --> 00:43:35,499
+we're performing this for
+
+917
+00:43:35,499 --> 00:43:36,859
+loop that I
+previously mentioned.
+
+918
+00:43:36,859 --> 00:43:39,179
+You can literally write down
+the pseudo code for this.
+
+919
+00:43:39,179 --> 00:43:42,299
+You know, for each
+entry pair, you know,
+
+920
+00:43:42,299 --> 00:43:47,019
+if check sum of IA by
+equals to CSA by, you know,
+
+921
+00:43:47,019 --> 00:43:49,539
+then perform a
+write of IA B into
+
+922
+00:43:49,539 --> 00:43:54,259
+the corresponding location is
+a by dash location, right?
+
+923
+00:43:54,260 --> 00:43:59,059
+Else continue.
+
+924
+00:44:02,020 --> 00:44:04,859
+Who is following
+the pseudo code?
+
+925
+00:44:04,859 --> 00:44:07,019
+We want to break out of
+the loop at some point.
+
+926
+00:44:07,019 --> 00:44:09,779
+What's the termination
+condition for the loop?
+
+927
+00:44:12,390 --> 00:44:14,869
+If what?
+
+928
+00:44:18,550 --> 00:44:23,349
+Yeah. If the check sum of
+IAB is not the same as IAB,
+
+929
+00:44:23,349 --> 00:44:25,709
+that's when you want to
+break out of the loop.
+
+930
+00:44:25,709 --> 00:44:26,829
+No matter what you do,
+
+931
+00:44:26,829 --> 00:44:28,269
+break out of the
+loop, you're done.
+
+932
+00:44:28,269 --> 00:44:30,109
+You're done with the
+entrance in the log.
+
+933
+00:44:30,109 --> 00:44:32,830
+Okay? So that's how we're
+performing the log merge.
+
+934
+00:44:32,830 --> 00:44:35,830
+And once the last committed
+entry is processed,
+
+935
+00:44:35,830 --> 00:44:38,069
+we want to clear the log, okay?
+
+936
+00:44:38,069 --> 00:44:41,459
+So Whenever I tell you
+something like this,
+
+937
+00:44:41,459 --> 00:44:43,299
+don't believe me,
+don't believe me.
+
+938
+00:44:43,299 --> 00:44:44,940
+Start thinking critically.
+
+939
+00:44:44,940 --> 00:44:47,940
+What happens if we crash in
+the middle of a log merge?
+
+940
+00:44:47,940 --> 00:44:49,939
+You know, are we
+immune if we are
+
+941
+00:44:49,939 --> 00:44:52,739
+performing a log because those
+are the edge cases, right?
+
+942
+00:44:52,739 --> 00:44:54,539
+We want to make sure
+that the common case
+
+943
+00:44:54,539 --> 00:44:55,859
+works and looks like it does.
+
+944
+00:44:55,859 --> 00:44:58,099
+We've sort of convinced
+ourselves that it does.
+
+945
+00:44:58,099 --> 00:44:59,859
+But in cases of
+
+946
+00:44:59,859 --> 00:45:01,179
+a log merge or
+
+947
+00:45:01,179 --> 00:45:03,179
+a recovery operation or
+something like this,
+
+948
+00:45:03,179 --> 00:45:05,179
+you know, what happens if we
+
+949
+00:45:05,179 --> 00:45:07,460
+crash in the middle
+of a log merge?
+
+950
+00:45:07,460 --> 00:45:09,779
+Are we immune to that?
+
+951
+00:45:11,010 --> 00:45:13,609
+And here's a teaching moment,
+
+952
+00:45:13,609 --> 00:45:16,209
+sort of a slide that I thought
+of this morning, right?
+
+953
+00:45:16,209 --> 00:45:17,769
+I want to make it clear
+
+954
+00:45:17,769 --> 00:45:19,810
+why am I asking all
+of these questions?
+
+955
+00:45:19,810 --> 00:45:22,569
+Because I want you to
+think critically, okay?
+
+956
+00:45:22,569 --> 00:45:24,129
+You know, don't believe anything
+
+957
+00:45:24,129 --> 00:45:26,410
+you're told without
+thinking critically.
+
+958
+00:45:26,410 --> 00:45:30,089
+So why am asking why am I
+asking this specific question?
+
+959
+00:45:30,089 --> 00:45:32,530
+Well, because the log merge
+
+960
+00:45:32,530 --> 00:45:35,569
+consists of multiple disk
+IO operations, okay?
+
+961
+00:45:35,569 --> 00:45:37,650
+So that means that
+they are not atomic.
+
+962
+00:45:37,650 --> 00:45:38,930
+That means that a crash,
+
+963
+00:45:38,930 --> 00:45:40,649
+which is a single point in time,
+
+964
+00:45:40,649 --> 00:45:42,809
+it's a sort of a
+catastrophic event,
+
+965
+00:45:42,809 --> 00:45:44,650
+which is an event on a timeline,
+
+966
+00:45:44,650 --> 00:45:48,690
+on which you have multiple
+nonatomic DCIO operations.
+
+967
+00:45:48,690 --> 00:45:50,569
+It can happen, okay?
+
+968
+00:45:50,569 --> 00:45:52,609
+So visualize a timeline.
+
+969
+00:45:52,609 --> 00:45:55,209
+Visualize multiple
+DCIO operations
+
+970
+00:45:55,209 --> 00:45:56,450
+happening on that timeline.
+
+971
+00:45:56,450 --> 00:45:59,689
+Visualize a crash somewhere
+on that timeline that
+
+972
+00:45:59,689 --> 00:46:04,849
+interjects in the sequence of
+nonatomic DCIO operations.
+
+973
+00:46:04,849 --> 00:46:08,129
+Are we immune to that?
+
+974
+00:46:09,540 --> 00:46:12,540
+What is the space
+of possibilities?
+
+975
+00:46:12,540 --> 00:46:14,139
+Think about it mathematically.
+
+976
+00:46:14,139 --> 00:46:17,019
+Remember, I started giving
+you these hints in terms
+
+977
+00:46:17,019 --> 00:46:18,299
+of how to approach this from
+
+978
+00:46:18,299 --> 00:46:20,060
+the boundary condition testing.
+
+979
+00:46:20,060 --> 00:46:22,140
+Can we get the full log merged?
+
+980
+00:46:22,140 --> 00:46:23,659
+That's one of the possibilities.
+
+981
+00:46:23,659 --> 00:46:25,300
+Can we get no log merged?
+
+982
+00:46:25,300 --> 00:46:26,740
+That's another possibility.
+
+983
+00:46:26,740 --> 00:46:28,419
+It is also possible to log
+
+984
+00:46:28,419 --> 00:46:33,139
+entry for the log entries to
+be merged partially, right?
+
+985
+00:46:33,860 --> 00:46:36,259
+And so on and so forth.
+
+986
+00:46:36,259 --> 00:46:38,019
+Some blocks can be corrupted.
+
+987
+00:46:38,019 --> 00:46:40,940
+So what will happen
+after the crash?
+
+988
+00:46:40,940 --> 00:46:44,230
+Well, All of the above,
+
+989
+00:46:44,230 --> 00:46:45,789
+these bullet points right here,
+
+990
+00:46:45,789 --> 00:46:48,469
+they're all perfectly
+fine because if
+
+991
+00:46:48,469 --> 00:46:50,189
+the crash happens before we have
+
+992
+00:46:50,189 --> 00:46:52,949
+a chance to clear the log,
+
+993
+00:46:52,949 --> 00:46:55,390
+upon the subsequent recovery,
+
+994
+00:46:55,390 --> 00:46:58,109
+we're just going to
+replay the log again,
+
+995
+00:46:58,109 --> 00:47:00,629
+and that is perfectly fine.
+
+996
+00:47:00,629 --> 00:47:03,229
+Okay? We will basically
+
+997
+00:47:03,229 --> 00:47:05,149
+go through the process
+of recovery again.
+
+998
+00:47:05,149 --> 00:47:06,869
+We'll traverse the log again.
+
+999
+00:47:06,869 --> 00:47:09,950
+And of course, the assumption
+here, which is critical,
+
+1000
+00:47:09,950 --> 00:47:12,429
+is that the log entry
+updates must be
+
+1001
+00:47:12,429 --> 00:47:16,669
+idempotent. What does that mean?
+
+1002
+00:47:16,860 --> 00:47:20,299
+You guys know what item means?
+
+1003
+00:47:20,299 --> 00:47:24,539
+Okay, item also, whatever.
+
+1004
+00:47:24,539 --> 00:47:26,979
+The item is where you can apply
+
+1005
+00:47:26,979 --> 00:47:28,660
+the operation to the operand
+
+1006
+00:47:28,660 --> 00:47:30,819
+multiple times and
+achieve the same result.
+
+1007
+00:47:30,819 --> 00:47:32,179
+So in other words,
+
+1008
+00:47:32,179 --> 00:47:35,979
+an op X equals to the op of of
+
+1009
+00:47:35,979 --> 00:47:37,779
+the composition of a bunch of
+
+1010
+00:47:37,779 --> 00:47:41,939
+different ops applied on
+top of the operand X.
+
+1011
+00:47:41,939 --> 00:47:46,659
+So itemportance here ensures
+easy at least one semantics,
+
+1012
+00:47:46,659 --> 00:47:48,899
+and that's exactly what
+you want from the log.
+
+1013
+00:47:48,899 --> 00:47:50,340
+From the log recovery.
+
+1014
+00:47:50,340 --> 00:47:52,019
+You want at least one semantics
+
+1015
+00:47:52,019 --> 00:47:53,659
+when you've finished
+recovering from
+
+1016
+00:47:53,659 --> 00:47:57,549
+the log. What does that mean?
+
+1017
+00:47:57,549 --> 00:47:59,309
+That means that every entry in
+
+1018
+00:47:59,309 --> 00:48:02,749
+the log was actually written
+
+1019
+00:48:02,749 --> 00:48:04,549
+to the data block or
+
+1020
+00:48:04,549 --> 00:48:06,470
+the metadata block on disk
+
+1021
+00:48:06,470 --> 00:48:09,590
+at least once in an
+item important fashion.
+
+1022
+00:48:10,830 --> 00:48:14,549
+Okay. So I mentioned
+
+1023
+00:48:14,549 --> 00:48:16,670
+that at the very end
+of the log merge,
+
+1024
+00:48:16,670 --> 00:48:18,109
+we want to clear the log because
+
+1025
+00:48:18,109 --> 00:48:19,789
+we want to sort of give back
+
+1026
+00:48:19,789 --> 00:48:23,469
+those log disks
+back to the system
+
+1027
+00:48:23,469 --> 00:48:25,350
+so that we can
+finally start writing
+
+1028
+00:48:25,350 --> 00:48:27,509
+new log entries from the
+very beginning, right?
+
+1029
+00:48:27,509 --> 00:48:31,030
+So how can we make
+log clearing atomic?
+
+1030
+00:48:31,030 --> 00:48:33,510
+So do you have any ideas?
+
+1031
+00:48:33,510 --> 00:48:36,749
+Maybe we can collectively
+figure out a way to clear
+
+1032
+00:48:36,749 --> 00:48:38,909
+the log because we
+want to make sure
+
+1033
+00:48:38,909 --> 00:48:41,190
+that it's atomic because
+if it's not atomic,
+
+1034
+00:48:41,190 --> 00:48:43,709
+it's not crash consistent.
+
+1035
+00:48:47,360 --> 00:48:50,920
+Can somebody tell me how
+we can clear the log?
+
+1036
+00:48:50,920 --> 00:48:52,760
+So we're done merging,
+
+1037
+00:48:52,760 --> 00:48:54,945
+we actually want
+to clear the log.
+
+1038
+00:48:54,945 --> 00:48:57,489
+Do we want to go
+through the process of
+
+1039
+00:48:57,489 --> 00:49:00,409
+actually invalidating every
+single entry in the log?
+
+1040
+00:49:00,409 --> 00:49:03,409
+If we do that, do we
+start from the end?
+
+1041
+00:49:03,409 --> 00:49:05,490
+Do we start from the beginning?
+
+1042
+00:49:05,490 --> 00:49:07,930
+Do we do it in some
+random fashion?
+
+1043
+00:49:07,930 --> 00:49:10,009
+Any ideas? Yes.
+
+1044
+00:49:10,009 --> 00:49:12,369
+Okay good idea?
+
+1045
+00:49:12,369 --> 00:49:18,689
+Because it keeps in mind
+ordering structure we had.
+
+1046
+00:49:18,689 --> 00:49:21,970
+So let's say it did crash
+in the middle of merging,
+
+1047
+00:49:21,970 --> 00:49:24,049
+you're moving from
+the end forward,
+
+1048
+00:49:24,049 --> 00:49:27,289
+it'll still be ordered from
+the front. That makes sense.
+
+1049
+00:49:27,289 --> 00:49:31,530
+Any other ideas?
+That's not atomic.
+
+1050
+00:49:31,530 --> 00:49:40,949
+Yes. So could you speak up.
+
+1051
+00:49:44,590 --> 00:49:48,989
+Yeah, so basically the way
+to accomplish this is just
+
+1052
+00:49:48,989 --> 00:49:55,229
+invalidate the very first
+entry, and you're done.
+
+1053
+00:49:55,229 --> 00:49:57,349
+And the reason for
+this is because of
+
+1054
+00:49:57,349 --> 00:49:59,269
+that prefix property that
+
+1055
+00:49:59,269 --> 00:50:01,069
+we've been talking about, right?
+
+1056
+00:50:01,069 --> 00:50:04,349
+Because anything that
+deals with the log will
+
+1057
+00:50:04,349 --> 00:50:08,069
+stop at the very first
+invalid entry, right?
+
+1058
+00:50:08,069 --> 00:50:09,509
+So all you have to do
+
+1059
+00:50:09,509 --> 00:50:11,830
+is you want to invalidate
+the first entry.
+
+1060
+00:50:11,830 --> 00:50:14,229
+You don't have to touch the
+rest of the log, right?
+
+1061
+00:50:14,229 --> 00:50:16,549
+It's completely
+unnecessary because
+
+1062
+00:50:16,549 --> 00:50:17,869
+if we're reading from the log,
+
+1063
+00:50:17,869 --> 00:50:19,229
+if we're recovering
+from the log,
+
+1064
+00:50:19,229 --> 00:50:20,749
+if we're merging the log,
+
+1065
+00:50:20,749 --> 00:50:23,629
+we will stop at the
+termination condition,
+
+1066
+00:50:23,629 --> 00:50:27,150
+which is an invalid entry.
+
+1067
+00:50:27,150 --> 00:50:30,589
+So all you got to do is a
+single right atomically to
+
+1068
+00:50:30,589 --> 00:50:32,549
+invalidate the very
+first entry by
+
+1069
+00:50:32,549 --> 00:50:35,630
+writing garbage into
+your check sum command.
+
+1070
+00:50:35,630 --> 00:50:39,630
+Let's say a set of zeros
+with very high probability,
+
+1071
+00:50:39,630 --> 00:50:41,229
+very, very high
+probability you will
+
+1072
+00:50:41,229 --> 00:50:43,269
+have invalidated it, okay?
+
+1073
+00:50:43,269 --> 00:50:46,549
+So whenever we start up,
+
+1074
+00:50:46,549 --> 00:50:48,069
+how do we recover, right?
+
+1075
+00:50:48,069 --> 00:50:50,029
+Whenever we start up,
+we merge the log.
+
+1076
+00:50:50,029 --> 00:50:52,829
+So we've already discussed
+what merging the log means.
+
+1077
+00:50:52,829 --> 00:50:54,069
+We've already discussed what the
+
+1078
+00:50:54,069 --> 00:50:55,869
+pseudo code for that
+is going to be,
+
+1079
+00:50:55,869 --> 00:50:57,709
+and we discussed
+that we are going to
+
+1080
+00:50:57,709 --> 00:51:00,230
+stop at the very first
+uncommitted entry.
+
+1081
+00:51:00,230 --> 00:51:01,789
+And this is going to guarantee
+
+1082
+00:51:01,789 --> 00:51:03,549
+that old data is
+the newest data.
+
+1083
+00:51:03,549 --> 00:51:06,430
+And once you're
+done with recovery,
+
+1084
+00:51:06,430 --> 00:51:08,550
+similar to the merge operation,
+
+1085
+00:51:08,550 --> 00:51:10,709
+we're going to clear the log
+so that we don't have to
+
+1086
+00:51:10,709 --> 00:51:13,539
+do it multiple times if
+we don't have to, right?
+
+1087
+00:51:13,539 --> 00:51:15,409
+In this particular case,
+
+1088
+00:51:15,409 --> 00:51:17,969
+clearing the log can
+also be accomplished
+
+1089
+00:51:17,969 --> 00:51:20,450
+in an atomic fashion
+by invalidating
+
+1090
+00:51:20,450 --> 00:51:21,769
+the first entry with
+
+1091
+00:51:21,769 --> 00:51:27,529
+a simple right to the first
+commit with garbage data.
+
+1092
+00:51:27,529 --> 00:51:30,730
+And now that you've
+completed the recovery,
+
+1093
+00:51:30,730 --> 00:51:33,369
+a file system is ready to go.
+
+1094
+00:51:33,400 --> 00:51:37,599
+So we've covered what happens
+if the log gets full.
+
+1095
+00:51:37,599 --> 00:51:39,600
+It's just a log merge operation.
+
+1096
+00:51:39,600 --> 00:51:41,319
+We've covered how
+to clear the log,
+
+1097
+00:51:41,319 --> 00:51:45,799
+returning the resources into
+the operating system, right?
+
+1098
+00:51:45,799 --> 00:51:48,199
+We've covered how to
+recover from the log.
+
+1099
+00:51:48,199 --> 00:51:50,479
+We've covered how to
+read from the log.
+
+1100
+00:51:50,479 --> 00:51:53,799
+So you have everything
+you need, right?
+
+1101
+00:51:53,799 --> 00:51:56,359
+And all of these operations
+
+1102
+00:51:56,359 --> 00:51:59,119
+are actually ensuring
+crash consistency.
+
+1103
+00:51:59,119 --> 00:52:01,239
+And that's really wonderful.
+
+1104
+00:52:01,239 --> 00:52:03,239
+So let's maybe recap what
+
+1105
+00:52:03,239 --> 00:52:05,359
+the logging advantages
+are at a very,
+
+1106
+00:52:05,359 --> 00:52:07,359
+very, very high level, right?
+
+1107
+00:52:07,359 --> 00:52:09,664
+So what are the benefits?
+
+1108
+00:52:09,664 --> 00:52:11,689
+Maybe can somebody tell
+
+1109
+00:52:11,689 --> 00:52:13,409
+me what the benefits
+of logging are,
+
+1110
+00:52:13,409 --> 00:52:16,849
+especially compared to
+shadowing, things like that.
+
+1111
+00:52:16,849 --> 00:52:19,130
+That we discussed previously.
+
+1112
+00:52:19,130 --> 00:52:21,370
+Why would you choose logging?
+
+1113
+00:52:21,370 --> 00:52:23,610
+Yes. Fewer flushes
+compared to shadowing,
+
+1114
+00:52:23,610 --> 00:52:25,769
+so it's more efficient
+to write data to this.
+
+1115
+00:52:25,769 --> 00:52:27,449
+It's more efficient to write
+
+1116
+00:52:27,449 --> 00:52:29,369
+data because of fewer flushes.
+
+1117
+00:52:29,369 --> 00:52:33,730
+Yes, that's correct. Yes.
+In what kind of overhead?
+
+1118
+00:52:33,730 --> 00:52:35,449
+Shadowing, you had to have
+
+1119
+00:52:35,449 --> 00:52:38,089
+a copy of the data
+every single data blog.
+
+1120
+00:52:38,089 --> 00:52:39,489
+Storage overhead, right?
+
+1121
+00:52:39,489 --> 00:52:41,330
+There are different
+kinds of overhead.
+
+1122
+00:52:41,330 --> 00:52:44,009
+Precise. Anybody else?
+
+1123
+00:52:44,770 --> 00:52:48,329
+Yeah, those are the
+big ones, right?
+
+1124
+00:52:48,329 --> 00:52:50,489
+Let's see what I have.
+
+1125
+00:52:50,489 --> 00:52:54,529
+So this is the one
+that's commonly missed.
+
+1126
+00:52:54,529 --> 00:52:57,730
+Remember the rotating
+spinning rust,
+
+1127
+00:52:57,730 --> 00:53:00,569
+it really benefits from
+sequential access.
+
+1128
+00:53:00,569 --> 00:53:03,370
+So as it turns out,
+performing sequential writes
+
+1129
+00:53:03,370 --> 00:53:06,449
+is orders of magnitude.
+I don't know.
+
+1130
+00:53:06,449 --> 00:53:10,289
+One, maybe two orders of
+magnitude faster when
+
+1131
+00:53:10,289 --> 00:53:12,449
+you're dealing with regular HDGs
+
+1132
+00:53:12,449 --> 00:53:14,769
+compared to random writes, okay?
+
+1133
+00:53:14,769 --> 00:53:17,729
+And so the sequential
+a really gives you
+
+1134
+00:53:17,729 --> 00:53:20,849
+the benefits because
+your log is append only.
+
+1135
+00:53:20,849 --> 00:53:23,610
+It's very distinct,
+especially for rights.
+
+1136
+00:53:23,610 --> 00:53:26,889
+Uh We also established
+
+1137
+00:53:26,889 --> 00:53:29,450
+that logging does indeed
+ensure correctness.
+
+1138
+00:53:29,450 --> 00:53:32,370
+It provides us a general
+form of atomicity.
+
+1139
+00:53:32,370 --> 00:53:35,609
+It also provides ordering by
+
+1140
+00:53:35,609 --> 00:53:39,130
+the semantics of the
+append only logging.
+
+1141
+00:53:39,130 --> 00:53:41,409
+So the log entries are
+committed in order
+
+1142
+00:53:41,409 --> 00:53:44,849
+preserving intended order of
+operations and performance.
+
+1143
+00:53:44,849 --> 00:53:46,609
+There are very few sinks.
+
+1144
+00:53:46,609 --> 00:53:48,729
+In some cases, we were able to
+
+1145
+00:53:48,729 --> 00:53:50,930
+get rid of all of the
+sinks completely.
+
+1146
+00:53:50,930 --> 00:53:53,850
+It's a significant sink
+reduction compared
+
+1147
+00:53:53,850 --> 00:53:57,610
+to the alternatives that
+we previously discussed.
+
+1148
+00:53:57,610 --> 00:53:59,849
+Do we get all of this for free,
+
+1149
+00:53:59,849 --> 00:54:02,844
+or do we have to pay
+something for it?
+
+1150
+00:54:02,844 --> 00:54:04,879
+I guess in the interest of time,
+
+1151
+00:54:04,879 --> 00:54:06,239
+I'll just go through
+this, right?
+
+1152
+00:54:06,239 --> 00:54:08,719
+What are the costs
+associated with logging?
+
+1153
+00:54:08,719 --> 00:54:11,120
+Well, you do double the writes,
+
+1154
+00:54:11,120 --> 00:54:12,679
+because you're writing to
+
+1155
+00:54:12,679 --> 00:54:15,119
+the log first for
+every single write.
+
+1156
+00:54:15,119 --> 00:54:17,399
+And then once you've
+
+1157
+00:54:17,399 --> 00:54:19,959
+written into the log
+at some point in time,
+
+1158
+00:54:19,959 --> 00:54:22,319
+there's going to be
+a second write that
+
+1159
+00:54:22,319 --> 00:54:24,959
+actually overrides
+the data on this,
+
+1160
+00:54:24,959 --> 00:54:28,439
+be that the data block or
+the note update, right?
+
+1161
+00:54:28,439 --> 00:54:32,839
+You also must periodically
+merge log into actual data,
+
+1162
+00:54:32,839 --> 00:54:34,879
+for instance, when it gets full.
+
+1163
+00:54:34,879 --> 00:54:37,839
+And it is very
+unfortunate because you
+
+1164
+00:54:37,839 --> 00:54:40,640
+don't really have as a
+user or as an application,
+
+1165
+00:54:40,640 --> 00:54:43,679
+you don't really have that
+much control over it.
+
+1166
+00:54:43,679 --> 00:54:45,840
+And so if you are performing
+
+1167
+00:54:45,840 --> 00:54:47,320
+something that's
+mission critical,
+
+1168
+00:54:47,320 --> 00:54:48,959
+something that is
+soft real time,
+
+1169
+00:54:48,959 --> 00:54:51,519
+something that is very
+latency sensitive,
+
+1170
+00:54:51,519 --> 00:54:54,079
+that log merch
+operation can happen at
+
+1171
+00:54:54,079 --> 00:54:56,399
+arbitrary can happen arbitrary
+
+1172
+00:54:56,399 --> 00:54:58,919
+and you simply don't have any
+control over this, right?
+
+1173
+00:54:58,919 --> 00:55:02,849
+So one of the very
+commonly overlooked, um,
+
+1174
+00:55:02,849 --> 00:55:06,019
+disadvantages
+associated with logging
+
+1175
+00:55:06,019 --> 00:55:09,459
+is the actual predictability
+of such a system. Yes.
+
+1176
+00:55:09,459 --> 00:55:12,459
+Well, how do you re
+evaluate the log?
+
+1177
+00:55:12,459 --> 00:55:15,499
+Because you said you can only
+append to the log, right?
+
+1178
+00:55:15,499 --> 00:55:18,980
+And once you invalidate
+the first entry,
+
+1179
+00:55:18,980 --> 00:55:21,939
+and then you append to
+the end of the log,
+
+1180
+00:55:21,939 --> 00:55:24,019
+it doesn't really matter, right?
+
+1181
+00:55:24,019 --> 00:55:28,980
+Well, so you append to a
+logical log data structure.
+
+1182
+00:55:28,980 --> 00:55:31,779
+Yeah. But basically, once
+
+1183
+00:55:31,779 --> 00:55:33,500
+you've invalidated
+the first entry,
+
+1184
+00:55:33,500 --> 00:55:34,580
+there's sort of an additional
+
+1185
+00:55:34,580 --> 00:55:36,619
+bookkeeping operation
+that needs to happen that
+
+1186
+00:55:36,619 --> 00:55:41,209
+returns the log blocks
+to make them free.
+
+1187
+00:55:41,209 --> 00:55:43,359
+To mark them as free.
+
+1188
+00:55:43,359 --> 00:55:44,679
+Because remember, we have
+
+1189
+00:55:44,679 --> 00:55:47,999
+a special type of block on
+disk that actually keeps track
+
+1190
+00:55:47,999 --> 00:55:49,960
+of a bitmap that figures
+
+1191
+00:55:49,960 --> 00:55:53,119
+out which blocks are busier
+and which blocks are free.
+
+1192
+00:55:53,119 --> 00:55:55,080
+So you do that
+booking operation.
+
+1193
+00:55:55,080 --> 00:55:57,440
+Yeah. We do that during
+a Mrs log operation.
+
+1194
+00:55:57,440 --> 00:56:00,919
+So if you have a Mersa
+log and your second right
+
+1195
+00:56:00,919 --> 00:56:05,479
+was invalidated and then
+your K write was appended,
+
+1196
+00:56:05,479 --> 00:56:07,200
+that K write won't
+
+1197
+00:56:07,200 --> 00:56:10,839
+be it won't matter until
+you MRSA log again.
+
+1198
+00:56:10,839 --> 00:56:13,559
+So why would the second
+write have been invalidated?
+
+1199
+00:56:13,559 --> 00:56:17,359
+Or it has been, it
+wasn't vaalid right now.
+
+1200
+00:56:17,359 --> 00:56:20,839
+P when you book.
+
+1201
+00:56:21,590 --> 00:56:24,189
+Well, when we're,
+
+1202
+00:56:24,189 --> 00:56:26,829
+we're sort of fixing that
+with check sums, right?
+
+1203
+00:56:26,829 --> 00:56:28,189
+So we're now making
+
+1204
+00:56:28,189 --> 00:56:30,070
+sure that whenever you're
+writing the entry,
+
+1205
+00:56:30,070 --> 00:56:31,789
+you're calculating the
+check sum and then
+
+1206
+00:56:31,789 --> 00:56:33,790
+you're writing the check
+sum as your commit.
+
+1207
+00:56:33,790 --> 00:56:35,429
+That sort of takes
+care of that issue.
+
+1208
+00:56:35,429 --> 00:56:38,389
+That was an issue with the
+commit mechanism, number one.
+
+1209
+00:56:38,389 --> 00:56:40,270
+When we didn't use check sums,
+
+1210
+00:56:40,270 --> 00:56:42,789
+it was actually possible to
+end up in that situation.
+
+1211
+00:56:42,789 --> 00:56:43,669
+Okay.
+
+1212
+00:56:43,669 --> 00:56:45,790
+Okay. Yeah. So now we're
+
+1213
+00:56:45,790 --> 00:56:47,670
+going to assume that
+with check sums,
+
+1214
+00:56:47,670 --> 00:56:49,189
+the entries that
+were written and
+
+1215
+00:56:49,189 --> 00:56:50,749
+successfully to the log,
+
+1216
+00:56:50,749 --> 00:56:52,149
+we will trust that they
+
+1217
+00:56:52,149 --> 00:56:54,709
+were written without
+any corruption.
+
+1218
+00:56:54,880 --> 00:56:58,119
+Okay. And this
+predictability is my
+
+1219
+00:56:58,119 --> 00:57:01,120
+favorite because I do work
+on softwal time systems.
+
+1220
+00:57:01,120 --> 00:57:06,279
+And if I were to ask you
+a question that asks you
+
+1221
+00:57:06,279 --> 00:57:08,359
+whether or not you
+want to use logging in
+
+1222
+00:57:08,359 --> 00:57:09,599
+a particular situation that is
+
+1223
+00:57:09,599 --> 00:57:12,879
+latency sensitive, what
+would your answer be?
+
+1224
+00:57:15,200 --> 00:57:20,199
+What success metric
+will this affect
+
+1225
+00:57:20,199 --> 00:57:23,360
+if you allow the
+log merge operation
+
+1226
+00:57:23,360 --> 00:57:26,159
+to happen arbitrarily
+in your system?
+
+1227
+00:57:30,380 --> 00:57:33,299
+Like reliability or consistency?
+
+1228
+00:57:33,299 --> 00:57:34,899
+Yeah, but success metric is
+
+1229
+00:57:34,899 --> 00:57:36,700
+something that's
+quantifiable and measurable.
+
+1230
+00:57:36,700 --> 00:57:40,194
+It has units, almost
+like in physics. Yeah?
+
+1231
+00:57:40,194 --> 00:57:41,929
+Latency at the day.
+
+1232
+00:57:41,929 --> 00:57:44,889
+Latency, right? Latency. So if
+
+1233
+00:57:44,889 --> 00:57:47,410
+you have latency
+sensitive operations,
+
+1234
+00:57:47,410 --> 00:57:49,730
+it's a quantifiable metric
+
+1235
+00:57:49,730 --> 00:57:51,530
+that you might want to optimize,
+
+1236
+00:57:51,530 --> 00:57:53,169
+minimize, or maximize, right?
+
+1237
+00:57:53,169 --> 00:57:55,330
+And it has units,
+which is seconds.
+
+1238
+00:57:55,330 --> 00:57:57,769
+And if you're
+performing, let's say,
+
+1239
+00:57:57,769 --> 00:58:04,049
+some let's say GI auto
+regressive decode, right?
+
+1240
+00:58:04,049 --> 00:58:05,929
+And you really care
+about time between
+
+1241
+00:58:05,929 --> 00:58:09,129
+token latency SLO and
+
+1242
+00:58:09,129 --> 00:58:12,244
+all of a sudden your log
+merge has kicked in.
+
+1243
+00:58:12,244 --> 00:58:14,359
+And instead of 30 milliseconds,
+
+1244
+00:58:14,359 --> 00:58:18,000
+you're getting 3 seconds time
+between token latency SL.
+
+1245
+00:58:18,000 --> 00:58:20,199
+You would probably not
+want to use that system
+
+1246
+00:58:20,199 --> 00:58:22,959
+because it's very sensitive
+to this operation, okay?
+
+1247
+00:58:22,959 --> 00:58:26,799
+So the distribution of your
+latencies will change.
+
+1248
+00:58:26,799 --> 00:58:28,279
+In particular, the tail of
+
+1249
+00:58:28,279 --> 00:58:30,120
+the distribution
+will be affected
+
+1250
+00:58:30,120 --> 00:58:32,719
+by such unpredictable phenomena
+
+1251
+00:58:32,719 --> 00:58:34,480
+as the log merge operation.
+
+1252
+00:58:34,480 --> 00:58:36,519
+So always be very careful
+if you're working
+
+1253
+00:58:36,519 --> 00:58:38,719
+with RTOS or you're working on
+
+1254
+00:58:38,719 --> 00:58:40,879
+those race cars
+standing out there in
+
+1255
+00:58:40,879 --> 00:58:43,679
+front of tech green that
+are really, really cool.
+
+1256
+00:58:43,679 --> 00:58:45,840
+And apparently have beaten
+
+1257
+00:58:45,840 --> 00:58:49,040
+the national record on
+two success metrics.
+
+1258
+00:58:49,040 --> 00:58:52,479
+One of them is
+fastest acceleration,
+
+1259
+00:58:52,479 --> 00:58:54,039
+and the other one is
+the amount of time it
+
+1260
+00:58:54,039 --> 00:58:56,399
+takes you to do
+the H shape thing.
+
+1261
+00:58:56,399 --> 00:58:58,239
+I was very impressed by that.
+
+1262
+00:58:58,239 --> 00:59:01,119
+Some people working on that
+project are actually CSAC
+
+1263
+00:59:01,119 --> 00:59:05,519
+threat undergrads who will
+be taking this class.
+
+1264
+00:59:07,290 --> 00:59:09,809
+Lots of very useful stuff that
+
+1265
+00:59:09,809 --> 00:59:11,609
+can be done with this knowledge.
+
+1266
+00:59:11,609 --> 00:59:13,729
+And so chances are they
+would not be using
+
+1267
+00:59:13,729 --> 00:59:17,689
+a journey file system
+on that racecar, okay?
+
+1268
+00:59:17,689 --> 00:59:19,449
+Because you have to operate with
+
+1269
+00:59:19,449 --> 00:59:24,170
+the sensor data on a
+critical path towards
+
+1270
+00:59:24,170 --> 00:59:28,210
+actuating the brake pedal
+and actually shifting
+
+1271
+00:59:28,210 --> 00:59:33,210
+changing what you're doing
+with your I'm not a MCI major,
+
+1272
+00:59:33,210 --> 00:59:35,489
+sir, with your wheels
+and stuff like that.
+
+1273
+00:59:35,489 --> 00:59:37,650
+So you would not be
+using anything that's
+
+1274
+00:59:37,650 --> 00:59:40,169
+unpredictable in that
+situation. Okay.
+
+1275
+00:59:40,169 --> 00:59:44,770
+So modern operating system
+file system options,
+
+1276
+00:59:44,770 --> 00:59:46,970
+they have the following options.
+
+1277
+00:59:46,970 --> 00:59:49,130
+You can completely
+turn off logging,
+
+1278
+00:59:49,130 --> 00:59:50,569
+which is usually a bad idea.
+
+1279
+00:59:50,569 --> 00:59:52,809
+You can do metadata logging,
+
+1280
+00:59:52,809 --> 00:59:54,449
+you can do full logging,
+
+1281
+00:59:54,449 --> 00:59:56,210
+and you can do ordered logging.
+
+1282
+00:59:56,210 --> 00:59:57,930
+And we're going to
+discuss ordered
+
+1283
+00:59:57,930 --> 00:59:59,129
+logging at the next time.
+
+1284
+00:59:59,129 --> 01:00:01,210
+I just want to end this lecture,
+
+1285
+01:00:01,210 --> 01:00:03,289
+which is 10 minutes over time,
+
+1286
+01:00:03,289 --> 01:00:08,169
+with the following where is it?
+
+1287
+01:00:08,169 --> 01:00:13,230
+I want to end this lecture
+with the following slide.
+
+1288
+01:00:13,230 --> 01:00:17,169
+Okay? There's a trade
+off space here.
+
+1289
+01:00:17,169 --> 01:00:21,409
+The trade off space is
+spanned by these two axes,
+
+1290
+01:00:21,409 --> 01:00:23,289
+the safety and performance.
+
+1291
+01:00:23,289 --> 01:00:27,209
+Now, if we have first of all,
+
+1292
+01:00:27,209 --> 01:00:30,089
+where do we want to be
+in this trade off space?
+
+1293
+01:00:30,540 --> 01:00:33,939
+Upright. That's the
+dream condition, right?
+
+1294
+01:00:33,939 --> 01:00:35,939
+And here's where
+the bad design is.
+
+1295
+01:00:35,939 --> 01:00:38,660
+You get low safety and
+you get low performance.
+
+1296
+01:00:38,660 --> 01:00:41,379
+Now, where would full
+journaled file system
+
+1297
+01:00:41,379 --> 01:00:43,979
+be in this trade off space?
+
+1298
+01:00:44,300 --> 01:00:48,539
+That full journaled
+file system means that
+
+1299
+01:00:48,539 --> 01:00:49,939
+you're going to be journaling
+
+1300
+01:00:49,939 --> 01:00:52,499
+both data and metadata rights.
+
+1301
+01:00:52,499 --> 01:00:58,139
+Yes? Correct. Good job. Okay?
+
+1302
+01:00:58,139 --> 01:01:00,619
+Now, what about the write back?
+
+1303
+01:01:01,489 --> 01:01:05,249
+But basically, there's
+nothing being journaled.
+
+1304
+01:01:05,249 --> 01:01:08,610
+You're just writing
+everything directly to disk.
+
+1305
+01:01:08,610 --> 01:01:10,529
+Bottom right?
+
+1306
+01:01:10,529 --> 01:01:13,489
+Bottom right. That's where
+the writeback would be.
+
+1307
+01:01:13,489 --> 01:01:17,169
+And now the ordered where
+would the ordered be?
+
+1308
+01:01:17,169 --> 01:01:19,369
+We haven't discussed
+what that means.
+
+1309
+01:01:19,369 --> 01:01:20,769
+What that means is that you're
+
+1310
+01:01:20,769 --> 01:01:23,409
+actually journaling
+metadata updates,
+
+1311
+01:01:23,409 --> 01:01:25,249
+but you're making
+sure that your data
+
+1312
+01:01:25,249 --> 01:01:27,970
+writes precede your
+metadata updates.
+
+1313
+01:01:27,970 --> 01:01:29,849
+We'll have an example at
+
+1314
+01:01:29,849 --> 01:01:31,809
+the start of the next
+lecture on Thursday,
+
+1315
+01:01:31,809 --> 01:01:33,369
+but where do you think
+it's going to be?
+
+1316
+01:01:33,369 --> 01:01:36,789
+Yes. Yeah, that's right.
+
+1317
+01:01:36,789 --> 01:01:37,990
+It strikes the balance
+
+1318
+01:01:37,990 --> 01:01:39,549
+between safety and
+performance. Okay.
+
+1319
+01:01:39,549 --> 01:01:42,109
+You give up a little bit of
+performance because you are
+
+1320
+01:01:42,109 --> 01:01:43,709
+writing metadata updates to
+
+1321
+01:01:43,709 --> 01:01:45,429
+the journal, but
+at the same time,
+
+1322
+01:01:45,429 --> 01:01:47,429
+it actually recaps the majority
+
+1323
+01:01:47,429 --> 01:01:49,349
+of the safety because you're
+
+1324
+01:01:49,349 --> 01:01:50,829
+at the very least
+making sure that
+
+1325
+01:01:50,829 --> 01:01:53,589
+your metadata does
+not corrupt, okay?
+
+1326
+01:01:53,589 --> 01:01:54,989
+And so I want to leave you with
+
+1327
+01:01:54,989 --> 01:01:56,949
+this journally designed
+trade off space.
+
+1328
+01:01:56,949 --> 01:01:58,829
+Every single point
+on this trade off
+
+1329
+01:01:58,829 --> 01:02:01,869
+space is no better or
+worse than the others.
+
+1330
+01:02:01,869 --> 01:02:05,189
+It creates a pareto frontier
+of options that are
+
+1331
+01:02:05,189 --> 01:02:06,949
+good for different scenarios
+
+1332
+01:02:06,949 --> 01:02:09,989
+that you're working
+with. Thank you.
+
+1333
+01:02:12,710 --> 01:02:15,109
+Thank you.
+
+1334
+01:02:25,989 --> 01:02:28,309
+Thank you.
