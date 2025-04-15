@@ -33,6 +33,8 @@ def parse_args():
 
 
 EXTRACT_PROMPT = """
+Above is the transcript of a lecture. Follow the instructions below.
+
 # Instructions from Professor
 
 Review my lecture recordings, religiously. And please listen very actively and take notes. I structure lectures in such a way that an attentive listener will extract enough questions and hints about exam interlaced with the delivery of the main content.
@@ -46,13 +48,31 @@ Review my lecture recordings, religiously. And please listen very actively and t
 # Your Task
 
 Your task is to analyze the user's lecture transcript and find all these examples that could be possibly on the exam, according to the Professor's hints. Output a detailed list of wherever these examples occur in the lecture.
+
+# Formatting
+
+Report each occurrence in exactly the following format:
+
+### [One-line description of the problem / topic]
+**Key Points**
+- [Important or emphasized key points as bullet list]
+
+(If there's an example:) **Problem statement:**
+[Example problem]
+
+(If there's an example:) **Solution:**
+[Professor's solution and line of thinking]
+
+_[Summary of this item, any additional information, things you would like to add based on information given in the transcript.]_
+
+
 """.strip()
 
 GEN_EXAM_PROMPT = f"""
 You will be given lecture analysis documents and you will need to synthesize an exam based on the details extracted from the lecture recordings.
 
 Here is an example of an exam (do not copy the questions from here):
-{Path("./exam1.md").read_text()}
+{Path("./exam1.md").read_text(encoding="utf-8")}
 
 Focus on writing design oriented questions like in the style of the above exam. Give us example scenarios and then ask us design questions about it. The questions must be somehow novel, not directly taken from the practice material or lecture notes. They need to be questions that force the students to reason about the material and think beyond what the lecture has given them considering tradeoffs. 
 """
@@ -81,7 +101,7 @@ def main(args):
         client = OpenAI()
         prompt = ""
         for file in Path("./gems").glob("*.md"):
-            prompt += f"# {file.stem}:\n\n{file.read_text()}\n\n"
+            prompt += f"# {file.stem}:\n\n{file.read_text(encoding="utf-8")}\n\n"
         response = client.responses.create(
             input=prompt,
             model=args.model,
