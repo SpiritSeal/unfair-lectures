@@ -9,4 +9,5 @@ dependencies = [
     "joblib>=1.4.2",
     "openai>=1.73.0",
     "pysubs2>=1.8.0",
+    "tqdm-joblib>=0.0.4",
 ]
