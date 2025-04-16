@@ -1,36 +1,12 @@
 import os
+import pysubs2
+import random
+from time import sleep
+from tqdm_joblib import tqdm_joblib
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from pathlib import Path
-
-import pysubs2
 from joblib import Parallel, delayed
 from openai import OpenAI
-
-
-def parse_args():
-    parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
-    parser.add_argument(
-        "--subtitles",
-        help="path to subtitles",
-        default="./subtitles",
-        type=str,
-    )
-    parser.add_argument(
-        "--gems",
-        help="gems directory path",
-        default="./gems",
-        type=str,
-    )
-    parser.add_argument(
-        "--model",
-        help="extraction model id",
-        default="o3-mini",
-        type=str,
-    )
-    parser.add_argument("--extract", help="extract", action="store_true")
-    parser.add_argument("--exam_gen", help="generate exam", action="store_true")
-    return parser.parse_args()
-
 
 EXTRACT_PROMPT = """
 Above is the transcript of a lecture. Follow the instructions below.
@@ -51,9 +27,9 @@ Your task is to analyze the user's lecture transcript and find all these example
 
 # Formatting
 
-Report each occurrence in exactly the following format:
+Report each occurrence with controlled bolding and italicizing. Format your response in exactly the following pattern:
 
-### [Number] [Title]
+### 1. Title
 **Key Points**
 - [Important or emphasized key points as bullet list]
 
@@ -64,7 +40,6 @@ Report each occurrence in exactly the following format:
 [Professor's solution and line of thinking]
 
 _Summary of this item, any additional information, things you would like to add based on information given in the transcript._
-
 
 """.strip()
 
@@ -80,12 +55,45 @@ Focus on writing design oriented questions like in the style of the above exam. 
 
 Provide each exam-style question in exactly the following format:
 
-### Question [#]
+### Question 1
 [Any conditions, setup, etc. of the question]
 
 [Content of the question itself, and/or any followup/sub-questions.]
 
-"""
+""".strip()
+
+def get_parser():
+    parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
+    parser.add_argument(
+        "--subtitles",
+        help="path to subtitles",
+        default="./subtitles",
+        type=str,
+    )
+    parser.add_argument(
+        "--gems",
+        help="gems directory path",
+        default="./gems",
+        type=str,
+    )
+    parser.add_argument(
+        "--model",
+        help="OpenAI model ID",
+        default="o3-mini",
+        type=str,
+    )
+    parser.add_argument(
+        "--extract", help="extract vital info from transcripts", action="store_true"
+    )
+    parser.add_argument(
+        "--exam_gen", help="generate exam-style questions", action="store_true"
+    )
+    parser.add_argument(
+        "--fake",
+        help="prevent actual extraction (--extract) from happening for progressbar testing.",
+        action="store_true"
+    )
+    return parser
 
 
 def run(file):
@@ -97,29 +105,41 @@ def run(file):
         model=args.model,
         instructions=EXTRACT_PROMPT,
     )
-    with open(Path(args.gems) / (file.stem + ".md"), "w") as f:
+    with open(Path(args.gems) / (file.stem + ".md"), "w", encoding="utf-8") as f:
         f.write(response.output_text)
 
 
 def main(args):
     if args.extract:
-        Parallel(n_jobs=os.cpu_count())(
-            delayed(run)(file) for file in Path(args.subtitles).iterdir()
-        )
-
-    if args.exam_gen:
+        with tqdm_joblib(
+            desc="Extraction progress",
+            total=len(list(Path(args.subtitles).iterdir())),
+            unit='vid',
+            dynamic_ncols=True,
+            colour=f'#{random.randint(0, 16777215):06x}'
+        ) as _:
+            if args.fake:
+                Parallel(n_jobs=os.cpu_count())(delayed(sleep)(i) for i in range(15))
+            else:
+                Parallel(n_jobs=os.cpu_count())(
+                    delayed(run)(file) for file in Path(args.subtitles).iterdir()
+                )
+    elif args.exam_gen:
         client = OpenAI()
         prompt = ""
         for file in Path(args.gems).glob("*.md"):
-            prompt += f"# {file.stem}:\n\n{file.read_text(encoding="utf-8")}\n\n"
+            prompt += f"# {file.stem}:\n\n{file.read_text(encoding='utf-8')}\n\n"
         response = client.responses.create(
             input=prompt,
             model=args.model,
             instructions=GEN_EXAM_PROMPT,
         )
         Path("exam2.md").write_text(response.output_text)
+    else:
+        parser.print_help()
 
 
 if __name__ == "__main__":
-    args = parse_args()
+    parser = get_parser()
+    args = parser.parse_args()
     main(args)
