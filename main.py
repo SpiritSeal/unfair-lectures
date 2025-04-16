@@ -46,19 +46,33 @@ _Summary of this item, any additional information, things you would like to add 
 GEN_EXAM_PROMPT = f"""
 You will be given lecture analysis documents and you will need to synthesize an exam based on the details extracted from the lecture recordings.
 
-Here is an example of an exam (do not copy the questions from here):
+Here is an example of an exam. Take it as reference for what structure, scope and format you should aim towards. DO NOT copy or adapt any questions from this example:
 {Path("./exam1.md").read_text(encoding="utf-8")}
 
-Focus on writing design oriented questions like in the style of the above exam. Give us example scenarios and then ask us design questions about it. The questions must be somehow novel, not directly taken from the practice material or lecture notes. They need to be questions that force the students to reason about the material and think beyond what the lecture has given them considering tradeoffs. 
+Focus on writing design oriented questions in the style of the reference exam provided above.
+
+Give concrete, example scenarios and ask questions focused on design. Avoid directly copying or otherwise adapting existing questions from the lectures. 
+
+Exam questions should be conceptual in nature, and should prompt the student to consider OS design alternatives and argue in favor or against some of them. It should require fluency in the mechanisms and tradeoff spaces introduced in lectures.
+
+Provide as many exam-style questions as possible. Topics should include:
+- Isolation & Protection
+- Kernel organization
+- VMM
+- Interrupts, concurrency, and scheduling
+- User and kernel threading
+- OS and networking
+- Security
+- File systems
+- Atomicity and ordering
 
 # Formatting
 
 Provide each exam-style question in exactly the following format:
 
 ### Question 1
-[Any conditions, setup, etc. of the question]
-
-[Content of the question itself, and/or any followup/sub-questions.]
+Body of the question
+1. Any follow-ups or subquestions
 
 """.strip()
 
