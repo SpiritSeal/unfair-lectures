@@ -1,0 +1,6917 @@
+1
+00:00:11,160 --> 00:00:13,240
+Yes.
+
+2
+00:00:15,480 --> 00:00:19,399
+Test one to three test, test.
+
+3
+00:00:42,610 --> 00:00:43,889
+I think
+
+4
+00:00:43,889 --> 00:00:45,009
+the
+
+5
+00:00:55,010 --> 00:00:56,209
+Okay.
+
+6
+00:00:56,209 --> 00:00:58,289
+Good afternoon, everybody.
+
+7
+00:01:04,580 --> 00:01:07,419
+Everyone is so busy
+preparing for the
+
+8
+00:01:07,419 --> 00:01:11,419
+final that you are
+continuing to do this now.
+
+9
+00:01:11,419 --> 00:01:13,619
+I'm certain of that.
+
+10
+00:01:14,750 --> 00:01:18,869
+So today, instead of
+
+11
+00:01:18,869 --> 00:01:20,990
+doing the distributed
+systems lecture,
+
+12
+00:01:20,990 --> 00:01:25,389
+I've decided to go with the
+overview in preparation for
+
+13
+00:01:25,389 --> 00:01:28,189
+the with the overview in
+
+14
+00:01:28,189 --> 00:01:29,669
+preparation for the exam two
+
+15
+00:01:29,669 --> 00:01:32,109
+that's going to take
+place tomorrow, okay?
+
+16
+00:01:32,109 --> 00:01:36,470
+So it is taking place
+tomorrow, April 16th.
+
+17
+00:01:36,470 --> 00:01:38,069
+You should show up to
+
+18
+00:01:38,069 --> 00:01:40,550
+your registered lab
+section locations.
+
+19
+00:01:40,550 --> 00:01:43,229
+It should take place
+between 6:30 and 9:00
+
+20
+00:01:43,229 --> 00:01:50,350
+P.M. Leave 15 minute buffer
+time plus or minus TBD.
+
+21
+00:01:50,350 --> 00:01:53,310
+Please make sure you bring
+your bus card and your laptop
+
+22
+00:01:53,310 --> 00:01:56,469
+and charger. What
+else can we say?
+
+23
+00:01:56,469 --> 00:01:59,749
+Well, maybe 32 hours from now,
+
+24
+00:01:59,749 --> 00:02:03,150
+you can breathe easily
+
+25
+00:02:03,150 --> 00:02:05,869
+because you will be done
+with the final exam,
+
+26
+00:02:05,869 --> 00:02:08,710
+and in fact, with all of the
+deliverables in this class.
+
+27
+00:02:08,710 --> 00:02:11,710
+And after that, we're going
+to have two more lectures of
+
+28
+00:02:11,710 --> 00:02:14,830
+fun that you don't have to
+worry about studying for.
+
+29
+00:02:14,830 --> 00:02:18,069
+You don't have to worry about
+any kind of deliverables.
+
+30
+00:02:18,069 --> 00:02:22,229
+You can just sit back and
+enjoy two additional lectures.
+
+31
+00:02:22,229 --> 00:02:23,510
+One of them is going to be on
+
+32
+00:02:23,510 --> 00:02:25,230
+distributed systems
+and the other one
+
+33
+00:02:25,230 --> 00:02:26,949
+is going to be on some research
+
+34
+00:02:26,949 --> 00:02:28,910
+that I've done in
+the past that is
+
+35
+00:02:28,910 --> 00:02:32,229
+fairly highly cited and
+has to do with scheduling.
+
+36
+00:02:32,229 --> 00:02:36,790
+Tuesday, April 22nd, is the
+last day of office hours,
+
+37
+00:02:36,790 --> 00:02:38,909
+and, in fact, the last
+day of instruction.
+
+38
+00:02:38,909 --> 00:02:41,870
+That's when we're going to
+have Section C is going to
+
+39
+00:02:41,870 --> 00:02:45,150
+have its last lecture.
+
+40
+00:02:45,150 --> 00:02:47,310
+Then after that, you're
+going to have a reading day.
+
+41
+00:02:47,310 --> 00:02:49,309
+And as far as this
+class is concerned,
+
+42
+00:02:49,309 --> 00:02:52,830
+sort of this is when
+the class ends, okay?
+
+43
+00:02:52,830 --> 00:02:55,149
+After exam two, there will be
+
+44
+00:02:55,149 --> 00:02:58,989
+no final exam after
+exam two tomorrow.
+
+45
+00:02:58,989 --> 00:03:03,869
+So people have been
+asking me about CIOS,
+
+46
+00:03:04,160 --> 00:03:07,560
+It's an interesting
+topic for me because,
+
+47
+00:03:07,560 --> 00:03:09,600
+as always, there's
+a trade off space.
+
+48
+00:03:09,600 --> 00:03:13,640
+But I do find CIOS
+highly valuable across
+
+49
+00:03:13,640 --> 00:03:15,920
+both of the courses that
+I've been teaching for
+
+50
+00:03:15,920 --> 00:03:19,080
+the past 5.5 years.
+
+51
+00:03:19,080 --> 00:03:23,359
+So even if you don't feel
+like putting prose responses,
+
+52
+00:03:23,359 --> 00:03:25,679
+even if you don't feel
+like giving me essays,
+
+53
+00:03:25,679 --> 00:03:27,559
+right, please fill
+it out anyway.
+
+54
+00:03:27,559 --> 00:03:29,800
+All of this is
+completely anonymous.
+
+55
+00:03:29,800 --> 00:03:32,840
+What that means is that when
+I receive a CIOS response,
+
+56
+00:03:32,840 --> 00:03:34,599
+I don't know whom it came from.
+
+57
+00:03:34,599 --> 00:03:37,120
+So this is basically free form.
+
+58
+00:03:37,120 --> 00:03:39,320
+You can provide your
+honest opinion.
+
+59
+00:03:39,320 --> 00:03:42,525
+But if you do want
+to write prose,
+
+60
+00:03:42,525 --> 00:03:46,810
+And the form is
+simply not able to
+
+61
+00:03:46,810 --> 00:03:48,850
+accommodate the extent to
+
+62
+00:03:48,850 --> 00:03:51,730
+which you want to tell me how
+much you love this course.
+
+63
+00:03:51,730 --> 00:03:56,489
+Definitely do not hesitate
+to email me and put CS
+
+64
+00:03:56,489 --> 00:03:58,610
+three to ten in the subject
+because I always read
+
+65
+00:03:58,610 --> 00:03:59,730
+these emails that have to
+
+66
+00:03:59,730 --> 00:04:01,385
+do with the feedback
+for this course.
+
+67
+00:04:01,385 --> 00:04:03,119
+We strive for excellence,
+
+68
+00:04:03,119 --> 00:04:05,559
+we strive for
+student experience,
+
+69
+00:04:05,880 --> 00:04:09,880
+we strive for pareto
+optimal points
+
+70
+00:04:09,880 --> 00:04:11,520
+in the trade off
+space that we are
+
+71
+00:04:11,520 --> 00:04:13,640
+provided with.
+Keep that in mind.
+
+72
+00:04:13,640 --> 00:04:16,799
+So in order to facilitate that,
+
+73
+00:04:16,799 --> 00:04:19,919
+since we all love a
+little bonus, don't we?
+
+74
+00:04:19,919 --> 00:04:22,239
+I've decided that I'm going
+
+75
+00:04:22,239 --> 00:04:24,520
+to create the following
+tier structure.
+
+76
+00:04:24,520 --> 00:04:29,720
+If the class as a whole
+reaches 70% response rate,
+
+77
+00:04:29,720 --> 00:04:32,119
+you will get three
+quarters of a percent
+
+78
+00:04:32,119 --> 00:04:35,639
+of BCIOS participation bonus.
+
+79
+00:04:37,470 --> 00:04:40,829
+Sounds like not too much, right?
+
+80
+00:04:40,829 --> 00:04:42,909
+This is three quarters of
+
+81
+00:04:42,909 --> 00:04:45,509
+a percent of the
+final letter grade.
+
+82
+00:04:45,509 --> 00:04:49,630
+However, if the whole class
+reaches 85% response rate,
+
+83
+00:04:49,630 --> 00:04:51,749
+there's going to be an
+additional three quarters of
+
+84
+00:04:51,749 --> 00:04:54,269
+a percent that will be
+added on top of that.
+
+85
+00:04:54,269 --> 00:04:57,350
+And so overall,
+the bonus consists
+
+86
+00:04:57,350 --> 00:04:59,469
+of the achievable bonus
+
+87
+00:04:59,469 --> 00:05:02,230
+for this class is
+going to be 1.5%.
+
+88
+00:05:02,230 --> 00:05:05,110
+So this is to help you guys
+
+89
+00:05:05,110 --> 00:05:09,150
+take your time to fill
+out the CIOS surveys.
+
+90
+00:05:09,150 --> 00:05:10,510
+I'm probably going to
+
+91
+00:05:10,510 --> 00:05:12,709
+allocate some time during
+the last lecture on
+
+92
+00:05:12,709 --> 00:05:14,989
+next Tuesday so that you
+actually have some in
+
+93
+00:05:14,989 --> 00:05:18,429
+class time to be able
+to do that. Okay.
+
+94
+00:05:18,429 --> 00:05:20,869
+All right. So topics covered on
+
+95
+00:05:20,869 --> 00:05:23,469
+Exam two are listed
+on this slide.
+
+96
+00:05:23,469 --> 00:05:25,349
+They were also posted on Tiazza.
+
+97
+00:05:25,349 --> 00:05:26,869
+This is a copy paste,
+
+98
+00:05:26,869 --> 00:05:28,989
+with the exception
+of some extension
+
+99
+00:05:28,989 --> 00:05:30,390
+that I did under the VMM.
+
+100
+00:05:30,390 --> 00:05:32,789
+So we're covering
+isolation and protection,
+
+101
+00:05:32,789 --> 00:05:35,709
+kernel organization,
+virtual memory management,
+
+102
+00:05:35,709 --> 00:05:38,390
+interrupt concurrency
+and scheduling,
+
+103
+00:05:38,390 --> 00:05:40,884
+operating systems
+and networking,
+
+104
+00:05:40,884 --> 00:05:44,059
+security file systems,
+atomicity and ordering.
+
+105
+00:05:44,059 --> 00:05:47,699
+And note that distributed
+systems is not on the list.
+
+106
+00:05:47,699 --> 00:05:49,539
+Just wanted to emphasize
+
+107
+00:05:49,539 --> 00:05:51,579
+that because I want you
+to enjoy this topic.
+
+108
+00:05:51,579 --> 00:05:53,380
+I don't want you to
+worry about, oh my God,
+
+109
+00:05:53,380 --> 00:05:56,019
+I'm going to have to study
+for this for the exam.
+
+110
+00:05:56,019 --> 00:05:58,299
+I if I could,
+
+111
+00:05:58,299 --> 00:06:00,059
+I would just completely get
+
+112
+00:06:00,059 --> 00:06:01,940
+rid of all of the
+grades so that I
+
+113
+00:06:01,940 --> 00:06:03,579
+could simply lecture and the
+
+114
+00:06:03,579 --> 00:06:06,059
+people who want to show
+up show up and learn.
+
+115
+00:06:06,059 --> 00:06:08,539
+But of course, many
+of you do need
+
+116
+00:06:08,539 --> 00:06:10,100
+some incentive structure to
+
+117
+00:06:10,100 --> 00:06:12,859
+actually be productive,
+and so here we are.
+
+118
+00:06:17,550 --> 00:06:21,989
+This is a set of exam
+two instructions.
+
+119
+00:06:21,989 --> 00:06:24,670
+It will be in person, in
+class on your laptop.
+
+120
+00:06:24,670 --> 00:06:27,749
+Make sure you bring your
+laptop and charger.
+
+121
+00:06:27,749 --> 00:06:32,249
+Aim for 2.5 hours
+of laptop battery.
+
+122
+00:06:32,249 --> 00:06:34,049
+If you know a priori that this
+
+123
+00:06:34,049 --> 00:06:35,810
+is going to be a problem
+for your laptop,
+
+124
+00:06:35,810 --> 00:06:38,169
+remember that neither
+in this class nor in
+
+125
+00:06:38,169 --> 00:06:39,849
+supervised lab classes we
+
+126
+00:06:39,849 --> 00:06:41,650
+actually have any
+built in outlets.
+
+127
+00:06:41,650 --> 00:06:44,769
+Unfortunately, there's not
+much I can do about that.
+
+128
+00:06:44,769 --> 00:06:46,769
+Other than to encourage you to
+
+129
+00:06:46,769 --> 00:06:48,929
+bring a power cord,
+an extension cord,
+
+130
+00:06:48,929 --> 00:06:53,129
+there are wall mounted
+outlets that we
+
+131
+00:06:53,129 --> 00:06:55,290
+can hopefully share
+if your laptop
+
+132
+00:06:55,290 --> 00:06:57,809
+doesn't actually
+survive for 2.5 hours.
+
+133
+00:06:57,809 --> 00:06:59,490
+Try to make it survive.
+
+134
+00:06:59,490 --> 00:07:01,009
+There are good ways
+of doing that.
+
+135
+00:07:01,009 --> 00:07:02,609
+Try to close everything that's
+
+136
+00:07:02,609 --> 00:07:03,889
+running on your laptop with
+
+137
+00:07:03,889 --> 00:07:06,650
+the exception of a
+single browser tab
+
+138
+00:07:06,650 --> 00:07:08,564
+where you're taking the exam.
+
+139
+00:07:08,564 --> 00:07:10,120
+That'll help quite a bit.
+
+140
+00:07:10,120 --> 00:07:12,719
+As a matter of fact, every
+single time I present,
+
+141
+00:07:12,719 --> 00:07:15,720
+I do that to make
+sure that nothing bad
+
+142
+00:07:15,720 --> 00:07:17,039
+happens during the time that
+
+143
+00:07:17,039 --> 00:07:19,159
+I'm actually lecturing
+in front of you.
+
+144
+00:07:19,159 --> 00:07:22,520
+So, there are many things
+you can do in order
+
+145
+00:07:22,520 --> 00:07:26,279
+to make sure that your battery
+persists for 2.5 hours.
+
+146
+00:07:26,279 --> 00:07:28,840
+The exam will be released
+and will be visible to
+
+147
+00:07:28,840 --> 00:07:31,879
+you at 6:30 P.M.
+
+148
+00:07:31,879 --> 00:07:33,919
+Tomorrow on Canvas,
+and the access
+
+149
+00:07:33,919 --> 00:07:36,399
+to the exam will end at
+approximately 9:00 P.M.
+
+150
+00:07:36,399 --> 00:07:38,910
+So that's the 2.5 hours
+that I'm referring to.
+
+151
+00:07:38,910 --> 00:07:41,099
+Make sure you bring
+your bus card.
+
+152
+00:07:41,099 --> 00:07:45,019
+You have to bring
+your photo ID, okay?
+
+153
+00:07:45,019 --> 00:07:47,460
+So if you have some
+issues with the bus card,
+
+154
+00:07:47,460 --> 00:07:50,140
+we'll still require you to
+show us some sort of photo ID.
+
+155
+00:07:50,140 --> 00:07:51,460
+We'll be taking attendance.
+
+156
+00:07:51,460 --> 00:07:53,340
+These things will be proctored.
+
+157
+00:07:53,340 --> 00:07:56,179
+Your physical presence
+is going to be recorded.
+
+158
+00:07:56,179 --> 00:07:59,539
+You cannot take this exam
+remotely. We will find out.
+
+159
+00:07:59,539 --> 00:08:01,899
+So you have to be
+here in person,
+
+160
+00:08:01,899 --> 00:08:04,099
+and we'll validate
+that you're here
+
+161
+00:08:04,099 --> 00:08:07,314
+and you are you. This
+is very important.
+
+162
+00:08:07,314 --> 00:08:09,249
+Please answer all of
+
+163
+00:08:09,249 --> 00:08:11,129
+the questions to the
+best of your ability.
+
+164
+00:08:11,129 --> 00:08:12,690
+Write down any reasonable
+
+165
+00:08:12,690 --> 00:08:14,569
+assumptions that
+you had to make.
+
+166
+00:08:14,569 --> 00:08:18,209
+So in the not this
+year, but in the past,
+
+167
+00:08:18,209 --> 00:08:21,249
+there were experiences
+where, you know,
+
+168
+00:08:21,249 --> 00:08:23,129
+there were some implicit
+assumptions made
+
+169
+00:08:23,129 --> 00:08:25,929
+because XV six did
+things a certain way.
+
+170
+00:08:25,929 --> 00:08:28,449
+For example, where the
+stack is located, right?
+
+171
+00:08:28,449 --> 00:08:29,570
+That was one of the things that
+
+172
+00:08:29,570 --> 00:08:30,809
+I remember from last year.
+
+173
+00:08:30,809 --> 00:08:33,089
+And so, you know, if you're
+making these assumptions,
+
+174
+00:08:33,089 --> 00:08:34,769
+make sure you just
+state that assumption.
+
+175
+00:08:34,769 --> 00:08:36,960
+Um. Or double check with the TA.
+
+176
+00:08:36,960 --> 00:08:38,400
+If the TA is inaccessible,
+
+177
+00:08:38,400 --> 00:08:41,040
+just go ahead and state
+that assumption, okay?
+
+178
+00:08:41,040 --> 00:08:43,240
+Because if it's not stated,
+
+179
+00:08:43,240 --> 00:08:45,039
+we cannot sort of assume
+
+180
+00:08:45,039 --> 00:08:46,680
+that this is what
+you had in mind.
+
+181
+00:08:46,680 --> 00:08:49,520
+Maybe this is a brilliant idea
+that you actually came up
+
+182
+00:08:49,520 --> 00:08:52,280
+with after you've finished
+your final exam, right?
+
+183
+00:08:52,280 --> 00:08:53,480
+There's no way for us to
+
+184
+00:08:53,480 --> 00:08:55,880
+distinguish between
+those two situations.
+
+185
+00:08:55,880 --> 00:08:57,840
+I hope that makes sense.
+
+186
+00:08:57,840 --> 00:08:59,920
+We're coming from
+a place of being
+
+187
+00:08:59,920 --> 00:09:03,775
+reasonable and being fair.
+
+188
+00:09:03,775 --> 00:09:07,669
+Closed Internet, not
+allowed to use Internet
+
+189
+00:09:07,669 --> 00:09:11,230
+for anything except
+accessing Exam two quiz.
+
+190
+00:09:11,230 --> 00:09:13,590
+This will also help
+with your battery life.
+
+191
+00:09:13,590 --> 00:09:15,670
+This will be strictly enforced,
+
+192
+00:09:15,670 --> 00:09:17,635
+especially for exam two.
+
+193
+00:09:17,635 --> 00:09:22,040
+Um, you know, don't try to go
+through lecture recordings.
+
+194
+00:09:22,040 --> 00:09:24,040
+This is simply
+logistically complicated.
+
+195
+00:09:24,040 --> 00:09:26,160
+You know, I'm not religious
+about that particular one,
+
+196
+00:09:26,160 --> 00:09:28,800
+but it could be disruptive
+for people around you, right?
+
+197
+00:09:28,800 --> 00:09:30,839
+Stuff flittering on
+your screen can be
+
+198
+00:09:30,839 --> 00:09:33,080
+distractive for some people
+sitting right next to you.
+
+199
+00:09:33,080 --> 00:09:35,319
+So let's just try to
+avoid these sort of
+
+200
+00:09:35,319 --> 00:09:37,840
+contentious situations
+that are not
+
+201
+00:09:37,840 --> 00:09:40,720
+really necessary because as
+you've seen from exam one,
+
+202
+00:09:40,720 --> 00:09:41,999
+you don't really
+have a lot of time
+
+203
+00:09:41,999 --> 00:09:44,160
+to watch videos, okay?
+
+204
+00:09:44,160 --> 00:09:46,360
+In the 15 minutes that you were
+
+205
+00:09:46,360 --> 00:09:47,880
+provided, you barely
+had time to think.
+
+206
+00:09:47,880 --> 00:09:49,080
+Thankfully, we're not going
+
+207
+00:09:49,080 --> 00:09:50,879
+to have that problem
+with exam two.
+
+208
+00:09:50,879 --> 00:09:56,889
+Um, So also, if a question is
+asking for an explanation,
+
+209
+00:09:56,889 --> 00:09:58,930
+we want to make sure that
+
+210
+00:09:58,930 --> 00:10:01,169
+we get some sort of
+explanation from you.
+
+211
+00:10:01,169 --> 00:10:03,170
+It says, Please
+explain. That means
+
+212
+00:10:03,170 --> 00:10:05,130
+that the answer in itself
+is not sufficient.
+
+213
+00:10:05,130 --> 00:10:06,770
+Please provide that explanation.
+
+214
+00:10:06,770 --> 00:10:10,210
+Otherwise, the answer even
+if the answer is correct,
+
+215
+00:10:10,210 --> 00:10:12,250
+it will only get partial
+credit as a result.
+
+216
+00:10:12,250 --> 00:10:14,809
+It will not get full credit
+without explanation.
+
+217
+00:10:14,809 --> 00:10:19,690
+Any questions about this so far?
+
+218
+00:10:21,780 --> 00:10:28,660
+Okay. No GNAI for
+many, many reasons.
+
+219
+00:10:28,660 --> 00:10:31,100
+I want to just go
+past this slide
+
+220
+00:10:31,100 --> 00:10:33,500
+because you already know
+the drill for Exam one,
+
+221
+00:10:33,500 --> 00:10:35,779
+and we do have a lot
+of material to cover.
+
+222
+00:10:35,779 --> 00:10:39,459
+So let's go ahead and get
+through this real quick.
+
+223
+00:10:39,459 --> 00:10:43,220
+So let's start with
+operating systems.
+
+224
+00:10:43,220 --> 00:10:45,180
+We have this entire course
+
+225
+00:10:45,180 --> 00:10:48,779
+almost behind us in
+the spring of 2025.
+
+226
+00:10:48,779 --> 00:10:51,840
+What have we done?
+Okay. What have
+
+227
+00:10:51,840 --> 00:10:53,880
+we accomplished as a class?
+
+228
+00:10:53,880 --> 00:10:57,359
+A lot of the lecture
+focus was on design,
+
+229
+00:10:57,359 --> 00:11:01,560
+and there was a significant
+project based component in
+
+230
+00:11:01,560 --> 00:11:03,240
+this class where
+you actually worked
+
+231
+00:11:03,240 --> 00:11:06,319
+an actual X 86 Ring zero kernel,
+
+232
+00:11:06,319 --> 00:11:10,959
+which is a huge kind of hands
+on component of this class.
+
+233
+00:11:10,959 --> 00:11:13,660
+It's sort of approximately
+half of your grade.
+
+234
+00:11:13,660 --> 00:11:15,839
+But, you know,
+over the course of
+
+235
+00:11:15,839 --> 00:11:18,800
+the lectures and exams
+associated with that,
+
+236
+00:11:18,800 --> 00:11:20,920
+we also studied what
+abstractions make
+
+237
+00:11:20,920 --> 00:11:23,440
+a good operating system
+and why they are needed.
+
+238
+00:11:23,440 --> 00:11:25,759
+And that's why we have
+these two exams that sort
+
+239
+00:11:25,759 --> 00:11:27,920
+of test the more
+fundamental knowledge that
+
+240
+00:11:27,920 --> 00:11:29,680
+underpins all of the hands on
+
+241
+00:11:29,680 --> 00:11:33,039
+experience that you have
+achieved through your labs.
+
+242
+00:11:33,039 --> 00:11:35,199
+So the next set of
+
+243
+00:11:35,199 --> 00:11:37,760
+topics I sort of put together
+slightly out of order.
+
+244
+00:11:37,760 --> 00:11:41,000
+The order sort of depends
+on the importance and
+
+245
+00:11:41,000 --> 00:11:42,720
+also trying to make sure that I
+
+246
+00:11:42,720 --> 00:11:44,600
+get to it before we
+run out of time.
+
+247
+00:11:44,600 --> 00:11:46,440
+So let's start with waiting.
+
+248
+00:11:46,440 --> 00:11:49,039
+Do you remember this
+piece of code that we
+
+249
+00:11:49,039 --> 00:11:52,400
+talked about when we discussed
+waiting and ordering?
+
+250
+00:11:52,400 --> 00:11:54,199
+And concurrency.
+
+251
+00:11:54,199 --> 00:11:56,920
+What was the problem
+with this code?
+
+252
+00:12:00,200 --> 00:12:05,080
+Is it correct? Yes.
+Two threads at once,
+
+253
+00:12:05,080 --> 00:12:06,840
+then the end result could be
+
+254
+00:12:06,840 --> 00:12:09,359
+really combination of scenarios.
+
+255
+00:12:09,359 --> 00:12:13,560
+So either list one would be
+like a persisted list or
+
+256
+00:12:13,560 --> 00:12:18,920
+list overrides the
+original therapy.
+
+257
+00:12:18,920 --> 00:12:21,080
+Right. And which line
+
+258
+00:12:21,080 --> 00:12:23,560
+specifically would
+create that problem?
+
+259
+00:12:23,800 --> 00:12:25,880
+What?
+
+260
+00:12:29,560 --> 00:12:32,160
+Right. So basically, line 15
+
+261
+00:12:32,160 --> 00:12:34,160
+is the one that's pretty
+contentious, right?
+
+262
+00:12:34,160 --> 00:12:35,360
+Because, first of all,
+
+263
+00:12:35,360 --> 00:12:37,120
+when I ask questions like this,
+
+264
+00:12:37,120 --> 00:12:40,000
+you should identify what are
+the shared resources that
+
+265
+00:12:40,000 --> 00:12:42,719
+are being accessed here or
+the shared memory locations.
+
+266
+00:12:42,719 --> 00:12:44,600
+In this case, we
+have the struct,
+
+267
+00:12:44,600 --> 00:12:47,880
+right on line six,
+
+268
+00:12:47,880 --> 00:12:50,440
+the struct list star list
+
+269
+00:12:50,440 --> 00:12:52,600
+that was sort of
+defined over here.
+
+270
+00:12:52,600 --> 00:12:55,959
+And there's a possibility
+for it to be accessed across
+
+271
+00:12:55,959 --> 00:12:57,800
+multiple different threads or
+
+272
+00:12:57,800 --> 00:13:00,160
+multiple different
+processes, in fact, right?
+
+273
+00:13:00,160 --> 00:13:02,600
+And then each of these can
+
+274
+00:13:02,600 --> 00:13:05,000
+try to insert data at
+exactly the same time.
+
+275
+00:13:05,000 --> 00:13:08,400
+So you basically have a situation
+like this where you can
+
+276
+00:13:08,400 --> 00:13:12,520
+create a node L one on
+the left hand side,
+
+277
+00:13:12,520 --> 00:13:14,920
+and L two on the
+right hand side,
+
+278
+00:13:14,920 --> 00:13:18,600
+pretty much simultaneously,
+and they can race with each
+
+279
+00:13:18,600 --> 00:13:22,640
+other for the next sequence
+of instructions, right?
+
+280
+00:13:22,640 --> 00:13:25,520
+And the interleavings
+are pretty broad.
+
+281
+00:13:25,520 --> 00:13:27,360
+So what I usually
+like to ask is,
+
+282
+00:13:27,360 --> 00:13:29,760
+what is the space of
+possibilities here, right?
+
+283
+00:13:29,760 --> 00:13:32,320
+And the set of interleavings
+is quite broad.
+
+284
+00:13:32,320 --> 00:13:33,639
+So how do we reduce
+
+285
+00:13:33,639 --> 00:13:35,720
+the entropy in this
+space of possibilities?
+
+286
+00:13:35,720 --> 00:13:39,265
+How do we impose some
+sort of partial order,
+
+287
+00:13:39,265 --> 00:13:41,450
+in this particular case.
+
+288
+00:13:41,450 --> 00:13:43,010
+And so the way we impose
+
+289
+00:13:43,010 --> 00:13:44,970
+partial order in this
+particular case is
+
+290
+00:13:44,970 --> 00:13:46,690
+by using the acquired release
+
+291
+00:13:46,690 --> 00:13:48,450
+around the critical section.
+
+292
+00:13:48,450 --> 00:13:49,970
+And the critical section here
+
+293
+00:13:49,970 --> 00:13:52,170
+is L one next equals to list,
+
+294
+00:13:52,170 --> 00:13:54,770
+and then list equals
+to L one next, right?
+
+295
+00:13:54,770 --> 00:13:57,530
+We want those things to
+actually happen atomically
+
+296
+00:13:57,530 --> 00:14:01,720
+relative to the other
+execution threads.
+
+297
+00:14:01,720 --> 00:14:05,350
+Okay? And so what have we
+
+298
+00:14:05,350 --> 00:14:07,190
+accomplished if we think
+
+299
+00:14:07,190 --> 00:14:09,070
+about it in a more
+principled fashion,
+
+300
+00:14:09,070 --> 00:14:10,310
+we have reduced the space
+
+301
+00:14:10,310 --> 00:14:12,589
+of possibilities,
+and critically,
+
+302
+00:14:12,589 --> 00:14:15,309
+we have reduced the
+possibilities, the options,
+
+303
+00:14:15,309 --> 00:14:18,990
+the orderings, the interleavings
+that create a problem.
+
+304
+00:14:18,990 --> 00:14:23,910
+And what problem can we identify
+here? What is it called?
+
+305
+00:14:23,910 --> 00:14:25,550
+If I were to ask you,
+
+306
+00:14:25,550 --> 00:14:27,110
+can you be precise about
+
+307
+00:14:27,110 --> 00:14:29,950
+the problem that existed
+in the code before?
+
+308
+00:14:29,950 --> 00:14:32,310
+Would you be able to
+give me that answer?
+
+309
+00:14:32,310 --> 00:14:33,670
+Yeah.
+
+310
+00:14:33,750 --> 00:14:38,229
+There is a database, and how
+do we define a database?
+
+311
+00:14:41,950 --> 00:14:44,150
+At least one of
+them being a right,
+
+312
+00:14:44,150 --> 00:14:46,310
+and we have this property here.
+
+313
+00:14:46,310 --> 00:14:48,350
+If we look at the piece of code,
+
+314
+00:14:48,350 --> 00:14:50,189
+try to go back to
+the definitions
+
+315
+00:14:50,189 --> 00:14:51,629
+because there are other kind of
+
+316
+00:14:51,629 --> 00:14:53,510
+race conditions that
+we can have that
+
+317
+00:14:53,510 --> 00:14:56,189
+are not necessarily data races.
+
+318
+00:14:56,189 --> 00:14:58,990
+Data race is just one type of
+
+319
+00:14:58,990 --> 00:15:00,350
+race condition that we
+
+320
+00:15:00,350 --> 00:15:02,645
+have been talking
+about in this class.
+
+321
+00:15:02,645 --> 00:15:05,740
+So we use the acquired
+release here around
+
+322
+00:15:05,740 --> 00:15:09,460
+the critical section in
+order to enact basically
+
+323
+00:15:09,460 --> 00:15:12,220
+this atomicity for the block
+
+324
+00:15:12,220 --> 00:15:15,260
+of code so that it's
+atomic relative to
+
+325
+00:15:15,260 --> 00:15:18,380
+any other thread of
+execution that is trying to
+
+326
+00:15:18,380 --> 00:15:21,740
+insert an element at
+exactly the same time.
+
+327
+00:15:21,740 --> 00:15:24,339
+Reduce the space
+of possibilities,
+
+328
+00:15:24,339 --> 00:15:27,980
+made the code correct, okay?
+
+329
+00:15:28,540 --> 00:15:32,620
+All right. So we also
+talked about how
+
+330
+00:15:32,620 --> 00:15:34,620
+the simplest possible way of
+
+331
+00:15:34,620 --> 00:15:37,900
+accomplishing this was
+with what kind of log?
+
+332
+00:15:38,910 --> 00:15:44,350
+Yeah. Okay.
+
+333
+00:15:45,630 --> 00:15:48,430
+Mutex lock. Any other?
+
+334
+00:15:48,430 --> 00:15:51,670
+What did you have in mind?
+The spin lock, right?
+
+335
+00:15:51,670 --> 00:15:54,270
+So that's simply
+the easiest thing
+
+336
+00:15:54,270 --> 00:15:57,590
+that you can do is
+just do a spin lock.
+
+337
+00:15:57,590 --> 00:16:00,889
+And what's the problem
+with the spin lock?
+
+338
+00:16:00,889 --> 00:16:05,150
+Yeah. Wasting CPU cycle. Right.
+
+339
+00:16:05,150 --> 00:16:07,190
+And so the question was,
+can we do better, right?
+
+340
+00:16:07,190 --> 00:16:09,830
+And we sort of came up
+with a way to do better.
+
+341
+00:16:09,830 --> 00:16:12,429
+We simply want the
+waiting process to go to
+
+342
+00:16:12,429 --> 00:16:15,749
+flip so that it doesn't waste
+those expensive CPU cycles.
+
+343
+00:16:15,749 --> 00:16:18,669
+So we came up with this
+conditional variable primitive.
+
+344
+00:16:18,669 --> 00:16:23,030
+And the canonical example that
+we used in order to really
+
+345
+00:16:23,030 --> 00:16:26,270
+study this all aspects of
+
+346
+00:16:26,270 --> 00:16:27,629
+the conditional variable is
+
+347
+00:16:27,629 --> 00:16:29,630
+the producer consumer
+queue, okay?
+
+348
+00:16:29,630 --> 00:16:32,549
+Where the producer adds
+elements to the queue.
+
+349
+00:16:32,549 --> 00:16:34,070
+If the is full,
+
+350
+00:16:34,070 --> 00:16:35,670
+we want the producer to wait.
+
+351
+00:16:35,670 --> 00:16:37,710
+And if the queue was empty,
+
+352
+00:16:37,710 --> 00:16:39,490
+uh, before the wait,
+
+353
+00:16:39,490 --> 00:16:40,850
+we wake up the consumer.
+
+354
+00:16:40,850 --> 00:16:42,170
+And the consumer basically
+
+355
+00:16:42,170 --> 00:16:43,930
+removes the element
+from the queue.
+
+356
+00:16:43,930 --> 00:16:45,970
+If the queue is
+empty, importantly,
+
+357
+00:16:45,970 --> 00:16:47,849
+we want to make sure
+that the consumer is not
+
+358
+00:16:47,849 --> 00:16:49,970
+busy waiting on an
+empty queue because
+
+359
+00:16:49,970 --> 00:16:51,210
+it's quite possible that
+
+360
+00:16:51,210 --> 00:16:55,290
+our queue can be empty
+for most of the time.
+
+361
+00:16:56,910 --> 00:16:59,950
+Okay. And we made
+a huge deal about
+
+362
+00:16:59,950 --> 00:17:03,070
+the fact that we want to
+use a while loop, right?
+
+363
+00:17:03,390 --> 00:17:07,670
+And this is essential because
+of the race conditions.
+
+364
+00:17:07,670 --> 00:17:09,710
+And those race conditions
+
+365
+00:17:09,710 --> 00:17:12,229
+actually are not
+necessarily data races.
+
+366
+00:17:12,229 --> 00:17:14,190
+There are other kinds
+of race conditions
+
+367
+00:17:14,190 --> 00:17:15,629
+that we can have if
+
+368
+00:17:15,629 --> 00:17:19,469
+we don't use a while loop in
+this particular case, okay?
+
+369
+00:17:19,469 --> 00:17:23,429
+So remember this when
+we try to talk about
+
+370
+00:17:23,429 --> 00:17:27,710
+basically what happens in
+the situation as follows,
+
+371
+00:17:27,710 --> 00:17:28,989
+where one of the threads is
+
+372
+00:17:28,989 --> 00:17:31,950
+the producer and you
+have two consumers,
+
+373
+00:17:31,950 --> 00:17:34,709
+C one and C two on
+the right hand side
+
+374
+00:17:34,709 --> 00:17:38,670
+that are attempting to pop
+an element from the queue.
+
+375
+00:17:38,670 --> 00:17:41,309
+What types of
+situations can happen?
+
+376
+00:17:41,309 --> 00:17:43,270
+And by the way, if
+they attempt to pop
+
+377
+00:17:43,270 --> 00:17:45,750
+an element from an empty
+queue, the panic happens.
+
+378
+00:17:45,750 --> 00:17:47,749
+We don't want this
+to happen. So what's
+
+379
+00:17:47,749 --> 00:17:50,909
+the problem with what you
+see on the screen so far?
+
+380
+00:17:55,170 --> 00:17:58,930
+You know, if you will, this
+is a practice question.
+
+381
+00:17:58,930 --> 00:18:01,729
+If I give you this
+code and I ask you,
+
+382
+00:18:01,729 --> 00:18:03,130
+what's the problem
+with this code?
+
+383
+00:18:03,130 --> 00:18:04,930
+What kind of situations bad
+
+384
+00:18:04,930 --> 00:18:06,649
+situations can it end up with,
+
+385
+00:18:06,649 --> 00:18:09,489
+you should be able to
+give me an answer. Yes.
+
+386
+00:18:09,489 --> 00:18:13,210
+If multiple threads
+wake up on the signal,
+
+387
+00:18:13,210 --> 00:18:14,490
+only one of them will be able to
+
+388
+00:18:14,490 --> 00:18:16,609
+pop and the other one will.
+
+389
+00:18:20,290 --> 00:18:23,089
+Okay, so basically
+in steady state,
+
+390
+00:18:23,089 --> 00:18:25,570
+especially if the
+queue is mostly weight
+
+391
+00:18:25,570 --> 00:18:29,289
+is mostly empty, right?
+
+392
+00:18:29,289 --> 00:18:31,049
+What he is talking about is
+
+393
+00:18:31,049 --> 00:18:33,410
+that most of the consumer
+threats, in fact,
+
+394
+00:18:33,410 --> 00:18:35,289
+all of the consumer
+threats are going to be
+
+395
+00:18:35,289 --> 00:18:37,649
+in the CV weight.
+You see that, right?
+
+396
+00:18:37,649 --> 00:18:39,730
+So let's say the queue
+is mostly empty.
+
+397
+00:18:39,730 --> 00:18:42,610
+And let's talk about his point.
+
+398
+00:18:43,090 --> 00:18:47,890
+And so if the producer
+actually signals,
+
+399
+00:18:48,290 --> 00:18:52,449
+remember that the way
+weight operates is that it
+
+400
+00:18:52,449 --> 00:18:54,089
+acquires the lock before
+
+401
+00:18:54,089 --> 00:18:56,130
+it gets out of the
+blocking weight.
+
+402
+00:18:56,130 --> 00:18:58,289
+And so how many
+consumers will actually
+
+403
+00:18:58,289 --> 00:19:01,770
+get out of the blocking
+weight with the lock acquire?
+
+404
+00:19:01,770 --> 00:19:05,650
+Only one. That's not necessarily
+
+405
+00:19:05,650 --> 00:19:09,169
+the problem. That's
+the reason why.
+
+406
+00:19:09,169 --> 00:19:10,169
+Yes.
+
+407
+00:19:10,169 --> 00:19:12,249
+CV signal picks up one of
+
+408
+00:19:12,249 --> 00:19:15,649
+the threads and you're
+in the CV weight thing.
+
+409
+00:19:15,649 --> 00:19:17,610
+Before you acquire a lock,
+
+410
+00:19:17,610 --> 00:19:19,570
+you contact the child
+to another thread.
+
+411
+00:19:19,570 --> 00:19:20,769
+Oh, yeah, let me
+get through this,
+
+412
+00:19:20,769 --> 00:19:23,329
+but is there a
+simpler problem here.
+
+413
+00:19:24,970 --> 00:19:28,689
+Is it possible for any
+consumer to wake up even
+
+414
+00:19:28,689 --> 00:19:32,089
+if producer doesn't signal? Yes.
+
+415
+00:19:32,089 --> 00:19:34,130
+You have a spurious wake up?
+
+416
+00:19:34,130 --> 00:19:36,209
+Yeah, the spurious wake
+up can happen, right?
+
+417
+00:19:36,209 --> 00:19:39,050
+So that's one of the things
+that can happen is it's
+
+418
+00:19:39,050 --> 00:19:40,649
+sort of this weird trick
+
+419
+00:19:40,649 --> 00:19:42,810
+that even if the
+producer doesn't signal,
+
+420
+00:19:42,810 --> 00:19:44,730
+there's a possibility that
+
+421
+00:19:44,730 --> 00:19:47,089
+one of the consumers simply
+gets out of the way,
+
+422
+00:19:47,089 --> 00:19:52,289
+grabs a lock grabs the
+lock right here, okay?
+
+423
+00:19:52,289 --> 00:19:55,209
+What am I pointing
+at? Yeah, basically
+
+424
+00:19:55,209 --> 00:19:56,650
+gets out of the CV weight,
+
+425
+00:19:56,650 --> 00:19:58,690
+grabs a lock on the
+way out of weight,
+
+426
+00:19:58,690 --> 00:20:00,729
+and then performs a pop
+
+427
+00:20:00,729 --> 00:20:03,969
+and the queue is empty and
+so we get a kernel panic.
+
+428
+00:20:03,969 --> 00:20:05,249
+Now what's interesting in
+
+429
+00:20:05,249 --> 00:20:06,969
+this particular example is that
+
+430
+00:20:06,969 --> 00:20:09,049
+even if there are
+no spurious wakeus,
+
+431
+00:20:09,049 --> 00:20:11,089
+let's say somehow we
+figured out the way to
+
+432
+00:20:11,089 --> 00:20:13,890
+not have spurious wakeus,
+there's still a problem.
+
+433
+00:20:13,890 --> 00:20:17,489
+And this is quite interesting.
+
+434
+00:20:17,730 --> 00:20:20,250
+I think one of you has already
+
+435
+00:20:20,250 --> 00:20:22,569
+started to tell me
+what the problem is,
+
+436
+00:20:22,569 --> 00:20:26,089
+and it motivates
+the reason why we
+
+437
+00:20:26,089 --> 00:20:29,855
+want to replace this if
+condition with a while loop.
+
+438
+00:20:29,855 --> 00:20:31,620
+Okay? In other words, when we
+
+439
+00:20:31,620 --> 00:20:33,540
+wake up and get out of
+this blocking weight,
+
+440
+00:20:33,540 --> 00:20:35,100
+we want to make
+sure that the queue
+
+441
+00:20:35,100 --> 00:20:36,979
+is still indeed empty, okay?
+
+442
+00:20:36,979 --> 00:20:43,180
+Spurious wakeup is still
+indeed is non empty.
+
+443
+00:20:43,180 --> 00:20:46,300
+And so we can proceed
+out of this while loop.
+
+444
+00:20:46,300 --> 00:20:48,739
+Now, here's what
+can happen, okay?
+
+445
+00:20:48,739 --> 00:20:50,420
+Without spurious wake ups,
+
+446
+00:20:50,420 --> 00:20:54,189
+you can have a producer
+signal and get out.
+
+447
+00:20:54,189 --> 00:20:56,759
+And so let's say C one was
+
+448
+00:20:56,759 --> 00:21:00,279
+actually blocking on the
+CV eight right here.
+
+449
+00:21:00,279 --> 00:21:01,879
+That's where CV one was.
+
+450
+00:21:01,879 --> 00:21:03,320
+I think I have this animated.
+
+451
+00:21:03,320 --> 00:21:06,199
+Yes, that's where C one was.
+
+452
+00:21:06,199 --> 00:21:08,360
+And so after the signal,
+
+453
+00:21:08,360 --> 00:21:09,719
+let's say C one starts
+
+454
+00:21:09,719 --> 00:21:11,719
+going through the
+wake up procedure.
+
+455
+00:21:11,719 --> 00:21:14,599
+And so it's on its
+way to wake up,
+
+456
+00:21:14,599 --> 00:21:18,079
+but hasn't really grabbed
+the lock yet, okay?
+
+457
+00:21:18,079 --> 00:21:21,224
+And C two was right above lock.
+
+458
+00:21:21,224 --> 00:21:24,170
+Right here. So C two comes
+
+459
+00:21:24,170 --> 00:21:27,210
+in and it can raise
+to grab this lock,
+
+460
+00:21:27,210 --> 00:21:29,890
+checks if the queue is empty.
+
+461
+00:21:29,890 --> 00:21:32,249
+The answer is no, it's
+not empty because
+
+462
+00:21:32,249 --> 00:21:34,130
+the producer has just deposited
+
+463
+00:21:34,130 --> 00:21:35,650
+a single element to the queue.
+
+464
+00:21:35,650 --> 00:21:37,009
+So the queue has exactly
+
+465
+00:21:37,009 --> 00:21:38,969
+one element at this
+point in time,
+
+466
+00:21:38,969 --> 00:21:43,409
+proceeds to the pop
+right here and gets out.
+
+467
+00:21:43,409 --> 00:21:45,410
+So now the queue is empty,
+
+468
+00:21:45,410 --> 00:21:47,049
+and we go back to C one,
+
+469
+00:21:47,049 --> 00:21:48,650
+for some reason, the schedule is
+
+470
+00:21:48,650 --> 00:21:50,329
+now scheduling C one, right?
+
+471
+00:21:50,329 --> 00:21:52,970
+And it gets out of the
+way, grabs a lock,
+
+472
+00:21:52,970 --> 00:21:54,489
+the lock is free to get, right,
+
+473
+00:21:54,489 --> 00:21:58,390
+and performs a pop on an empty
+queue and we get a panic.
+
+474
+00:21:58,390 --> 00:22:01,210
+So even with our
+spurious wake ups,
+
+475
+00:22:01,210 --> 00:22:02,610
+we've demonstrated during class
+
+476
+00:22:02,610 --> 00:22:03,849
+that there is still a problem,
+
+477
+00:22:03,849 --> 00:22:05,849
+and so we really
+want to make sure
+
+478
+00:22:05,849 --> 00:22:08,969
+that instead of an
+if we put a while.
+
+479
+00:22:08,969 --> 00:22:11,009
+So this motivates the while.
+
+480
+00:22:11,009 --> 00:22:13,130
+This is how we fix it.
+
+481
+00:22:13,130 --> 00:22:17,129
+And this is now correct code.
+
+482
+00:22:17,290 --> 00:22:20,129
+Any questions? Yes.
+
+483
+00:22:20,129 --> 00:22:25,770
+Atomic If the weight was atomic,
+
+484
+00:22:25,770 --> 00:22:28,410
+if the weight was atomic,
+
+485
+00:22:28,410 --> 00:22:30,810
+I would say that you would
+not need a while loop.
+
+486
+00:22:30,810 --> 00:22:32,650
+Yeah. Yeah interesting question.
+
+487
+00:22:32,650 --> 00:22:34,330
+But it's not atomic.
+
+488
+00:22:34,330 --> 00:22:36,609
+Yeah. Don't confuse
+other people.
+
+489
+00:22:36,609 --> 00:22:38,050
+Weight is not atomic.
+
+490
+00:22:38,050 --> 00:22:42,970
+Okay. So this basically
+gives us correct code.
+
+491
+00:22:42,970 --> 00:22:46,289
+So how does this fix
+the situation if for
+
+492
+00:22:46,289 --> 00:22:49,530
+any reason whatsoever we get
+out of the blocking weight,
+
+493
+00:22:49,530 --> 00:22:51,449
+be that spurious wake ups
+
+494
+00:22:51,449 --> 00:22:53,649
+or any other reasons that
+we've just discussed,
+
+495
+00:22:53,649 --> 00:22:55,129
+we're going to double
+
+496
+00:22:55,129 --> 00:22:57,049
+check again on the
+critical condition.
+
+497
+00:22:57,049 --> 00:22:59,850
+In this case, it's whether
+or not the queue is empty,
+
+498
+00:22:59,850 --> 00:23:01,610
+and then we will
+act accordingly.
+
+499
+00:23:01,610 --> 00:23:03,770
+Go back to sleep if it
+is, in fact, empty.
+
+500
+00:23:03,770 --> 00:23:07,714
+So no harm done and no
+signal wasted, okay?
+
+501
+00:23:07,714 --> 00:23:09,779
+Now, here's another bit that
+
+502
+00:23:09,779 --> 00:23:11,740
+I find really,
+really interesting,
+
+503
+00:23:11,740 --> 00:23:13,339
+and this is basically
+
+504
+00:23:13,339 --> 00:23:17,500
+the placement of signal
+relative to the push.
+
+505
+00:23:17,900 --> 00:23:20,060
+And in some ways,
+
+506
+00:23:20,060 --> 00:23:21,659
+this actually connects with
+
+507
+00:23:21,659 --> 00:23:24,420
+the journaling discussion
+that we had recently,
+
+508
+00:23:24,420 --> 00:23:26,059
+and that's why I
+want to go back to
+
+509
+00:23:26,059 --> 00:23:28,980
+this example really,
+really quickly.
+
+510
+00:23:28,980 --> 00:23:31,739
+We looked at these three
+different possibilities of
+
+511
+00:23:31,739 --> 00:23:33,819
+signal placement
+and which one of
+
+512
+00:23:33,819 --> 00:23:36,339
+them will work and which
+one of them will not work.
+
+513
+00:23:36,339 --> 00:23:39,419
+Here's another practice
+exam question. Yes.
+
+514
+00:23:39,419 --> 00:23:41,579
+The only one that
+doesn't work is
+
+515
+00:23:41,579 --> 00:23:44,619
+if you push after you signal.
+
+516
+00:23:45,140 --> 00:23:48,219
+If you push after you signal,
+
+517
+00:23:48,219 --> 00:23:51,699
+so basically this one
+right here, right, right?
+
+518
+00:23:51,699 --> 00:23:53,859
+Now, what if you signal inside
+
+519
+00:23:53,859 --> 00:23:58,340
+the lock and then push
+also inside the lock?
+
+520
+00:24:01,620 --> 00:24:04,499
+Yeah, that's an interesting
+question, right?
+
+521
+00:24:04,499 --> 00:24:07,219
+But that's the correct answer
+in this particular case.
+
+522
+00:24:07,219 --> 00:24:09,020
+You basically this works
+
+523
+00:24:09,020 --> 00:24:10,699
+because you signal
+after the push.
+
+524
+00:24:10,699 --> 00:24:12,939
+This works because you
+signal after the push,
+
+525
+00:24:12,939 --> 00:24:14,219
+and this will not work because
+
+526
+00:24:14,219 --> 00:24:15,739
+you signal before the push.
+
+527
+00:24:15,739 --> 00:24:17,219
+And let me explain why.
+
+528
+00:24:17,219 --> 00:24:19,259
+Here's what we're trying
+to accomplish here.
+
+529
+00:24:19,259 --> 00:24:20,739
+There's a more fundamental kind
+
+530
+00:24:20,739 --> 00:24:22,459
+of underlying theory here.
+
+531
+00:24:22,459 --> 00:24:24,020
+What we're trying to enact
+
+532
+00:24:24,020 --> 00:24:25,979
+is a happens before
+relationship between
+
+533
+00:24:25,979 --> 00:24:28,179
+the producer on
+the left hand side
+
+534
+00:24:28,179 --> 00:24:29,980
+and a consumer on
+the right hand side.
+
+535
+00:24:29,980 --> 00:24:33,299
+In other words, we want to
+make sure that a pop sorry,
+
+536
+00:24:33,299 --> 00:24:35,420
+that a push happens
+before the pop.
+
+537
+00:24:35,420 --> 00:24:38,339
+The producer happens
+before the consumer, okay?
+
+538
+00:24:38,339 --> 00:24:40,019
+How do we accomplish this?
+
+539
+00:24:40,019 --> 00:24:44,260
+We actually take this
+pair of primitives,
+
+540
+00:24:44,260 --> 00:24:45,619
+the signal and weight,
+
+541
+00:24:45,619 --> 00:24:48,940
+which are already
+by design ordered.
+
+542
+00:24:48,940 --> 00:24:50,659
+In other words, you're going to
+
+543
+00:24:50,659 --> 00:24:53,939
+signal before your
+weight completes, okay?
+
+544
+00:24:53,939 --> 00:24:56,900
+They're by design ordered.
+
+545
+00:24:57,140 --> 00:25:02,659
+And as we basically
+pop after the weight,
+
+546
+00:25:03,500 --> 00:25:05,939
+We pop after the weight,
+
+547
+00:25:05,939 --> 00:25:08,820
+and as long as we also
+push before the signal,
+
+548
+00:25:08,820 --> 00:25:11,139
+now by transitivity,
+we will have
+
+549
+00:25:11,139 --> 00:25:13,059
+accomplished this happens before
+
+550
+00:25:13,059 --> 00:25:15,100
+relationship between
+the push and the pop.
+
+551
+00:25:15,100 --> 00:25:17,739
+We will have established a path
+
+552
+00:25:17,739 --> 00:25:19,860
+in this directed acyclic graph
+
+553
+00:25:19,860 --> 00:25:21,100
+between the push and the pop,
+
+554
+00:25:21,100 --> 00:25:23,979
+which means that we will
+have established and enacted
+
+555
+00:25:23,979 --> 00:25:25,739
+a happens before
+relationship that we
+
+556
+00:25:25,739 --> 00:25:28,299
+wanted to begin with, okay?
+
+557
+00:25:28,299 --> 00:25:32,649
+Does that make sense? And so
+
+558
+00:25:32,649 --> 00:25:34,369
+we can take this a
+little bit further
+
+559
+00:25:34,369 --> 00:25:36,529
+and think more deeply
+around this, right?
+
+560
+00:25:36,529 --> 00:25:38,569
+So about this.
+
+561
+00:25:38,569 --> 00:25:42,289
+So what's interesting here
+is that if you recall
+
+562
+00:25:42,289 --> 00:25:47,729
+from I'm going to
+remind you that we
+
+563
+00:25:47,729 --> 00:25:50,129
+had this situation
+with logging where we
+
+564
+00:25:50,129 --> 00:25:53,290
+had ordered journaling mode,
+
+565
+00:25:53,290 --> 00:25:56,609
+right, where we were
+essentially making sure that
+
+566
+00:25:56,609 --> 00:26:01,565
+our data is written before
+the metadata is logged.
+
+567
+00:26:01,565 --> 00:26:04,639
+And then there's going
+to be an entry that's
+
+568
+00:26:04,639 --> 00:26:07,520
+also logged after the metadata.
+
+569
+00:26:07,520 --> 00:26:09,360
+And so remember that we didn't
+
+570
+00:26:09,360 --> 00:26:11,479
+really care in what
+order this actually
+
+571
+00:26:11,479 --> 00:26:13,639
+persists to disk as long as
+
+572
+00:26:13,639 --> 00:26:16,079
+there is a flush
+between the metadata
+
+573
+00:26:16,079 --> 00:26:21,520
+and the entry that's
+logged to the log.
+
+574
+00:26:21,520 --> 00:26:23,960
+And so basically
+this establishes
+
+575
+00:26:23,960 --> 00:26:26,279
+the partial order
+between B and M and
+
+576
+00:26:26,279 --> 00:26:32,360
+E. Touch that the visibility
+of E. So if E is visible,
+
+577
+00:26:32,510 --> 00:26:38,069
+This implies that the
+metadata has persisted,
+
+578
+00:26:38,069 --> 00:26:41,070
+so metadata is also visible.
+
+579
+00:26:41,070 --> 00:26:45,750
+And this also implies that
+the data has persisted,
+
+580
+00:26:45,750 --> 00:26:47,950
+which means that the
+data is visible.
+
+581
+00:26:47,950 --> 00:26:50,909
+Okay? So I made a
+huge deal about this
+
+582
+00:26:50,909 --> 00:26:52,549
+because otherwise we would have
+
+583
+00:26:52,549 --> 00:26:54,789
+had to establish
+this total order.
+
+584
+00:26:54,789 --> 00:26:58,949
+D happens before M,
+happens before E,
+
+585
+00:26:58,949 --> 00:27:02,109
+which is strictly
+worse or strictly more
+
+586
+00:27:02,109 --> 00:27:03,430
+restrictive compared to
+
+587
+00:27:03,430 --> 00:27:05,729
+this partial order on
+the left hand side.
+
+588
+00:27:05,729 --> 00:27:07,909
+Remember that? So we had
+
+589
+00:27:07,909 --> 00:27:10,269
+a discussion about
+this because here,
+
+590
+00:27:10,269 --> 00:27:12,429
+there are two possible
+
+591
+00:27:12,429 --> 00:27:14,789
+orderings that can
+actually happen.
+
+592
+00:27:14,789 --> 00:27:19,909
+D followed by M followed
+by E or M followed by D,
+
+593
+00:27:19,909 --> 00:27:22,189
+followed by E. And so
+you have more options.
+
+594
+00:27:22,189 --> 00:27:24,150
+And whenever you
+have more options,
+
+595
+00:27:24,150 --> 00:27:26,069
+you're providing
+more opportunity to
+
+596
+00:27:26,069 --> 00:27:30,629
+the disk to do its
+optimization thing, okay?
+
+597
+00:27:30,629 --> 00:27:34,190
+And that will give the
+disability the disk firmware,
+
+598
+00:27:34,190 --> 00:27:35,830
+the ability to be
+more performance.
+
+599
+00:27:35,830 --> 00:27:37,789
+If you're imposing,
+the more water
+
+600
+00:27:37,789 --> 00:27:40,469
+you impose in this
+particular case,
+
+601
+00:27:40,469 --> 00:27:43,109
+unnecessarily the
+less you restrict
+
+602
+00:27:43,109 --> 00:27:46,290
+the ability of disk firmware
+to extract performance.
+
+603
+00:27:46,290 --> 00:27:49,109
+What does this have
+to do with this?
+
+604
+00:27:49,109 --> 00:27:51,829
+Same situation here.
+
+605
+00:27:51,829 --> 00:27:54,989
+If you have a push, okay,
+
+606
+00:27:54,989 --> 00:27:58,269
+as long as it happened somewhat
+
+607
+00:27:58,269 --> 00:28:01,710
+around the same time
+with signal, let's say,
+
+608
+00:28:01,710 --> 00:28:04,709
+inside the critical section
+in any order, you know,
+
+609
+00:28:04,709 --> 00:28:06,270
+as long as we have this edge
+
+610
+00:28:06,270 --> 00:28:08,909
+between the signal and
+the weight, right?
+
+611
+00:28:08,909 --> 00:28:10,589
+It also gives us
+
+612
+00:28:10,589 --> 00:28:13,390
+this partial order that
+also gives us the happens
+
+613
+00:28:13,390 --> 00:28:18,909
+before relationship between
+the push and the pop.
+
+614
+00:28:19,430 --> 00:28:24,789
+So in other words, push
+signal, weight pop works.
+
+615
+00:28:24,789 --> 00:28:27,549
+Signal push weight pop works,
+
+616
+00:28:27,549 --> 00:28:30,350
+but they kind of have
+to be simultaneous.
+
+617
+00:28:30,350 --> 00:28:32,549
+They have to be inside
+the critical section.
+
+618
+00:28:32,549 --> 00:28:35,309
+So that's the connection
+that I wanted to make with
+
+619
+00:28:35,309 --> 00:28:37,030
+this ordered login mode
+
+620
+00:28:37,030 --> 00:28:38,870
+that we discussed
+much more recently.
+
+621
+00:28:38,870 --> 00:28:40,869
+I wanted to come back
+to this example and
+
+622
+00:28:40,869 --> 00:28:43,110
+show that these things
+are much more conceptual,
+
+623
+00:28:43,110 --> 00:28:45,629
+much more theoretical
+that you might think.
+
+624
+00:28:45,629 --> 00:28:49,189
+Okay? All right.
+
+625
+00:28:49,670 --> 00:28:52,629
+In the interest of
+time, I will move on.
+
+626
+00:28:52,629 --> 00:28:55,070
+So we also talked
+about threading,
+
+627
+00:28:55,070 --> 00:28:57,349
+okay, user and kernel threading.
+
+628
+00:28:57,349 --> 00:28:59,709
+There are multiple choices here.
+
+629
+00:28:59,709 --> 00:29:02,309
+And, of course, there
+are advantages and
+
+630
+00:29:02,309 --> 00:29:05,390
+disadvantages associated
+with each of these choices.
+
+631
+00:29:05,390 --> 00:29:07,069
+The first and the easiest one
+
+632
+00:29:07,069 --> 00:29:09,070
+is what's called
+kernel threading.
+
+633
+00:29:09,070 --> 00:29:11,710
+Whenever you have
+one kernel context,
+
+634
+00:29:11,710 --> 00:29:15,029
+one kernel stack or
+thread associated
+
+635
+00:29:15,029 --> 00:29:18,389
+with every single user
+space thread, okay?
+
+636
+00:29:18,389 --> 00:29:21,390
+So the attributes is that you
+get improved concurrency.
+
+637
+00:29:21,390 --> 00:29:23,470
+I'm not going to ask you
+in the back and forth,
+
+638
+00:29:23,470 --> 00:29:25,189
+but just remember
+that you get a lot
+
+639
+00:29:25,189 --> 00:29:27,749
+of you get true
+concurrency this way.
+
+640
+00:29:27,749 --> 00:29:29,789
+You can run things
+in parallel on
+
+641
+00:29:29,789 --> 00:29:31,820
+a multiprocessor, for instance,
+
+642
+00:29:31,820 --> 00:29:35,729
+But there's additional
+overhead for us to create and
+
+643
+00:29:35,729 --> 00:29:37,530
+maintain these
+kernel threads for
+
+644
+00:29:37,530 --> 00:29:39,529
+every single user threads, okay?
+
+645
+00:29:39,529 --> 00:29:41,169
+So these are the advantages and
+
+646
+00:29:41,169 --> 00:29:45,250
+disadvantages if I were to
+ask you for them on the exam.
+
+647
+00:29:45,500 --> 00:29:47,979
+So we're going to swing to
+
+648
+00:29:47,979 --> 00:29:49,819
+the opposite side
+of the continuum.
+
+649
+00:29:49,819 --> 00:29:52,100
+We're going to say, Oh,
+this is too expensive,
+
+650
+00:29:52,100 --> 00:29:53,539
+this is too complicated, right?
+
+651
+00:29:53,539 --> 00:29:54,980
+This is too much overhead.
+
+652
+00:29:54,980 --> 00:29:56,459
+What else can we do in
+
+653
+00:29:56,459 --> 00:29:58,259
+our design space exploration
+
+654
+00:29:58,259 --> 00:30:00,180
+for user and kernel threading?
+
+655
+00:30:00,180 --> 00:30:01,859
+Well, here's what we can do.
+
+656
+00:30:01,859 --> 00:30:03,380
+We can just multiplex
+
+657
+00:30:03,380 --> 00:30:05,060
+a single kernel thread across
+
+658
+00:30:05,060 --> 00:30:07,140
+multiple user space threads.
+
+659
+00:30:07,140 --> 00:30:09,459
+We can map many user threads to
+
+660
+00:30:09,459 --> 00:30:11,739
+one single kernel
+context, right?
+
+661
+00:30:11,739 --> 00:30:13,500
+It's simple and efficient.
+
+662
+00:30:13,500 --> 00:30:15,379
+However, the problem is
+that what's the problem?
+
+663
+00:30:15,379 --> 00:30:18,060
+What's the single worst
+
+664
+00:30:18,060 --> 00:30:20,139
+issue with this
+particular design?
+
+665
+00:30:20,139 --> 00:30:24,959
+Yes. Yeah, basically,
+
+666
+00:30:24,959 --> 00:30:28,760
+you're at the mercy
+of the user threads,
+
+667
+00:30:28,760 --> 00:30:31,840
+basically doing some sort of
+a blocking operation that
+
+668
+00:30:31,840 --> 00:30:36,359
+essentially stalls the kernel
+thread for everybody else,
+
+669
+00:30:36,359 --> 00:30:38,359
+okay, for everybody else.
+
+670
+00:30:38,359 --> 00:30:40,280
+And there's nothing the
+kernel can do about
+
+671
+00:30:40,280 --> 00:30:42,480
+it because from the
+kernel's perspective,
+
+672
+00:30:42,480 --> 00:30:44,079
+all it sees is just this
+
+673
+00:30:44,079 --> 00:30:45,919
+one kernel thread
+that it can schedule.
+
+674
+00:30:45,919 --> 00:30:47,759
+It cannot schedule it out and
+
+675
+00:30:47,759 --> 00:30:49,599
+schedule something
+else in in order to
+
+676
+00:30:49,599 --> 00:30:53,919
+improve the performance of
+the CPU. It can't do that.
+
+677
+00:30:53,919 --> 00:30:57,679
+Okay? And so that's the
+single worst problem.
+
+678
+00:30:57,680 --> 00:31:00,839
+So only one thread can
+access the kernel at
+
+679
+00:31:00,839 --> 00:31:03,279
+a time and no parallelism
+on multiprocessors.
+
+680
+00:31:03,279 --> 00:31:05,559
+But what are the advantages
+associated with this?
+
+681
+00:31:05,559 --> 00:31:08,799
+What's the single best advantage
+that you can think of?
+
+682
+00:31:08,799 --> 00:31:12,870
+Yeah. Sorry? Low
+kernel overhead?
+
+683
+00:31:12,870 --> 00:31:14,069
+Low kernel overhead.
+
+684
+00:31:14,069 --> 00:31:16,509
+Okay. But it turns out
+that it's actually
+
+685
+00:31:16,509 --> 00:31:18,749
+you mean in terms of maintaining
+
+686
+00:31:18,749 --> 00:31:20,589
+the number of stacks that
+you want to have, right?
+
+687
+00:31:20,589 --> 00:31:22,029
+Yeah, it turns out that
+
+688
+00:31:22,029 --> 00:31:23,750
+it's actually not
+that big of a deal.
+
+689
+00:31:23,750 --> 00:31:25,909
+They're quite small, but
+it is a correct answer.
+
+690
+00:31:25,909 --> 00:31:30,029
+Yes. Every time you get
+the context will be out.
+
+691
+00:31:30,110 --> 00:31:34,309
+So minimizing context
+switching, right? Okay. Yes.
+
+692
+00:31:34,309 --> 00:31:36,150
+Plus the TLB.
+
+693
+00:31:36,150 --> 00:31:38,430
+Yeah, this is associated
+
+694
+00:31:38,430 --> 00:31:40,229
+with fewer kernel
+contacts, exactly.
+
+695
+00:31:40,229 --> 00:31:41,749
+Basically, you're
+losing a lot of
+
+696
+00:31:41,749 --> 00:31:43,910
+locality, including
+TLB locality,
+
+697
+00:31:43,910 --> 00:31:45,509
+cache locality, and
+things like that
+
+698
+00:31:45,509 --> 00:31:47,669
+whenever you context switching.
+
+699
+00:31:47,669 --> 00:31:50,509
+So that's another
+disadvantage, right?
+
+700
+00:31:50,509 --> 00:31:52,869
+Let's see if I have
+a slide for that.
+
+701
+00:31:52,869 --> 00:31:56,630
+Yes. So basically, with
+kernel space threading,
+
+702
+00:31:56,630 --> 00:31:58,189
+which is the one to one thing
+
+703
+00:31:58,189 --> 00:31:59,509
+that we talked about, right?
+
+704
+00:31:59,509 --> 00:32:02,470
+You have parallelism
+or true parallelism.
+
+705
+00:32:02,470 --> 00:32:04,110
+You have the ability to preempt
+
+706
+00:32:04,110 --> 00:32:05,549
+something that got
+blocked, right?
+
+707
+00:32:05,549 --> 00:32:07,189
+You can just kick
+it out, you know,
+
+708
+00:32:07,189 --> 00:32:08,909
+go and sleep somewhere else.
+
+709
+00:32:08,909 --> 00:32:11,310
+I'm going to use the CPU for
+another thread that actually
+
+710
+00:32:11,310 --> 00:32:14,709
+wants to run that's in
+a runnable state, okay?
+
+711
+00:32:14,709 --> 00:32:17,349
+Preemption is possible
+in this case.
+
+712
+00:32:17,349 --> 00:32:19,550
+More information is
+available to the kernel.
+
+713
+00:32:19,550 --> 00:32:21,909
+What that means is that the
+kernel has more visibility.
+
+714
+00:32:21,909 --> 00:32:24,069
+How many threads of
+execution are actually
+
+715
+00:32:24,069 --> 00:32:27,359
+trying to execute and run
+at the same time, right?
+
+716
+00:32:27,359 --> 00:32:31,169
+This gives the kernel
+finer granularity control
+
+717
+00:32:31,169 --> 00:32:34,169
+over the resource consumption,
+
+718
+00:32:34,169 --> 00:32:36,770
+over the resource
+utilization because you've
+
+719
+00:32:36,770 --> 00:32:39,769
+broken it down into
+smaller units of control,
+
+720
+00:32:39,769 --> 00:32:42,610
+smaller schedulable units that
+
+721
+00:32:42,610 --> 00:32:45,489
+you are scheduling and
+sending to the kernel, okay?
+
+722
+00:32:45,489 --> 00:32:47,729
+Final granularity control.
+
+723
+00:32:47,729 --> 00:32:50,809
+Is afforded by the
+kernel space threading.
+
+724
+00:32:50,809 --> 00:32:53,369
+Okay, well, users
+threading, however,
+
+725
+00:32:53,369 --> 00:32:57,009
+has these very salient
+advantages that go for it.
+
+726
+00:32:57,009 --> 00:32:59,370
+One of them is that
+if it's done in
+
+727
+00:32:59,370 --> 00:33:02,929
+the application context
+where sort of the order
+
+728
+00:33:02,929 --> 00:33:05,769
+in which you execute
+these threads actually
+
+729
+00:33:05,769 --> 00:33:09,489
+makes sense is meaningful
+in some way, right?
+
+730
+00:33:09,489 --> 00:33:12,414
+You can perform semantically
+aware scheduling.
+
+731
+00:33:12,414 --> 00:33:15,820
+So this is also referred to
+as application awareness.
+
+732
+00:33:15,820 --> 00:33:17,099
+So let's say you have
+
+733
+00:33:17,099 --> 00:33:19,259
+a bunch of map reduced
+threads, right?
+
+734
+00:33:19,259 --> 00:33:21,939
+So you would never schedule
+a reduced thread before
+
+735
+00:33:21,939 --> 00:33:24,139
+all the map threads
+have completed because
+
+736
+00:33:24,139 --> 00:33:26,899
+there's a data flow dependency
+between them, right?
+
+737
+00:33:26,899 --> 00:33:29,339
+And so the application
+understands that,
+
+738
+00:33:29,339 --> 00:33:30,699
+but the kernel is not
+
+739
+00:33:30,699 --> 00:33:32,180
+going to be able to
+understand that.
+
+740
+00:33:32,180 --> 00:33:34,460
+So it could decide to enact
+
+741
+00:33:34,460 --> 00:33:37,819
+its own scheduling
+policy in a way that
+
+742
+00:33:37,819 --> 00:33:40,179
+doesn't make sense from the
+application perspective
+
+743
+00:33:40,179 --> 00:33:42,545
+because of this semantic gap.
+
+744
+00:33:42,545 --> 00:33:45,550
+Okay? So the user
+space threading
+
+745
+00:33:45,550 --> 00:33:47,069
+kind of clears that gap.
+
+746
+00:33:47,069 --> 00:33:48,670
+It has this disadvantage.
+
+747
+00:33:48,670 --> 00:33:50,589
+It as you pointed out,
+
+748
+00:33:50,589 --> 00:33:53,179
+it minimizes context
+with you overhead.
+
+749
+00:33:53,179 --> 00:33:56,650
+And it is much more
+cash friendly,
+
+750
+00:33:56,650 --> 00:33:58,849
+including the TOB
+flushes, right?
+
+751
+00:33:58,849 --> 00:34:00,650
+It avoids the TOB flushes
+
+752
+00:34:00,650 --> 00:34:02,289
+altogether, because
+you're in the same.
+
+753
+00:34:02,289 --> 00:34:05,329
+Why does it avoid
+TOB flushes, anyone?
+
+754
+00:34:06,050 --> 00:34:08,849
+So I'm not Yeah,
+
+755
+00:34:08,849 --> 00:34:10,089
+it's a simple question.
+
+756
+00:34:10,089 --> 00:34:11,409
+So that can come up.
+
+757
+00:34:11,409 --> 00:34:12,689
+Yeah.
+
+758
+00:34:15,329 --> 00:34:19,649
+Is it just the kernel stack
+or is it more than that?
+
+759
+00:34:21,070 --> 00:34:24,789
+Yes. If you're preempting
+
+760
+00:34:24,789 --> 00:34:26,829
+a user thread that's
+a one relationship
+
+761
+00:34:26,829 --> 00:34:28,269
+with its kernel thread,
+
+762
+00:34:28,269 --> 00:34:30,069
+scheduler never
+actually rotates on
+
+763
+00:34:30,069 --> 00:34:31,429
+the same kn single
+
+764
+00:34:31,429 --> 00:34:34,029
+linkage context switch
+which avoids the.
+
+765
+00:34:34,029 --> 00:34:36,589
+Okay. Yeah. Yeah, exactly.
+
+766
+00:34:36,589 --> 00:34:38,109
+Basically, this has to do
+
+767
+00:34:38,109 --> 00:34:39,550
+with the fact that
+you're switching
+
+768
+00:34:39,550 --> 00:34:41,109
+the entire virtual
+address space when
+
+769
+00:34:41,109 --> 00:34:42,789
+you switch between
+the processes, right?
+
+770
+00:34:42,789 --> 00:34:45,229
+You're overwriting the
+CR three register with
+
+771
+00:34:45,229 --> 00:34:47,710
+a different base address
+to your page directory,
+
+772
+00:34:47,710 --> 00:34:49,789
+and that's going to
+trigger TOB flash.
+
+773
+00:34:49,789 --> 00:34:51,630
+So anytime you switch
+between processes,
+
+774
+00:34:51,630 --> 00:34:53,229
+the kernel context requires that
+
+775
+00:34:53,229 --> 00:34:55,469
+Kernel context switch
+requires that,
+
+776
+00:34:55,469 --> 00:34:58,964
+you're going to encounter
+a TOB flash, okay?
+
+777
+00:34:58,964 --> 00:35:02,179
+Let's hope we can
+get to that as well.
+
+778
+00:35:02,179 --> 00:35:05,619
+So it's also lighterweight
+than kernel threading.
+
+779
+00:35:05,619 --> 00:35:09,339
+You know, I had a
+couple of slides on
+
+780
+00:35:09,339 --> 00:35:11,340
+how you can actually manage
+
+781
+00:35:11,340 --> 00:35:14,379
+user space threads
+in user space,
+
+782
+00:35:14,379 --> 00:35:17,419
+and there's no fundamental
+reason why you wouldn't.
+
+783
+00:35:17,419 --> 00:35:19,179
+We walked through assembly
+
+784
+00:35:19,179 --> 00:35:21,499
+that actually makes
+that happen, right?
+
+785
+00:35:21,499 --> 00:35:23,139
+And we kind of line by line,
+
+786
+00:35:23,139 --> 00:35:26,379
+demonstrated that there's no
+privilege instructions that
+
+787
+00:35:26,379 --> 00:35:29,900
+are involved in us switching
+between user space threads.
+
+788
+00:35:29,900 --> 00:35:33,969
+Within the same
+virtual address space.
+
+789
+00:35:33,969 --> 00:35:37,130
+We're not doing this across
+virtual address spaces.
+
+790
+00:35:37,130 --> 00:35:38,969
+We're doing this
+user space threading
+
+791
+00:35:38,969 --> 00:35:40,609
+within the same
+virtual address space.
+
+792
+00:35:40,609 --> 00:35:43,209
+Otherwise, as someone
+pointed out on Tiaza,
+
+793
+00:35:43,209 --> 00:35:44,529
+this can, of course,
+
+794
+00:35:44,529 --> 00:35:46,769
+lead to some security violations
+
+795
+00:35:46,769 --> 00:35:49,959
+and isolation
+violations as well.
+
+796
+00:35:49,959 --> 00:35:54,349
+Okay. So since these
+
+797
+00:35:54,349 --> 00:35:55,589
+happen to be sort of on
+
+798
+00:35:55,589 --> 00:35:58,269
+the opposite sides
+of the spectrum,
+
+799
+00:35:58,510 --> 00:36:01,789
+there are some design choices
+
+800
+00:36:01,789 --> 00:36:03,949
+that are in the middle of
+the spectrum, in particular,
+
+801
+00:36:03,949 --> 00:36:07,149
+this hybrid threading,
+when you have many to many
+
+802
+00:36:07,149 --> 00:36:11,069
+or N to N threading
+opportunities, right?
+
+803
+00:36:11,069 --> 00:36:13,109
+And of course, if I were to ask
+
+804
+00:36:13,109 --> 00:36:15,109
+you how many user
+threads there are,
+
+805
+00:36:15,109 --> 00:36:17,709
+how many kernel threads there
+are relative to each other,
+
+806
+00:36:17,709 --> 00:36:20,749
+would you say that we'll
+have more user threads than
+
+807
+00:36:20,749 --> 00:36:24,829
+kernel threads or the
+other way around? Yeah.
+
+808
+00:36:24,829 --> 00:36:26,709
+Probably more user threads.
+
+809
+00:36:26,709 --> 00:36:29,789
+Yeah, it would make sense if
+you have more user threads.
+
+810
+00:36:29,789 --> 00:36:32,389
+Just hypothetically speaking,
+
+811
+00:36:32,389 --> 00:36:35,589
+how many kernel threads
+would it make sense to have?
+
+812
+00:36:35,829 --> 00:36:38,349
+It's a very open ended question,
+
+813
+00:36:38,349 --> 00:36:40,549
+but let's see if you get this.
+
+814
+00:36:40,550 --> 00:36:45,349
+Yeah. So of N. Square root of
+
+815
+00:36:45,349 --> 00:36:51,069
+N. You're not scaling it
+too much. Oh, interesting.
+
+816
+00:36:51,069 --> 00:36:55,709
+Any other ideas? One per core.
+
+817
+00:36:55,709 --> 00:37:01,069
+One per core is a good
+idea or a hyperthread.
+
+818
+00:37:01,069 --> 00:37:03,829
+Square root of N.
+
+819
+00:37:04,309 --> 00:37:08,669
+Yeah, you put my mind in
+overdrive here for a second.
+
+820
+00:37:08,669 --> 00:37:10,829
+Okay. Okay, so there are
+
+821
+00:37:10,829 --> 00:37:14,309
+some advantages and disadvantages
+associated with each.
+
+822
+00:37:14,309 --> 00:37:17,509
+User space threads
+can run in parallel.
+
+823
+00:37:17,509 --> 00:37:19,029
+So basically, you do gain
+
+824
+00:37:19,029 --> 00:37:21,229
+some true parallelism
+with the hybrid model.
+
+825
+00:37:21,229 --> 00:37:23,550
+You do reduce the number
+of contacts switches,
+
+826
+00:37:23,550 --> 00:37:25,349
+right, compared to
+the one to one model.
+
+827
+00:37:25,349 --> 00:37:27,869
+So all of this is
+relative, right?
+
+828
+00:37:27,869 --> 00:37:31,269
+You have lightweight
+user space threads
+
+829
+00:37:31,269 --> 00:37:34,589
+because you are doing some
+threading in user space,
+
+830
+00:37:34,589 --> 00:37:37,569
+a And what are the
+disadvantages?
+
+831
+00:37:37,569 --> 00:37:39,809
+Well, you still have
+this possibility
+
+832
+00:37:39,809 --> 00:37:41,130
+where a kernel thread
+
+833
+00:37:41,130 --> 00:37:44,530
+stalls whenever
+you're multiplexing
+
+834
+00:37:44,530 --> 00:37:46,769
+it across multiple
+user threads, okay?
+
+835
+00:37:46,769 --> 00:37:49,649
+So if one of those handful of
+
+836
+00:37:49,649 --> 00:37:51,329
+user space threads is doing
+
+837
+00:37:51,329 --> 00:37:53,369
+some blocking
+operation, of course,
+
+838
+00:37:53,369 --> 00:37:54,969
+you cannot make progress on
+
+839
+00:37:54,969 --> 00:37:57,849
+that particular
+one kernel thread,
+
+840
+00:37:57,849 --> 00:37:59,289
+but that's okay because you have
+
+841
+00:37:59,289 --> 00:38:02,089
+other kernel threads that
+can still make progress.
+
+842
+00:38:02,089 --> 00:38:03,849
+So the possibility of
+
+843
+00:38:03,849 --> 00:38:05,569
+the worst case scenario
+where you have
+
+844
+00:38:05,569 --> 00:38:09,449
+essentially a livelock is
+significantly reduced.
+
+845
+00:38:09,449 --> 00:38:13,969
+And this is still not a
+cooperative use of the CPU, okay?
+
+846
+00:38:13,969 --> 00:38:18,409
+Um, Yeah,
+
+847
+00:38:18,409 --> 00:38:19,929
+and the reason for
+this is because
+
+848
+00:38:19,929 --> 00:38:21,329
+what does that mean, right?
+
+849
+00:38:21,329 --> 00:38:23,249
+Just a few words about
+what this means.
+
+850
+00:38:23,249 --> 00:38:25,169
+Cooperative uses of a CPU
+
+851
+00:38:25,169 --> 00:38:26,649
+is basically when
+you're allowing
+
+852
+00:38:26,649 --> 00:38:29,729
+the kernel to make resource
+
+853
+00:38:29,729 --> 00:38:31,209
+management decisions
+for you, right?
+
+854
+00:38:31,209 --> 00:38:32,809
+The kernel scheduler is the one
+
+855
+00:38:32,809 --> 00:38:34,729
+that's scheduling the
+next kernel thread.
+
+856
+00:38:34,729 --> 00:38:37,529
+So you're giving up some
+control whenever you go with
+
+857
+00:38:37,529 --> 00:38:39,649
+the hybrid model
+because you rely on
+
+858
+00:38:39,649 --> 00:38:42,289
+the scheduler to enact
+the order of execution.
+
+859
+00:38:42,289 --> 00:38:46,769
+That's what this means. A
+few words on OSN networking.
+
+860
+00:38:46,769 --> 00:38:49,809
+We talked about
+basically seven layers
+
+861
+00:38:49,809 --> 00:38:51,769
+according to the OSI standard.
+
+862
+00:38:51,769 --> 00:38:54,369
+Does everyone remember
+what they are?
+
+863
+00:38:57,659 --> 00:39:01,099
+Do you remember the
+mnemonic that I showed you?
+
+864
+00:39:01,099 --> 00:39:04,779
+Yeah, remember? So
+it's something like
+
+865
+00:39:06,059 --> 00:39:16,139
+all people seem to
+need data processing.
+
+866
+00:39:16,139 --> 00:39:19,259
+Okay? So this is
+application layer.
+
+867
+00:39:19,259 --> 00:39:21,659
+This is presentation.
+
+868
+00:39:21,659 --> 00:39:27,179
+This is session.
+This is transport.
+
+869
+00:39:27,659 --> 00:39:30,380
+This is network.
+
+870
+00:39:30,929 --> 00:39:35,849
+This is Data Link, and
+
+871
+00:39:35,849 --> 00:39:39,169
+this is the P, and
+this is physical.
+
+872
+00:39:41,329 --> 00:39:44,969
+In networking classes or
+
+873
+00:39:44,969 --> 00:39:48,369
+slash networking
+kernel literature,
+
+874
+00:39:48,449 --> 00:39:51,769
+these layers right here
+
+875
+00:39:51,769 --> 00:39:54,609
+are sort of also
+referred to as L one,
+
+876
+00:39:54,609 --> 00:39:57,569
+L two, L three and L four.
+
+877
+00:39:57,569 --> 00:40:00,569
+So whenever you hear about
+the discussion of routers and
+
+878
+00:40:00,569 --> 00:40:02,289
+switches and whether
+or not they're L three
+
+879
+00:40:02,289 --> 00:40:04,589
+or L four capable,
+that's what this means.
+
+880
+00:40:04,589 --> 00:40:07,169
+Okay? This is what
+they're referring to,
+
+881
+00:40:07,169 --> 00:40:08,929
+whether or not
+they're able to take
+
+882
+00:40:08,929 --> 00:40:11,289
+the L three or network
+layer information
+
+883
+00:40:11,289 --> 00:40:14,649
+and do some routing based
+on this information,
+
+884
+00:40:14,649 --> 00:40:18,009
+or if they actually
+understand the GCP versus
+
+885
+00:40:18,009 --> 00:40:21,449
+UDP at the higher level
+transport protocols and,
+
+886
+00:40:21,449 --> 00:40:23,609
+you know, make some
+decisions, for example,
+
+887
+00:40:23,609 --> 00:40:27,289
+flow control, based on the
+transport layer protocol.
+
+888
+00:40:27,289 --> 00:40:30,769
+So this is for the
+purposes of this class,
+
+889
+00:40:30,769 --> 00:40:32,449
+I don't care about this, okay?
+
+890
+00:40:32,449 --> 00:40:34,529
+To me, this is just application.
+
+891
+00:40:34,529 --> 00:40:36,929
+So you can kind of
+forget about all that
+
+892
+00:40:36,929 --> 00:40:39,929
+for now for CS 30 to ten.
+
+893
+00:40:39,929 --> 00:40:41,529
+And we primarily in
+
+894
+00:40:41,529 --> 00:40:43,129
+CS 30 to ten concern
+
+895
+00:40:43,129 --> 00:40:45,409
+ourselves with these
+two layers right here,
+
+896
+00:40:45,409 --> 00:40:46,969
+the L three and L four,
+
+897
+00:40:46,969 --> 00:40:49,969
+the network layer and the
+transport layer, okay?
+
+898
+00:40:49,969 --> 00:40:53,249
+So as we go up and
+down the stack,
+
+899
+00:40:53,249 --> 00:40:55,289
+we're sort of growing and
+shrinking the amount of
+
+900
+00:40:55,289 --> 00:40:57,329
+metadata that
+surrounds the payload
+
+901
+00:40:57,329 --> 00:40:58,609
+we actually want to send.
+
+902
+00:40:58,609 --> 00:41:02,009
+So we start with a piece
+of Datum here, right?
+
+903
+00:41:02,009 --> 00:41:04,369
+And then we're going to put
+
+904
+00:41:04,369 --> 00:41:08,009
+a Then we're going
+
+905
+00:41:08,009 --> 00:41:11,249
+to put some UDP header
+on top of this, right?
+
+906
+00:41:11,249 --> 00:41:13,249
+If we're going through
+the transport layer,
+
+907
+00:41:13,249 --> 00:41:15,169
+then the network
+layer is going to put
+
+908
+00:41:15,169 --> 00:41:17,849
+some additional IP
+header on top of this,
+
+909
+00:41:17,849 --> 00:41:19,089
+and then we can have
+
+910
+00:41:19,089 --> 00:41:21,689
+the Ethernet frame
+header on top of this.
+
+911
+00:41:21,689 --> 00:41:23,689
+All of this kind of
+carries information
+
+912
+00:41:23,689 --> 00:41:26,089
+that pertains to one of
+
+913
+00:41:26,089 --> 00:41:29,369
+these essentially
+five or seven layers
+
+914
+00:41:29,369 --> 00:41:31,009
+of the protocol stack.
+
+915
+00:41:31,009 --> 00:41:33,369
+This is a huge success story in
+
+916
+00:41:33,369 --> 00:41:36,009
+the Cysnet or systems
+and networking community
+
+917
+00:41:36,009 --> 00:41:38,689
+because they really came up with
+
+918
+00:41:38,689 --> 00:41:42,074
+tasteful abstractions that
+stood the test of time.
+
+919
+00:41:42,074 --> 00:41:45,499
+Okay. So transport layer or L
+
+920
+00:41:45,499 --> 00:41:48,460
+four is of particular interest
+to operating systems.
+
+921
+00:41:48,460 --> 00:41:52,419
+Why is that? This is where we
+talk about TCP versus UDP.
+
+922
+00:41:52,419 --> 00:41:55,059
+What abstractions
+are provided by TCP?
+
+923
+00:41:55,059 --> 00:41:58,579
+Well, so when I ask
+this question, right,
+
+924
+00:41:58,579 --> 00:42:03,139
+the way to think about
+this is as follows.
+
+925
+00:42:03,139 --> 00:42:06,460
+What do you see
+above this layer?
+
+926
+00:42:06,460 --> 00:42:08,619
+So what do you see above
+
+927
+00:42:08,619 --> 00:42:12,209
+this layer and what do you
+see below this layer, okay?
+
+928
+00:42:12,209 --> 00:42:15,719
+Um, and that sort of yields the
+
+929
+00:42:15,719 --> 00:42:19,599
+answer to the question of what
+is provided by the layer?
+
+930
+00:42:19,599 --> 00:42:23,170
+You know, how does it
+bridge this interface gap?
+
+931
+00:42:23,170 --> 00:42:24,579
+And so we're going to spend a
+
+932
+00:42:24,579 --> 00:42:25,779
+few words talking about this.
+
+933
+00:42:25,779 --> 00:42:28,859
+So the abstractions
+provided by TCP,
+
+934
+00:42:28,859 --> 00:42:30,819
+it gives a stream interface.
+
+935
+00:42:30,819 --> 00:42:33,059
+Data comes as a stream instead
+
+936
+00:42:33,059 --> 00:42:35,379
+of as a sequence
+of packets, okay?
+
+937
+00:42:35,379 --> 00:42:36,819
+The packets is what
+
+938
+00:42:36,819 --> 00:42:38,859
+the network layer is
+going to deal with.
+
+939
+00:42:38,859 --> 00:42:42,979
+The transport layer gives us
+the abstraction of a stream.
+
+940
+00:42:42,979 --> 00:42:45,099
+It also provides us with
+
+941
+00:42:45,099 --> 00:42:48,099
+some additional features
+like reliability.
+
+942
+00:42:48,099 --> 00:42:51,060
+So basically, above
+the transport layer
+
+943
+00:42:51,060 --> 00:42:53,699
+implemented with
+the TCP protocol,
+
+944
+00:42:53,699 --> 00:42:58,419
+we can depend on
+the reliable and in
+
+945
+00:42:58,419 --> 00:43:00,779
+order sequencing
+of the data that
+
+946
+00:43:00,779 --> 00:43:03,675
+we send as part of our stream.
+
+947
+00:43:03,675 --> 00:43:05,569
+So, in other words, we don't
+
+948
+00:43:05,569 --> 00:43:07,169
+have to worry about
+packets being lost.
+
+949
+00:43:07,169 --> 00:43:08,809
+We don't have to
+worry about packets
+
+950
+00:43:08,809 --> 00:43:10,689
+being reordered,
+and point to point.
+
+951
+00:43:10,689 --> 00:43:14,249
+So point to point is basically
+the abstraction that
+
+952
+00:43:14,249 --> 00:43:17,849
+we get where we're talking
+directly to the end device,
+
+953
+00:43:17,849 --> 00:43:19,809
+and we don't have to
+concern ourselves
+
+954
+00:43:19,809 --> 00:43:22,729
+with what's happening on
+the network in between.
+
+955
+00:43:22,960 --> 00:43:25,759
+So how do we make
+
+956
+00:43:25,759 --> 00:43:28,679
+packets look like streams
+of arbitrary data?
+
+957
+00:43:28,679 --> 00:43:31,319
+We essentially do
+some coalescing.
+
+958
+00:43:31,319 --> 00:43:33,839
+For example, if the writes
+are very small or if
+
+959
+00:43:33,839 --> 00:43:36,919
+the write is very large,
+we can break it down.
+
+960
+00:43:36,919 --> 00:43:38,439
+And this happens kind of
+
+961
+00:43:38,439 --> 00:43:40,039
+transparently to
+the application.
+
+962
+00:43:40,039 --> 00:43:42,039
+The application doesn't
+have to worry about it.
+
+963
+00:43:42,039 --> 00:43:44,079
+It serializes its protocol.
+
+964
+00:43:44,079 --> 00:43:46,679
+It basically pushes it
+down the socket, right?
+
+965
+00:43:46,679 --> 00:43:48,799
+And then it's the protocol,
+
+966
+00:43:48,799 --> 00:43:51,039
+the TCP protocol
+that takes care of
+
+967
+00:43:51,039 --> 00:43:53,799
+breaking it down into
+individual packets.
+
+968
+00:43:53,799 --> 00:43:55,679
+We also get packets.
+
+969
+00:43:55,679 --> 00:43:57,639
+It is possible for us
+to get packets out
+
+970
+00:43:57,639 --> 00:43:59,919
+of order. How do we
+solve this problem?
+
+971
+00:43:59,919 --> 00:44:03,119
+Do we remember? So the slide
+
+972
+00:44:03,119 --> 00:44:05,559
+says sequencing number, but
+is this the only thing?
+
+973
+00:44:05,559 --> 00:44:08,679
+Is it necessary and
+sufficient condition for us
+
+974
+00:44:08,679 --> 00:44:12,999
+to enact or for us to solve
+the out of water problem?
+
+975
+00:44:13,960 --> 00:44:16,839
+It's certainly necessary.
+
+976
+00:44:16,839 --> 00:44:19,840
+I don't know how you can do
+it without sequence numbers,
+
+977
+00:44:19,840 --> 00:44:21,960
+but is it sufficient?
+
+978
+00:44:23,239 --> 00:44:26,009
+Yeah. But no,
+
+979
+00:44:26,009 --> 00:44:28,409
+because you need to know what
+the next packet would be.
+
+980
+00:44:28,409 --> 00:44:30,729
+So you need the next
+packet number as well.
+
+981
+00:44:30,729 --> 00:44:33,609
+You need what? The
+next packet number.
+
+982
+00:44:34,489 --> 00:44:37,329
+You need the next packet number.
+
+983
+00:44:37,329 --> 00:44:40,570
+Okay. Can you be a
+little bit more precise?
+
+984
+00:44:42,090 --> 00:44:53,609
+If you have. Don't need. Yeah.
+
+985
+00:44:54,650 --> 00:44:57,529
+No, you don't need
+to check them.
+
+986
+00:44:57,529 --> 00:44:59,329
+At least not for this purpose.
+
+987
+00:44:59,329 --> 00:45:00,889
+You may need it for
+another purpose.
+
+988
+00:45:00,889 --> 00:45:02,169
+Yeah.
+
+989
+00:45:13,909 --> 00:45:16,389
+Yeah. Exactly.
+
+990
+00:45:16,389 --> 00:45:17,909
+Yeah. Thanks for that answer.
+
+991
+00:45:17,909 --> 00:45:19,629
+Because remember, the sequencing
+
+992
+00:45:19,629 --> 00:45:21,549
+is only solving a
+part of the problem.
+
+993
+00:45:21,549 --> 00:45:24,789
+So if you have, let's
+say, node one here,
+
+994
+00:45:24,789 --> 00:45:27,789
+so that's your node
+one and node two here,
+
+995
+00:45:27,789 --> 00:45:29,349
+that's your node two, and
+
+996
+00:45:29,349 --> 00:45:31,469
+it's sequenced its
+packets, right?
+
+997
+00:45:31,469 --> 00:45:34,225
+So it has a transmit buffer.
+
+998
+00:45:34,225 --> 00:45:37,380
+And this guy has
+the receive buffer,
+
+999
+00:45:37,380 --> 00:45:39,699
+and you sequence them as one,
+
+1000
+00:45:39,699 --> 00:45:42,339
+two, three, four, five,
+
+1001
+00:45:42,339 --> 00:45:47,019
+and let's say you send
+one, two, three over,
+
+1002
+00:45:47,260 --> 00:45:49,740
+so because they're sequence,
+
+1003
+00:45:49,740 --> 00:45:53,339
+the receive buffer knows
+how to order them,
+
+1004
+00:45:53,339 --> 00:45:56,379
+right, how to queue
+them in order.
+
+1005
+00:45:56,379 --> 00:45:58,739
+And let's say you've
+only received one,
+
+1006
+00:45:58,739 --> 00:46:01,179
+you're missing two, and
+you received three.
+
+1007
+00:46:01,179 --> 00:46:03,004
+So the two has been dropped.
+
+1008
+00:46:03,004 --> 00:46:04,869
+So this is your
+packet number two,
+
+1009
+00:46:04,869 --> 00:46:07,109
+and for some reason, it
+has been dropped, okay?
+
+1010
+00:46:07,109 --> 00:46:08,949
+We took care of
+
+1011
+00:46:08,949 --> 00:46:11,869
+ordering by using the
+sequence numbers, right?
+
+1012
+00:46:11,869 --> 00:46:14,429
+But now all of a sudden
+we are missing two.
+
+1013
+00:46:14,429 --> 00:46:16,909
+And so we know
+we're missing two,
+
+1014
+00:46:16,909 --> 00:46:19,430
+and the way we're acknowledging,
+
+1015
+00:46:19,430 --> 00:46:21,989
+essentially the absence
+of two and the fact that
+
+1016
+00:46:21,989 --> 00:46:24,589
+it needs to be
+retransmitted is by going
+
+1017
+00:46:24,589 --> 00:46:27,229
+back to the sender and saying
+
+1018
+00:46:27,229 --> 00:46:29,669
+that number two is
+
+1019
+00:46:29,669 --> 00:46:32,910
+the next sequence number
+that I'm expecting.
+
+1020
+00:46:33,050 --> 00:46:37,489
+Okay? And so this information,
+
+1021
+00:46:37,489 --> 00:46:40,329
+so it's called the
+acknowledgment mechanism
+
+1022
+00:46:40,329 --> 00:46:42,450
+is sufficient for the
+sender to realize,
+
+1023
+00:46:42,450 --> 00:46:46,649
+Oh, so that means that I
+need to send two again.
+
+1024
+00:46:47,290 --> 00:46:50,049
+So, in other words,
+the receiver is
+
+1025
+00:46:50,049 --> 00:46:52,289
+acknowledging up
+until the very last.
+
+1026
+00:46:52,289 --> 00:46:55,529
+So it's acknowledging
+the in order prefix
+
+1027
+00:46:55,529 --> 00:46:57,010
+in the receive buffer.
+
+1028
+00:46:57,010 --> 00:47:00,049
+So if we have one,
+two, three, four,
+
+1029
+00:47:00,049 --> 00:47:02,089
+five, then something missing,
+
+1030
+00:47:02,089 --> 00:47:03,689
+which is a six, right?
+
+1031
+00:47:03,689 --> 00:47:07,169
+And seven is going to
+acknowledge one through five,
+
+1032
+00:47:07,169 --> 00:47:09,489
+and it's going to communicate
+
+1033
+00:47:09,489 --> 00:47:11,859
+back to the sender
+that six is missing.
+
+1034
+00:47:11,859 --> 00:47:15,149
+Okay. So both of those
+things are needed.
+
+1035
+00:47:15,149 --> 00:47:16,390
+You need sequence numbers
+
+1036
+00:47:16,390 --> 00:47:18,349
+and the acknowledgment
+mechanism,
+
+1037
+00:47:18,349 --> 00:47:19,909
+and that's how we handle
+
+1038
+00:47:19,909 --> 00:47:23,030
+packets being dropped
+is with retransmission.
+
+1039
+00:47:23,030 --> 00:47:25,990
+Now, there's this
+big sort of trade
+
+1040
+00:47:25,990 --> 00:47:28,429
+off space between
+TCP and UDP, right?
+
+1041
+00:47:28,429 --> 00:47:31,109
+TCP provides us with
+data reliability.
+
+1042
+00:47:31,109 --> 00:47:33,469
+It gives us byte
+stream interface,
+
+1043
+00:47:33,469 --> 00:47:35,070
+sort of ensures no errors,
+
+1044
+00:47:35,070 --> 00:47:36,669
+no duplicates, no drops.
+
+1045
+00:47:36,669 --> 00:47:38,349
+UDP is an alternative,
+
+1046
+00:47:38,349 --> 00:47:41,549
+but it only gives us
+check sums. Question.
+
+1047
+00:47:41,549 --> 00:47:43,350
+So you're saying the receiver
+
+1048
+00:47:43,350 --> 00:47:44,949
+will send if it's
+missing a packet.
+
+1049
+00:47:44,949 --> 00:47:47,030
+I thought it will just
+send what it's received,
+
+1050
+00:47:47,030 --> 00:47:49,710
+and then the transmitter
+will use the timeout.
+
+1051
+00:47:49,710 --> 00:47:51,910
+And if it doesn't receive
+an app for a packet,
+
+1052
+00:47:51,910 --> 00:47:56,019
+then Well, in this
+particular case,
+
+1053
+00:47:56,019 --> 00:47:57,539
+those two things are
+the same, right?
+
+1054
+00:47:57,539 --> 00:48:00,139
+It can say that I've
+received up to five or it
+
+1055
+00:48:00,139 --> 00:48:03,099
+can say that I'm expecting
+six next, right?
+
+1056
+00:48:03,099 --> 00:48:05,139
+Those things are
+exactly the same.
+
+1057
+00:48:05,139 --> 00:48:07,420
+Okay. But you still
+need the timeout.
+
+1058
+00:48:07,420 --> 00:48:10,579
+You do need the timeout
+on the sender side.
+
+1059
+00:48:10,579 --> 00:48:14,459
+I didn't get to that.
+That's a good point, right?
+
+1060
+00:48:14,459 --> 00:48:16,260
+You also need a timeout
+
+1061
+00:48:16,260 --> 00:48:17,979
+in this particular
+case because if
+
+1062
+00:48:17,979 --> 00:48:19,659
+this whole situation of
+
+1063
+00:48:19,659 --> 00:48:23,739
+sending and acknowledging
+is taking too long,
+
+1064
+00:48:23,739 --> 00:48:26,979
+you need yet another
+mechanism in order to
+
+1065
+00:48:26,979 --> 00:48:28,899
+retransmit the packets that
+
+1066
+00:48:28,899 --> 00:48:31,129
+have not been
+acknowledged anyway.
+
+1067
+00:48:31,129 --> 00:48:35,239
+So the receiving sign says
+I need packet six next.
+
+1068
+00:48:35,239 --> 00:48:38,079
+The transmitting side will
+just immediately packet six.
+
+1069
+00:48:38,079 --> 00:48:39,999
+It will wait until the time out.
+
+1070
+00:48:39,999 --> 00:48:41,799
+And it still haven't received
+
+1071
+00:48:41,799 --> 00:48:43,999
+an app six, then
+it will resend it.
+
+1072
+00:48:43,999 --> 00:48:46,959
+Are you saying that it
+will resend it right away?
+
+1073
+00:48:46,959 --> 00:48:50,159
+Well, it's acknowledging
+things right away.
+
+1074
+00:48:50,159 --> 00:48:51,359
+Yeah, because
+there's going to be
+
+1075
+00:48:51,359 --> 00:48:54,280
+an act for everything
+that it has received.
+
+1076
+00:48:56,920 --> 00:48:59,560
+We need the
+retransmission timeout
+
+1077
+00:48:59,560 --> 00:49:02,120
+in case this act is delayed.
+
+1078
+00:49:02,200 --> 00:49:05,039
+If the act itself is delayed and
+
+1079
+00:49:05,039 --> 00:49:07,800
+it took longer than
+a timeout window,
+
+1080
+00:49:07,800 --> 00:49:08,679
+we're going to basically
+
+1081
+00:49:08,679 --> 00:49:11,300
+retransmit it again
+from the sender.
+
+1082
+00:49:11,300 --> 00:49:13,799
+All right, let's move forward.
+
+1083
+00:49:13,799 --> 00:49:18,720
+I wanted to basically get
+to the TCP versus UDP.
+
+1084
+00:49:18,720 --> 00:49:20,839
+There are some
+situations for which you
+
+1085
+00:49:20,839 --> 00:49:22,799
+really need the abstractions and
+
+1086
+00:49:22,799 --> 00:49:25,399
+the guarantees that are
+provided by TCP and
+
+1087
+00:49:25,399 --> 00:49:28,200
+some situations where UDP is
+a much better alternative.
+
+1088
+00:49:28,200 --> 00:49:29,479
+And the reason for
+this is because
+
+1089
+00:49:29,479 --> 00:49:31,440
+it's going to give you
+higher performance,
+
+1090
+00:49:31,440 --> 00:49:34,119
+because it has lower
+overheads, okay?
+
+1091
+00:49:34,119 --> 00:49:37,999
+So that's important. All right.
+
+1092
+00:49:37,999 --> 00:49:41,720
+File systems, we covered
+fairly recently.
+
+1093
+00:49:41,720 --> 00:49:46,139
+So We're already at 2:51.
+
+1094
+00:49:46,139 --> 00:49:47,580
+So very briefly,
+
+1095
+00:49:47,580 --> 00:49:50,420
+file systems is an
+abstraction that bridges
+
+1096
+00:49:50,420 --> 00:49:53,540
+the low level interfaces
+
+1097
+00:49:53,540 --> 00:49:57,619
+and provides a much more
+sane higher level interface
+
+1098
+00:49:57,619 --> 00:49:59,179
+that gives us atomicity,
+
+1099
+00:49:59,179 --> 00:50:02,380
+crash consistency, and ordering.
+
+1100
+00:50:02,380 --> 00:50:04,539
+So basically, this is
+
+1101
+00:50:04,539 --> 00:50:06,899
+the disk layout that
+was presented in class.
+
+1102
+00:50:06,899 --> 00:50:09,019
+XV six does something
+slightly different.
+
+1103
+00:50:09,019 --> 00:50:11,340
+It puts a log right
+after Super block.
+
+1104
+00:50:11,340 --> 00:50:12,820
+If we ask any questions,
+
+1105
+00:50:12,820 --> 00:50:14,859
+we're going to specify
+which ones we're using.
+
+1106
+00:50:14,859 --> 00:50:20,159
+Yeah, by the way, this is
+what the XV six looks like.
+
+1107
+00:50:20,159 --> 00:50:22,899
+So you will notice
+that the log here
+
+1108
+00:50:22,899 --> 00:50:25,779
+follows the super block
+right away, okay?
+
+1109
+00:50:25,779 --> 00:50:28,099
+And so we have these
+node structures
+
+1110
+00:50:28,099 --> 00:50:30,179
+to keep track of metadata.
+
+1111
+00:50:30,179 --> 00:50:34,539
+The on disk format for
+this consists of the type,
+
+1112
+00:50:34,539 --> 00:50:36,459
+and link, the size,
+
+1113
+00:50:36,459 --> 00:50:39,020
+and 12 direct pointers,
+
+1114
+00:50:39,020 --> 00:50:40,540
+and one indirect pointer.
+
+1115
+00:50:40,540 --> 00:50:42,540
+The reason we need
+an indirect pointer
+
+1116
+00:50:42,540 --> 00:50:44,219
+is because we want to
+provide support for
+
+1117
+00:50:44,219 --> 00:50:46,339
+larger files because what is
+
+1118
+00:50:46,339 --> 00:50:47,659
+the largest file that you can
+
+1119
+00:50:47,659 --> 00:50:50,340
+support with 12 direct pointer?
+
+1120
+00:50:54,010 --> 00:50:56,609
+Yeah, I'm hearing
+the right answer.
+
+1121
+00:50:56,609 --> 00:51:00,849
+Yeah. 12 times Yes,
+
+1122
+00:51:00,849 --> 00:51:02,329
+12 times block size,
+
+1123
+00:51:02,329 --> 00:51:04,050
+which is 12 times half a kilo,
+
+1124
+00:51:04,050 --> 00:51:06,409
+which is 6 kilobytes, right?
+
+1125
+00:51:06,409 --> 00:51:10,209
+And this is what I notte in
+XV six looks like, okay?
+
+1126
+00:51:10,209 --> 00:51:13,210
+You have your 12 direct
+pointers, you have one indirect,
+
+1127
+00:51:13,210 --> 00:51:15,450
+and the indirect
+block simply consists
+
+1128
+00:51:15,450 --> 00:51:18,050
+of 128 direct pointers.
+
+1129
+00:51:18,050 --> 00:51:20,209
+And basically with
+this kind of structure
+
+1130
+00:51:20,209 --> 00:51:23,090
+or any kind of structure
+that I invent,
+
+1131
+00:51:23,090 --> 00:51:25,529
+okay, you should
+be able to give me
+
+1132
+00:51:25,529 --> 00:51:28,469
+the largest possible file
+size that it can support.
+
+1133
+00:51:28,469 --> 00:51:32,049
+Does that make sense?
+That you basically count
+
+1134
+00:51:32,049 --> 00:51:34,729
+how many data blocks
+can you address with
+
+1135
+00:51:34,729 --> 00:51:36,850
+direct pointers and how
+many direct pointers
+
+1136
+00:51:36,850 --> 00:51:38,209
+can you possibly have?
+
+1137
+00:51:38,209 --> 00:51:40,330
+Even if you have sort of mixture
+
+1138
+00:51:40,330 --> 00:51:42,490
+of doubly indirect,
+trip, indirect,
+
+1139
+00:51:42,490 --> 00:51:45,329
+quadruple indirect pointers,
+you should be able to
+
+1140
+00:51:45,329 --> 00:51:46,529
+figure out what is
+
+1141
+00:51:46,529 --> 00:51:48,649
+the largest file size
+that you can support.
+
+1142
+00:51:48,649 --> 00:51:51,089
+And this is just the
+simplest example here.
+
+1143
+00:51:51,089 --> 00:51:52,529
+What's the largest file size
+
+1144
+00:51:52,529 --> 00:51:54,769
+that this particular
+structure can support?
+
+1145
+00:51:54,769 --> 00:52:00,369
+Yeah. 70 kilobytes
+or 140 times size.
+
+1146
+00:52:00,369 --> 00:52:02,249
+70 kilobytes.
+
+1147
+00:52:02,249 --> 00:52:03,809
+70 kilobytes.
+
+1148
+00:52:03,809 --> 00:52:06,009
+And the way we get
+this is that we have
+
+1149
+00:52:06,009 --> 00:52:08,730
+128 here times half a kilo
+
+1150
+00:52:08,730 --> 00:52:11,809
+is 64 and 12 here times
+half a kilo is six,
+
+1151
+00:52:11,809 --> 00:52:15,169
+64 plus six is 70 kilobytes.
+
+1152
+00:52:17,330 --> 00:52:23,569
+Okay. There was some Piazza
+discussion about this.
+
+1153
+00:52:24,130 --> 00:52:28,169
+I clarified on Piazza
+Please refer to Piazza.
+
+1154
+00:52:28,169 --> 00:52:30,489
+All of the counting
+here starts from zero.
+
+1155
+00:52:30,489 --> 00:52:33,719
+The math is correct.
+Okay, let's move on.
+
+1156
+00:52:33,719 --> 00:52:35,320
+Directory contents.
+
+1157
+00:52:35,320 --> 00:52:36,799
+Basically, they kind
+of look like this.
+
+1158
+00:52:36,799 --> 00:52:39,240
+So directory is
+just like a file,
+
+1159
+00:52:39,240 --> 00:52:43,039
+but you can't really directly
+write to the directory.
+
+1160
+00:52:43,039 --> 00:52:48,199
+You have sort of API
+in order to do this,
+
+1161
+00:52:48,199 --> 00:52:50,039
+like the make Dur directory
+
+1162
+00:52:50,039 --> 00:52:53,079
+and mod and things
+like this, okay?
+
+1163
+00:52:53,079 --> 00:52:55,120
+And also create file,
+
+1164
+00:52:55,120 --> 00:52:58,679
+which modifies indirectly the
+contents of the directory.
+
+1165
+00:52:58,679 --> 00:53:01,399
+The Durant consists
+of the number,
+
+1166
+00:53:01,399 --> 00:53:02,999
+the file name, and
+
+1167
+00:53:02,999 --> 00:53:06,079
+the Durant is free if
+your number is zero.
+
+1168
+00:53:06,079 --> 00:53:08,200
+So basically, your
+directory data block
+
+1169
+00:53:08,200 --> 00:53:10,639
+looks like this as a
+whole bunch of Durens.
+
+1170
+00:53:10,639 --> 00:53:13,959
+I And especially during
+
+1171
+00:53:13,959 --> 00:53:19,880
+our last lecture on files
+on atomicity and ordering,
+
+1172
+00:53:19,880 --> 00:53:21,319
+we talked about how there's
+
+1173
+00:53:21,319 --> 00:53:23,599
+this interesting thought process
+
+1174
+00:53:23,599 --> 00:53:24,879
+that goes into trying to
+
+1175
+00:53:24,879 --> 00:53:26,320
+figure out what you
+need to persist.
+
+1176
+00:53:26,320 --> 00:53:27,919
+So if you're creating a file,
+
+1177
+00:53:27,919 --> 00:53:29,759
+you have to keep in
+mind that not only are
+
+1178
+00:53:29,759 --> 00:53:32,199
+you writing some data
+blocks for the file,
+
+1179
+00:53:32,199 --> 00:53:35,159
+you're also modifying
+the node for the file,
+
+1180
+00:53:35,159 --> 00:53:37,240
+and you're modifying the dur
+
+1181
+00:53:37,240 --> 00:53:40,159
+associated with the file inside
+the directory data block.
+
+1182
+00:53:40,159 --> 00:53:42,239
+So keep that in mind. Yeah.
+
+1183
+00:53:42,239 --> 00:53:44,799
+So the directory
+data block is like
+
+1184
+00:53:44,799 --> 00:53:48,329
+to put the first direct
+pointer points to, right?
+
+1185
+00:53:48,329 --> 00:53:55,379
+De? No. So the eye node that
+
+1186
+00:53:55,379 --> 00:53:57,659
+corresponds to a file will
+
+1187
+00:53:57,659 --> 00:53:59,659
+only its pointers will point
+
+1188
+00:53:59,659 --> 00:54:03,579
+to just the data block
+associated with that file.
+
+1189
+00:54:06,140 --> 00:54:09,579
+Okay. Yes. Okay. So you
+
+1190
+00:54:09,579 --> 00:54:11,659
+have a directory eye
+node as well, right?
+
+1191
+00:54:11,659 --> 00:54:13,779
+Yes. You do have a
+directory eye node. Yeah.
+
+1192
+00:54:13,779 --> 00:54:17,499
+What do the address pointers
+in that ide point to?
+
+1193
+00:54:17,499 --> 00:54:20,779
+Is it the data block.
+
+1194
+00:54:21,890 --> 00:54:25,089
+Yeah. Basically,
+they will point to
+
+1195
+00:54:25,089 --> 00:54:29,650
+this they will point to
+this directory data blocks.
+
+1196
+00:54:29,650 --> 00:54:32,049
+Yeah. The question is,
+
+1197
+00:54:32,049 --> 00:54:34,249
+we have two different
+kinds of i nodes now.
+
+1198
+00:54:34,249 --> 00:54:35,849
+One of them is a file node,
+
+1199
+00:54:35,849 --> 00:54:37,649
+the other one is
+a directory node.
+
+1200
+00:54:37,649 --> 00:54:39,329
+The question is about, what is
+
+1201
+00:54:39,329 --> 00:54:41,329
+the directory eye
+node pointing to?
+
+1202
+00:54:41,329 --> 00:54:44,490
+It points to these
+directory data blocks.
+
+1203
+00:54:44,490 --> 00:54:47,210
+The contents of the
+directory data blocks
+
+1204
+00:54:47,210 --> 00:54:49,169
+are different from the
+contents of the file.
+
+1205
+00:54:49,169 --> 00:54:51,039
+In the file, you just have data.
+
+1206
+00:54:51,039 --> 00:54:53,310
+For directory data blocks,
+
+1207
+00:54:53,310 --> 00:54:54,949
+you have a bunch of Durens,
+
+1208
+00:54:54,949 --> 00:54:57,549
+and we sort of discuss
+what the Durens are.
+
+1209
+00:54:57,549 --> 00:54:59,669
+You have one Durent for
+
+1210
+00:54:59,669 --> 00:55:04,339
+every single file
+inside the directory.
+
+1211
+00:55:04,339 --> 00:55:08,929
+Including the subdirectories
+of that directory as well.
+
+1212
+00:55:08,929 --> 00:55:10,409
+So you can see how
+you can make that
+
+1213
+00:55:10,409 --> 00:55:14,649
+recursive, okay? Good question.
+
+1214
+00:55:14,649 --> 00:55:18,489
+And so we won't have
+time to go through this,
+
+1215
+00:55:18,489 --> 00:55:21,129
+but you should be able to
+walk through this example.
+
+1216
+00:55:21,129 --> 00:55:25,289
+So let's say you have
+an absolute path.
+
+1217
+00:55:25,289 --> 00:55:27,209
+It's called an
+absolute file path
+
+1218
+00:55:27,209 --> 00:55:28,850
+that starts with
+a forward slash,
+
+1219
+00:55:28,850 --> 00:55:31,769
+and you basically
+are trying to open
+
+1220
+00:55:31,769 --> 00:55:35,729
+a file named as follows, right?
+
+1221
+00:55:35,729 --> 00:55:38,929
+And the question could be
+asking you what i nodes will
+
+1222
+00:55:38,929 --> 00:55:40,769
+the file system be looking
+
+1223
+00:55:40,769 --> 00:55:43,294
+at in the process of
+opening this file.
+
+1224
+00:55:43,294 --> 00:55:45,379
+Okay. And you may be
+
+1225
+00:55:45,379 --> 00:55:47,859
+given kind of a table
+that looks like this.
+
+1226
+00:55:47,859 --> 00:55:50,099
+The number zero corresponds to
+
+1227
+00:55:50,099 --> 00:55:52,620
+the forward slash,
+the root directory.
+
+1228
+00:55:52,620 --> 00:55:58,140
+I number one corresponds
+to directory BS.
+
+1229
+00:55:58,140 --> 00:56:01,260
+I number two may correspond
+to the file itself.
+
+1230
+00:56:01,260 --> 00:56:03,779
+I number three
+corresponds to bar,
+
+1231
+00:56:03,779 --> 00:56:05,780
+I number four
+corresponds to foo,
+
+1232
+00:56:05,780 --> 00:56:07,579
+and so on and so forth, right?
+
+1233
+00:56:07,579 --> 00:56:08,979
+So going through this,
+
+1234
+00:56:08,979 --> 00:56:10,819
+you should be providing me with
+
+1235
+00:56:10,819 --> 00:56:14,419
+an order in which
+every single one of
+
+1236
+00:56:14,419 --> 00:56:18,179
+these five nodes is
+going to be accessed
+
+1237
+00:56:18,179 --> 00:56:23,219
+in order for us to
+open this file, okay?
+
+1238
+00:56:29,540 --> 00:56:31,619
+Okay.
+
+1239
+00:56:33,060 --> 00:56:37,659
+We spent three lectures talking
+about ordering ethnicity,
+
+1240
+00:56:37,659 --> 00:56:41,139
+so probably won't be able
+to get through this now.
+
+1241
+00:56:41,139 --> 00:56:43,779
+But I do encourage
+you to go back to
+
+1242
+00:56:43,779 --> 00:56:45,139
+those lectures because they
+
+1243
+00:56:45,139 --> 00:56:47,099
+have a lot of very
+important stuff.
+
+1244
+00:56:47,099 --> 00:56:48,899
+And this is probably
+conceptually
+
+1245
+00:56:48,899 --> 00:56:50,819
+the most complicated
+topic of this class.
+
+1246
+00:56:50,819 --> 00:56:53,179
+And the reason for this is
+to be able to understand
+
+1247
+00:56:53,179 --> 00:56:57,819
+the ethomicity and ordering
+from the first principles.
+
+1248
+00:56:57,819 --> 00:57:00,459
+You should also be able
+to understand that
+
+1249
+00:57:00,459 --> 00:57:03,980
+we're dealing with three
+different layers in the stack.
+
+1250
+00:57:03,980 --> 00:57:05,659
+Okay? And I mentioned this in
+
+1251
+00:57:05,659 --> 00:57:07,660
+the Q&A at the end
+of the last lecture.
+
+1252
+00:57:07,660 --> 00:57:10,219
+I want to make sure that
+everyone sees this.
+
+1253
+00:57:10,219 --> 00:57:12,860
+So we have three different
+layers in our stack.
+
+1254
+00:57:12,860 --> 00:57:15,259
+The bottom most
+layer essentially
+
+1255
+00:57:15,259 --> 00:57:18,179
+interacts with the
+disk directly, okay?
+
+1256
+00:57:18,179 --> 00:57:22,019
+And the only thing it can do
+is perform a block write,
+
+1257
+00:57:22,019 --> 00:57:26,625
+a block read, and a flush.
+
+1258
+00:57:26,625 --> 00:57:29,709
+So this is basically
+an interaction with
+
+1259
+00:57:29,709 --> 00:57:32,710
+the disk firmware or
+disk driver directly.
+
+1260
+00:57:32,710 --> 00:57:34,189
+On top of this, there's
+
+1261
+00:57:34,189 --> 00:57:37,790
+a separate layer
+that is your kernel,
+
+1262
+00:57:37,790 --> 00:57:40,950
+and this is the kernel
+user space divide
+
+1263
+00:57:40,950 --> 00:57:43,429
+right here that this
+is your file system,
+
+1264
+00:57:43,429 --> 00:57:47,669
+and the file system can do
+some logging, for example.
+
+1265
+00:57:47,669 --> 00:57:49,989
+So this is where the
+logging is implemented.
+
+1266
+00:57:49,989 --> 00:57:51,790
+It's implemented
+inside the kernel
+
+1267
+00:57:51,790 --> 00:57:53,069
+as part of your file system.
+
+1268
+00:57:53,069 --> 00:57:54,829
+You can have different
+options here,
+
+1269
+00:57:54,829 --> 00:57:56,949
+for example, no logging, right?
+
+1270
+00:57:56,949 --> 00:57:58,949
+Or you can have ordered,
+
+1271
+00:57:58,949 --> 00:58:02,070
+or you can have metadata,
+
+1272
+00:58:02,070 --> 00:58:07,169
+or you can have
+full logging Okay,
+
+1273
+00:58:07,169 --> 00:58:09,010
+et cetera, et cetera.
+
+1274
+00:58:09,010 --> 00:58:11,729
+All of this is
+inside file systems,
+
+1275
+00:58:11,729 --> 00:58:14,090
+the file system
+component of the kernel.
+
+1276
+00:58:14,090 --> 00:58:16,289
+And then there's a
+third part that we
+
+1277
+00:58:16,289 --> 00:58:18,810
+talked about during
+the last lecture,
+
+1278
+00:58:18,810 --> 00:58:21,929
+which is what's happening
+at the PIX level,
+
+1279
+00:58:21,929 --> 00:58:25,609
+kind of what control
+you have when you write
+
+1280
+00:58:25,609 --> 00:58:27,329
+the PoSx application as
+
+1281
+00:58:27,329 --> 00:58:29,649
+far as data persistency
+is concerned.
+
+1282
+00:58:29,649 --> 00:58:36,560
+And it has its own separate
+interface like a open file,
+
+1283
+00:58:36,560 --> 00:58:41,000
+make directory, an F sync.
+
+1284
+00:58:41,000 --> 00:58:43,439
+And the important one
+is the F sync, right?
+
+1285
+00:58:43,439 --> 00:58:46,399
+And so the question we
+were asking ourselves is,
+
+1286
+00:58:46,399 --> 00:58:49,999
+how do we bridge this
+very, very unreliable,
+
+1287
+00:58:49,999 --> 00:58:52,359
+low level interface that
+
+1288
+00:58:52,359 --> 00:58:54,440
+interacts directly
+with the disk using
+
+1289
+00:58:54,440 --> 00:58:57,199
+this very limited interface that
+
+1290
+00:58:57,199 --> 00:59:00,519
+provides us with no
+guarantees whatsoever, right?
+
+1291
+00:59:00,519 --> 00:59:03,999
+How do we build an
+operating system and
+
+1292
+00:59:03,999 --> 00:59:05,839
+a file system on top of that
+
+1293
+00:59:05,839 --> 00:59:08,319
+that provides us with
+crash consistency,
+
+1294
+00:59:08,319 --> 00:59:11,164
+eomicity and ordering
+primitives that we require?
+
+1295
+00:59:11,164 --> 00:59:13,609
+So it's really important
+to understand that we
+
+1296
+00:59:13,609 --> 00:59:14,249
+were talking about
+
+1297
+00:59:14,249 --> 00:59:16,210
+these three different
+layers of the stack.
+
+1298
+00:59:16,210 --> 00:59:17,889
+The last lecture was all about
+
+1299
+00:59:17,889 --> 00:59:19,969
+the higher level,
+the highest level,
+
+1300
+00:59:19,969 --> 00:59:21,610
+the third level of the stack,
+
+1301
+00:59:21,610 --> 00:59:23,609
+which doesn't make
+any assumptions
+
+1302
+00:59:23,609 --> 00:59:25,649
+about what's
+happening underneath.
+
+1303
+00:59:25,649 --> 00:59:27,649
+Because underneath,
+you could have
+
+1304
+00:59:27,649 --> 00:59:30,049
+a file system that performs
+no logging at all,
+
+1305
+00:59:30,049 --> 00:59:35,129
+or this is the same thing
+as write back, by the way.
+
+1306
+00:59:35,129 --> 00:59:37,329
+Or it could be doing ordered or
+
+1307
+00:59:37,329 --> 00:59:39,569
+metadata or full logging.
+It doesn't matter.
+
+1308
+00:59:39,569 --> 00:59:40,770
+You can still ensure
+
+1309
+00:59:40,770 --> 00:59:44,249
+consistency by using
+the Post six interface.
+
+1310
+00:59:44,249 --> 00:59:46,609
+It's extremely expensive,
+but you can do it.
+
+1311
+00:59:46,609 --> 00:59:51,709
+You can make it
+correct. Okay? We also
+
+1312
+00:59:51,709 --> 00:59:54,190
+discussed about
+shadowing and logging.
+
+1313
+00:59:54,190 --> 00:59:56,829
+Do we want to go through
+shadowing again?
+
+1314
+00:59:56,829 --> 00:59:58,629
+No. I see no.
+
+1315
+00:59:58,629 --> 01:00:00,790
+Okay. Cool.
+
+1316
+01:00:03,400 --> 01:00:08,239
+There was an important
+bit right here that you
+
+1317
+01:00:08,239 --> 01:00:10,279
+do need this flush to
+
+1318
+01:00:10,279 --> 01:00:12,999
+order operation three
+with operation four.
+
+1319
+01:00:12,999 --> 01:00:15,399
+And as a result of this,
+
+1320
+01:00:15,399 --> 01:00:16,999
+you sort of arrive at something
+
+1321
+01:00:16,999 --> 01:00:19,120
+that has a lot of overhead.
+
+1322
+01:00:19,120 --> 01:00:21,840
+So the cost of shadowing
+are sort of extreme.
+
+1323
+01:00:21,840 --> 01:00:24,879
+You need at least twice the
+amount of space, right?
+
+1324
+01:00:24,879 --> 01:00:26,839
+And you also need
+to require right to
+
+1325
+01:00:26,839 --> 01:00:28,800
+a shadow bit on every
+version update.
+
+1326
+01:00:28,800 --> 01:00:30,479
+So there are at least two discs,
+
+1327
+01:00:30,479 --> 01:00:32,920
+a copy and update and a shadow.
+
+1328
+01:00:32,920 --> 01:00:35,959
+And as we also
+discussed on Tiaza,
+
+1329
+01:00:35,959 --> 01:00:38,200
+you know, I encourage you to
+refer to that discussion.
+
+1330
+01:00:38,200 --> 01:00:40,359
+Shadow must be a separate bit,
+
+1331
+01:00:40,359 --> 01:00:41,520
+which means that you cannot
+
+1332
+01:00:41,520 --> 01:00:43,760
+coalesce them into
+the same block.
+
+1333
+01:00:43,760 --> 01:00:46,720
+Because otherwise, those
+updates would not be atomic.
+
+1334
+01:00:46,720 --> 01:00:48,880
+You want to make sure
+that shadow bit updates
+
+1335
+01:00:48,880 --> 01:00:50,799
+are atomic by themselves.
+
+1336
+01:00:50,799 --> 01:00:53,759
+And one way to ensure
+correctness with
+
+1337
+01:00:53,759 --> 01:00:55,479
+the shadow bit
+update is to write
+
+1338
+01:00:55,479 --> 01:00:57,800
+this to a disk block by itself.
+
+1339
+01:00:57,800 --> 01:01:00,159
+This ensures that
+the contents of
+
+1340
+01:01:00,159 --> 01:01:01,559
+the disk block can be
+
+1341
+01:01:01,559 --> 01:01:03,720
+found in one of two
+possible states.
+
+1342
+01:01:03,720 --> 01:01:05,199
+Either it's a whole bunch of
+
+1343
+01:01:05,199 --> 01:01:07,959
+zeros or it's anything
+other than that.
+
+1344
+01:01:07,959 --> 01:01:10,119
+And the interpretation
+of that gives
+
+1345
+01:01:10,119 --> 01:01:12,239
+us this Boolean semantics
+associated with
+
+1346
+01:01:12,239 --> 01:01:14,679
+the shadow bit that allows us to
+
+1347
+01:01:14,679 --> 01:01:18,999
+reason about it in an
+atomic fashion. Okay? Yes.
+
+1348
+01:01:21,060 --> 01:01:27,699
+Sorry? The active bit.
+
+1349
+01:01:31,140 --> 01:01:33,819
+Sure. Yeah. So again,
+
+1350
+01:01:33,819 --> 01:01:35,499
+this is a semantic
+interpretation.
+
+1351
+01:01:35,499 --> 01:01:38,419
+Zero could mean
+looking left, right?
+
+1352
+01:01:38,419 --> 01:01:40,299
+Anything other than
+zero could mean
+
+1353
+01:01:40,299 --> 01:01:47,019
+looking right where basically,
+
+1354
+01:01:47,019 --> 01:01:48,339
+when we flip it, we
+
+1355
+01:01:48,339 --> 01:01:51,089
+flip it to point into
+the opposite direction.
+
+1356
+01:01:51,089 --> 01:01:56,119
+Yeah. But the flush
+3-4 and five is not
+
+1357
+01:01:56,119 --> 01:02:00,799
+necessary for any or it would
+have to be the same way?
+
+1358
+01:02:00,799 --> 01:02:03,799
+Well, it's not necessary
+
+1359
+01:02:03,799 --> 01:02:05,439
+if you're writing to
+different blocks,
+
+1360
+01:02:05,439 --> 01:02:07,279
+but you don't know what
+you're writing to.
+
+1361
+01:02:07,279 --> 01:02:09,799
+And so that's why you need
+to inject a flush in there.
+
+1362
+01:02:09,799 --> 01:02:12,159
+There's a possibility that
+you could be writing to
+
+1363
+01:02:12,159 --> 01:02:14,039
+exactly the same block and
+
+1364
+01:02:14,039 --> 01:02:16,799
+to make sure that the
+subsequent op four,
+
+1365
+01:02:16,799 --> 01:02:19,999
+which is a copy, reads
+
+1366
+01:02:19,999 --> 01:02:21,919
+the file from the most
+up to date state,
+
+1367
+01:02:21,919 --> 01:02:23,559
+you need to put a flush in there
+
+1368
+01:02:23,559 --> 01:02:25,529
+in order to order
+those two operations.
+
+1369
+01:02:25,529 --> 01:02:27,059
+They're writing to
+different blocks,
+
+1370
+01:02:27,059 --> 01:02:29,499
+couldn't that lead to out
+of order entries though,
+
+1371
+01:02:29,499 --> 01:02:32,579
+so that if you were
+writing to the metadata
+
+1372
+01:02:32,579 --> 01:02:35,859
+and the data and the data
+got the shot of it flipped,
+
+1373
+01:02:35,859 --> 01:02:38,219
+within the data did
+an imminent crash,
+
+1374
+01:02:38,219 --> 01:02:40,019
+then you would have.
+
+1375
+01:02:41,380 --> 01:02:44,139
+I'm sort of half
+hearing you right now.
+
+1376
+01:02:44,139 --> 01:02:45,859
+So I think you might be
+
+1377
+01:02:45,859 --> 01:02:48,059
+the person who asked this
+question on Piazza, right?
+
+1378
+01:02:48,059 --> 01:02:49,379
+So why don't you stop by
+
+1379
+01:02:49,379 --> 01:02:50,899
+after class and we'll
+talk about this?
+
+1380
+01:02:50,899 --> 01:02:52,219
+Because let's make sure
+
+1381
+01:02:52,219 --> 01:02:54,139
+we resolve that
+confusion offline.
+
+1382
+01:02:54,139 --> 01:02:58,879
+I Okay, so basically
+logging works like this.
+
+1383
+01:02:58,879 --> 01:03:01,679
+You put logs into the entry,
+entries into the log,
+
+1384
+01:03:01,679 --> 01:03:04,879
+you put commit, and then
+another entry, another commit.
+
+1385
+01:03:04,879 --> 01:03:07,119
+And for any entry
+that's uncommitted,
+
+1386
+01:03:07,119 --> 01:03:08,479
+you basically don't
+consider it during
+
+1387
+01:03:08,479 --> 01:03:10,679
+a log merge or recovery.
+
+1388
+01:03:10,679 --> 01:03:14,239
+The entry consists of a type
+and location and payload,
+
+1389
+01:03:14,239 --> 01:03:16,279
+basically what you're
+attempting to write.
+
+1390
+01:03:16,279 --> 01:03:19,604
+I And we really
+
+1391
+01:03:19,604 --> 01:03:22,529
+care about this prefix
+property of the log, okay?
+
+1392
+01:03:22,529 --> 01:03:25,449
+The prefix property of
+the log makes sure that
+
+1393
+01:03:25,449 --> 01:03:26,889
+every entry is considered
+
+1394
+01:03:26,889 --> 01:03:28,844
+valid up until this
+termination condition.
+
+1395
+01:03:28,844 --> 01:03:30,209
+Determination condition is when
+
+1396
+01:03:30,209 --> 01:03:32,089
+you've reached an entry
+that's not valid.
+
+1397
+01:03:32,089 --> 01:03:34,799
+Everything after that is
+not going to be valid,
+
+1398
+01:03:34,799 --> 01:03:37,409
+even if it does have a commit.
+
+1399
+01:03:37,409 --> 01:03:39,604
+Okay. And so then the way we
+
+1400
+01:03:39,604 --> 01:03:42,404
+access data is we
+check the log first.
+
+1401
+01:03:42,404 --> 01:03:46,169
+And we went through a couple
+of examples during class.
+
+1402
+01:03:46,169 --> 01:03:48,009
+So in this particular case,
+
+1403
+01:03:48,009 --> 01:03:49,969
+if I read block six,
+
+1404
+01:03:49,969 --> 01:03:52,319
+where are we going
+to read it from?
+
+1405
+01:03:53,440 --> 01:03:56,039
+So our entry is right here.
+
+1406
+01:03:56,039 --> 01:03:57,799
+It corresponds to right here.
+
+1407
+01:03:57,799 --> 01:04:01,199
+It corresponds to block six,
+
+1408
+01:04:01,199 --> 01:04:03,719
+and we have a data
+block associated
+
+1409
+01:04:03,719 --> 01:04:06,199
+with block six in the data
+block section of the disk.
+
+1410
+01:04:06,199 --> 01:04:08,999
+Where where would we be
+reading the data from?
+
+1411
+01:04:08,999 --> 01:04:10,999
+Yeah. You read from
+
+1412
+01:04:10,999 --> 01:04:12,639
+the actual dislocation because
+
+1413
+01:04:12,639 --> 01:04:14,519
+the entry hasn't been committed.
+
+1414
+01:04:14,519 --> 01:04:16,439
+Right, exactly. In
+this particular case,
+
+1415
+01:04:16,439 --> 01:04:18,079
+the entry hasn't been committed,
+
+1416
+01:04:18,079 --> 01:04:21,134
+so we would actually go
+to the data block, okay?
+
+1417
+01:04:21,134 --> 01:04:25,509
+We made a huge deal about
+how introducing check sums
+
+1418
+01:04:25,509 --> 01:04:30,389
+actually gives us the same
+eomicity property we love.
+
+1419
+01:04:30,389 --> 01:04:32,189
+But in addition to this,
+
+1420
+01:04:32,189 --> 01:04:33,789
+it also allows us to
+
+1421
+01:04:33,789 --> 01:04:36,829
+checksum the entry we're
+writing to the log, okay?
+
+1422
+01:04:36,829 --> 01:04:39,589
+And so this makes
+it possible for us
+
+1423
+01:04:39,589 --> 01:04:41,669
+to write them all at
+
+1424
+01:04:41,669 --> 01:04:44,229
+the same time without
+any flushes in between,
+
+1425
+01:04:44,229 --> 01:04:47,229
+as long as they're written
+to the correct location,
+
+1426
+01:04:47,229 --> 01:04:49,269
+to the correct seek on the disk,
+
+1427
+01:04:49,269 --> 01:04:50,909
+to the correct log block.
+
+1428
+01:04:50,909 --> 01:04:56,269
+So this really unlocks a lot
+of performance as a result.
+
+1429
+01:04:56,269 --> 01:04:59,669
+Okay, so there are lots of
+advantages and disadvantages.
+
+1430
+01:04:59,669 --> 01:05:02,024
+Sequential access is
+one of the advantages
+
+1431
+01:05:02,024 --> 01:05:04,949
+because we know that sequential
+access is very efficient.
+
+1432
+01:05:04,949 --> 01:05:09,069
+We also get ordering from
+logging just by design.
+
+1433
+01:05:09,069 --> 01:05:11,549
+The log entries are
+committed in order.
+
+1434
+01:05:11,549 --> 01:05:13,144
+They're recovered in order.
+
+1435
+01:05:13,144 --> 01:05:14,669
+They're sort of read in
+
+1436
+01:05:14,669 --> 01:05:16,269
+order whenever you're trying
+
+1437
+01:05:16,269 --> 01:05:17,709
+to figure out where
+to read from.
+
+1438
+01:05:17,709 --> 01:05:21,509
+So this whole left to right
+ordering that's provided by
+
+1439
+01:05:21,509 --> 01:05:25,309
+the log is actually
+highly beneficial.
+
+1440
+01:05:25,309 --> 01:05:27,550
+It's sort of a very,
+very clever and simple
+
+1441
+01:05:27,550 --> 01:05:28,749
+design that a lot of us are
+
+1442
+01:05:28,749 --> 01:05:30,344
+taking for granted
+at this point.
+
+1443
+01:05:30,344 --> 01:05:33,619
+It does come with its
+own set of costs, right?
+
+1444
+01:05:33,619 --> 01:05:36,579
+We are doubling the rights
+because at some point,
+
+1445
+01:05:36,579 --> 01:05:37,979
+we're going to write to the log,
+
+1446
+01:05:37,979 --> 01:05:39,899
+and then the log will
+need to be written to
+
+1447
+01:05:39,899 --> 01:05:42,339
+the actual data block
+section of the disk.
+
+1448
+01:05:42,339 --> 01:05:44,139
+So you are paying for
+
+1449
+01:05:44,139 --> 01:05:46,699
+two rights for any
+given right, right?
+
+1450
+01:05:46,699 --> 01:05:48,859
+And so there's a certain set
+
+1451
+01:05:48,859 --> 01:05:50,619
+of corollaries
+associated with that.
+
+1452
+01:05:50,619 --> 01:05:53,139
+First is, we probably
+don't want to have
+
+1453
+01:05:53,139 --> 01:05:57,024
+full logging because especially
+with large file updates.
+
+1454
+01:05:57,024 --> 01:06:00,790
+Uh, because full logging
+will essentially
+
+1455
+01:06:00,790 --> 01:06:03,309
+log the data rights as well as
+
+1456
+01:06:03,309 --> 01:06:05,909
+the data rights all
+within the same log.
+
+1457
+01:06:05,909 --> 01:06:08,909
+We'll run out of the
+logs fairly quickly,
+
+1458
+01:06:08,909 --> 01:06:12,029
+and it also is much
+
+1459
+01:06:12,029 --> 01:06:13,909
+significantly more costly than
+
+1460
+01:06:13,909 --> 01:06:16,709
+ordered logging that
+we talked about.
+
+1461
+01:06:16,709 --> 01:06:19,949
+So what do modern
+file systems do?
+
+1462
+01:06:19,949 --> 01:06:21,149
+Well, they provide options.
+
+1463
+01:06:21,149 --> 01:06:22,629
+You can turn it off.
+
+1464
+01:06:22,629 --> 01:06:24,229
+It's usually a better idea.
+
+1465
+01:06:24,229 --> 01:06:26,789
+Or you can do metadata
+only, but, you know,
+
+1466
+01:06:26,789 --> 01:06:29,594
+it's problematic because, um,
+
+1467
+01:06:29,594 --> 01:06:32,279
+some bad things can
+happen to data.
+
+1468
+01:06:32,279 --> 01:06:36,079
+And what's worse is
+that you can still
+
+1469
+01:06:36,079 --> 01:06:37,799
+arrive at the situation where
+
+1470
+01:06:37,799 --> 01:06:40,039
+you've written the
+metadata, but not the data.
+
+1471
+01:06:40,039 --> 01:06:43,159
+So you could be pointing
+at somebody else's data,
+
+1472
+01:06:43,159 --> 01:06:44,719
+which is a security violation.
+
+1473
+01:06:44,719 --> 01:06:46,439
+So that's problematic, right?
+
+1474
+01:06:46,439 --> 01:06:48,719
+Ordered logging kind
+of addresses this.
+
+1475
+01:06:48,719 --> 01:06:50,279
+We still don't log the data,
+
+1476
+01:06:50,279 --> 01:06:52,359
+but we are writing data to disk
+
+1477
+01:06:52,359 --> 01:06:55,560
+before we are writing
+metadata to the log,
+
+1478
+01:06:55,560 --> 01:06:58,014
+and it's usually
+considered pretty safe.
+
+1479
+01:06:58,014 --> 01:07:00,030
+Full logging, we
+already discussed,
+
+1480
+01:07:00,030 --> 01:07:01,349
+is sort of really expensive
+
+1481
+01:07:01,349 --> 01:07:02,869
+because you're logging
+everything and
+
+1482
+01:07:02,869 --> 01:07:04,389
+you get head of line blocking
+
+1483
+01:07:04,389 --> 01:07:06,549
+for your small
+updates as a result.
+
+1484
+01:07:06,549 --> 01:07:09,909
+Huge issue, especially
+when you're trying to F
+
+1485
+01:07:09,909 --> 01:07:13,949
+sync something to the
+disk, as we discussed.
+
+1486
+01:07:13,949 --> 01:07:16,949
+Okay, so I'm going to stop here
+
+1487
+01:07:17,269 --> 01:07:20,349
+because I also want to
+leave some time for
+
+1488
+01:07:20,349 --> 01:07:22,829
+you to come up and ask me
+questions after class.
+
+1489
+01:07:22,829 --> 01:07:24,949
+Thank you so much and
+good luck tomorrow.
+
+1490
+01:07:24,949 --> 01:07:27,189
+It's going to be a fun exam.
+
+1491
+01:07:43,959 --> 01:07:46,119
+You
