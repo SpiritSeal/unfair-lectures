@@ -407,6 +407,18 @@ wheels = [
 ]
 
 [[package]]
+name = "tqdm-joblib"
+version = "0.0.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "tqdm" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/7f/f8/f35c4bcc48408ef145634521f1603149613fd9ab89279b58df1e4fb17d3b/tqdm_joblib-0.0.4.tar.gz", hash = "sha256:8588e0d04aa5d51a0fae3ce68206045a8117ec695daddeaea3012dfd8869d2a5", size = 1692 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3e/a7/baca7170afdf872ec30385064cf03e50f6c047e315d854385a889ba6e803/tqdm_joblib-0.0.4-py3-none-any.whl", hash = "sha256:786f4423f2282701db7959a2b4449d1e3ab60b4841f5a6d03ec49e8cb8946e0b", size = 1718 },
+]
+
+[[package]]
 name = "traitlets"
 version = "5.14.3"
 source = { registry = "https://pypi.org/simple" }
@@ -445,6 +457,7 @@ dependencies = [
     { name = "joblib" },
     { name = "openai" },
     { name = "pysubs2" },
+    { name = "tqdm-joblib" },
 ]
 
 [package.metadata]
@@ -453,6 +466,7 @@ requires-dist = [
     { name = "joblib", specifier = ">=1.4.2" },
     { name = "openai", specifier = ">=1.73.0" },
     { name = "pysubs2", specifier = ">=1.8.0" },
+    { name = "tqdm-joblib", specifier = ">=0.0.4" },
 ]
 
 [[package]]

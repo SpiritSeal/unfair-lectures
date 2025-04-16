@@ -1,38 +1,16 @@
 import os
+import pysubs2
+import random
+from time import sleep
+from tqdm_joblib import tqdm_joblib
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from pathlib import Path
-
-import pysubs2
 from joblib import Parallel, delayed
 from openai import OpenAI
 
-
-def parse_args():
-    parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
-    parser.add_argument(
-        "--subtitles",
-        help="path to subtitles",
-        default="subtitles",
-        type=str,
-    )
-    parser.add_argument(
-        "--gems",
-        help="gems directory path",
-        default="gems",
-        type=str,
-    )
-    parser.add_argument(
-        "--model",
-        help="extraction model id",
-        default="o3-mini",
-        type=str,
-    )
-    parser.add_argument("--extract", help="extract", action="store_true")
-    parser.add_argument("--exam_gen", help="generate exam", action="store_true")
-    return parser.parse_args()
-
-
 EXTRACT_PROMPT = """
+Above is the transcript of a lecture. Follow the instructions below.
+
 # Instructions from Professor
 
 Review my lecture recordings, religiously. And please listen very actively and take notes. I structure lectures in such a way that an attentive listener will extract enough questions and hints about exam interlaced with the delivery of the main content.
@@ -46,16 +24,76 @@ Review my lecture recordings, religiously. And please listen very actively and t
 # Your Task
 
 Your task is to analyze the user's lecture transcript and find all these examples that could be possibly on the exam, according to the Professor's hints. Output a detailed list of wherever these examples occur in the lecture.
+
+# Formatting
+
+Report each occurrence with controlled bolding and italicizing. Format your response in exactly the following pattern:
+
+### 1. Title
+**Key Points**
+- [Important or emphasized key points as bullet list]
+
+(If there's an example:) **Problem statement:**
+[Example problem]
+
+(If there's an example:) **Solution:**
+[Professor's solution and line of thinking]
+
+_Summary of this item, any additional information, things you would like to add based on information given in the transcript._
+
 """.strip()
 
 GEN_EXAM_PROMPT = f"""
 You will be given lecture analysis documents and you will need to synthesize an exam based on the details extracted from the lecture recordings.
 
 Here is an example of an exam (do not copy the questions from here):
-{Path("./exam1.md").read_text()}
+{Path("./exam1.md").read_text(encoding="utf-8")}
 
 Focus on writing design oriented questions like in the style of the above exam. Give us example scenarios and then ask us design questions about it. The questions must be somehow novel, not directly taken from the practice material or lecture notes. They need to be questions that force the students to reason about the material and think beyond what the lecture has given them considering tradeoffs. 
-"""
+
+# Formatting
+
+Provide each exam-style question in exactly the following format:
+
+### Question 1
+[Any conditions, setup, etc. of the question]
+
+[Content of the question itself, and/or any followup/sub-questions.]
+
+""".strip()
+
+def get_parser():
+    parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
+    parser.add_argument(
+        "--subtitles",
+        help="path to subtitles",
+        default="./subtitles",
+        type=str,
+    )
+    parser.add_argument(
+        "--gems",
+        help="gems directory path",
+        default="./gems",
+        type=str,
+    )
+    parser.add_argument(
+        "--model",
+        help="OpenAI model ID",
+        default="o3-mini",
+        type=str,
+    )
+    parser.add_argument(
+        "--extract", help="extract vital info from transcripts", action="store_true"
+    )
+    parser.add_argument(
+        "--exam_gen", help="generate exam-style questions", action="store_true"
+    )
+    parser.add_argument(
+        "--fake",
+        help="prevent actual extraction (--extract) from happening for progressbar testing.",
+        action="store_true"
+    )
+    return parser
 
 
 def run(file):
@@ -67,29 +105,41 @@ def run(file):
         model=args.model,
         instructions=EXTRACT_PROMPT,
     )
-    with open(Path(args.gems) / (file.stem + ".md"), "w") as f:
+    with open(Path(args.gems) / (file.stem + ".md"), "w", encoding="utf-8") as f:
         f.write(response.output_text)
 
 
 def main(args):
     if args.extract:
-        Parallel(n_jobs=os.cpu_count())(
-            delayed(run)(file) for file in Path(args.subtitles).iterdir()
-        )
-
-    if args.exam_gen:
+        with tqdm_joblib(
+            desc="Extraction progress",
+            total=len(list(Path(args.subtitles).iterdir())),
+            unit='vid',
+            dynamic_ncols=True,
+            colour=f'#{random.randint(0, 16777215):06x}'
+        ) as _:
+            if args.fake:
+                Parallel(n_jobs=os.cpu_count())(delayed(sleep)(i) for i in range(15))
+            else:
+                Parallel(n_jobs=os.cpu_count())(
+                    delayed(run)(file) for file in Path(args.subtitles).iterdir()
+                )
+    elif args.exam_gen:
         client = OpenAI()
         prompt = ""
-        for file in Path("./gems").glob("*.md"):
-            prompt += f"# {file.stem}:\n\n{file.read_text()}\n\n"
+        for file in Path(args.gems).glob("*.md"):
+            prompt += f"# {file.stem}:\n\n{file.read_text(encoding='utf-8')}\n\n"
         response = client.responses.create(
             input=prompt,
             model=args.model,
             instructions=GEN_EXAM_PROMPT,
         )
-        Path("exam2.md").write_text(response.output_text)
+        Path("exam2.md").write_text(response.output_text, encoding='utf-8')
+    else:
+        parser.print_help()
 
 
 if __name__ == "__main__":
-    args = parse_args()
+    parser = get_parser()
+    args = parser.parse_args()
     main(args)

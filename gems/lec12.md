@@ -1,150 +1,144 @@
-Below is a detailed list of examples, questions, and “problems”—along with the professor’s line‐of‐thinking and answers—that were interwoven with the main lecture content and which may very well be “exam material” (or at least serve as excellent study questions). In what follows, I’ve “copied” the phrasing of the problem as it appeared (or was implicitly posed) during the lecture and the professor’s explanation/solution. Note that although the professor did not always say, “if I were to ask you this on the exam…”, many of these examples were treated as fundamental or were discussed in depth (or even questioned in class) so that an attentive listener would be well prepared for exam questions. Here are the key examples:
+### 1. The Fundamental Need for Schedulers  
+**Key Points**  
+- Scheduling is essential when multiple resource consumers compete for a scare set of shared resources.  
+- No need to schedule if only one process or as many CPUs as processes (e.g., 2 processes with 2 CPU cores).  
+- Scheduler complexity and overhead justify using scheduling only when necessary.  
+- Schedulers enable multiplexing of scarce resources, ensuring fairness and good resource utilization.  
+- Analogy to economic systems: scheduling is akin to distributing limited resources fairly among multiple consumers.  
 
-────────────────────────────
-1. When Is a Scheduler Needed?  
-────────────────────────────
- Problem (posed interactively):  
-  “Could you get away and get along without schedulers? In other words, when do you need a scheduler? For example, if there is only one process or if there are two processes and two cores, do you really need a scheduler?”  
+_No explicit example problem here, but the professor emphasizes the fundamental principles behind why scheduling is needed. Important for deeply understanding the "when and why" of scheduling, which is a fundamental exam concept. The economic analogy is useful to conceptualize scheduling in a broader context._  
 
- Professor’s Explanation/Solution:  
-  • The scheduler is only truly needed when you have multiple resource consumers competing for a scarce pool of resources.  
-  • If you have only one process, no scheduler is needed.  
-  • Even in a two–process/two–core setting, if you can statically bind a process to a core, you may obviate the need for a runtime scheduler.  
-  • The general rule is that a scheduler becomes essential when (a) there are multiple processes/threads sharing a limited resource and (b) you need to enforce fairness, ensure isolation, or maximize resource utilization.
+---  
 
-────────────────────────────
-2. The Elevator (and Disk) Scheduling Analogy  
-────────────────────────────
- Problem (imagine this exam question):  
-  “Imagine an elevator that operates on a simple first-come, first-served principle. Would such a system work well in a busy building? Explain why a scheduler (or a smarter ‘elevator algorithm’) is needed for efficient service.”  
+### 2. Example: Why Elevator Scheduling is Like Disk Scheduling  
+**Key Points**  
+- Disks with rotating platters have significant overhead in switching between I/O requests leading to specialized disk scheduling algorithms.  
+- Elevator scheduling analogy: naive first come first serve leads to excessive movement similar to poor disk scheduling.  
+- Elevator scheduler optimizes by going through floors in one direction and picking up requests on the way, batching requests to minimize switching overhead.  
+- Actuation delay and switching costs are crucial system assumptions affecting scheduling policies.  
+- Declarative elevator systems (like coda elevators) use input specifying exact destination floors, enabling optimized batching compared to simple up/down calls.  
 
- Professor’s Explanation/Solution:  
-  • A plain first-come–first-served elevator will visit floors in the order of request arrival and may waste time by moving back and forth inefficiently.  
-  • Instead, an ‘elevator scheduler’ might wait a little and batch requests that are going in the same direction so that during one trip, many calls are satisfied.  
-  • The same idea applies to disk scheduling (e.g., “elevator” or SCAN algorithms): due to high actuation delays (from rotating platters, for example), it is far more efficient to reorder disk I/O requests so that a whole batch is handled during one disk spin.
-  • In turn, this reasoning illustrates that in any system where switching between tasks or requests incurs nontrivial overhead, the scheduling policy matters greatly for quality of service.
+**Problem statement:**  
+- Would you like an elevator using first come first serve (FCFS) scheduling? Why or why not?  
+- How is an elevator schedule similar/different from disk I/O scheduling?  
 
-────────────────────────────
-3. Cumulative Distribution Function (CDF) and Tail Latency  
-────────────────────────────
- Problem (likely exam question):  
-  “Define a cumulative distribution function (CDF) in the context of end-to-end response times. What is ‘tail latency’, and how would you explain the relationship between the two (for example, the 99th percentile)?”  
+**Solution:**  
+- FCFS elevator is undesirable because it leads to inefficient and excessive travel times.  
+- Like disk I/O, switching between requests incurs significant overhead, so it's better to batch requests heading in the same direction — similar to an elevator picking up all passengers going up before reversing direction.  
+- Disk elevator scheduler tries to reorder requests to minimize disk platter movement.  
+- The coda elevator introduces declarative requests with precise floor destinations, enabling smarter scheduling decisions beyond simple FCFS or elevator-style scheduling.  
 
- Professor’s Explanation/Solution:  
-  • The CDF is defined such that, for a given time x, it gives the probability that a response (or latency) is less than or equal to x.  
-  • Tail latency refers to the behavior of the distribution near its extreme values—that is, the long “tail” or the worst-case (high percentile) response times.  
-  • For instance, if the 99th percentile latency is 35.67 milliseconds and your latency Service-Level Objective (SLO) is 36 ms, then almost every request meets the SLO.  
-  • It is important to understand how to construct and interpret these curves because they help in measuring not only average performance but also the worst-case delays that can impact user experience.
+_This is a concrete example given in lecture with a direct analogy between elevator scheduling and disk I/O scheduling. The professor explicitly points out the analogy and its impact on scheduling design — very likely to be an exam discussion or conceptual question._  
 
-────────────────────────────
-4. Scheduling Objectives: Throughput, Response Time, and Latency SLOs  
-────────────────────────────
- Problem (conceptual exam question):  
-  “Discuss the trade-offs in different scheduling objectives. How do throughput, average response time minimization, and meeting tail-latency (or deadline) SLOs differ in what they optimize?”  
+---  
 
- Professor’s Explanation/Solution:  
-  • A good scheduler is intended to maximize the “amount of work done” or throughput.  
-  • In some cases, the goal is to reduce waiting time or overall response time (e.g., for interactive tasks or networked requests).  
-  • In others, the emphasis is on meeting strict latency Service-Level Objectives (such as ensuring the 99th percentile latency is below a threshold).  
-  • The differences imply that optimizing one metric does not automatically optimize the other—hence the need to choose policies based on the target success metric (for example, using disk “elevator” scheduling to reduce rotational delays).
+### 3. Scheduling Goals / Metrics and Their Examples  
+**Key Points**  
+- Scheduler goals vary widely depending on context: throughput maximization, response time minimization, latency SLO attainment, cost minimization.  
+- These different goals imply different optimal policies or tradeoffs.  
+- Example throughput scheduling in disks: orders of magnitude performance difference depending on scheduling policy.  
+- Latency SLOs correspond to deadlines or latency budgets needing constraint satisfaction rather than simple minimization.  
+- Examples: LLM inter-token latency as a latency SLO problem. ad-serving latency for user engagement and revenue impact.  
 
-────────────────────────────
-5. Shortest Job First (SJF) vs. Shortest Remaining Time First (SRTF)  
-────────────────────────────
- Problem (exam-style):  
-  “Describe the difference between non-preemptive Shortest Job First (SJF) scheduling and preemptive Shortest Remaining Time First (SRTF) scheduling. When might each be preferred?”  
+_No direct problem stated, but highly important conceptual content laying the foundation for understanding scheduler design goals and their impact on policy choices. The professor explicitly mentions this as fundamental exam material ("how do you know that the scheduler is doing a good job?")_  
 
- Professor’s Explanation/Solution:  
-  • In Shortest Job First, once a job is picked, it runs to completion; there is no preemption, so the scheduler does not have to interrupt a running process.  
-  • In the Shortest Remaining Time First policy, the scheduler continually reassesses the remaining execution time, and if a new job with a shorter remaining time arrives, it preempts the current job.  
-  • This distinction is critical because the cost of preemption (e.g., context-switch overhead and TLB/cache invalidations) may outweigh the benefits if jobs are too short.  
-  • The professor emphasized that SJF does not require preemption but SRTF does—an insight potentially worth being able to discuss on an exam.
+---  
 
-────────────────────────────
-6. Delayed (Lazy) Scheduling  
-────────────────────────────
- Problem (exam question possibility):  
-  “Explain the concept of delayed (or lazy) scheduling. Provide an example in which deferring the scheduling decision for a fixed amount of time (say, 5 seconds) can lead to a more preferred resource allocation.”  
+### 4. Explanation of Latency Metrics: PDF, CDF, Tail Latency & Their Importance  
+**Key Points**  
+- Review of probability distribution function (PDF) and cumulative distribution function (CDF).  
+- CDF is used to measure end-to-end response times in schedulers (Lab 3 will involve this measurement).  
+- Tail latency corresponds to the very high percentile latencies (e.g., 99th percentile latency).  
+- Tail latency matters for online platforms, where even 1% slow requests can cause user drop-off and financial loss.  
+- Example graph of latency CDF showing 99th percentile latency and its relation to latency SLO deadline.  
+- The distribution of response times arises from both service time and waiting time.  
 
- Professor’s Explanation/Solution:  
-  • In delayed scheduling, instead of immediately assigning a task to a resource, the system waits for a short fixed period, allowing for the possibility of getting a ‘better’ resource allocation (for instance, a node with more available capacity or one that better meets job preferences).  
-  • The professor illustrated that even though this decision is non–work–preserving (i.e., a delay is introduced intentionally), waiting can result in higher probability of preferred placement and therefore overall better performance.
-  • This example builds on his discussions with teams (e.g., Google’s Borg team) where “waiting” is sometimes the superior design choice.
+_No specific question/problem solved, but the professor says: "if I were to ask you about questions about the CDF, you should know it inside out." This is a clear exam hint about the significance of understanding CDF, tail latency, and latency SLO concepts._  
 
-────────────────────────────
-7. Power of Two Choices  
-────────────────────────────
- Problem (potential exam question):  
-  “Describe the power of two choices algorithm in the context of load balancing. What is its time complexity and what implicit assumptions does it make about task duration?”  
+---  
 
- Professor’s Explanation/Solution:  
-  • The algorithm is used to pick between two randomly chosen resources and then assign the incoming task to the less loaded one.
-  • Its key appeal is that its scheduling decision has O(1) complexity independent of the total number of resources.
-  • However, an implicit assumption is that the jobs are short—if the tasks were long, the dynamics and benefits of making only two comparisons might change.
-  • This policy is presented as a simple yet powerful alternative to more computationally intensive allocation algorithms.
+### 5. Schedulers for Long Running vs Short Running Jobs and Preemption  
+**Key Points**  
+- Round Robin is good for long running jobs because it preempts tasks to avoid head of line blocking and long wait times.  
+- First come first serve is bad for long running jobs due to starvation and blocking.  
+- Shortest Job First (SJF) does not require preemption, you run shortest job to completion.  
+- Shortest Remaining Time (SRT) requires preemption to switch when shorter jobs arrive.  
+- Preemptive vs non-preemptive scheduling choice depends on overhead and workload mix.  
 
-────────────────────────────
-8. Overheads and Costs in Scheduling  
-────────────────────────────
- Problem (exam-style):  
-  “Identify and discuss the nontrivial overheads imposed by scheduling. How do factors such as context switching, cache and TLB invalidation, and scheduler algorithm time complexity impact overall system performance?”  
+**Problem statement:**  
+- For long running jobs, which scheduler makes sense and why?  
+- For short running jobs, which scheduler is better and is preemption required?  
 
- Professor’s Explanation/Solution:  
-  • Every scheduling decision introduces overhead that is not free. For example:
-   – Context switching requires saving and restoring state.
-   – Frequent switching can lead to significant cache and TLB (Translation Lookaside Buffer) thrashing; each switch flushes out entries that must later be repopulated.
-   – Moreover, the algorithmic complexity of the scheduling decision itself (e.g., whether it is O(1) like in the power of two choices, or O(N) in a more naive policy) matters, especially when tasks are very short.
-  • The professor stressed that these costs must be weighed against any potential benefit: if the scheduler’s overhead is comparable to the task service time, you could end up undermining system utilization.
+**Solution:**  
+- Long running jobs do better with Round Robin because preemption avoids blocking and long waits (head-of-line blocking problem).  
+- Short running jobs do better with shortest job first variants, where SJF can be non-preemptive but SRT requires preemption.  
+- Preemption adds overhead, so must balance cost-benefit.  
 
-────────────────────────────
-9. Global Versus Local (Centralized Versus Decentralized) Scheduling  
-────────────────────────────
- Problem (for exam discussion):  
-  “Compare centralized (global) and decentralized (local) scheduling approaches in distributed systems. What are the trade-offs in terms of resource state visibility and system scalability?”  
+_This is a fundamental conceptual example connecting scheduling policies to workload characteristics. Important exam material, especially for justification of scheduler choice._  
 
- Professor’s Explanation/Solution:  
-  • In a global scheduler, a single entity has access to the complete resource state (all cores/GPUs/nodes), potentially allowing for more optimized placement decisions.  
-  • However, a global scheduler may face scalability challenges as the number of resources increases.  
-  • In contrast, local schedulers operate only with local state information; they are more scalable because they avoid a centralized bottleneck, yet might be less optimal as decisions are made without full visibility.
-  • This trade-off is a recurring theme in systems design, and understanding it is fundamental to reasoning about scheduler design.
+---  
 
-────────────────────────────
-10. The “Two Out of Three” Trade-Off in Scheduling  
-────────────────────────────
- Problem (conceptual exam question):  
-  “Explain why in scheduling systems you cannot simultaneously achieve simplicity, low cost, and high performance. Discuss how the ‘two out of three’ trade-off manifests in scheduler design.”  
+### 6. Delayed Scheduling Example (from Research and Google Borg Conversations)  
+**Key Points**  
+- Instead of scheduling a task immediately, delay scheduling to increase probability of preferred resource allocation.  
+- Example: a task waits 5 seconds before placing, allowing better matching to preferred nodes.  
+- This introduces a tradeoff: non work-preserving decisions — delay now to get better outcomes later.  
+- Counterintuitive but effective, was debated with Google engineers.  
+- This relates to lazy allocation policies.  
 
- Professor’s Explanation/Solution:  
-  • The professor pointed out that many scheduling designs can optimize for any two of these attributes simultaneously but never all three.  
-  • For example, a highly efficient (high-performance) scheduler might be extremely complex and expensive to maintain, while a simple-scheduler may not yield the best performance or may be cost-prohibitive in terms of resource usage.
-  • Being able to articulate and analyze these trade-offs shows understanding of not just “how” but also “why” certain scheduling decisions are made.
+_An important research example illustrating tradeoffs in scheduling decisions, with practical implications. The professor highlights this discussion as a notable insight from their dissertation work and research._  
 
-────────────────────────────
-11. Scheduler Design Under Latency SLO Constraints  
-────────────────────────────
- Problem (modern exam example):  
-  “How does a scheduler adapt when there is a hard latency SLO (Service-Level Objective)? Provide an example such as ad serving or large language model token generation and discuss what it means to ‘maximize latency SLO attainment’.”  
+---  
 
- Professor’s Explanation/Solution:  
-  • Scheduler design must account for deadlines or latency budgets. In ad serving, for instance, if a decision is not made within a set number of milliseconds, the revenue impact via click-through rate can be severe.  
-  • Similarly, modern applications (such as LLM inference) have explicit target latencies (e.g., time between tokens or TBT SLO).  
-  • The goal is not to minimize response time arbitrarily but to ensure that the worst-case (tail) latencies remain within the acceptable bound defined by the SLO.
+### 7. Power of Two Choices Scheduling Policy  
+**Key Points**  
+- Simple algorithm: choose two nodes at random, assign task to the less loaded.  
+- Complexity O(1) w.r.t number of resources, very efficient.  
+- Provable guarantees on load balancing.  
+- Implicit assumption: tasks are short and fine-grained ("fluidity" concept).  
+- When tasks are large ("dropping bricks"), policy may not work well (risk of overloading some nodes).   
 
-────────────────────────────
-12. Assumptions Underlying Scheduling Policies  
-────────────────────────────
- Problem (exam discussion point):  
-  “Many scheduling policies are built on implicit assumptions. Identify typical assumptions (such as resource homogeneity and high liquidity of tasks) and explain how deviations from these assumptions affect performance and complexity.”  
+_An example of a simple but powerful scheduling policy introduced in lecture, with discussion of assumptions and limitations. Important conceptual material for the exam._  
 
- Professor’s Explanation/Solution:  
-  • One common assumption is that resources are homogeneous (indistinguishable in terms of capacity), which simplifies allocation.  
-  • Another is that tasks are ‘liquid’—meaning they are fine-grained and easily distributed.  
-  • If resources become heterogeneous or tasks are large (think bricks versus sand), then many of the simple policies (such as power of two choices) are either less effective or require more sophisticated (and complex) approaches.
-  • The faculty’s broader point is that when designing systems with scheduling, it is critical to “externalize” and scrutinize these assumptions, especially when you propose a fundamentally different approach from what is conventional.
+---  
 
-────────────────────────────
-Closing Note
-────────────────────────────
-Throughout this lecture, the professor also reminded students about exam logistics and practical hints (e.g., “bring your charged laptop” and the exam date on March 11). However, the core concepts above represent key examples and reasoning patterns that if you were asked an exam question – for example, “explain the overheads of scheduling” or “explain in detail the elevator (disk) scheduling analogy” – you would need to structure your answer along the lines discussed.
+### 8. Costs of Scheduling: Context Switch Overhead, Cache and TLB Effects  
+**Key Points**  
+- Context switching overhead includes CPU time, plus significant cache and TLB flush costs.  
+- High frequency context switches (e.g., every 10ms with 10ms overhead) drastically reduce utilization (potentially 50%).  
+- Cache/TLB flush cause CPU stalls and increase runtime of processes after switches.  
+- Scheduling complexity matters: some policies are O(N), others O(1), impacting scalability with number of tasks.  
+- Example: power of two choices has O(1) complexity, while combinatorial scheduling (Tetris Cat) is expensive.  
+- Scheduling time complexity must be small fraction of task runtime to be worthwhile.  
 
-Studying these examples, ensuring that you can work through the reasoning and apply first principles (as the professor emphasizes), is essential for both understanding and exam preparation.
+_Though no direct solved problem, the professor stresses the importance of understanding these costs and their tradeoffs, something likely to appear in exam questions about overhead and complexity._  
+
+---  
+
+### 9. Comparison of Scheduling Policies for Different Performance Metrics (Preview of Round Robin Discussion)  
+**Key Points**  
+- Different policies optimize for different objectives (throughput, latency, fairness, etc.)  
+- No universal best scheduling solution; conflicting goals exist.  
+- Scheduling is a complex design problem balancing tradeoffs like simplicity, cost, performance.  
+- In next lecture, Round Robin policy will be analyzed in detail with respect to how poorly it can perform depending on success metrics chosen.  
+- This preview hints at exam questions about analyzing scheduling policies and their tradeoffs.  
+
+_The professor explicitly says, "If I were to ask you this on the exam" about understanding scheduler goals, metrics, and tradeoffs, especially for Round Robin, so this is an important anticipation for students._  
+
+---  
+
+# Summary of Examples and Exam-Relevant Points Extracted:  
+
+| # | Topic/Example                                   | Exam Relevance & Notes                                |  
+|---|------------------------------------------------|-------------------------------------------------------|  
+| 1 | When do we need schedulers? (multi-consumer, scarce resource) | Fundamental principle of scheduling use cases.      |  
+| 2 | Elevator scheduling analogy for disk scheduling | Concrete example demonstrating scheduling decisions and overhead assumptions. |  
+| 3 | Scheduling goals (throughput, latency, latency SLO, cost) | Conceptual understanding of how to evaluate schedulers. |  
+| 4 | CDF/PDF and tail latency explanation | Key for latency measurement and understanding tail latency importance (Lab 3). |  
+| 5 | Long running vs short running jobs and preemption choices | Important for choosing scheduling policies based on workload characteristics. |  
+| 6 | Delayed scheduling non work-preserving example | Research insight into scheduler design tradeoffs and tactics, useful concept. |  
+| 7 | Power of two choices scheduling policy and assumptions | Efficient scheduling example with limitations, useful for exam theory. |  
+| 8 | Costs of context switching including cache/TLB impacts | Important performance overhead considerations for scheduling design. |  
+| 9 | Preview of Round Robin policy and tradeoffs | Expect detailed analysis and questions on Round Robin’s performance tradeoffs. |  
+
+Each of these points either contains an example the professor discussed in detail, an exam hint ("if I were to ask you this on the exam"), or an emphasized fundamental aspect of scheduling. Students should be able to explain, solve, or discuss these topics and examples confidently for exam preparation.

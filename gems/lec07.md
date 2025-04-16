@@ -1,127 +1,148 @@
-Below is a detailed list of the examples, questions, and “nuggets” from the lecture that the professor clearly emphasized could be exam–relevant. In many cases the professor not only posed the question but also walked through the answer or the reasoning behind it. You’ll want to review these points and be able to reproduce the reasoning and even the code‐style details if needed.
+### 1. Setup of entry PGDR and Memory Aliasing at Boot Time  
+**Key Points**  
+- At the end of bootstrapping, two virtual pages (virtual frame numbers) are mapped to the same physical frame (memory aliasing).  
+- One virtual page at the very bottom of virtual memory and another starting at current base map to the same 4MB physical frame.  
+- After kernel boot, the low address entry is deleted and replaced with per-process user-space mappings.  
 
-──────────────────────────────
-1. Two‐Level Page Table Walk Memory Accesses
+_No explicit exam problem here, but fundamental understanding of page directory setup and memory aliasing after boot is emphasized._
 
-• Exam–style question:
- “How many memory accesses are required to translate a virtual address into a physical address using a two–level page table walk?”
+---
 
-• Professor’s explanation:
- – First you must read the page directory entry (one memory read).
- – Then you use that to locate and read the page table entry (second memory read).
- – Thus the answer is: 2 memory reads.
- – He emphasized that if this were asked on the exam, you need to justify that the page walk “requires exactly two memory operations” – one for the page directory and one for the page table.
+### 2. Meaning and Effects of Bits in Page Directory Entry (PDE) and Page Table Entry (PTE)  
+**Key Points**  
+- Most significant 20 bits store physical page number (PFN) pointing to next level page table (in PDE) or physical frame (in PTE).  
+- Least significant 12 bits store flags: present, writable, user/supervisor, disable cache, accessed, dirty, page size (4KB or 4MB page).  
+- Present bit is ultra important (lab two).  
+- Page size bit indicates whether entry points to 4KB page (PS=0) or 4MB page (PS=1).  
 
-──────────────────────────────
-2. Trade–offs with a 4‑Megabyte–Sized Page Directory
+_Important fundamental knowledge for exam: knowing bits’ meanings and their role in paging, especially the present bit and page size bit._
 
-• Exam–style question:
- “What is the problem with using a large (4‑megabyte) page directory in a paging system?”
+---
 
-• Professor’s explanation:
- – A four–megabyte page directory means that each process’s metadata (its page directory) takes up a whole 4 MB.
- – For even a modest number of processes (e.g., 1024 or 124 processes), the total memory cost for page directories can be huge (in the lecture he mentioned 4 GB total if you had 1024 processes).
- – The professor used this example to show that although one design may allocate only a few large pages to a process (helping small processes avoid internal fragmentation), the overhead is “pushed” to the page directories, trading off memory cost versus efficient use.
+### 3. Example: Comparing Single-Level and Two-Level Paging Structures  
+**Problem statement:**  
+What if we combine the 10 + 10 most significant bits into a single level page table index? What are the implications for page directory size and memory overhead?
 
-──────────────────────────────
-3. Splitting the Linear Address Bits – Example for 32‐bit vs. 64–bit Systems
+**Solution:**  
+- Single-level indexing with 20 bits means page directory has 2^20 entries.  
+- Each entry is 4 bytes (32-bit system). Size = 2^20 * 4 bytes = 4 MB just for one page directory.  
+- With many processes, this overhead multiplies (e.g., 1024 processes × 4 MB = 4 GB overhead).  
+- Two-level paging splits indexing (10 & 10 bits) to reduce size of the page directory but involves more memory references.  
+- Large pages (4MB) reduce overhead but waste memory if process uses little memory; small pages (4KB) are efficient for small processes but increase size of page directory.  
+- Tradeoff: optimizing either memory overhead or latency overhead rarely both simultaneously.  
 
-There are two parts here:
+_If I were to ask you this on the exam: describe memory overhead tradeoffs in single-level versus two-level paging._
 
-A. 32–Bit Case with Two–Level Paging (Canonical 10–10–12 Split)
- • Exam–style question:
-  “For a 32–bit system with two–level paging, if you use 10 bits to index the page directory, 10 bits to index the page table, and 12 bits for the offset, what is the size of each page directory entry and the total size of the page directory?”
- • Professor’s explanation:
-  – Each entry is 4 bytes (since we are in a 32–bit system),
-  – With 2^10 (1024) entries, the total size is 1024×4 bytes = 4 KB.
-  – He contrasted this with the alternative design (see below) to highlight trade–offs.
+---
 
-B. 32–Bit Case with a “Single–Level” Paging (10 and 22 Bit Split)
- • Exam–style question:
-  “Suppose you split the linear address into a 10–bit index and a 22–bit offset (so that a process’s memory is allocated in 4 MB chunks). What are the advantages and disadvantages of such a design?”
+### 4. How Many Memory Accesses to Translate VA to PA in Two-level Paging?  
+**Problem statement:**  
+How many memory operations does a two-level page table walk take for virtual-to-physical address translation?
 
- • Professor’s explanation:
-  – Advantage: Small processes (using only a few pages) won’t “waste” many small frames because they get allocated in only one or a few large units.
-  – Disadvantage: The page directory becomes huge—occupying a full page frame (or more) for every process (e.g., 4 MB per process if not managed carefully), so that if many processes run, the system pays a huge memory overhead just to maintain page directories.
+**Solution:**  
+- Perform one memory read for page directory to get page table pointer.  
+- Perform second memory read for page table to get physical frame number.  
+- Total two memory reads (plus actual memory access after translation).  
 
-C. 64–Bit Case (X86_64 with 48–Bit Linear Address Splitting)
- • Exam–style question:
-  “In the X86_64 design where only 48 bits of the linear address are used, explain how the remaining bits are split to form a four–level paging system.”
- • Professor’s explanation:
-  – Start with 48 bits; the least significant 12 bits are reserved for the byte–level offset.
-  – That leaves 36 bits, which get divided evenly into four groups of 9 bits.
-  – Each group of 9 bits indexes a page–table level; note that in a 64–bit system a 4 KB page holds 512 entries (since 4 KB / 8 bytes per entry = 512), which exactly requires a 9–bit index.
-  – Thus the four levels (PML4, PDPT, PD, PT) are formed.
-  – This design also increases the number of memory lookups (four page–table lookups, plus the final operation) compared to a 2–level system.
+_Emphasized answer for the exam: answer is 2 memory reads for the page table walk in two-level paging._
 
-──────────────────────────────
-4. TLB (Translation Lookaside Buffer) and Design Implications
+---
 
-• Exam–style question:
- “Discuss the trade–offs between using larger versus smaller pages in the context of TLB hit ratios. How does page size affect the effective memory coverage of a TLB entry?”
+### 5. Three Paging Design Choices: Splitting Linear Address and Their Tradeoffs  
+**Key Points:**  
+- Canonical 2-level paging: split 10 bits / 10 bits / 12 bits.  
+- Single-level with large pages: small page directory (1024 entries = 4KB), frames are 4MB pages.  
+- Single-level with large page directory: page directory has 1 million entries (4 MB), frames are 4KB pages.  
+- Small processes: cost in frames allocation differs; large pages wastes memory, large page directories waste memory on directory metadata for many processes.  
+- Tradeoff between latency (walk steps) and memory overhead.  
 
-• Professor’s explanation:
- – Each TLB entry caches one mapping from a virtual frame (or page) to a physical frame.
- – If the system uses large pages (for example, 4 MB pages), then each TLB entry covers a very large region of the address space (e.g., 4 MB per entry).
- – In contrast, if the pages are small (e.g., 4 KB), then each TLB entry corresponds to a much smaller portion of memory.
- – Therefore, with large pages, the TLB can cover more memory with the same number of entries, increasing the hit ratio.
- – The professor noted that when you are designing the paging system (and even when tuning for lab performance), you must consider the impact on the TLB hit ratio.
+_Principle for exam: understand design tradeoffs and how bit splits affect sizes of page tables and physical frames._  
 
-──────────────────────────────
-5. “Present” Bit and Other PTE/PD Entry Flags
+---
 
-• Exam–style question:
- “List and explain the function of the key bits found in a page–table (or page directory) entry. In particular, why is the ‘present’ bit so important?”
+### 6. Example: Number of Page Table Entries in 64-bit System and Four-Level Paging  
+**Problem statement:**  
+Given a 64-bit system using 48 bits of virtual address and 4KB page tables, how is the linear address split, and how many entries fit in a page directory or page table?
 
-• Professor’s explanation:
- – The 12 least significant bits of a page table/directory entry include:
-  • Present bit: Indicates whether the page is in memory (without this, the hardware complains or triggers a fault); described as “ultra important” in lab two.
-  • Writable bit: Indicates if writes are allowed.
-  • User/Supervisor bit: Determines the access level.
-  • Cache–disable bit.
-  • Accessed and Dirty bits for tracking usage and modifications.
-  • Page size bit (to decide whether the entry points to a 4 KB or 4 MB frame).
- – You must be comfortable with which flag controls what, because these details are fundamental and might be “on the exam.”
+**Solution:**  
+- Page size 4 KB = 2^12 bytes offset.  
+- 48 bits used for VA minus 12 bits offset leaves 36 bits.  
+- Page table entries are 64 bits = 8 bytes each.  
+- Number of entries per page (4KB/8B) = 512 entries = 2^9 entries per table.  
+- So 36 bits split into four chunks of 9 bits each for indexing four levels of page tables.  
+- Hence, the X86-64 system uses 4-level paging with indices of 9 bits each in PML4, PDPT, PD, PT.  
+- Each lookup reads one level, so total 5 memory operations (4 lookups + 1 actual data memory operation).  
 
-──────────────────────────────
-6. The Page Walk Code in XV6
+_If I were to ask this on the exam: explain address splitting in X86-64 paging and size of page tables._
 
-• Exam–style question:
- “Explain, step–by–step, how the page walk code in XV6 translates a virtual address (VA) into a pointer to the corresponding page table entry.”
+---
 
-• Professor’s explanation and walk–through:
- – The code begins with the virtual address (VA).
- – It extracts the ten most significant bits (using a right–shift and mask with 0x3FF, e.g., PDx) to index into the page directory (PGDR), yielding a pointer to the page directory entry (PGE).
- – It then checks the present bit of that PGE:
-   ◦ If not present, the code allocates a new page table (using an allocation routine that zeroes the memory) and updates the PGE with the physical address plus appropriate flags (present, user, etc.).
-   ◦ If already present, it extracts the base physical address from the PGE, converts it to a virtual address (via the physical-to-virtual conversion routine “p2v”), and obtains a pointer to the page table (PGtab).
- – Finally, the code uses the next ten bits of the virtual address (again after a shift and mask – called PTx) to index into the page table to yield the page table entry (the return pointer).
- – You must know not only the steps (extract PD index, check allocation, extract PT index) but the reasoning for doing the physical-to-virtual translation since CR3 contains a physical address.
- – This walk–through is important because it ties together the conceptual design and the actual implementation in XV6.
+### 7. Example: WalkPGDIR Code Walkthrough for VA to PA Translation in XV6  
+**Problem statement:**  
+Describe the steps of xv6 function `walkpgdir` which takes a virtual address (VA), page directory (PGDR), and a flag to allocate a page table if missing, and returns a pointer to the page table entry.
 
-──────────────────────────────
-7. The VTP Mapping and CR3 Addressing
+**Solution:**  
+- Extract top 10 bits (PGX) from VA to index into page directory.  
+- Get PDE pointer `pde = &pgdir[PGX(VA)]`.  
+- Check present bit in PDE. If not present and allocation flag is set:  
+  - Allocate new page for page table.  
+  - Zero out page table (clear flags including present bit).  
+  - Update PDE with physical address of new page table with present, writable, user bits set.  
+- If present bit is set:  
+  - Extract physical address of page table from PDE.  
+  - Convert physical address to virtual address with p2v (physical to virtual).  
+  - Cast to page table pointer.  
+- Extract next 10 bits (PTX) from VA to index into page table.  
+- Return pointer to PTE: `&(pagetable[PTX(VA)])`.  
 
-• Exam–style question:
- “In the context of XV6’s bootstrapping code, why is the physical address of entry PGDR loaded into CR3 rather than a virtual address?”
+_If I were to ask you this on the exam: explain or write code for two-level page walk given a VA and page directory._
 
-• Professor’s explanation:
- – The code shows that entry PGDR is set up to alias two different virtual addresses (mapping both the low and high parts to the same physical frame).
- – Later, when CR3 is loaded, the value loaded is the physical address of entry PGDR – proving that CR3 expects a physical address.
- – This is a concrete example of a VTP (virtual-to–physical) mapping that you should understand: the system uses hardware conventions for CR3, requiring a physical address.
- – You need to know this detail since it informs how bootstrapping and page table management work.
+---
 
-──────────────────────────────
-8. Limitations in XV6 (Copy-on-Write and Shared Memory)
+### 8. Important Exam Hints Related to Present Bit and Allocation in walkpgdir  
+**Key Points:**  
+- Present bit in PDE crucial for deciding if page table needs to be allocated.  
+- Allocation zeroes out page table page to clear flags including present bit.  
+- Present and writable and user bits set explicitly on PDE after allocation.  
+- Extracting PGX and PTX bits uses right shifting and masking (`>>` and `& 0x3FF`).  
+- Indexing into page directory/table as arrays with these indices.  
 
-• Exam–style question:
- “Describe why the current version of XV6 cannot support copy-on-write or shared memory between processes.”
+_This is emphasized as ultra important for lab two and for exam: understanding page walk implementation and role of present bits._
 
-• Professor’s explanation:
- – In XV6 as presented, every physical page mapping is “binary”—once a physical frame is assigned to a virtual address in either the kernel or a user process, it cannot be mapped again.
- – This design prevents multiple virtual pages from pointing to the same physical frame, which is a requirement for copy-on-write and shared memory.
- – This example shows how a design decision in the paging mechanism affects higher–level features.
+---
 
-──────────────────────────────
+### 9. Entry Point Boot Allocation and Loading Entry PGDR  
+**Key Points:**  
+- At boot, kernel sets CR4 flags to enable 4MB pages.  
+- Loads physical address of entry PGDR into CR3 (page directory base register).  
+- CR3 requires physical address, not virtual.  
+- Entry PGDR sets up aliasing: virtual frame numbers 0 and 512 point to same physical 4MB frame.  
 
-Review these examples closely. The professor repeatedly emphasized that you should be able to solve these “by first principles” – knowing both the conceptual trade–offs and the concrete details (including how bits are split, the role of hardware like the TLB, and the actual code in XV6). Good luck studying for the exam!
+_If I were to ask you this on the exam: describe how CR3 is loaded and what is the significance of entry PGDR and its mapping._
+
+---
+
+### 10. Why XV6 Cannot Support Copy-on-Write or Shared Memory as Is  
+**Key Points:**  
+- XV6 currently maps physical pages one-to-one to virtual pages (no multiple virtual pages to the same physical frame).  
+- This precludes copy-on-write and shared memory implementation in current XV6.  
+- UNIX systems support many-to-one mapping allowing copy-on-write and shared libraries.  
+- Copy-on-write requires tracking multiple VFNs mapping to same physical frame, needing reference count metadata.  
+
+_Exam-relevant concept: limitations of XV6 memory system compared to more advanced OSs, especially regarding shared memory and copy-on-write support._
+
+---
+
+### 11. TLB and Its Interaction with Page Table Design Choices  
+**Key Points:**  
+- TLB caches VA to PTE mappings to speed up virtual-to-physical translation.  
+- TLB entries map virtual frame numbers to page table entries (which hold physical frame number and flags).  
+- Given fixed TLB size (e.g., 128 entries), larger page sizes (e.g., 4MB pages) increase amount of memory each TLB entry covers, improving hit ratio.  
+- Choosing between large page directory with small frames or small page directory with large frames affects TLB performance drastically.  
+- Attendees’ discussion: splitting TLB into ITLB (instruction) and DTLB (data) improves locality and reduces flushes.  
+
+_If I were to ask: explain the impact of page size on TLB hit rate and why TLB may be split into instruction and data caches._
+
+---
+
+This thorough review extracts all key conceptual examples and exam hint moments the professor emphasized, including code walkthroughs, design tradeoffs, bit-level details, and interactions among paging, TLB, and memory overhead.

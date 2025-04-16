@@ -1,113 +1,212 @@
-Below is a detailed list of concrete examples, problems, and “exam‐worthy” questions that the professor walked through in the lecture. In many cases the professor “spiked” the discussion by saying things like “if I were to ask you this on the exam …” and “this is a freebie on the exam” to signal that these scenarios are not only illustrative of the concepts but could very well appear in an exam. For each example the professor both posed a conceptual “problem” and then walked through the answer. (In what follows you’ll find the “problem statement” as given in the lecture along with the professor’s answer and explanation notes.)
+### 1. Crash Consistency Scenario with Single Write and Crash
+**Key Points**
+- Two different types of state: in-memory data structures vs on-disk state.
+- Goal: guarantee consistency on recovery, not full persistence.
+- Boundary condition reasoning: best case (complete persistence), worst case (write never persisted), and partial writes (garbage data).
+- Partial or incomplete writes can cause data corruption.
+- Example useful for exam understanding of crash scenarios and effect on data consistency.
 
-────────────────────────────
-1. Crash and Read Consistency (Timeline Reasoning)
+**Problem statement:**
+Given a timeline with a write operation to disk, followed immediately by a crash, and then a read operation, what is the expected output on the read? Consider best case, worst case, and intermediate scenarios.
 
-• Problem Statement:  
- Imagine a timeline where you have a write operation (writing data to disk), then a crash occurs, and afterward, you perform a read on the same file. The question prompted: “What do you expect to get on a read? Think about the space of possibilities, the best case and the worst case.”  
- It was highlighted that “if I were to ask you this on the exam” you should consider what happens if the right call returned or if the write never completed persistently.
+**Solution:**
+- Best case: data fully written and readable.
+- Worst case: write did not persist; no update visible.
+- Intermediate case: partial write leads to corrupted or garbage data.
+- Important takeaway: without mechanisms, partial/incomplete writes can cause corruption.
 
-• Professor’s Answer & Reasoning:  
- – Best-case scenario: The write operation succeeds so that at least some (or all) of the data that was written is visible upon recovery. (Specifically, he noted “Unable to read everything that I wrote in the right operation” might be the best case.)  
- – Worst-case scenario: The write did not persist at all (for instance, the disk never received it before the crash), or worse, you might end up with “partial” or even “garbage” data if only some blocks were written.  
- – The professor emphasized boundary-condition reasoning: one must think of every possibility between “nothing was written” and “everything is written correctly” and be able to describe that space mathematically.
+_Summary: This example helps conceptualize what can happen to data in crash scenarios and sets the stage for why atomicity and consistency are critical. Be able to enumerate the space of possibilities in such a failure mode scenario, which was explicitly linked to exam-style questions._
 
-────────────────────────────
-2. Ordering Between Multiple File Descriptors
+---
 
-• Problem Statement:  
- Suppose you have two files, File A and File B, with the two file descriptors (FD1 and FD2) associated with them. Consider the case where you perform writes on both file descriptors and then a crash occurs. The question is: “What is the space of possibilities after the crash?”  
- Note that the professor said, “this could be a freebie on the exam” and emphasized that you must consider that the writes are not sequentially ordered across different descriptors if you do nothing extra.
+### 2. Concurrent Writes to Two Files, Crash Between Writes
+**Key Points**
+- Writes to two different files (file descriptor 1 and 2).
+- Writes can be completed out of order in persistence.
+- No sequentiality guarantee without explicit controls.
+- The space of possibilities of persisting subsets of blocks includes all subsets of union of mutated blocks.
+- Critical insight: writes from the same process do not guarantee ordering on disk persistence.
+- Emphasized that this "space of possibilities" is important and might be a freebie on the exam.
 
-• Professor’s Answer & Reasoning:  
- – Possibility 1: Both writes are persisted to disk in a “best case” scenario (everything is written correctly).  
- – Possibility 2: Neither file is updated (the worst case).  
- – Possibility 3: In between, you may see only one of the files persist—as in file A updated but file B not, or vice versa.  
- – He further illustrated that “data blocks mutated on FD one and FD two” can be thought of as forming a power set (all subsets of the union) representing the space of possible outcomes.  
- – The key point is that without guarantees for cross–descriptor ordering, one cannot assume that the order in which FD1’s writes and FD2’s writes become persistent is consistent; hence, even within a single process these operations may appear arbitrary when recovered.
+**Problem statement:**
+If two writes are performed to file descriptors FD1 and FD2, both return successfully before a crash occurs, what are all the possible states of data persistence after crash? Can FD2’s data be on disk while FD1’s is not?
 
-────────────────────────────
-3. Partial File Updates and Metadata Corruption
+**Solution:**
+- Best case: both writes persisted.
+- Worst case: neither persisted.
+- Partial persistence possible: only FD1 or only FD2 persisted.
+- Due to lack of ordering guarantees, FD2 might be persisted before FD1 even if FD1 was written first logically.
+- The space of possible persisted data is the power set of the union of mutated blocks from FD1 and FD2.
 
-• Problem Statement:  
- A scenario was presented where you write to a file descriptor (say, writing a string “A” to a file) and then a crash occurs before the update is “fully” persisted. The professor asked: “What is it outputting?” and further, “What might happen if the metadata gets corrupted during that write?”  
- He pointed out “[this] is a version of what we discussed on the left-hand side,” referring to earlier timelines, and aiming to focus on the possibility of file metadata (e.g., inode pointer updates) being only partially updated by the time of a crash.
+_Summary: This example is fundamental to understanding non-atomicity and potential reordering in file systems, which affects consistency guarantees. It also is directly linked to an exam-style reasoning problem about enumerating possibilities._
 
-• Professor’s Answer & Reasoning:  
- – It is possible that the data blocks are partially updated while the filename’s inode information (metadata) may be inconsistent.  
- – For example, if only some direct pointer blocks within an inode are updated, then on recovery you might read “garbage” or incorrect file layout.  
- – The emphasis was on the fact that file operations may not be “atomic” and thus can lead to corruption if the lower-level metadata (which tells you where your data really is) is not updated in an all–or–nothing fashion.
+---
 
-────────────────────────────
-4. Directory and File Creation (Ordering of Metadata Updates)
+### 3. File Metadata and Data Separation, Update Atomicity Problem
+**Key Points**
+- Files consist of two main parts: metadata (stored in an inode) and actual data blocks.
+- Updates must modify both data blocks and metadata pointers.
+- Metadata and data updates are separate writes to different disk locations.
+- Mutation involves copy-on-write of data blocks to avoid in-place mutation.
+- Partial update scenarios cause inconsistency if metadata and data updates are not atomic.
+- Write syscalls may return before data is persisted to disk, causing uncertainty.
+- Emphasis on the non-atomicity of writes and buffering inside OS causing possible crashes with partial updates.
 
-• Problem Statement:  
- Consider the process of first creating a directory (say X) and then creating a file (Y) inside that directory. The professor posed the question: “What happens if the directory metadata (the directory block for X, often called the DR block) is synced (or flushed) to disk after an open that creates Y, but before the inode metadata for Y is persisted?”  
- He emphasized that “if I were to ask you exactly what happens if mad (directory metadata) is synced after open,” then you should recognize a potential inconsistency.
+**Problem statement:**
+When performing a write to a file, explain why updating the metadata (inode pointers) and data blocks separately can cause inconsistency in case of a crash. Why is the write system call not sufficient to guarantee data persistence?
 
-• Professor’s Answer & Reasoning:  
- – In such a case, the directory may have an entry (a Durant) for Y, but the inode for Y might not be updated or accessible on disk.  
- – The consequence: Even though the metadata file Y was created (and space allocated), no pointer links from the directory point to the actual inode—yielding an “orphan inode” state.  
- – This could lead to inode leakage (unused / inaccessible inodes) and overall file system inconsistency, violating the fundamental abstraction of persistence and isolation for file metadata.
+**Solution:**
+- Data blocks are copied and modified; then inode metadata is updated to point to new data blocks.
+- If crash happens between data update and metadata update, the file can point to stale or corrupted blocks.
+- write syscall is blocking but does not guarantee data has been flushed to disk, only that it is buffered.
+- OS buffering and disk controller reorder writes, so data may not be durable yet.
+- To guarantee atomicity, additional mechanisms beyond simple write calls are necessary.
 
-────────────────────────────
-5. Flush Ordering and Write Sequencing
+_Summary: This deeper example conceptualizes the problem of metadata and data atomicity and persistence, which is a fundamental challenge in file systems. It is linked to exam questions on ordering, atomicity, and crash consistency._
 
-• Problem Statement:  
- The professor illustrated a scenario where multiple writes occur in sequence. For example, one might write block 47, then block 48, and then block 49. He then asked: “In what order would you expect these operations to happen on disk?”  
- This was aimed at showing that the disk may reorder writes unless you explicitly force ordering using a flush.
+---
 
-• Professor’s Answer & Reasoning:  
- – Without an external ordering primitive (i.e., flush), the operating system or disk driver may interleave writes arbitrarily.  
- – When a flush is issued, it “imposes a partial order” on the writes. For example, with a flush placed between the operations on blocks 47 and 48 (grouped as one vertex) and block 49 (a second vertex), you guarantee that all writes in the first vertex are persisted before block 49 is written.  
- – He even mathematically noted that if there are three writes (3! = 6 orderings possible) in one set and only one ordering for the next write, you can compute the total possibilities. This precise discussion of ordering – and its mathematical description – is something that can appear on an exam.
+### 4. Security Implication of Partial File Updates
+**Key Points**
+- Partial updates to metadata can cause files to point to blocks owned by other files.
+- This breaks isolation guarantee of OS file systems.
+- Potential to read data from another user's private files (e.g., SSH keys).
+- Highlights an essential abstraction violation uncovered by low-level inconsistencies.
 
-────────────────────────────
-6. Shadowing – Atomicity via a Boolean Shadow Bit
+**Problem statement:**
+Explain from a security perspective what can happen if during a crash the file metadata is partially updated such that a file’s inode points to data blocks belonging to another file.
 
-• Problem Statement:  
- A key “exam–worthy” example: Explain how shadowing can guarantee atomic updates to file data. The scenario is as follows. You want to update a data block but cannot do in–place updates. So you create a copy of the data (the shadow copy) and update it. Then, you perform a bit flip on a “shadow bit” which indicates which copy is active.  
- The professor explicitly asked, “if I were to ask you precisely: How is shadowing achieving atomicity?” you should be able to offer this explanation.
+**Solution:**
+- The affected file can access data blocks of other files.
+- This breaks file system isolation and confidentiality.
+- Such leakage of data is unacceptable security-wise.
+- This motivates the need for crash consistency mechanisms ensuring atomic metadata operations.
 
-• Professor’s Answer & Reasoning:  
- – The update procedure involves three steps:  
-  1. Make a copy of the current data block (the shadow copy).  
-  2. Apply the update to the shadow copy.  
-  3. Atomically flip a single Boolean “shadow bit” to point to the updated (new) copy.  
- – The key insight is that the Boolean operation (flip) is itself atomic – the bit can only be in one of two states (0 or 1); there is no “in between” state.  
- – Therefore, even if a crash occurs during the copy or the update (but before the bit is flipped), the system still “sees” the old, consistent data because the shadow bit still points to the original copy.  
- – This design assures crash consistency (atomic semantics) at the expense of doubling the storage (since you maintain two copies) plus the overhead of additional writes and flushes.
+_Summary: This example ties low-level crash consistency issues to security implications, emphasizing the importance of atomicity. Worth remembering that crash consistency is critical also for isolation and security._
 
-────────────────────────────
-7. Ordering Within the Shadowing Process (Intra–Operation Dependencies)
+---
 
-• Problem Statement:  
- Another “if I were to ask you on the exam” example was: When performing a shadow update, why must you enforce that the copy and update complete (possibly simultaneously yet logically grouped as one “vertex”) before you perform the shadow bit flip? That is, why is it not valid to have the bit flip occur simultaneously with the copy/update operations?
+### 5. Directory Creation and File Creation Ordering Problem
+**Key Points**
+- Directory creation (mkdir) and file creation (open) cause related metadata updates.
+- Directory blocks include directory entries (durants or dirents) that link file names to inode numbers.
+- If a crash occurs such that directory metadata is synced out of order (file created before directory persisted), the file’s inode exists with no directory entry pointing to it.
+- This causes inode leakage (orphaned metadata), similar to memory leaks.
+- Ordering of these updates is critical.
 
-• Professor’s Answer & Reasoning:  
- – The flip must happen only after the copy and its subsequent update have fully completed and are flushed to disk.  
- – This ordering is enforced (typically via a flush) to ensure that when you flip the bit, the new updated data is what will be read in any recovery scenario.  
- – The professor clarified that while the copy and update to different blocks can be issued “simultaneously” (i.e. without an intermediate flush), the shadow bit flip must come afterward; otherwise, if the bit flip happens before the update is fully written, the system might point to a partially updated block.
- – This example reinforces the necessity of ordering primitives (flush) between certain vertex steps to preserve both correctness and crash consistency.
+**Problem statement:**
+What could happen if the metadata corresponding to creating a directory is synced **after** the metadata for a file created inside that directory is synced? What is the concrete consequence?
 
-────────────────────────────
-Additional Points & Hints
+**Solution:**
+- The file’s inode is allocated and persisted.
+- Directory entry (durant) linking file name to inode is not persisted.
+- After a crash, file exists but is unreachable via the directory path.
+- Leads to inode leakage and wasted disk space.
+- Shows importance of ordering metadata updates during directory/file creation.
 
-• Several times the professor stressed “boundary condition reasoning.” This means that when answering any exam question you can imagine the extreme cases (all or nothing) and the cases in between (partial update, garbage data, or corruption).
+_Summary: This example illustrates metadata update ordering problems in directories, again highlighting system correctness issues relevant for exam conceptual questions on crash consistency and ordering._
 
-• The professor also underlined that “if I were to ask you …” you should be prepared to enumerate the mathematically possible outcomes (for example, the power set description for the union of updated blocks across two file descriptors, or the factorial number of orderings for write batches).
+---
 
-• The lecture repeatedly emphasized that while the disk interface may allow reordering and buffering (hence operations appear out-of-order), it is the job of higher-level primitives such as flush, shadowing, and logging (journaling) to provide a strong consistency guarantee. Understanding these low-level guarantees is essential for exam success.
+### 6. Imposing Ordering on Disk Writes via Flush
+**Key Points**
+- Low-level disk interface offers only read/write single block primitives.
+- No inherent guarantees on order of writes or atomicity.
+- Flush operation waits until all buffered writes are persisted to disk.
+- Flush can impose a "happens-before" partial order between groups of writes.
+- Number of possible write orderings without ordering constraints is factorial in number of writes.
+- Flush reduces possible permutations, improving predictability.
+- The professor provided a mathematical example of permutations of three writes versus flush-synced writes.
 
-────────────────────────────
-Summary
+**Problem statement:**
+Given multiple writes to different disk blocks, describe how the flush operation can impose partial ordering and reduce the number of possible persistence orders. How many permutations exist for writes within a flush?
 
-Make sure that you:
- – Can diagram the timeline for crash–consistency scenarios and list all possible outcomes.  
- – Understand the ordering issues across file descriptors, including the non–guaranteed sequential persistency.  
- – Describe what happens during partial metadata updates (for files and directories) and how that leads to corruption or orphan inodes.  
- – Explain how flush operations impose a happens–before relationship on batched writes.  
- – Articulate the principles behind shadowing including the three–step procedure (copy, update, atomic bit flip) and the importance of the ordering (flushing before the shadow bit flip).  
- – Be prepared to answer “what if a crash happens at this precise point?” and to compute or describe the space of possible orderings.
+**Solution:**
+- Without flush: all writes can be reordered arbitrarily; total permutations = (N+K)!.
+- With flush separating sets of writes: permutations are N! * K!.
+- For example, 3 writes in first set (3!) and 1 write in second set (1!), total 6 possible orders vs 24 without.
+- Flush provides a way to impose happens-before and partial order.
 
-Review these examples carefully because they are interlaced with the main lecture content but are emphasized as “exam” questions that you should be ready to solve, both conceptually and mathematically.
+_Summary: Understanding how flush affects write ordering and atomicity underpins file system correctness designs. This mathematical reasoning was explicitly noted as exam-relevant._
+
+---
+
+### 7. Shadowing Mechanism for Atomic Updates
+**Key Points**
+- Shadowing maintains two copies of data: active and shadow.
+- Updates are done on the shadow copy by copying and modifying new blocks.
+- After update, a single Boolean shadow bit is atomically flipped to switch active copy.
+- Atomicity guaranteed by the binary nature of shadow bit (only 0 or 1 possible, no intermediate states).
+- Crash during copy or update does not affect current active data.
+- Crash during bit flip is atomic because it's a single bit flip.
+- Ensures crash consistency by leveraging atomic flag switching.
+- Performance costs: doubles space usage due to two copies.
+- Requires flush operations to ensure ordering: copy/update then flush then bit flip.
+
+**Problem statement:**
+Explain how the shadowing mechanism ensures atomicity and crash consistency using a Boolean shadow bit. What are the major steps and required ordering?
+
+**Solution:**
+- Step 1: Copy current data to shadow block (copy-on-write).
+- Step 2: Update shadow copy with new data.
+- Step 3: Flush writes to disk to ensure copy and update finish.
+- Step 4: Atomically flip Boolean shadow bit to switch active copy.
+- Atomicity comes from flip being a single bit change (no intermediate states).
+- Crash during copy or update: shadow bit still points to old consistent copy.
+- Crash during flip: flip is atomic.
+- Hence data always consistent after recovery.
+- Flushing needed to enforce write ordering (copy & update complete before flipping).
+
+_Summary: This concrete example of shadowing is fundamental and exam-relevant. Be able to describe why atomic flipping of a shadow bit yields consistency and discuss the performance tradeoffs (2X space, extra writes and flushes)._
+
+---
+
+### 8. Multiple Updates with Shadowing, Need for Flush between Updates
+**Key Points**
+- Multiple updates require shadows for each data block.
+- Flush needed between updates to ensure ordering and correct shadow state.
+- If subsequent update uses stale shadow, its consistency breaks.
+- Flush operations create partial ordering between update sets.
+- The correctness depends on ordering enforced by flushes preventing copying stale data.
+- Flushes are very expensive and reduce performance.
+
+**Problem statement:**
+If performing two back-to-back updates with shadowing, do we need to flush between the bit flip of the first update and the copy of the second update?
+
+**Solution:**
+- Yes, flush is needed between the shadow bit flip of first update and copy of the second.
+- Without flush, second copy could copy stale (old) data because first update's shadow bit flip not persisted.
+- Flush enforces happens-before between these operations.
+- Ensures subsequent updates base their copy on latest consistent data.
+- Flushes degrade performance but required for correctness.
+
+_Summary: This problem emphasizes the role of flush in maintaining ordering between shadowed updates. Important takeaway that shadowing correctness requires careful and costly coordination._
+
+---
+
+### 9. Professor’s Exam Emphasis and Conceptual Framework
+**Key Points**
+- Professor frequently framed questions as exam-style, e.g., "If I were to ask you this on the exam..."
+- Fundamental concepts: crash consistency, atomicity, ordering.
+- Conceptual approaches from first principles: state types, block-level updates, partial orderings.
+- Explicit callouts to boundary condition reasoning & set theory for describing persistence states.
+- Concrete low-level examples (inode, directory entries, shadow bit) linked to system abstractions (ordering, atomicity, isolation).
+- Mathematical count of permutations for write orderings with/without flush.
+- Overhead tradeoffs (shadowing doubles disk space used, flush cost).
+- Preview of next lecture on logging/journaling as real-world solution.
+
+_Summary: Attentive learners should extract these exam-like reasoning questions and be able to solve them themselves. The lecture sharpens understanding by building from fundamentals and illustrating with detailed examples._
+
+---
+
+# Final notes:
+Be sure to practice:
+- Describing the space of persistent states after crashes for single and concurrent writes.
+- Explaining why writes are not guaranteed atomic or ordered at disk level.
+- Reasoning about metadata and data update separation.
+- Explaining the shadowing mechanism steps & atomic bit flip reasoning.
+- Describing how flush imposes partial order and its cost.
+- Recognizing implications on security and abstraction violations.
+- Understanding inode/directory metadata update ordering issues.
+
+These represent the core exam-relevant material according to the professor’s explicit and implicit cues in the lecture.

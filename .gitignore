@@ -8,5 +8,7 @@ wheels/
 
 # Virtual environments
 .venv
+.conda
 
 .DS_Store
+.vscode
