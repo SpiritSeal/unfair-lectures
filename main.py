@@ -134,7 +134,7 @@ def main(args):
             model=args.model,
             instructions=GEN_EXAM_PROMPT,
         )
-        Path("exam2.md").write_text(response.output_text)
+        Path("exam2.md").write_text(response.output_text, encoding='utf-8')
     else:
         parser.print_help()
 
