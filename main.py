@@ -12,13 +12,13 @@ def parse_args():
     parser.add_argument(
         "--subtitles",
         help="path to subtitles",
-        default="subtitles",
+        default="./subtitles",
         type=str,
     )
     parser.add_argument(
         "--gems",
         help="gems directory path",
-        default="gems",
+        default="./gems",
         type=str,
     )
     parser.add_argument(
@@ -53,7 +53,7 @@ Your task is to analyze the user's lecture transcript and find all these example
 
 Report each occurrence in exactly the following format:
 
-### [One-line description of the problem / topic]
+### [Number] [Title]
 **Key Points**
 - [Important or emphasized key points as bullet list]
 
@@ -63,7 +63,7 @@ Report each occurrence in exactly the following format:
 (If there's an example:) **Solution:**
 [Professor's solution and line of thinking]
 
-_[Summary of this item, any additional information, things you would like to add based on information given in the transcript.]_
+_Summary of this item, any additional information, things you would like to add based on information given in the transcript._
 
 
 """.strip()
@@ -75,6 +75,16 @@ Here is an example of an exam (do not copy the questions from here):
 {Path("./exam1.md").read_text(encoding="utf-8")}
 
 Focus on writing design oriented questions like in the style of the above exam. Give us example scenarios and then ask us design questions about it. The questions must be somehow novel, not directly taken from the practice material or lecture notes. They need to be questions that force the students to reason about the material and think beyond what the lecture has given them considering tradeoffs. 
+
+# Formatting
+
+Provide each exam-style question in exactly the following format:
+
+### Question [#]
+[Any conditions, setup, etc. of the question]
+
+[Content of the question itself, and/or any followup/sub-questions.]
+
 """
 
 
@@ -100,7 +110,7 @@ def main(args):
     if args.exam_gen:
         client = OpenAI()
         prompt = ""
-        for file in Path("./gems").glob("*.md"):
+        for file in Path(args.gems).glob("*.md"):
             prompt += f"# {file.stem}:\n\n{file.read_text(encoding="utf-8")}\n\n"
         response = client.responses.create(
             input=prompt,
